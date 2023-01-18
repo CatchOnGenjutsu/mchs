@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar.js";
 function DataBase() {
   return (
     <>
-      <Header />
+      <Header showButton={true} />
       <Sidebar />
     </>
 

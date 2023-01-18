@@ -1,7 +1,8 @@
 import React from "react";
+import "../styles/Header.css"
 
 
-function Header() {
+function Header(props) {
   return (
     <div className="header-bg">
       <div className="left-header-block">
@@ -12,13 +13,11 @@ function Header() {
           <h2 className="page-title-secondary">Государственная инспекция по маломерным судам</h2>
         </div>
       </div>
+      {props.showButton === true ? <button type="button" className="logout btn btn-primary">ВЫХОД</button> : null}
 
-      <button type="button" className="logout btn btn-primary">ВЫХОД</button>
     </div>
   )
 
 }
 
 export default Header;
-
-{/* <img alt="header-bg" className="image-bg" src="../assets/bg_top.jpg"></img> */ }

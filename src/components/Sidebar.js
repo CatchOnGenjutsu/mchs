@@ -1,7 +1,8 @@
-import React, { useDebugValue } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { showHiddenMenu } from "../redux/actions";
-import { v4 as uuidv4 } from 'uuid';
+import "../styles/Sidebar.css"
+
 
 export default function Sidebar() {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ export default function Sidebar() {
               {item[0]}
               {
                 item[2].listModal.length !== 0 ? (
-                  <img className={!item[2].isHidden ? "rotated-image" : null} src="../assets/icon-down-arrow.png"></img>
+                  <img alt="arrow icon" className={!item[2].isHidden ? "rotated-image" : ""} src="../assets/icon-down-arrow.png"></img>
                 ) : null
               }
 
