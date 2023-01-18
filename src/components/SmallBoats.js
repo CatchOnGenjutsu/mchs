@@ -2,9 +2,9 @@ import React from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import SearchBlock from "./SearchBlock.js";
-import "../styles/DataBase.css"
+import "../styles/SmallBoats.css"
 
-function DataBase() {
+export default function SmallBoats() {
   const inputsHeaders = [
     {
       key: "firstname",
@@ -41,4 +41,3 @@ function DataBase() {
   )
 }
 
-export default DataBase;
