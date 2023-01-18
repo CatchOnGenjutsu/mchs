@@ -1,4 +1,5 @@
 .sidebar-container {
+  align-self: flex-start;
   height: 90vh;
   width: max-content;
   max-width: 18vw;
