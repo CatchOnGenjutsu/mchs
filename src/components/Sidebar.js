@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { showHiddenMenu } from "../redux/actions";
+import { showHiddenMenu, colorMenuItem } from "../redux/actions";
 import "../styles/Sidebar.css"
 
 
@@ -18,6 +18,14 @@ export default function Sidebar() {
     console.log(e.currentTarget.dataset.title);
     dispatch(showHiddenMenu(e.currentTarget.dataset.title));
   }
+
+  const handleSubmenuColorChange = (e) => {
+    if (e.target.className === "sidebar-list-item-modal") {
+      dispatch(colorMenuItem(e.target.dataset.id));
+    } else {
+      dispatch(colorMenuItem(e.target.dataset.id));
+    }
+  }
   return (
     <div className="sidebar-container">
       <ul className="sidebar-list">
@@ -33,11 +41,20 @@ export default function Sidebar() {
 
             </li>
             {item[2] !== undefined ?
-              <ul className="sidebar-list-modal" hidden={item[2].isHidden}>
+              <ul
+                className="sidebar-list-modal"
+                onClick={handleSubmenuColorChange}
+                hidden={item[2].isHidden}
+              >
                 {
                   item[2] !== undefined ? item[2].listModal.map((elem) => (
-                    <li className="sidebar-list-item-modal" key={elem.length * item[2].listModal.indexOf(elem)}>
-                      {elem}
+                    <li className={
+                      elem.colored ? "sidebar-list-item-modal colored" : "sidebar-list-item-modal"
+                    }
+                      key={elem.id}
+                      data-id={elem.id}
+                    >
+                      {elem.title}
                     </li>
                   )) : null
                 }

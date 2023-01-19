@@ -1,1 +1,2 @@
 export const SHOW_HIDDEN_MENU = "SHOW_HIDDEN_MENU";
+export const COLOR_MENU_ITEM = "COLOR_MENU_ITEM";

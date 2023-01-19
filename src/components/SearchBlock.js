@@ -23,9 +23,15 @@ export default function SearchBlock(props) {
             )
           })}
         </div>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+        <div className="buttons-block">
+          <Button className="button-element" variant="primary" type="submit">
+            Найти &#128269;
+          </Button>
+          <Button className="button-element" variant="primary" type="submit">
+            Очистить
+          </Button>
+        </div>
+
       </Form>
     </>
 
