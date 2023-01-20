@@ -1,4 +1,4 @@
-.header-bg {
+.header_bg {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,34 +11,34 @@
   );
 }
 
-.left-header-block {
+.left_header_block {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.main-logo {
+.main_logo {
   height: 8vh;
   margin: 1vh 0.5vw 1vh 0.5vw;
 }
 
-.gims-logo {
+.gims_logo {
   height: 8vh;
   margin: 1vh 1vw 1vh 0;
 }
 
-.titles-container {
+.titles_container {
   display: flex;
   flex-direction: column;
 }
 
-.page-title {
+.page_title {
   color: white;
   font-size: 1.5em;
   margin: 0;
 }
 
-.page-title-secondary {
+.page_title_secondary {
   color: white;
   margin: 0;
   font-size: 1.4em;

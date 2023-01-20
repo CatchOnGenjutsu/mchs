@@ -31,10 +31,7 @@ export default function SearchBlock(props) {
             Очистить
           </Button>
         </div>
-
       </Form>
     </>
-
   )
 }
-
