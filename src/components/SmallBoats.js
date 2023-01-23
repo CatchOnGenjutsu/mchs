@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header.js";
 import Sidebar from "./Sidebar.js";
 import SearchBlock from "./SearchBlock.js";
-import "../styles/SmallBoats.css"
+import styles from "../styles/SmallBoats.module.css"
 
 export default function SmallBoats() {
   const inputsHeaders = [
@@ -27,9 +27,9 @@ export default function SmallBoats() {
   return (
     <>
       <Header showButton={true} />
-      <div className="page-block">
+      <div className={styles["page-block"]}>
         <Sidebar />
-        <div className="content-block">
+        <div className={styles["content-block"]}>
           <h2>База данных маломерных судов</h2>
           <SearchBlock inputsHeaders={inputsHeaders} />
         </div>

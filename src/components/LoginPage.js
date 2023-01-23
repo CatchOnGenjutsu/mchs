@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "./Header";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import "../styles/LoginPage.css"
+import styles from "../styles/LoginPage.module.css"
 
 export default function LoginPage() {
   const [userEmail, setUserEmail] = useState('');
@@ -26,18 +26,18 @@ export default function LoginPage() {
   return (
     <>
       <Header showButton={false} />
-      <div className="form-container">
-        <Form className="login-form">
+      <div className={styles["form-container"]}>
+        <Form className={styles["login-form"]}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="text-form">Электронная почта</Form.Label>
+            <Form.Label className={styles["text-form"]}>Электронная почта</Form.Label>
             <Form.Control onChange={handleUserEmail} type="email" placeholder="Введите электронную почту" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label className="text-form">Пароль</Form.Label>
+            <Form.Label className={styles["text-form"]}>Пароль</Form.Label>
             <Form.Control onChange={handleUserPas} type="password" placeholder="Введите пароль" />
           </Form.Group>
-          <Button onClick={handleButtonClick} variant="light" className="custom-button-form">
+          <Button onClick={handleButtonClick} variant="light" className={styles["custom-button-form"]}>
             ВХОД
           </Button>
         </Form>

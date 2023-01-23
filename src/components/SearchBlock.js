@@ -1,21 +1,21 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import "../styles/SearchBlock.css"
+import styles from "../styles/SearchBlock.module.css"
 
 
 export default function SearchBlock(props) {
   return (
     <>
-      <Form className="form-inputs">
-        <div className="area-inputs">
+      <Form className={styles["form-inputs"]}>
+        <div className={styles["area-inputs"]}>
           {props.inputsHeaders.map((item) => {
             return (
-              <Form.Group key={item.key} className="input-element" controlId="formBasicEmail">
-                <Form.Label className="label-text">{item.value}</Form.Label>
-                <Form.Control className="entry-field" type="text" />
+              <Form.Group key={item.key} className={styles["input-element"]} controlId="formBasicEmail">
+                <Form.Label className={styles["label-text"]}>{item.value}</Form.Label>
+                <Form.Control className={styles["entry-field"]} type="text" />
                 {item.description !== undefined ?
-                  <Form.Text className="description-text">
+                  <Form.Text className={styles["description-text"]}>
                     {item.description}
                   </Form.Text> : null
                 }
@@ -23,11 +23,11 @@ export default function SearchBlock(props) {
             )
           })}
         </div>
-        <div className="buttons-block">
-          <Button className="button-element" variant="primary" type="submit">
+        <div className={styles["buttons-block"]}>
+          <Button className={styles["button-element"]} variant="primary" type="submit">
             Найти &#128269;
           </Button>
-          <Button className="button-element" variant="primary" type="submit">
+          <Button className={styles["button-element"]} variant="primary" type="submit">
             Очистить
           </Button>
         </div>
