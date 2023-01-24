@@ -1,45 +1,62 @@
 import React, { useMemo } from "react";
 import { useTable } from "react-table";
+import { useSelector } from "react-redux";
 import { COLUMNS } from "./smallBoatsColumns";
+import styles from "../../styles/Table.module.css";
 
-export const SmallBoatsTable = () => {
+export default function SmallBoatsTable(props) {
 	const columns = useMemo(() => COLUMNS, []);
-	const data = useMemo(() => [], []);
 	const tableInstance = useTable({
 		columns,
-		data,
+		data: props.dataFromState,
 	});
 
 	const {
 		getTableProps,
-		// getTableBodyProps,
+		getTableBodyProps,
 		headerGroups,
-		// rows,
-		// prepareRow,
+		rows,
+		prepareRow,
 	} = tableInstance;
 
 	return (
-		<table {...getTableProps}>
+		<table
+			className={styles.table}
+			{...getTableProps()}>
+			<caption className={styles.caption}>
+				Результаты поиска:
+			</caption>
 			<thead>
 				{headerGroups.map((headerGroup) => (
-					<tr
-						{...headerGroup.getHeaderGroupProps()}>
+					<tr {...headerGroup.getHeaderGroupProps()}>
 						{headerGroup.headers.map((column) => (
-							<th {...column.getHeaderProps()}>
+							<th
+								className={styles["th-table"]}
+								{...column.getHeaderProps()}>
 								{column.render("Header")}
 							</th>
 						))}
 					</tr>
 				))}
-				<tr>
-					<th></th>
-				</tr>
 			</thead>
-			{/* <tbody {...getTableBodyProps}>
-				<tr>
-					<td></td>
-				</tr>
-			</tbody> */}
+			<tbody {...getTableBodyProps()}>
+				{rows.map((row) => {
+					prepareRow(row);
+					return (
+						<tr {...row.getRowProps()}>
+							{row.cells.map((cell) => {
+								return (
+									<td
+										className={styles["td-table"]}
+										{...cell.getCellProps()}>
+										{cell.render("Cell")}
+									</td>
+								);
+							})}
+						</tr>
+					);
+				})}
+			</tbody>
 		</table>
 	);
-};
+}

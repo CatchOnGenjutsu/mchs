@@ -5,26 +5,26 @@ export const COLUMNS = [
 	},
 	{
 		Header: "Рег. номер",
-		accessor: "1",
+		accessor: "regNum",
 	},
 	{
 		Header: "ФИО Собственника",
-		accessor: "2",
+		accessor: "owner",
 	},
 	{
 		Header: "Тип судна",
-		accessor: "3",
+		accessor: "boatType",
 	},
 	{
 		Header: "Наименование судна",
-		accessor: "4",
+		accessor: "boatName",
 	},
 	{
 		Header: "Мощность двиг.",
-		accessor: "5",
+		accessor: "boatHeight",
 	},
 	{
 		Header: "Марка",
-		accessor: "6",
+		accessor: "boatVin",
 	},
 ];

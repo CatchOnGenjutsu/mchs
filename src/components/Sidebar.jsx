@@ -11,8 +11,6 @@ export default function Sidebar() {
 		return sidebarReducer.sidebarListArray;
 	});
 
-	console.log(sidebarListArray);
-
 	const showDropdownMenu = (e) => {
 		console.log(e.currentTarget.dataset.title);
 		dispatch(showHiddenMenu(e.currentTarget.dataset.title));

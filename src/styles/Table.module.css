@@ -1,0 +1,28 @@
+.table {
+	border-collapse: collapse;
+	caption-side: top;
+}
+.caption {
+	font-size: 1.2em;
+	color: white;
+	font-weight: 700;
+	/* background: #64c1ff; */
+	background: #1c93e2;
+	padding-left: 1.5em;
+	border-top-left-radius: 0.3em;
+	border-top-right-radius: 0.3em;
+}
+
+.th-table {
+	background: #7cc8fab0;
+	padding: 0.5em;
+	text-align: center;
+	border: 1px solid rgb(158, 158, 158);
+}
+
+.td-table {
+	background: #ebebebef;
+	padding: 0.5em;
+	text-align: center;
+	border: 1px solid rgb(158, 158, 158);
+}

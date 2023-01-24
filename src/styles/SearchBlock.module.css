@@ -1,47 +1,47 @@
 .form-inputs {
-  display: flex;
-  flex-direction: column;
-  margin: 3vh 0;
-  padding: 1vh 1vw;
-  border: 2px solid transparent;
-  border-radius: 6px;
-  background: #1c93e2;
+	display: flex;
+	flex-direction: column;
+	margin: 3vh 0;
+	padding: 1vh 1vw;
+	border: 2px solid transparent;
+	border-radius: 6px;
+	background: #1c93e2;
 }
 
 .area-inputs {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 76vw;
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 76vw;
 }
 
 .input-element {
-  margin: 0 1vw 0.2rem;
-  min-width: 16vw;
+	margin: 0 1vw 0.2rem;
+	min-width: 16vw;
 }
 
 .entry-field {
-  background-color: rgb(198, 229, 255);
+	background-color: rgb(198, 229, 255);
 }
 
 .label-text {
-  color: white;
-  font-size: 1.2em;
-  margin-bottom: 0.1rem;
+	color: white;
+	font-size: 1.2em;
+	margin-bottom: 0.1rem;
 }
 
 .description-text {
-  padding-left: 1em;
-  color: rgb(238, 238, 238);
-  font-style: italic;
+	padding-left: 1em;
+	color: rgb(238, 238, 238);
+	font-style: italic;
 }
 
 .buttons-block {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .button-element {
-  margin: 0 2vw;
-  width: 8vw;
-  background-color: rgb(28, 88, 199);
+	margin: 0 2vw;
+	width: 8vw;
+	background-color: rgb(28, 88, 199);
 }
