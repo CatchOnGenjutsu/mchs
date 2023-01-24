@@ -8,8 +8,8 @@ const initialState = {
   sidebarListArray: [
     ["База данных", "database", {
       listModal: [
-        { title: "Маломерные суда", id: uniqid(), colored: true },
-        { title: "Удостоверения", id: uniqid(), colored: false },
+        { title: "Маломерные суда", id: "smallboats", colored: true },
+        { title: "Удостоверения", id: "certificates", colored: false },
       ],
       isHidden: false
     }],

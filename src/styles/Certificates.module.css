@@ -1,0 +1,11 @@
+.page-block {
+	display: flex;
+}
+
+.content-block {
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding-top: 2em;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { showHiddenMenu, colorMenuItem } from "../redux/actions";
 import styles from "../styles/Sidebar.module.css";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
 	const dispatch = useDispatch();
@@ -52,16 +53,20 @@ export default function Sidebar() {
 								hidden={item[2].isHidden}>
 								{item[2] !== undefined
 									? item[2].listModal.map((elem) => (
-											<li
-												className={
-													elem.colored
-														? `${styles["sidebar-list-item-modal"]} ${styles["colored"]}`
-														: styles["sidebar-list-item-modal"]
-												}
-												key={elem.id}
-												data-id={elem.id}>
-												{elem.title}
-											</li>
+											<Link
+												className={styles["react-link"]}
+												to={`/${elem.id}`}>
+												<li
+													className={
+														elem.colored
+															? `${styles["sidebar-list-item-modal"]} ${styles["colored"]}`
+															: styles["sidebar-list-item-modal"]
+													}
+													key={elem.id}
+													data-id={elem.id}>
+													{elem.title}
+												</li>
+											</Link>
 									  ))
 									: null}
 							</ul>
