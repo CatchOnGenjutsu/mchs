@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import SmallBoats from './components/SmallBoats.js';
+import SmallBoats from './components/SmallBoats.jsx';
 import LoginPage from './components/LoginPage';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
