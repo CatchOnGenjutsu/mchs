@@ -16,7 +16,7 @@ export const COLUMNS = [
 		accessor: "boatType",
 	},
 	{
-		Header: "Наименование судна",
+		Header: "Название судна",
 		accessor: "boatName",
 	},
 	{

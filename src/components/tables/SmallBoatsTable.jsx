@@ -1,15 +1,12 @@
 import React, { useMemo } from "react";
-import { useTable } from "react-table";
-import { useSelector } from "react-redux";
+import { useTable, useSortBy } from "react-table";
+
 import { COLUMNS } from "./smallBoatsColumns";
-import styles from "../../styles/Table.module.css";
+
+import styles from "../../styles/SearchTable.module.css";
 
 export default function SmallBoatsTable(props) {
 	const columns = useMemo(() => COLUMNS, []);
-	const tableInstance = useTable({
-		columns,
-		data: props.dataFromState,
-	});
 
 	const {
 		getTableProps,
@@ -17,7 +14,13 @@ export default function SmallBoatsTable(props) {
 		headerGroups,
 		rows,
 		prepareRow,
-	} = tableInstance;
+	} = useTable(
+		{
+			columns,
+			data: props.dataFromState,
+		},
+		useSortBy
+	);
 
 	return (
 		<table
@@ -32,8 +35,17 @@ export default function SmallBoatsTable(props) {
 						{headerGroup.headers.map((column) => (
 							<th
 								className={styles["th-table"]}
-								{...column.getHeaderProps()}>
+								{...column.getHeaderProps(
+									column.getSortByToggleProps()
+								)}>
 								{column.render("Header")}
+								<span>
+									{column.isSorted
+										? column.isSortedDesc
+											? " ▼"
+											: " ▲"
+										: ""}
+								</span>
 							</th>
 						))}
 					</tr>

@@ -1,6 +1,7 @@
 .table {
 	border-collapse: collapse;
 	caption-side: top;
+	width: 100%;
 }
 .caption {
 	font-size: 1.2em;

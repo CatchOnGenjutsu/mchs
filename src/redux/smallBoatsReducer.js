@@ -14,7 +14,7 @@ export const smallBoatsReducer = (state = initialState, action) => {
       return (() => ({
         ...state,
         data: [
-          ...state.data.concat(action.data)
+          ...action.data
         ],
       }))();
     default:

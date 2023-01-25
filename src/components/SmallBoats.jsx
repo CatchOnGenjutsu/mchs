@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import Header from "./Header.jsx";
 import Sidebar from "./Sidebar.jsx";
 import SearchBlock from "./SearchBlock.jsx";
-import styles from "../styles/SmallBoats.module.css";
-import SmallBoatsTable from "./tableColumns/SmallBoatsTable.jsx";
+import SmallBoatsTable from "./tables/SmallBoatsTable.jsx";
 import { getBoatsCardsList } from "../redux/actions";
+
+import styles from "../styles/SmallBoats.module.css";
 
 export default function SmallBoats() {
 	const dispatch = useDispatch();
@@ -46,11 +48,13 @@ export default function SmallBoats() {
 			<div className={styles["page-block"]}>
 				<Sidebar />
 				<div className={styles["content-block"]}>
-					<h2>База данных маломерных судов</h2>
-					<SearchBlock inputsHeaders={inputsHeaders} />
-					{/* {dataFromState ? ( */}
-					<SmallBoatsTable dataFromState={dataFromState} />
-					{/* ) : null} */}
+					<div className={styles["scrolled-content"]}>
+						<h2>База данных маломерных судов</h2>
+						<SearchBlock inputsHeaders={inputsHeaders} />
+						{/* {dataFromState ? ( */}
+						<SmallBoatsTable dataFromState={dataFromState} />
+						{/* ) : null} */}
+					</div>
 				</div>
 			</div>
 		</>

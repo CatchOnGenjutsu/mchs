@@ -1,0 +1,71 @@
+.info-container {
+	width: 100%;
+}
+
+.primary-table {
+	width: 100%;
+	margin-top: 1em;
+	border-collapse: collapse;
+	caption-side: top;
+	border: 1px solid rgb(221, 221, 221);
+}
+
+.primary-caption {
+	font-size: 1em;
+	color: white;
+	font-weight: 700;
+	/* background: #64c1ff; */
+	background: #1c93e2;
+	padding: 0.2em 1.5em;
+	border-top-left-radius: 0.3em;
+	border-top-right-radius: 0.3em;
+}
+
+.primary-table tbody tr:nth-child(odd) {
+	background-color: #ebebebef;
+}
+
+.line-name {
+	text-align: left;
+	width: 50%;
+}
+.line-value {
+	width: 50%;
+	text-align: center;
+}
+
+.secondary-table {
+	width: 100%;
+	margin-top: 1em;
+	border-collapse: collapse;
+	caption-side: top;
+	border: 1px solid rgb(221, 221, 221);
+}
+
+.secondary-caption {
+	font-size: 1em;
+	color: rgb(0, 0, 0);
+	font-weight: 700;
+	/* background: #64c1ff; */
+	padding: 0.2em 1.7em;
+	border-top-left-radius: 0.3em;
+	border-top-right-radius: 0.3em;
+}
+
+.secondary-table td {
+	font-size: 0.9em;
+	border: 1px solid black;
+	text-align: center;
+}
+
+.secondary-table th {
+	font-size: 0.9em;
+	border: 1px solid black;
+	text-align: center;
+	background-color: #ebebebef;
+	font-weight: 500;
+}
+
+.to-th {
+	max-width: 8em;
+}
