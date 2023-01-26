@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, usePagination } from "react-table";
 
 import { COLUMNS } from "./smallBoatsColumns";
 
 import styles from "../../styles/SearchTable.module.css";
+import { Link } from "react-router-dom";
 
 export default function SmallBoatsTable(props) {
 	const columns = useMemo(() => COLUMNS, []);
@@ -12,63 +13,113 @@ export default function SmallBoatsTable(props) {
 		getTableProps,
 		getTableBodyProps,
 		headerGroups,
-		rows,
+		page,
+		nextPage,
+		previousPage,
+		canNextPage,
+		canPreviousPage,
+		pageOptions,
+		state,
+		// rows,
 		prepareRow,
 	} = useTable(
 		{
 			columns,
 			data: props.dataFromState,
 		},
-		useSortBy
+		useSortBy,
+		usePagination
 	);
 
+	const { pageIndex } = state;
+
 	return (
-		<table
-			className={styles.table}
-			{...getTableProps()}>
-			<caption className={styles.caption}>
-				Результаты поиска:
-			</caption>
-			<thead>
-				{headerGroups.map((headerGroup) => (
-					<tr {...headerGroup.getHeaderGroupProps()}>
-						{headerGroup.headers.map((column) => (
-							<th
-								className={styles["th-table"]}
-								{...column.getHeaderProps(
-									column.getSortByToggleProps()
-								)}>
-								{column.render("Header")}
-								<span>
-									{column.isSorted
-										? column.isSortedDesc
-											? " ▼"
-											: " ▲"
-										: ""}
-								</span>
-							</th>
-						))}
-					</tr>
-				))}
-			</thead>
-			<tbody {...getTableBodyProps()}>
-				{rows.map((row) => {
-					prepareRow(row);
-					return (
-						<tr {...row.getRowProps()}>
-							{row.cells.map((cell) => {
-								return (
-									<td
-										className={styles["td-table"]}
-										{...cell.getCellProps()}>
-										{cell.render("Cell")}
-									</td>
-								);
-							})}
+		// <>
+		// 	{props.dataFromState !== undefined ? (
+
+		<>
+			<table
+				className={styles.table}
+				{...getTableProps()}>
+				<caption className={styles.caption}>
+					Результаты поиска:
+				</caption>
+				<thead>
+					{headerGroups.map((headerGroup) => (
+						<tr {...headerGroup.getHeaderGroupProps()}>
+							{headerGroup.headers.map((column) => (
+								<th
+									className={styles["th-table"]}
+									{...column.getHeaderProps(
+										column.getSortByToggleProps()
+									)}>
+									{column.render("Header")}
+									<span>
+										{column.isSorted
+											? column.isSortedDesc
+												? " ▼"
+												: " ▲"
+											: ""}
+									</span>
+								</th>
+							))}
 						</tr>
-					);
-				})}
-			</tbody>
-		</table>
+					))}
+				</thead>
+				<tbody {...getTableBodyProps()}>
+					{page.map((row) => {
+						prepareRow(row);
+						return (
+							<tr
+								className={styles["tr-td"]}
+								{...row.getRowProps()}>
+								{row.cells.map((cell) => {
+									return (
+										<td
+											className={styles["td-table"]}
+											{...cell.getCellProps()}>
+											<Link
+												className={styles["table-links"]}
+												to="/boatinfo">
+												<div>{cell.render("Cell")}</div>
+											</Link>
+										</td>
+									);
+								})}
+							</tr>
+						);
+					})}
+				</tbody>
+			</table>
+			<div>
+				<span>
+					{" "}
+					Страница:{" "}
+					<strong>
+						{" "}
+						{pageIndex + 1} из {pageOptions.length}
+					</strong>{" "}
+				</span>
+				<button
+					onClick={() => previousPage()}
+					disabled={!canPreviousPage}
+					type="button"
+					className={`${styles["pagination-buttons"]} btn btn-primary`}>
+					Предыдущая
+				</button>
+
+				<button
+					onClick={() => nextPage()}
+					disabled={!canNextPage}
+					type="button"
+					className={`btn btn-primary`}>
+					Следующая
+				</button>
+			</div>
+		</>
+
+		// )
+		// 	: null}
+		// </>
 	);
 }

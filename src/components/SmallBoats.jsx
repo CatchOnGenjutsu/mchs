@@ -51,8 +51,10 @@ export default function SmallBoats() {
 					<div className={styles["scrolled-content"]}>
 						<h2>База данных маломерных судов</h2>
 						<SearchBlock inputsHeaders={inputsHeaders} />
-						{/* {dataFromState ? ( */}
-						<SmallBoatsTable dataFromState={dataFromState} />
+						{/* {dataFromState !== undefined ? ( */}
+						<div className={styles["table-container"]}>
+							<SmallBoatsTable dataFromState={dataFromState} />
+						</div>
 						{/* ) : null} */}
 					</div>
 				</div>

@@ -1,8 +1,8 @@
 export const COLUMNS = [
-	{
-		Header: "Системный номер",
-		accessor: "cardid",
-	},
+	// {
+	// 	Header: "Системный номер",
+	// 	accessor: "cardid",
+	// },
 	{
 		Header: "Рег. номер",
 		accessor: "regNum",
@@ -21,7 +21,7 @@ export const COLUMNS = [
 	},
 	{
 		Header: "Мощность двиг.",
-		accessor: "boatHeight",
+		accessor: "engineNum",
 	},
 	{
 		Header: "Марка",
