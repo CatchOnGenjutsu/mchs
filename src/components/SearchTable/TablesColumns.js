@@ -1,4 +1,4 @@
-export const COLUMNS = [
+export const SMALLBOATS_COLUMNS = [
 	{
 		Header: "Рег. номер",
 		accessor: "regNum",

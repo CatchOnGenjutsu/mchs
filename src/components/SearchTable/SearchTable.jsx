@@ -1,13 +1,11 @@
 import React, { useMemo } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 
-import { COLUMNS } from "./TablesColumns";
-
 import styles from "./SearchTable.module.css";
 import { Link } from "react-router-dom";
 
 export default function SmallBoatsTable(props) {
-	const columns = useMemo(() => COLUMNS, []);
+	const columns = useMemo(() => props.columns, []);
 
 	const {
 		getTableProps,
@@ -59,7 +57,7 @@ export default function SmallBoatsTable(props) {
 											? column.isSortedDesc
 												? " ▼"
 												: " ▲"
-											: ""}
+											: "  "}
 									</span>
 								</th>
 							))}
@@ -78,11 +76,16 @@ export default function SmallBoatsTable(props) {
 										<td
 											className={styles["td-table"]}
 											{...cell.getCellProps()}>
-											<Link
+											{/* <Link
 												className={styles["table-links"]}
-												to="/boatinfo">
-												<div>{cell.render("Cell")}</div>
-											</Link>
+												to="/boatinfo"> */}
+											<div
+												onClick={() => {
+													props.setBoatId("1");
+												}}>
+												{cell.render("Cell")}
+											</div>
+											{/* </Link> */}
 										</td>
 									);
 								})}

@@ -1,45 +1,46 @@
 .form-container {
-  background-color: #7cd5ff9a;
-  height: 90vh;
-  padding-top: 14vh;
+	background-color: #7cd5ff9a;
+	margin-top: 10vh;
+	height: 90vh;
+	padding-top: 14vh;
 }
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 36vw;
-  margin: 0 auto;
-  padding: 10vh 8vw;
-  border: 2px solid transparent;
-  border-radius: 6px;
-  box-shadow: 0.5vw 0.5vh 1.5em 0.5em rgba(68, 60, 226, 0.774);
-  background: rgb(37, 28, 200);
-  background: -moz-linear-gradient(
-    270deg,
-    rgba(37, 28, 200, 1) 0%,
-    rgba(0, 121, 199, 1) 49%,
-    rgba(0, 151, 255, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    270deg,
-    rgba(37, 28, 200, 1) 0%,
-    rgba(0, 121, 199, 1) 49%,
-    rgba(0, 151, 255, 1) 100%
-  );
-  background: linear-gradient(
-    270deg,
-    rgba(37, 28, 200, 1) 0%,
-    rgba(0, 121, 199, 1) 49%,
-    rgba(0, 151, 255, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#251cc8",endColorstr="#0097ff",GradientType=1);
+	display: flex;
+	flex-direction: column;
+	max-width: 36vw;
+	margin: 0 auto;
+	padding: 10vh 8vw;
+	border: 2px solid transparent;
+	border-radius: 6px;
+	box-shadow: 0.5vw 0.5vh 1.5em 0.5em rgba(68, 60, 226, 0.774);
+	background: rgb(37, 28, 200);
+	background: -moz-linear-gradient(
+		270deg,
+		rgba(37, 28, 200, 1) 0%,
+		rgba(0, 121, 199, 1) 49%,
+		rgba(0, 151, 255, 1) 100%
+	);
+	background: -webkit-linear-gradient(
+		270deg,
+		rgba(37, 28, 200, 1) 0%,
+		rgba(0, 121, 199, 1) 49%,
+		rgba(0, 151, 255, 1) 100%
+	);
+	background: linear-gradient(
+		270deg,
+		rgba(37, 28, 200, 1) 0%,
+		rgba(0, 121, 199, 1) 49%,
+		rgba(0, 151, 255, 1) 100%
+	);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#251cc8",endColorstr="#0097ff",GradientType=1);
 }
 
 .text-form {
-  color: white;
-  font-size: 1.2em;
+	color: white;
+	font-size: 1.2em;
 }
 
 .custom-button-form {
-  margin: 0 auto;
+	margin: 0 auto;
 }
