@@ -37,7 +37,7 @@ export default function SmallBoatsTable(props) {
 		// <>
 		// 	{props.dataFromState !== undefined ? (
 
-		<>
+		<div className={styles["content-container"]}>
 			<table
 				className={styles.table}
 				{...getTableProps()}>
@@ -116,7 +116,7 @@ export default function SmallBoatsTable(props) {
 					Следующая
 				</button>
 			</div>
-		</>
+		</div>
 
 		// )
 		// 	: null}

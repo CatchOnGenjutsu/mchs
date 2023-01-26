@@ -45,19 +45,11 @@ export default function SmallBoats() {
 	return (
 		<>
 			<Header showButton={true} />
-			<div className={styles["page-block"]}>
-				<Sidebar />
-				<div className={styles["content-block"]}>
-					<div className={styles["scrolled-content"]}>
-						<h2>База данных маломерных судов</h2>
-						<SearchBlock inputsHeaders={inputsHeaders} />
-						{/* {dataFromState !== undefined ? ( */}
-						<div className={styles["table-container"]}>
-							<SmallBoatsTable dataFromState={dataFromState} />
-						</div>
-						{/* ) : null} */}
-					</div>
-				</div>
+			<Sidebar />
+			<div className={styles["content-block"]}>
+				<h2>База данных маломерных судов</h2>
+				<SearchBlock inputsHeaders={inputsHeaders} />
+				<SmallBoatsTable dataFromState={dataFromState} />
 			</div>
 		</>
 	);

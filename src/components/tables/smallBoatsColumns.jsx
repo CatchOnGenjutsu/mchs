@@ -1,8 +1,4 @@
 export const COLUMNS = [
-	// {
-	// 	Header: "Системный номер",
-	// 	accessor: "cardid",
-	// },
 	{
 		Header: "Рег. номер",
 		accessor: "regNum",

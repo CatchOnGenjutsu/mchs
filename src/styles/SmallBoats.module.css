@@ -2,29 +2,11 @@
 	width: 0;
 }
 
-.page-block {
-	display: flex;
-}
-
 .content-block {
-	/* margin: 0 auto; */
-	margin: 10vh 4vw 0 20vw;
+	margin: 10vh 4vw 0 16vw;
 	width: 84vw;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	padding-top: 2em;
-	/* overflow-y: scroll; */
-}
-
-.scrolled-content {
-	margin: 0 auto;
-	width: 100%;
-}
-
-.table-container {
-	height: 50vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+	padding: 2em 4vw 2em;
 }
