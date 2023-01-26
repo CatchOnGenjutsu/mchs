@@ -1,13 +1,13 @@
 import React from "react";
-import styles from "../styles/InfoTable.module.css";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import styles from "./BoatInfo.module.css";
+import Header from "../Header/Header";
+import Sidebar from "../Sidebar/Sidebar";
 import {
 	primaryTableLines,
 	sizeTableColumns,
 	toTableColumns,
 	userTableColumns,
-} from "./tables/infoTablesColumns";
+} from "./infoTablesColumns";
 
 export default function InfoTable() {
 	return (

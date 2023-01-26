@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Header from "./Header";
+import Header from "../Header/Header";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import styles from "../styles/LoginPage.module.css";
+import styles from "./LoginPage.module.css";
 
 export default function LoginPage() {
 	const [userEmail, setUserEmail] = useState("");
@@ -11,7 +11,7 @@ export default function LoginPage() {
 	const handleButtonClick = () => {
 		console.log(userEmail);
 		console.log(userPas);
-		window.location.assign("http://localhost:3000");
+		window.location.assign("http://localhost:3005");
 	};
 
 	const handleUserEmail = (e) => {

@@ -1,7 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { showHiddenMenu, colorMenuItem } from "../redux/actions";
-import styles from "../styles/Sidebar.module.css";
+import {
+	showHiddenMenu,
+	colorMenuItem,
+} from "../../redux/actions";
+import styles from "./Sidebar.module.css";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {

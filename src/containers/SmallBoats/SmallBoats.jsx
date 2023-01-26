@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Header from "./Header.jsx";
-import Sidebar from "./Sidebar.jsx";
-import SearchBlock from "./SearchBlock.jsx";
-import SmallBoatsTable from "./tables/SmallBoatsTable.jsx";
-import { getBoatsCardsList } from "../redux/actions";
+import Header from "../../components/Header/Header.jsx";
+import Sidebar from "../../components/Sidebar/Sidebar.jsx";
+import SearchBlock from "../../components/SearchBlock/SearchBlock.jsx";
+import SmallBoatsTable from "../../components/SearchTable/SearchTable.jsx";
+import { getBoatsCardsList } from "../../redux/actions";
 
-import styles from "../styles/SmallBoats.module.css";
+import styles from "./SmallBoats.module.css";
 
 export default function SmallBoats() {
 	const dispatch = useDispatch();

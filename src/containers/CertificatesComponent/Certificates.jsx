@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import SearchBlock from "./SearchBlock";
-import styles from "../styles/Certificates.module.css";
+import Header from "../../components/Header/Header";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import SearchBlock from "../../components/SearchBlock/SearchBlock";
+import styles from "./Certificates.module.css";
 
 export default function Certificates() {
 	const inputsHeaders = [

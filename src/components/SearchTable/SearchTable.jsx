@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 
-import { COLUMNS } from "./smallBoatsColumns";
+import { COLUMNS } from "./TablesColumns";
 
-import styles from "../../styles/SearchTable.module.css";
+import styles from "./SearchTable.module.css";
 import { Link } from "react-router-dom";
 
 export default function SmallBoatsTable(props) {
