@@ -23,9 +23,13 @@ export const primaryTableLines = [
   },
   {
     id: "boatType",
-    value:
-      "Информация об организации-строителя маломерного судна или изготовителя:",
+    value: "Тип:",
     key: "btname"
+  },
+  {
+    id: "something",
+    value: "Вид:",
+    key: ""
   },
 ];
 

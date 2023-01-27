@@ -16,6 +16,8 @@ export default function BoatInfo(props) {
 		return smallBoatsReducer.boatInfo;
 	});
 
+	console.log("boatInfoFromState >>>", boatInfoFromState);
+
 	return (
 		<div className={props.hidden === "" ? styles.hidden : ""}>
 			<table className={styles["primary-table"]}>
@@ -29,9 +31,12 @@ export default function BoatInfo(props) {
 								<td className={styles["line-name"]}>{item.value}</td>
 								<td className={styles["line-value"]}>
 									{Object.keys(boatInfoFromState).length !== 0
-										? item.key === ""
-											? boatInfoFromState[`${item.id}`]
-											: boatInfoFromState[`${item.id}`][`${item.key}`]
+										? boatInfoFromState[`${item.id}`] !== undefined &&
+										  boatInfoFromState[`${item.id}`] !== null
+											? item.key === ""
+												? boatInfoFromState[`${item.id}`]
+												: boatInfoFromState[`${item.id}`][`${item.key}`]
+											: "—"
 										: null}
 								</td>
 							</tr>
