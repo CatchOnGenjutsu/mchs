@@ -1,7 +1,6 @@
 import React from "react";
-import styles from "./BoatInfo.module.css";
-import Header from "../Header/Header";
-import Sidebar from "../Sidebar/Sidebar";
+import { useSelector } from "react-redux";
+
 import {
 	primaryTableLines,
 	sizeTableColumns,
@@ -9,13 +8,16 @@ import {
 	userTableColumns,
 } from "./infoTablesColumns";
 
+import styles from "./BoatInfo.module.css";
+
 export default function BoatInfo(props) {
+	const boatInfoFromState = useSelector((state) => {
+		const { smallBoatsReducer } = state;
+		return smallBoatsReducer.boatInfo;
+	});
+
 	return (
 		<div className={props.hidden === "" ? styles.hidden : ""}>
-			{/* <Header showButton={true} />
-			<div className={styles["page-block"]}>
-				<Sidebar /> */}
-			{/* <div className={styles["info-container"]}> */}
 			<table className={styles["primary-table"]}>
 				<caption className={styles["primary-caption"]}>
 					Информация об объекте:
@@ -24,11 +26,13 @@ export default function BoatInfo(props) {
 					{primaryTableLines.map((item) => {
 						return (
 							<tr>
-								<td className={styles["line-name"]}>
-									{item.value}
-								</td>
+								<td className={styles["line-name"]}>{item.value}</td>
 								<td className={styles["line-value"]}>
-									{item.id}
+									{Object.keys(boatInfoFromState).length !== 0
+										? item.key === ""
+											? boatInfoFromState[`${item.id}`]
+											: boatInfoFromState[`${item.id}`][`${item.key}`]
+										: null}
 								</td>
 							</tr>
 						);
@@ -42,7 +46,13 @@ export default function BoatInfo(props) {
 				<thead>
 					<tr>
 						{sizeTableColumns.map((item) => {
-							return <th id={item.id}>{item.value}</th>;
+							return (
+								<th
+									className={styles["proportions-table-th"]}
+									id={item.id}>
+									{item.value}
+								</th>
+							);
 						})}
 					</tr>
 				</thead>
@@ -56,15 +66,14 @@ export default function BoatInfo(props) {
 			</table>
 			<table className={styles["secondary-table"]}>
 				<caption className={styles["secondary-caption"]}>
-					Информация о прохождении технического
-					освидетельствования:
+					Информация о прохождении технического освидетельствования:
 				</caption>
 				<thead>
 					<tr>
 						{toTableColumns.map((item) => {
 							return (
 								<th
-									className={styles["to-th"]}
+									className={`${styles["to-th"]} ${styles["to-info-table-th"]}`}
 									id={item.id}>
 									{item.value}
 								</th>
@@ -75,9 +84,7 @@ export default function BoatInfo(props) {
 				<tbody>
 					<tr>
 						{toTableColumns.map((item) => {
-							return (
-								<td className={styles["to-th"]}>{item.id}</td>
-							);
+							return <td className={styles["to-th"]}>{item.id}</td>;
 						})}
 					</tr>
 				</tbody>
@@ -89,7 +96,13 @@ export default function BoatInfo(props) {
 				<thead>
 					<tr>
 						{userTableColumns.map((item) => {
-							return <th id={item.id}>{item.value}</th>;
+							return (
+								<th
+									className={styles["owner-table-th"]}
+									id={item.id}>
+									{item.value}
+								</th>
+							);
 						})}
 					</tr>
 				</thead>
@@ -101,8 +114,6 @@ export default function BoatInfo(props) {
 					</tr>
 				</tbody>
 			</table>
-			{/* </div> */}
 		</div>
-		// </div>
 	);
 }

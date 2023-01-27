@@ -1,7 +1,8 @@
 import {
   SHOW_HIDDEN_MENU,
   COLOR_MENU_ITEM,
-  GET_BOATS_CARDS_LIST
+  GET_BOATS_CARDS_LIST,
+  GET_BOAT_CARD_INFO
 } from './types';
 
 
@@ -34,6 +35,20 @@ export function getBoatsCardsList() {
 
     dispatch({
       type: GET_BOATS_CARDS_LIST,
+      data: jsonData
+    })
+  };
+}
+
+export function getBoatCardInfo(id) {
+  return async dispatch => {
+    let jsonData = new Object();
+    if (id !== "") {
+      const response = await fetch(`http://192.168.70.81:8080/boats/getBoatCard/${String(id)}`);
+      jsonData = await response.json();
+    }
+    dispatch({
+      type: GET_BOAT_CARD_INFO,
       data: jsonData
     })
   };

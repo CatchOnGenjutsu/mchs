@@ -16,7 +16,7 @@
 			"boatVin": "VINTEST"
 		},
 		{
-			"cardid": 2,
+			"cardid": 4,
 			"regNum": "321",
 			"personSurname": "Конев",
 			"personName": "Андрей",
@@ -31,7 +31,7 @@
 			"boatVin": "VINTEST"
 		},
 		{
-			"cardid": 3,
+			"cardid": 7,
 			"regNum": "213",
 			"personSurname": "Щеглов",
 			"personName": "Олег",
@@ -46,7 +46,7 @@
 			"boatVin": "VINTEST"
 		},
 		{
-			"cardid": 4,
+			"cardid": 18,
 			"regNum": "213",
 			"personSurname": "Щеглов",
 			"personName": "Олег",
@@ -91,7 +91,7 @@
 			"boatVin": "VINTEST"
 		},
 		{
-			"cardid": 7,
+			"cardid": 17,
 			"regNum": "213",
 			"personSurname": "Щеглов",
 			"personName": "Олег",

@@ -6,7 +6,7 @@ import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 import SearchBlock from "../../components/SearchBlock/SearchBlock.jsx";
 import SmallBoatsTable from "../../components/SearchTable/SearchTable.jsx";
 import BoatInfo from "../../components/BoatInfo/BoatInfo.jsx";
-import { getBoatsCardsList } from "../../redux/actions";
+import { getBoatsCardsList, getBoatCardInfo } from "../../redux/actions";
 import { SMALLBOATS_COLUMNS } from "../../components/SearchTable/TablesColumns";
 
 import styles from "./SmallBoats.module.css";
@@ -44,11 +44,14 @@ export default function SmallBoats() {
 		setBoatId(value);
 	};
 
+	const handleClearBoatInfo = (id) => {
+		dispatch(getBoatCardInfo(id));
+	};
+
 	const dataFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
 		return smallBoatsReducer.data;
 	});
-	console.log("dataFromState", dataFromState);
 
 	return (
 		<>
@@ -56,7 +59,10 @@ export default function SmallBoats() {
 			<Sidebar />
 			<div className={styles["content-block"]}>
 				<button
-					onClick={() => setBoatId("")}
+					onClick={() => {
+						setBoatId("");
+						handleClearBoatInfo(boatId);
+					}}
 					type="button"
 					className={
 						boatId !== ""

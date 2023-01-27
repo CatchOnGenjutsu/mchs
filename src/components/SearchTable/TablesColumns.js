@@ -1,5 +1,9 @@
 export const SMALLBOATS_COLUMNS = [
 	{
+		Header: "Системный номер",
+		accessor: "cardid",
+	},
+	{
 		Header: "Рег. номер",
 		accessor: "regNum",
 	},

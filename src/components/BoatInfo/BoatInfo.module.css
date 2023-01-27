@@ -1,3 +1,6 @@
+.hidden {
+	display: none;
+}
 .info-container {
 	margin: 10vh 4vw 0 16vw;
 	width: 84vw;
@@ -8,7 +11,8 @@
 }
 
 .primary-table {
-	width: 100%;
+	width: 80%;
+	margin: 0 auto;
 	margin-top: 1em;
 	border-collapse: collapse;
 	caption-side: top;
@@ -19,7 +23,6 @@
 	font-size: 1em;
 	color: white;
 	font-weight: 700;
-	/* background: #64c1ff; */
 	background: #1c93e2;
 	padding: 0.2em 1.5em;
 	border-top-left-radius: 0.3em;
@@ -40,7 +43,8 @@
 }
 
 .secondary-table {
-	width: 100%;
+	width: 80%;
+	margin: 0 auto;
 	margin-top: 1em;
 	border-collapse: collapse;
 	caption-side: top;
@@ -51,7 +55,6 @@
 	font-size: 1em;
 	color: rgb(0, 0, 0);
 	font-weight: 700;
-	/* background: #64c1ff; */
 	padding: 0.2em 1.7em;
 	border-top-left-radius: 0.3em;
 	border-top-right-radius: 0.3em;
@@ -75,6 +78,12 @@
 	max-width: 8em;
 }
 
-.hidden {
-	display: none;
+.to-info-table-th {
+	width: calc(100% / 6);
+}
+.proportions-table-th {
+	width: calc(100% / 6);
+}
+.owner-table-th {
+	width: 20%;
 }
