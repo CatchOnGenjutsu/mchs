@@ -95,23 +95,25 @@ export default function BoatInfo(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{boatInfoFromState.boatToDtoList.map((elem) => {
-						return (
-							<tr>
-								{toTableColumns.map((item) => {
-									return typeof elem[`${item.id}`] === "boolean" ? (
-										elem[`${item.id}`] === true ? (
-											<td className={styles["to-th"]}>Годное</td>
-										) : (
-											<td className={styles["to-th"]}>Негодное</td>
-										)
-									) : (
-										<td className={styles["to-th"]}>{elem[`${item.id}`]}</td>
-									);
-								})}
-							</tr>
-						);
-					})}
+					{boatInfoFromState.boatToDtoList !== undefined
+						? boatInfoFromState.boatToDtoList.map((elem) => {
+								return (
+									<tr>
+										{toTableColumns.map((item) => {
+											return typeof elem[`${item.id}`] === "boolean" ? (
+												elem[`${item.id}`] === true ? (
+													<td className={styles["to-th"]}>Годное</td>
+												) : (
+													<td className={styles["to-th"]}>Негодное</td>
+												)
+											) : (
+												<td className={styles["to-th"]}>{elem[`${item.id}`]}</td>
+											);
+										})}
+									</tr>
+								);
+						  })
+						: null}
 				</tbody>
 			</table>
 			<table className={`${styles["secondary-table"]} mb-5`}>

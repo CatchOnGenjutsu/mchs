@@ -1,47 +1,35 @@
 import React from "react";
+import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import SearchBlock from "../../components/SearchBlock/SearchBlock";
+import Certificate from "../../components/Certificate/Certificate";
+import { inputsHeadersCertificates } from "../../components/SearchBlock/inputsHeaders";
+
 import styles from "./Certificates.module.css";
 
 export default function Certificates() {
-	const inputsHeaders = [
-		{
-			key: "firstname",
-			value: "Имя",
-		},
-		{
-			key: "secondname",
-			value: "Фамилия",
-		},
-		{
-			key: "lastname",
-			value: "Отчество",
-		},
-		{
-			key: "dateOfBirth",
-			value: "Дата рождения",
-			description: "В формате: 11/11/1111",
-		},
-		{
-			key: "placeOfBirth",
-			value: "Место рождения",
-			description: "В формате: Республика Беларусь",
-		},
-	];
+	const [hiddenCert, setHiddenCert] = useState(false);
 
+	const handleHiddenCert = () => {
+		setHiddenCert(!hiddenCert);
+	};
 	return (
 		<>
 			<Header showButton={true} />
-			<div className={styles["page-block"]}>
-				<Sidebar />
-				<div className={styles["content-block"]}>
+			<Sidebar />
+			<div className={styles["content-block"]}>
+				<div className={hiddenCert ? styles.hidden : ""}>
 					<h2>Удостоверения</h2>
-					<SearchBlock inputsHeaders={inputsHeaders} />
-					{/* {dataFromState ? ( */}
-					{/* <SmallBoatsTable dataFromState={dataFromState} /> */}
-					{/* ) : null} */}
+					<SearchBlock inputsHeaders={inputsHeadersCertificates} />
 				</div>
+				<button
+					className={`${styles["button-back"]} btn btn-primary`}
+					type="button"
+					onClick={handleHiddenCert}>
+					Показать
+				</button>
+				<Certificate hidden={hiddenCert} />
 			</div>
 		</>
 	);

@@ -33,3 +33,28 @@ export const inputsHeadersSmallBoats = [
     value: "Заводской номер судна",
   },
 ];
+
+export const inputsHeadersCertificates = [
+  {
+    key: "firstname",
+    value: "Имя",
+  },
+  {
+    key: "secondname",
+    value: "Фамилия",
+  },
+  {
+    key: "lastname",
+    value: "Отчество",
+  },
+  {
+    key: "dateOfBirth",
+    value: "Дата рождения",
+    description: "В формате: 11/11/1111",
+  },
+  {
+    key: "placeOfBirth",
+    value: "Место рождения",
+    description: "В формате: Республика Беларусь",
+  },
+];

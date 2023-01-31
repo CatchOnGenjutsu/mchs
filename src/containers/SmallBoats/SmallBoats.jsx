@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header/Header.jsx";
 import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 import SearchBlock from "../../components/SearchBlock/SearchBlock.jsx";
-import SmallBoatsTable from "../../components/SearchTable/SearchTable.jsx";
+import SearchTable from "../../components/SearchTable/SearchTable.jsx";
 import BoatInfo from "../../components/BoatInfo/BoatInfo.jsx";
 import { getBoatsCardsList, clearBoatCardInfo } from "../../redux/actions";
 import { SMALLBOATS_COLUMNS } from "../../components/SearchTable/TablesColumns";
@@ -57,7 +57,7 @@ export default function SmallBoats() {
 				<div className={boatId !== "" ? styles.hidden : ""}>
 					<h2>База данных маломерных судов</h2>
 					<SearchBlock inputsHeaders={inputsHeadersSmallBoats} />
-					<SmallBoatsTable
+					<SearchTable
 						setBoatId={handleBoatId}
 						columns={SMALLBOATS_COLUMNS}
 						dataFromState={dataFromState}
