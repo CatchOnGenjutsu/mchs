@@ -37,26 +37,32 @@ export const sizeTableColumns = [
   {
     id: "boatLength",
     value: "Длина (м)",
+    key: "",
   },
   {
     id: "boatWidth",
     value: "Ширина (м)",
+    key: "",
   },
   {
     id: "boatHeight",
     value: "Высота борта (м)",
+    key: "",
   },
   {
     id: "bodyMaterial",
     value: "Материал корпуса",
+    key: "matname",
   },
   {
-    id: "bodyPayload",
+    id: "boatPayload",
     value: "Грузоподъёмность (кг)",
+    key: "",
   },
   {
     id: "passengersNum",
     value: "Пассажировместимость",
+    key: "",
   },
 ];
 
@@ -64,49 +70,88 @@ export const toTableColumns = [
   {
     id: "toDate",
     value: "Дата",
+    key: "",
   },
   {
-    id: "toUserId",
+    id: "name",
     value: "Должностное лицо, проводившее ТО (Ф.И.О., номер печати)",
+    key: "stampNum",
   },
   {
     id: "result",
     value: "Годное/негодное",
+    key: "",
   },
   {
-    id: "act",
+    id: "docname",
     value: "№ акта ТО маломерного судна при признании его негодным (запрещенным к эксплуатации)",
+    key: "",
   },
   {
-    id: "recUser",
+    id: "name",
     value: "Ф.И.О. составителя",
+    key: "",
   },
   {
-    id: "recDate",
+    id: "docdate",
     value: "Время составления акта",
+    key: "",
   },
 ]
 
 export const userTableColumns = [
   {
-    id: "fio",
+    id: "owner",
     value: "Ф.И.О.",
+    key: "fio",
   },
   {
-    id: "address",
+    id: "owner",
     value: "Адрес",
+    key: "address",
   },
   {
-    id: "persNum",
+    id: "owner",
     value: "Идентификационный номер",
+    key: "persNum",
   },
   {
-    id: "nameLe",
+    id: "owner",
     value: "Сведения о юридическом лице, ИП",
+    key: "nameLe",
   },
   {
-    id: "phone",
+    id: "owner",
     value: "Номера телефонов для связи",
+    key: "phone",
+  },
+]
+
+export const engineTableColumns = [
+  {
+    id: "enginesList",
+    value: "Название",
+    key: "engname",
+  },
+  {
+    id: "enginesList",
+    value: "Марка",
+    key: "address",
+  },
+  {
+    id: "enginesList",
+    value: "Заводской (идентификационный номер)",
+    key: "engvin",
+  },
+  {
+    id: "enginesList",
+    value: "Мощность (л.с.)",
+    key: "nameLe",
+  },
+  {
+    id: "enginesList",
+    value: "Срок службы",
+    key: "phone",
   },
 
 ]

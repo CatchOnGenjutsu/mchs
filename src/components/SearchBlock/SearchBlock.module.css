@@ -15,7 +15,7 @@
 }
 
 .input-element {
-	margin: 0 1vw 0.2rem;
+	margin: 0 1vw 0.2em;
 	min-width: 16vw;
 }
 
@@ -26,6 +26,7 @@
 .label-text {
 	color: white;
 	font-size: 1.2em;
+	line-height: 1em;
 	margin-bottom: 0.1rem;
 }
 
@@ -41,7 +42,7 @@
 }
 
 .button-element {
-	margin: 0 2vw;
+	margin: 1em 2vw 0;
 	width: 8vw;
 	background-color: rgb(28, 88, 199);
 }

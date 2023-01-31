@@ -6,8 +6,9 @@ import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 import SearchBlock from "../../components/SearchBlock/SearchBlock.jsx";
 import SmallBoatsTable from "../../components/SearchTable/SearchTable.jsx";
 import BoatInfo from "../../components/BoatInfo/BoatInfo.jsx";
-import { getBoatsCardsList, getBoatCardInfo } from "../../redux/actions";
+import { getBoatsCardsList, clearBoatCardInfo } from "../../redux/actions";
 import { SMALLBOATS_COLUMNS } from "../../components/SearchTable/TablesColumns";
+import { inputsHeadersSmallBoats } from "../../components/SearchBlock/inputsHeaders.js";
 
 import styles from "./SmallBoats.module.css";
 
@@ -15,26 +16,6 @@ export default function SmallBoats() {
 	const dispatch = useDispatch();
 
 	const [boatId, setBoatId] = useState("");
-
-	const inputsHeaders = [
-		{
-			key: "firstname",
-			value: "Имя",
-		},
-		{
-			key: "secondname",
-			value: "Фамилия",
-		},
-		{
-			key: "lastname",
-			value: "Отчество",
-		},
-		{
-			key: "govnumber",
-			value: "Гос. номер",
-			description: "В формате 1111 XX-1",
-		},
-	];
 
 	useEffect(() => {
 		dispatch(getBoatsCardsList());
@@ -44,14 +25,16 @@ export default function SmallBoats() {
 		setBoatId(value);
 	};
 
-	const handleClearBoatInfo = (id) => {
-		dispatch(getBoatCardInfo(id));
+	const handleClearBoatInfo = () => {
+		dispatch(clearBoatCardInfo());
 	};
 
 	const dataFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
 		return smallBoatsReducer.data;
 	});
+
+	// console.log("dataFromState >>>", dataFromState);
 
 	return (
 		<>
@@ -61,7 +44,7 @@ export default function SmallBoats() {
 				<button
 					onClick={() => {
 						setBoatId("");
-						handleClearBoatInfo(boatId);
+						handleClearBoatInfo();
 					}}
 					type="button"
 					className={
@@ -73,7 +56,7 @@ export default function SmallBoats() {
 				</button>
 				<div className={boatId !== "" ? styles.hidden : ""}>
 					<h2>База данных маломерных судов</h2>
-					<SearchBlock inputsHeaders={inputsHeaders} />
+					<SearchBlock inputsHeaders={inputsHeadersSmallBoats} />
 					<SmallBoatsTable
 						setBoatId={handleBoatId}
 						columns={SMALLBOATS_COLUMNS}
@@ -81,10 +64,6 @@ export default function SmallBoats() {
 					/>
 				</div>
 				<BoatInfo hidden={boatId} />
-				{/* <div
-					className={boatId === "" ? styles.hidden : ""}>
-
-					</div> */}
 			</div>
 		</>
 	);

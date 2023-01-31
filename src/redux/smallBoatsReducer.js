@@ -1,6 +1,7 @@
 import {
   GET_BOATS_CARDS_LIST,
-  GET_BOAT_CARD_INFO
+  GET_BOAT_CARD_INFO,
+  CLEAR_BOAT_CARD_INFO
 } from "./types";
 
 const initialState = {
@@ -10,7 +11,7 @@ const initialState = {
 
 
 export const smallBoatsReducer = (state = initialState, action) => {
-  // console.log("smallBoatsReducer >>", action.data)
+  console.log("smallBoatsReducer >>", action.data)
   switch (action.type) {
     case GET_BOATS_CARDS_LIST:
       return (() => ({
@@ -20,6 +21,11 @@ export const smallBoatsReducer = (state = initialState, action) => {
         ],
       }))();
     case GET_BOAT_CARD_INFO:
+      return (() => ({
+        ...state,
+        boatInfo: Object.assign({}, action.data)
+      }))();
+    case CLEAR_BOAT_CARD_INFO:
       return (() => ({
         ...state,
         boatInfo: Object.assign({}, action.data)

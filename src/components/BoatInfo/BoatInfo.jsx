@@ -6,6 +6,7 @@ import {
 	sizeTableColumns,
 	toTableColumns,
 	userTableColumns,
+	engineTableColumns,
 } from "./infoTablesColumns";
 
 import styles from "./BoatInfo.module.css";
@@ -21,9 +22,7 @@ export default function BoatInfo(props) {
 	return (
 		<div className={props.hidden === "" ? styles.hidden : ""}>
 			<table className={styles["primary-table"]}>
-				<caption className={styles["primary-caption"]}>
-					Информация об объекте:
-				</caption>
+				<caption className={styles["primary-caption"]}>Информация об объекте:</caption>
 				<tbody>
 					{primaryTableLines.map((item) => {
 						return (
@@ -45,9 +44,7 @@ export default function BoatInfo(props) {
 				</tbody>
 			</table>
 			<table className={styles["secondary-table"]}>
-				<caption className={styles["secondary-caption"]}>
-					Размерения судна:
-				</caption>
+				<caption className={styles["secondary-caption"]}>Размерения судна:</caption>
 				<thead>
 					<tr>
 						{sizeTableColumns.map((item) => {
@@ -64,7 +61,18 @@ export default function BoatInfo(props) {
 				<tbody>
 					<tr>
 						{sizeTableColumns.map((item) => {
-							return <td>{item.id}</td>;
+							return (
+								<td>
+									{Object.keys(boatInfoFromState).length !== 0
+										? boatInfoFromState[`${item.id}`] !== undefined &&
+										  boatInfoFromState[`${item.id}`] !== null
+											? item.key === ""
+												? boatInfoFromState[`${item.id}`]
+												: boatInfoFromState[`${item.id}`][`${item.key}`]
+											: "—"
+										: null}
+								</td>
+							);
 						})}
 					</tr>
 				</tbody>
@@ -87,11 +95,23 @@ export default function BoatInfo(props) {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						{toTableColumns.map((item) => {
-							return <td className={styles["to-th"]}>{item.id}</td>;
-						})}
-					</tr>
+					{boatInfoFromState.boatToDtoList.map((elem) => {
+						return (
+							<tr>
+								{toTableColumns.map((item) => {
+									return typeof elem[`${item.id}`] === "boolean" ? (
+										elem[`${item.id}`] === true ? (
+											<td className={styles["to-th"]}>Годное</td>
+										) : (
+											<td className={styles["to-th"]}>Негодное</td>
+										)
+									) : (
+										<td className={styles["to-th"]}>{elem[`${item.id}`]}</td>
+									);
+								})}
+							</tr>
+						);
+					})}
 				</tbody>
 			</table>
 			<table className={`${styles["secondary-table"]} mb-5`}>
@@ -104,7 +124,7 @@ export default function BoatInfo(props) {
 							return (
 								<th
 									className={styles["owner-table-th"]}
-									id={item.id}>
+									id={item.key}>
 									{item.value}
 								</th>
 							);
@@ -114,7 +134,56 @@ export default function BoatInfo(props) {
 				<tbody>
 					<tr>
 						{userTableColumns.map((item) => {
-							return <td>{item.id}</td>;
+							return (
+								<td>
+									{Object.keys(boatInfoFromState).length !== 0
+										? boatInfoFromState[`${item.id}`] !== undefined &&
+										  boatInfoFromState[`${item.id}`] !== null
+											? item.key === "fio"
+												? `${boatInfoFromState[`${item.id}`]["personSurname"]} ${
+														boatInfoFromState[`${item.id}`]["personName"]
+												  } ${boatInfoFromState[`${item.id}`]["personMidname"]}`
+												: boatInfoFromState[`${item.id}`][`${item.key}`]
+											: "—"
+										: null}
+								</td>
+							);
+						})}
+					</tr>
+				</tbody>
+			</table>
+			<table className={`${styles["secondary-table"]} mb-5`}>
+				<caption className={styles["secondary-caption"]}>Двигатели:</caption>
+				<thead>
+					<tr>
+						{engineTableColumns.map((item) => {
+							return (
+								<th
+									className={styles["owner-table-th"]}
+									id={item.key}>
+									{item.value}
+								</th>
+							);
+						})}
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						{engineTableColumns.map((item) => {
+							return (
+								<td>
+									{Object.keys(boatInfoFromState).length !== 0
+										? boatInfoFromState[`${item.id}`] !== undefined &&
+										  boatInfoFromState[`${item.id}`] !== null
+											? item.key === "fio"
+												? `${boatInfoFromState[`${item.id}`]["personSurname"]} ${
+														boatInfoFromState[`${item.id}`]["personName"]
+												  } ${boatInfoFromState[`${item.id}`]["personMidname"]}`
+												: boatInfoFromState[`${item.id}`][`${item.key}`]
+											: "—"
+										: null}
+								</td>
+							);
 						})}
 					</tr>
 				</tbody>

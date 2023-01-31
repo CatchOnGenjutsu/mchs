@@ -2,7 +2,8 @@ import {
   SHOW_HIDDEN_MENU,
   COLOR_MENU_ITEM,
   GET_BOATS_CARDS_LIST,
-  GET_BOAT_CARD_INFO
+  GET_BOAT_CARD_INFO,
+  CLEAR_BOAT_CARD_INFO
 } from './types';
 
 
@@ -22,12 +23,12 @@ export function colorMenuItem(id) {
 
 export function getBoatsCardsList() {
   return async dispatch => {
-    // const response = await fetch("http://192.168.70.81:8080/boats/boatCards");
+    const response = await fetch("http://192.168.70.81:8080/boats/boatCards");
     // const jsonData = await response.json();
-    const response = await fetch("http://localhost:3000/data")
+    // const response = await fetch("http://localhost:3000/data")
     const data = await response.json();
     for (let item of data) {
-      const owner = `${item.personSurname} ${item.personName} ${item.personMidname}`;
+      const owner = `${item.agent.personSurname} ${item.agent.personName} ${item.agent.personMidname}`;
       item["boatType"] = item["boatType"]["btname"]
       item["owner"] = owner;
     }
@@ -42,7 +43,7 @@ export function getBoatsCardsList() {
 
 export function getBoatCardInfo(id) {
   return async dispatch => {
-    let jsonData = new Object();
+    let jsonData = {};
     if (id !== "") {
       const response = await fetch(`http://192.168.70.81:8080/boats/getBoatCard/${String(id)}`);
       jsonData = await response.json();
@@ -52,4 +53,13 @@ export function getBoatCardInfo(id) {
       data: jsonData
     })
   };
+}
+
+export function clearBoatCardInfo() {
+  return (
+    {
+      type: CLEAR_BOAT_CARD_INFO,
+      data: {}
+    }
+  )
 }

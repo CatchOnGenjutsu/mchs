@@ -48,15 +48,12 @@ export default function SmallBoatsTable(props) {
 
 	useEffect(() => {
 		const input = document.querySelector("#hide-input");
-
 		if (input.checked) {
 			input.click();
 		}
 	}, []);
 
 	return (
-		// <>
-		// 	{props.dataFromState !== undefined ? (
 		<>
 			<div className={styles["hide-input"]}>
 				{allColumns.map((column) => {
@@ -92,11 +89,7 @@ export default function SmallBoatsTable(props) {
 										{...column.getHeaderProps(column.getSortByToggleProps())}>
 										{column.render("Header")}
 										<span>
-											{column.isSorted
-												? column.isSortedDesc
-													? " ▼"
-													: " ▲"
-												: "  "}
+											{column.isSorted ? (column.isSortedDesc ? " ▼" : " ▲") : "  "}
 										</span>
 									</th>
 								))}
