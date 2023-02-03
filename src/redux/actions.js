@@ -3,7 +3,9 @@ import {
   COLOR_MENU_ITEM,
   GET_BOATS_CARDS_LIST,
   GET_BOAT_CARD_INFO,
-  CLEAR_BOAT_CARD_INFO
+  CLEAR_BOAT_CARD_INFO,
+  SET_SEARCH_PARAMS,
+  GET_DATA_BY_SEARCH_PARAMS
 } from './types';
 
 
@@ -63,3 +65,46 @@ export function clearBoatCardInfo() {
     }
   )
 }
+export function setSearchParams(id, value) {
+  let object = { [`${id}`]: value }
+  return (
+    {
+      type: SET_SEARCH_PARAMS,
+      data: object
+    }
+  )
+}
+
+export function getDataBySearchParams(params) {
+  return async dispatch => {
+    // let url = "http://192.168.70.81:8080/boats/search"
+    // for (let key in params) {
+    //   if (params[key] !== "") {
+    //     url += `?${key}=${String(params[key])}`
+    //   }
+    // }
+    // console.log(url)
+    const response = await fetch(`http://192.168.70.81:8080/boats/search`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    });
+    // const jsonData = await response.json();
+    // const response = await fetch("http://localhost:3000/data")
+    const data = await response.json();
+    console.log("data from action >>", data)
+    for (let item of data) {
+      const owner = `${item.personSurname} ${item.personName} ${item.personMidname}`;
+      item["owner"] = owner;
+    }
+    const jsonData = data;
+
+    dispatch({
+      type: GET_DATA_BY_SEARCH_PARAMS,
+      data: jsonData
+    })
+  };
+}
+

@@ -6,7 +6,7 @@ export const primaryTableLines = [
   },
   {
     id: "boatName",
-    value: "Название маломерного судна:",
+    value: "Наименование маломерного судна:",
     key: ""
   },
   {
@@ -31,6 +31,21 @@ export const primaryTableLines = [
     value: "Вид:",
     key: ""
   },
+  {
+    id: "something",
+    value: "Год постройки:",
+    key: ""
+  },
+  {
+    id: "boatVin",
+    value: "Заводской номер:",
+    key: ""
+  },
+  {
+    id: "engineNum",
+    value: "Количество двигателей:",
+    key: ""
+  }
 ];
 
 export const sizeTableColumns = [
@@ -130,13 +145,8 @@ export const userTableColumns = [
 export const engineTableColumns = [
   {
     id: "enginesList",
-    value: "Название",
+    value: "Название (марка)",
     key: "engname",
-  },
-  {
-    id: "enginesList",
-    value: "Марка",
-    key: "address",
   },
   {
     id: "enginesList",
@@ -146,12 +156,34 @@ export const engineTableColumns = [
   {
     id: "enginesList",
     value: "Мощность (л.с.)",
-    key: "nameLe",
+    key: "engpwr",
   },
   {
     id: "enginesList",
-    value: "Срок службы",
-    key: "phone",
+    value: "Срок службы (лет)",
+    key: "engpwr",
   },
+  {
+    id: "enginesList",
+    value: "Дата постановки на учет",
+    key: "recdate",
+  },
+  {
+    id: "enginesList",
+    value: "Дата снятия с учета",
+    key: "recdate",
+  },
+]
 
+export const ownersHistoryTableColumns = [
+  {
+    id: "owner",
+    value: "Ф.И.О. владельца",
+    key: "fio",
+  },
+  {
+    id: "owner",
+    value: "Дата установления права собственности",
+    key: "recdate",
+  },
 ]

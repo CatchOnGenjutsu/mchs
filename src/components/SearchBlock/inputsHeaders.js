@@ -1,20 +1,20 @@
 export const inputsHeadersSmallBoats = [
   {
-    key: "firstname",
-    value: "Имя",
-  },
-  {
-    key: "secondname",
+    key: "personSurname",
     value: "Фамилия",
   },
   {
-    key: "lastname",
+    key: "personName",
+    value: "Имя",
+  },
+  {
+    key: "personMidname",
     value: "Отчество",
   },
   {
-    key: "govnumber",
-    value: "Рег. номер",
-    description: "В формате 1111 XX-1",
+    key: "regNum",
+    value: "Рег. номер судна",
+    description: "В формате XX 1111",
   },
   {
     key: "nameLe",
@@ -26,7 +26,7 @@ export const inputsHeadersSmallBoats = [
   },
   {
     key: "engvin",
-    value: "Зав. номер двигателя",
+    value: "Заводской номер двигателя",
   },
   {
     key: "boatVin",

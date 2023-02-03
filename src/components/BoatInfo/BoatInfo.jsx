@@ -7,6 +7,7 @@ import {
 	toTableColumns,
 	userTableColumns,
 	engineTableColumns,
+	ownersHistoryTableColumns,
 } from "./infoTablesColumns";
 
 import styles from "./BoatInfo.module.css";
@@ -116,7 +117,7 @@ export default function BoatInfo(props) {
 						: null}
 				</tbody>
 			</table>
-			<table className={`${styles["secondary-table"]} mb-5`}>
+			<table className={`${styles["secondary-table"]}`}>
 				<caption className={styles["secondary-caption"]}>
 					Сведения о собственнике:
 				</caption>
@@ -154,14 +155,49 @@ export default function BoatInfo(props) {
 					</tr>
 				</tbody>
 			</table>
-			<table className={`${styles["secondary-table"]} mb-5`}>
+			<table className={`${styles["secondary-table"]}`}>
 				<caption className={styles["secondary-caption"]}>Двигатели:</caption>
 				<thead>
 					<tr>
 						{engineTableColumns.map((item) => {
 							return (
 								<th
-									className={styles["owner-table-th"]}
+									className={styles["engine-table-th"]}
+									id={item.key}>
+									{item.value}
+								</th>
+							);
+						})}
+					</tr>
+				</thead>
+				<tbody>
+					{boatInfoFromState.enginesList !== undefined
+						? boatInfoFromState.enginesList.map((elem) => {
+								return (
+									<tr>
+										{engineTableColumns.map((item) => {
+											return (
+												<td className={styles["engine-table-th"]}>
+													{elem[`${item.key}`]}
+												</td>
+											);
+										})}
+									</tr>
+								);
+						  })
+						: null}
+				</tbody>
+			</table>
+			<table className={`${styles["secondary-table"]}`}>
+				<caption className={styles["secondary-caption"]}>
+					Хронология владельцев судна:
+				</caption>
+				<thead>
+					<tr>
+						{ownersHistoryTableColumns.map((item) => {
+							return (
+								<th
+									className={styles["owners-history-table-th"]}
 									id={item.key}>
 									{item.value}
 								</th>
@@ -171,7 +207,7 @@ export default function BoatInfo(props) {
 				</thead>
 				<tbody>
 					<tr>
-						{engineTableColumns.map((item) => {
+						{ownersHistoryTableColumns.map((item) => {
 							return (
 								<td>
 									{Object.keys(boatInfoFromState).length !== 0

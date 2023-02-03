@@ -17,9 +17,9 @@ export default function SmallBoats() {
 
 	const [boatId, setBoatId] = useState("");
 
-	useEffect(() => {
-		dispatch(getBoatsCardsList());
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(getBoatsCardsList());
+	// }, []);
 
 	const handleBoatId = (value) => {
 		setBoatId(value);
@@ -33,8 +33,7 @@ export default function SmallBoats() {
 		const { smallBoatsReducer } = state;
 		return smallBoatsReducer.data;
 	});
-
-	// console.log("dataFromState >>>", dataFromState);
+	console.log("dataFromState >>>", dataFromState);
 
 	return (
 		<>

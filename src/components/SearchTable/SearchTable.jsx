@@ -126,31 +126,33 @@ export default function SmallBoatsTable(props) {
 						})}
 					</tbody>
 				</table>
-				<div>
-					<span>
-						{" "}
-						Страница:{" "}
-						<strong>
+				{props.dataFromState.length > 0 && pageOptions.length > 1 ? (
+					<div>
+						<span>
 							{" "}
-							{pageIndex + 1} из {pageOptions.length}
-						</strong>{" "}
-					</span>
-					<button
-						onClick={() => previousPage()}
-						disabled={!canPreviousPage}
-						type="button"
-						className={`${styles["pagination-buttons"]} btn btn-primary`}>
-						Предыдущая
-					</button>
+							Страница:{" "}
+							<strong>
+								{" "}
+								{pageIndex + 1} из {pageOptions.length}
+							</strong>{" "}
+						</span>
+						<button
+							onClick={() => previousPage()}
+							disabled={!canPreviousPage}
+							type="button"
+							className={`${styles["pagination-buttons"]} btn btn-primary`}>
+							Предыдущая
+						</button>
 
-					<button
-						onClick={() => nextPage()}
-						disabled={!canNextPage}
-						type="button"
-						className={`btn btn-primary`}>
-						Следующая
-					</button>
-				</div>
+						<button
+							onClick={() => nextPage()}
+							disabled={!canNextPage}
+							type="button"
+							className={`btn btn-primary`}>
+							Следующая
+						</button>
+					</div>
+				) : null}
 			</div>
 		</>
 	);

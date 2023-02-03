@@ -88,3 +88,9 @@
 .owner-table-th {
 	width: 20%;
 }
+.engine-table-th {
+	width: calc(100% / 6);
+}
+.owners-history-table-th {
+	width: 50%;
+}

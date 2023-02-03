@@ -12,19 +12,19 @@ export const SMALLBOATS_COLUMNS = [
 		accessor: "owner",
 	},
 	{
-		Header: "Тип судна",
-		accessor: "boatType",
+		Header: "Наименование организации",
+		accessor: "nameLe",
 	},
 	{
-		Header: "Название судна",
-		accessor: "boatName",
+		Header: "УНП",
+		accessor: "unp",
 	},
 	{
-		Header: "Мощность двиг.",
-		accessor: "engineNum",
+		Header: "Заводской номер двигателя",
+		accessor: "engvin",
 	},
 	{
-		Header: "Марка",
+		Header: "Заводской номер судна",
 		accessor: "boatVin",
 	},
 ];
