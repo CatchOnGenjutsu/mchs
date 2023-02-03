@@ -6,7 +6,7 @@ export const primaryTableLines = [
   },
   {
     id: "boatName",
-    value: "Наименование маломерного судна:",
+    value: "Название маломерного судна:",
     key: ""
   },
   {

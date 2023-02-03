@@ -5,7 +5,8 @@ import {
   GET_BOAT_CARD_INFO,
   CLEAR_BOAT_CARD_INFO,
   SET_SEARCH_PARAMS,
-  GET_DATA_BY_SEARCH_PARAMS
+  GET_DATA_BY_SEARCH_PARAMS,
+  GET_LICENSE_BY_ID
 } from './types';
 
 
@@ -103,6 +104,26 @@ export function getDataBySearchParams(params) {
 
     dispatch({
       type: GET_DATA_BY_SEARCH_PARAMS,
+      data: jsonData
+    })
+  };
+}
+
+export function getLicenseById() {
+  return async dispatch => {
+    const response = await fetch(`http://192.168.70.81:8080/boats/license/drivingLicense/1`);
+    // const jsonData = await response.json();
+    // const response = await fetch("http://localhost:3000/data")
+    const data = await response.json();
+    console.log("data from action >>", data)
+    // for (let item of data) {
+    //   const owner = `${item.personSurname} ${item.personName} ${item.personMidname}`;
+    //   item["owner"] = owner;
+    // }
+    const jsonData = data;
+
+    dispatch({
+      type: GET_LICENSE_BY_ID,
       data: jsonData
     })
   };
