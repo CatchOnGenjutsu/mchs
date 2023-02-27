@@ -18,7 +18,7 @@ const initialState = {
     unp: "",
     boatVin: "",
     engvin: "",
-    cardStatus:"Активная",
+    cardStatus: "Активная",
   }
 }
 
@@ -55,7 +55,7 @@ export const smallBoatsReducer = (state = initialState, action) => {
         ],
       }))();
     default:
-      console.log('выход')
+      // console.log('выход')
       return state;
   }
 };

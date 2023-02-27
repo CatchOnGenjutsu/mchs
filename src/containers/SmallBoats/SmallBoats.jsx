@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import SearchBlock from "../../components/SearchBlock/SearchBlock.jsx";
 import SearchTable from "../../components/SearchTable/SearchTable.jsx";
 import BoatInfo from "../../components/BoatInfo/BoatInfo.jsx";
-import { getBoatsCardsList, clearBoatCardInfo } from "../../redux/actions";
+import {
+	// getBoatsCardsList,
+	clearBoatCardInfo,
+} from "../../redux/actions";
 import { SMALLBOATS_COLUMNS } from "../../components/SearchTable/TablesColumns";
 import { inputsHeadersSmallBoats } from "../../components/SearchBlock/inputsHeaders.js";
 
@@ -30,19 +33,19 @@ export default function SmallBoats() {
 
 	const dataFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
-		return smallBoatsReducer.data.map(el=>{
-			if(el.cardid){
-				el.id=el.cardid
-				delete el.cardid
+		return smallBoatsReducer.data.map((el) => {
+			if (el.cardid) {
+				el.id = el.cardid;
+				delete el.cardid;
 			}
-			return el
-		});;
+			return el;
+		});
 	});
 	console.log("dataFromState >>>", dataFromState);
 
 	return (
 		<>
-			<div >
+			<div>
 				<button
 					onClick={() => {
 						setBoatId("");

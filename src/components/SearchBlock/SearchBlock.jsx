@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
 	setSearchParams,
 	getDataBoatsBySearchParams,
 	getDataCerticatesBySearchParams,
-	getDataBasesBuildingBySearchParams
+	getDataBasesBuildingBySearchParams,
 } from "../../redux/actions";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import styles from "./SearchBlock.module.css";
-import {certificateReducer} from "../../redux/reducers/certificateReducer";
+import { certificateReducer } from "../../redux/reducers/certificateReducer";
 
 export default function SearchBlock(props) {
 	const dispatch = useDispatch();
-
+	const [currentSearchParams, setCurrentSearchParams] = useState(null);
 
 	const searchParamsFromStateBoat = useSelector((state) => {
 		const { smallBoatsReducer } = state;
@@ -22,44 +22,56 @@ export default function SearchBlock(props) {
 	});
 
 	const searchParamsFromStateCertificate = useSelector((state) => {
-		const {   certificateReducer } = state;
+		const { certificateReducer } = state;
 		return certificateReducer.searchParams;
 	});
 
-	const searchParamsFromStateBasesBuilding = useSelector(state => {
-		const {basesBuildingReducer} = state;
-		return basesBuildingReducer.searchParams
-	})
+	const searchParamsFromStateBasesBuilding = useSelector((state) => {
+		const { basesBuildingReducer } = state;
+		return basesBuildingReducer.searchParams;
+	});
 
 	const handleSearchData = (e) => {
 		e.preventDefault();
-		console.log(e.target.baseURI)
+		// console.log(e.target.baseURI);
 		switch (true) {
-			case e.target.baseURI.includes('certificates'):{
+			case e.target.baseURI.includes("certificates"): {
 				dispatch(getDataCerticatesBySearchParams(searchParamsFromStateCertificate));
-				break;			}
-			case e.target.baseURI.includes('smallboats'):{
-
+				setCurrentSearchParams(searchParamsFromStateCertificate);
+				break;
+			}
+			case e.target.baseURI.includes("smallboats"): {
 				dispatch(getDataBoatsBySearchParams(searchParamsFromStateBoat));
+				setCurrentSearchParams(searchParamsFromStateBoat);
 				break;
 			}
-			case e.target.baseURI.includes('basesbuilding'):{
-				dispatch(getDataBasesBuildingBySearchParams(searchParamsFromStateBasesBuilding))
+			case e.target.baseURI.includes("basesbuilding"): {
+				dispatch(getDataBasesBuildingBySearchParams(searchParamsFromStateBasesBuilding));
+				setCurrentSearchParams(searchParamsFromStateBasesBuilding);
 				break;
 			}
-			default: ;
+			default:
 		}
+		console.log("currentSearchParams", currentSearchParams);
 	};
 
 	const handleValue = (e) => {
-		dispatch(setSearchParams(e.target.dataset.id, e.target.value,e.target.baseURI));
+		dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI));
+		if (currentSearchParams) {
+			if (currentSearchParams.key !== "") {
+				e.target.value = currentSearchParams.key;
+			}
+		}
 	};
+
+	// useEffect(() => {
+	// 	setCurrentSearchParams()
+	// 	console.log("currentSearchParams from useEffect", currentSearchParams);
+	// }, []);
 	return (
 		<>
 			<Form className={styles["form-inputs"]}>
-
 				<div className={styles["area-inputs"]}>
-
 					{props.inputsHeaders.map((item) => {
 						return (
 							<Form.Group
@@ -67,15 +79,17 @@ export default function SearchBlock(props) {
 								className={styles["input-element"]}
 								controlId="formBasicEmail">
 								<Form.Label className={styles["label-text"]}>{item.value}</Form.Label>
-								{item.type==='select'&&(
-									<Form.Select  className={`mb-2`}
-												  data-id={item.key}
-												  onChange={(e) => handleValue(e)}
-									>
-									{item.selectOption.map(el=>(<option>{el}</option>))}
-								</Form.Select>
+								{item.type === "select" && (
+									<Form.Select
+										className={`mb-2`}
+										data-id={item.key}
+										onChange={(e) => handleValue(e)}>
+										{item.selectOption.map((el) => (
+											<option>{el}</option>
+										))}
+									</Form.Select>
 								)}
-								{item.type==='text'&&(
+								{item.type === "text" && (
 									<Form.Control
 										data-id={item.key}
 										onChange={(e) => handleValue(e)}
