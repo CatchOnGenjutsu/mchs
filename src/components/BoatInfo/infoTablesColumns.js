@@ -16,12 +16,6 @@ export const primaryTableLines = [
     key: ""
   },
   {
-    id: "something",
-    value:
-      "Информация об организации-строителя маломерного судна или изготовителя:",
-    key: ""
-  },
-  {
     id: "boatType",
     value: "Тип:",
     key: "btname"
@@ -42,8 +36,28 @@ export const primaryTableLines = [
     key: ""
   },
   {
+    id:"maxPowerEngine",
+    value:"Предельная мощность двигателей:",
+    key:""
+  },
+  {
     id: "engineNum",
     value: "Количество двигателей:",
+    key: ""
+  },
+  {
+    id:"categoryDifficultyArea",
+    value:"Категория сложности района плавания:",
+    key: ""
+  },
+  {
+    id:"rankDifficultyArea",
+    value:"Разряд сложности района плавания:",
+    key: ""
+  },
+  {
+    id:"NumberAndDateShipTicket",
+    value: "№ и дата выдачи судового билета (в том числе дубликата судового билета):",
     key: ""
   }
 ];
@@ -98,6 +112,16 @@ export const toTableColumns = [
     key: "",
   },
   {
+    id: "validity",
+    value: "Cрок действия",
+    key: "",
+  },
+  {
+    id: "endDate",
+    value: "Дата окончания ТО",
+    key: "",
+  },
+  {
     id: "docname",
     value: "№ акта ТО маломерного судна при признании его негодным (запрещенным к эксплуатации)",
     key: "",
@@ -106,15 +130,15 @@ export const toTableColumns = [
     id: "name",
     value: "Ф.И.О. составителя",
     key: "",
-  },
-  {
-    id: "docdate",
-    value: "Время составления акта",
-    key: "",
-  },
+  }
 ]
 
 export const userTableColumns = [
+  {
+    id:"owner",
+    value: "Правовая форма заявителя",
+    key:"legalForm"
+  },
   {
     id: "owner",
     value: "Ф.И.О.",
@@ -127,8 +151,8 @@ export const userTableColumns = [
   },
   {
     id: "owner",
-    value: "Идентификационный номер",
-    key: "persNum",
+    value: "Сведения о документе, удостоверяющем личность",
+    key: "persDocumentData",
   },
   {
     id: "owner",
@@ -154,14 +178,19 @@ export const engineTableColumns = [
     key: "engvin",
   },
   {
+    id:"enginesList",
+    value:"Тип двигателя",
+    key:"typeEngine"
+  },
+  {
     id: "enginesList",
     value: "Мощность (л.с.)",
     key: "engpwr",
   },
   {
     id: "enginesList",
-    value: "Срок службы (лет)",
-    key: "engpwr",
+    value: "Предельная мощность двигателей судна",
+    key: "maxpwr",
   },
   {
     id: "enginesList",
@@ -187,3 +216,154 @@ export const ownersHistoryTableColumns = [
     key: "recdate",
   },
 ]
+
+export const dealsHistoryTableColumns = [
+  {
+    id:"deal",
+    value:"Дата сделки",
+    key:"dateDeal",
+  },
+  {
+    id:"deal",
+    value:"Сделка",
+    key:"dealInfo",
+  },
+
+]
+
+export const imposedArrestsTableColumns =[
+  {
+    id:"imposedArrest",
+    value:"Дата",
+    key:"date"
+  },
+  {
+    id:"imposedArrest",
+    value:"Орган",
+    key:"agency"
+  },
+  {
+    id:"imposedArrest",
+    value: "Должностное лицо, принявшее решение",
+    key:"officer"
+  },
+  {
+    id:"imposedArrest",
+    value:"Примечание",
+    key:"note"
+  },
+]
+
+export const liftedArrestsTableColumns = [
+  {
+    id:"liftedArrest",
+    value:"Дата",
+    key:"date"
+  },
+  {
+    id:"liftedArrest",
+    value:"Орган",
+    key:"agency"
+  },
+  {
+    id:"liftedArrest",
+    value: "Должностное лицо, принявшее решение",
+    key:"officer"
+  },
+  {
+    id:"liftedArrest",
+    value:"Примечание",
+    key:"note"
+  },
+]
+
+export const noteShipBookTableColumns = [
+  {
+    id:"noteShipBook",
+    value:"Дата",
+    key:"date"
+  },
+  {
+    id:"noteShipBook",
+    value:"Орган",
+    key:"agency"
+  },
+  {
+    id:"noteShipBook",
+    value: "Должностное лицо, внесшее изменение",
+    key:"officer"
+  },
+  {
+    id:"noteShipBook",
+    value:"Какой раздел редактировался",
+    key:"section"
+  },
+]
+
+export const enterNoteShipBookTableColumns = [
+  {
+    id:"enterNoteShipBook",
+    value:"Дата внесения в судовую книгу",
+    key:"enterDate"
+  },
+  {
+    id:"enterNoteShipBook",
+    value:"Дата исключения из судовой книги",
+    key:"endDate"
+  }
+]
+
+export const specialMarksTableColumns = [
+  {
+    id:"specialMarks",
+    value:"Дата",
+    key:"date"
+  },
+  {
+    id:"specialMarks",
+    value:"Отметка",
+    key:"mark"
+  }
+]
+export const documentsTableColumns= [
+  {
+    id:"documents",
+    value:"Дата",
+    key:"date"
+  },
+  {
+    id:"documents",
+    value:"Документ",
+    key:"fail"
+  }
+]
+
+
+// export const testMainTable = {
+//   caption:"Информация об объекте:",
+//   regNum:"Регистрацонный номер маломерного судна:",
+//   boatName:"Название маломерного судна:",
+//   parkingPlace:"Местоположение (включая юридический адрес и страну):",
+//   boatType:{
+//     value: "Тип:",
+//     key: "btname"
+//   },
+//   something:"Вид:",
+//   boatYear:"Год постройки",
+//   boatVin:"Заводской номер",
+//   maxPowerEngine:"Предельная мощность двигателей:",
+//   engineNum:"Количество двигателей:",
+//   categoryDifficultyArea:"Категория сложности района плавания:",
+//   rankDifficultyArea:"Разряд сложности района плавания:",
+//   NumberAndDateShipTicket:"№ и дата выдачи судового билета (в том числе дубликата судового билета):",
+// }
+//
+// export const sizeTableColumnsObj = {
+//   caption:"Размерения судна:",
+//   boatLength:"Длина (м)",
+//   boatWidth:"Ширина (м)",
+//   boatHeight:"Высота борта (м)",
+//   bodyMaterial:"Материал корпуса",
+//   boatPayload:"Грузоподъёмность (кг)",
+//   passengersNum:"Пассажировместимость"
+// }

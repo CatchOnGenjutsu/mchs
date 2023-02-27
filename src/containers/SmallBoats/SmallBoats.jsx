@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Header from "../../components/Header/Header.jsx";
-import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 import SearchBlock from "../../components/SearchBlock/SearchBlock.jsx";
 import SearchTable from "../../components/SearchTable/SearchTable.jsx";
 import BoatInfo from "../../components/BoatInfo/BoatInfo.jsx";
@@ -21,9 +19,10 @@ export default function SmallBoats() {
 	// 	dispatch(getBoatsCardsList());
 	// }, []);
 
-	const handleBoatId = (value) => {
-		setBoatId(value);
-	};
+	// const handleBoatId = (value) => {
+	// 	console.log(value)
+	// 	setBoatId(value);
+	// };
 
 	const handleClearBoatInfo = () => {
 		dispatch(clearBoatCardInfo());
@@ -31,15 +30,19 @@ export default function SmallBoats() {
 
 	const dataFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
-		return smallBoatsReducer.data;
+		return smallBoatsReducer.data.map(el=>{
+			if(el.cardid){
+				el.id=el.cardid
+				delete el.cardid
+			}
+			return el
+		});;
 	});
 	console.log("dataFromState >>>", dataFromState);
 
 	return (
 		<>
-			<Header showButton={true} />
-			<Sidebar />
-			<div className={styles["content-block"]}>
+			<div >
 				<button
 					onClick={() => {
 						setBoatId("");
@@ -57,7 +60,7 @@ export default function SmallBoats() {
 					<h2>База данных маломерных судов</h2>
 					<SearchBlock inputsHeaders={inputsHeadersSmallBoats} />
 					<SearchTable
-						setBoatId={handleBoatId}
+						// setId={handleBoatId}
 						columns={SMALLBOATS_COLUMNS}
 						dataFromState={dataFromState}
 					/>

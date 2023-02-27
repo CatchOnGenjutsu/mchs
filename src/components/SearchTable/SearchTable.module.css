@@ -52,7 +52,7 @@
 	text-decoration: none;
 	color: rgb(0, 0, 0);
 }
-
-.hide-input {
-	display: none;
+select:has(option:checked)
+{
+	background-color: rgb(198, 229, 255);
 }
