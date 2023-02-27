@@ -1,7 +1,7 @@
 import {
   SHOW_HIDDEN_MENU,
   COLOR_MENU_ITEM
-} from "./types";
+} from "../types";
 import uniqid from 'uniqid';
 
 const initialState = {
@@ -10,6 +10,7 @@ const initialState = {
       listModal: [
         { title: "Маломерные суда", id: "smallboats", colored: true },
         { title: "Удостоверения", id: "certificates", colored: false },
+        { title: "Базы и сооружения", id: "basesbuilding", colored: false },
       ],
       isHidden: false
     }],

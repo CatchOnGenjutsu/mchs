@@ -1,30 +1,65 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setSearchParams, getDataBySearchParams } from "../../redux/actions";
+import {
+	setSearchParams,
+	getDataBoatsBySearchParams,
+	getDataCerticatesBySearchParams,
+	getDataBasesBuildingBySearchParams
+} from "../../redux/actions";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import styles from "./SearchBlock.module.css";
+import {certificateReducer} from "../../redux/reducers/certificateReducer";
 
 export default function SearchBlock(props) {
 	const dispatch = useDispatch();
 
-	const searchParamsFromState = useSelector((state) => {
+
+	const searchParamsFromStateBoat = useSelector((state) => {
 		const { smallBoatsReducer } = state;
 		return smallBoatsReducer.searchParams;
 	});
+
+	const searchParamsFromStateCertificate = useSelector((state) => {
+		const {   certificateReducer } = state;
+		return certificateReducer.searchParams;
+	});
+
+	const searchParamsFromStateBasesBuilding = useSelector(state => {
+		const {basesBuildingReducer} = state;
+		return basesBuildingReducer.searchParams
+	})
+
 	const handleSearchData = (e) => {
 		e.preventDefault();
-		dispatch(getDataBySearchParams(searchParamsFromState));
+		console.log(e.target.baseURI)
+		switch (true) {
+			case e.target.baseURI.includes('certificates'):{
+				dispatch(getDataCerticatesBySearchParams(searchParamsFromStateCertificate));
+				break;			}
+			case e.target.baseURI.includes('smallboats'):{
+
+				dispatch(getDataBoatsBySearchParams(searchParamsFromStateBoat));
+				break;
+			}
+			case e.target.baseURI.includes('basesbuilding'):{
+				dispatch(getDataBasesBuildingBySearchParams(searchParamsFromStateBasesBuilding))
+				break;
+			}
+			default: ;
+		}
 	};
 
 	const handleValue = (e) => {
-		dispatch(setSearchParams(e.target.dataset.id, e.target.value));
+		dispatch(setSearchParams(e.target.dataset.id, e.target.value,e.target.baseURI));
 	};
 	return (
 		<>
 			<Form className={styles["form-inputs"]}>
+
 				<div className={styles["area-inputs"]}>
+
 					{props.inputsHeaders.map((item) => {
 						return (
 							<Form.Group
@@ -32,12 +67,22 @@ export default function SearchBlock(props) {
 								className={styles["input-element"]}
 								controlId="formBasicEmail">
 								<Form.Label className={styles["label-text"]}>{item.value}</Form.Label>
-								<Form.Control
-									data-id={item.key}
-									onChange={(e) => handleValue(e)}
-									className={styles["entry-field"]}
-									type="text"
-								/>
+								{item.type==='select'&&(
+									<Form.Select  className={`mb-2`}
+												  data-id={item.key}
+												  onChange={(e) => handleValue(e)}
+									>
+									{item.selectOption.map(el=>(<option>{el}</option>))}
+								</Form.Select>
+								)}
+								{item.type==='text'&&(
+									<Form.Control
+										data-id={item.key}
+										onChange={(e) => handleValue(e)}
+										className={styles["entry-field"]}
+										type="text"
+									/>
+								)}
 								{item.description !== undefined ? (
 									<Form.Text className={styles["description-text"]}>
 										{item.description}

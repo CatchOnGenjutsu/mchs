@@ -1,41 +1,49 @@
 import React from "react";
-import { useState } from "react";
-import Header from "../../components/Header/Header";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import SearchBlock from "../../components/SearchBlock/SearchBlock";
 import Certificate from "../../components/Certificate/Certificate";
 import { inputsHeadersCertificates } from "../../components/SearchBlock/inputsHeaders";
 import { getLicenseById } from "../../redux/actions";
 
 import styles from "./Certificates.module.css";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {SERTIFICATES_COLUMNS} from "../../components/SearchTable/TablesColumns";
+import SearchTable from "../../components/SearchTable/SearchTable";
 
 export default function Certificates() {
-	const [hiddenCert, setHiddenCert] = useState(false);
+	// const [hiddenCert, setHiddenCert] = useState(false);
+	// // const [LicenseId, setLicenseId] = useState("");
 
 	const dispatch = useDispatch();
 
-	const handleHiddenCert = () => {
-		dispatch(getLicenseById());
-		setHiddenCert(!hiddenCert);
-	};
+	// const handleHiddenCert = () => {
+	// 	dispatch(getLicenseById());
+	// 	setHiddenCert(!hiddenCert);
+	// };
+	// const handleLicenseId = (value) => {
+	// 	setLicenseId(value);
+	// };
+	const dataFromStateCer = useSelector((state) => {
+		const {certificateReducer } = state;
+		return certificateReducer.data.map(el=>{
+			if(Boolean(el.licenseId)){
+				el.id=el.licenseId
+				delete el.licenseId
+			}
+			console.log(el)
+			return el
+		});
+	});
 	return (
 		<>
-			<Header showButton={true} />
-			<Sidebar />
-			<div className={styles["content-block"]}>
-				<div className={hiddenCert ? styles.hidden : ""}>
+				<div >
 					<h2>Удостоверения</h2>
 					<SearchBlock inputsHeaders={inputsHeadersCertificates} />
+					<SearchTable
+						// setId={handleLicenseId}
+						columns={SERTIFICATES_COLUMNS}
+						dataFromState={dataFromStateCer}
+					/>
 				</div>
-				<button
-					className={`${styles["button-back"]} btn btn-primary`}
-					type="button"
-					onClick={handleHiddenCert}>
-					Показать
-				</button>
-				<Certificate hidden={hiddenCert} />
-			</div>
 		</>
 	);
 }

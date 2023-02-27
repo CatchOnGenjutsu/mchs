@@ -4,11 +4,23 @@ import {
   GET_BOATS_CARDS_LIST,
   GET_BOAT_CARD_INFO,
   CLEAR_BOAT_CARD_INFO,
-  SET_SEARCH_PARAMS,
-  GET_DATA_BY_SEARCH_PARAMS,
-  GET_LICENSE_BY_ID
+  GET_DATA_BY_SEARCH_PARAMS_LICENSE,
+  GET_DATA_BY_SEARCH_PARAMS_BOAT,
+  GET_LICENSE_BY_ID,
+  GET_DATA_BY_SEARCH_PARAMS_BASES_BUILDING,
+  SET_SEARCH_PARAMS_BASES_BUILDING,
+  SET_SEARCH_PARAMS_BOATS,
+  SET_SEARCH_PARAMS_LICENSE
 } from './types';
-
+import {
+  MAIN_URL,
+  PORT,
+  API_GET_BOATS_LIST_SERCH,
+  API_GET_BOAT_INFO_CARD,
+  API_GET_LICENSE_LIST_SERCH,
+  API_GET_LICENSE_INFO_CARD,
+  API_GET_BASES_BUILDING_LIST_SERCH
+} from "../constants/constants";
 
 export function showHiddenMenu(id) {
   return {
@@ -24,31 +36,28 @@ export function colorMenuItem(id) {
   };
 }
 
-export function getBoatsCardsList() {
-  return async dispatch => {
-    const response = await fetch("http://192.168.70.81:8080/boats/boatCards");
-    // const jsonData = await response.json();
-    // const response = await fetch("http://localhost:3000/data")
-    const data = await response.json();
-    for (let item of data) {
-      const owner = `${item.agent.personSurname} ${item.agent.personName} ${item.agent.personMidname}`;
-      item["boatType"] = item["boatType"]["btname"]
-      item["owner"] = owner;
-    }
-    const jsonData = data;
-
-    dispatch({
-      type: GET_BOATS_CARDS_LIST,
-      data: jsonData
-    })
-  };
-}
+// export function getBoatsCardsList() {
+//   return async dispatch => {
+//     const response = await fetch(MAIN_URL+PORT+API_BOATS_LIST);
+//     const data = await response.json();
+//     for (let item of data) {
+//       const owner = `${item.agent.personSurname} ${item.agent.personName} ${item.agent.personMidname}`;
+//       item["boatType"] = item["boatType"]["btname"]
+//       item["owner"] = owner;
+//     }
+//     const jsonData = data;
+//     dispatch({
+//       type: GET_BOATS_CARDS_LIST,
+//       data: jsonData
+//     })
+//   };
+// }
 
 export function getBoatCardInfo(id) {
   return async dispatch => {
     let jsonData = {};
     if (id !== "") {
-      const response = await fetch(`http://192.168.70.81:8080/boats/getBoatCard/${String(id)}`);
+      const response = await fetch(MAIN_URL+PORT+API_GET_BOAT_INFO_CARD+String(id));
       jsonData = await response.json();
     }
     dispatch({
@@ -66,17 +75,41 @@ export function clearBoatCardInfo() {
     }
   )
 }
-export function setSearchParams(id, value) {
+export function setSearchParams(id, value,url) {
   let object = { [`${id}`]: value }
-  return (
-    {
-      type: SET_SEARCH_PARAMS,
-      data: object
+  switch (true) {
+    case url.includes('certificates'):{
+      return (
+          {
+            type: SET_SEARCH_PARAMS_LICENSE,
+            data: object
+          }
+      )
+      break;			}
+    case url.includes('smallboats'):{
+      return (
+          {
+            type: SET_SEARCH_PARAMS_BOATS,
+            data: object
+          }
+      )
+      break;
     }
-  )
+    case url.includes('basesbuilding'):{
+      return (
+          {
+            type: SET_SEARCH_PARAMS_BASES_BUILDING,
+            data: object
+          }
+      )
+      break;
+    }
+    default: ;
+  }
+
 }
 
-export function getDataBySearchParams(params) {
+export function getDataBoatsBySearchParams(params) {
   return async dispatch => {
     // let url = "http://192.168.70.81:8080/boats/search"
     // for (let key in params) {
@@ -85,15 +118,13 @@ export function getDataBySearchParams(params) {
     //   }
     // }
     // console.log(url)
-    const response = await fetch(`http://192.168.70.81:8080/boats/search`, {
+    const response = await fetch(MAIN_URL+PORT+API_GET_BOATS_LIST_SERCH, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(params)
     });
-    // const jsonData = await response.json();
-    // const response = await fetch("http://localhost:3000/data")
     const data = await response.json();
     console.log("data from action >>", data)
     for (let item of data) {
@@ -103,29 +134,89 @@ export function getDataBySearchParams(params) {
     const jsonData = data;
 
     dispatch({
-      type: GET_DATA_BY_SEARCH_PARAMS,
+      type: GET_DATA_BY_SEARCH_PARAMS_BOAT,
       data: jsonData
     })
   };
 }
 
-export function getLicenseById() {
+export function getDataCerticatesBySearchParams (params) {
+  return async dispatch =>{
+    console.log(dispatch)
+    const response = await fetch(MAIN_URL+PORT+API_GET_LICENSE_LIST_SERCH,{
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }).catch(err=>console.log(err));
+    if(response.ok){
+      const data = await response.json();
+      for (let item of data) {
+        const fio = `${item.surname} ${item.name} ${item.midname}`;
+        item["fio"] = fio;
+      }
+      const jsonData = data;
+      console.log(jsonData)
+      dispatch({
+        type: GET_DATA_BY_SEARCH_PARAMS_LICENSE,
+        data: jsonData
+      })
+    }
+
+  }
+
+}
+
+export function getLicenseById(id) {
   return async dispatch => {
-    const response = await fetch(`http://192.168.70.81:8080/boats/license/drivingLicense/1`);
-    // const jsonData = await response.json();
-    // const response = await fetch("http://localhost:3000/data")
-    const data = await response.json();
-    console.log("data from action >>", data)
-    // for (let item of data) {
-    //   const owner = `${item.personSurname} ${item.personName} ${item.personMidname}`;
-    //   item["owner"] = owner;
-    // }
-    const jsonData = data;
-
-    dispatch({
-      type: GET_LICENSE_BY_ID,
-      data: jsonData
-    })
+    const response = await fetch(MAIN_URL+PORT+API_GET_LICENSE_INFO_CARD+id);
+    if(response.ok){
+      const data = await response.json();
+      console.log("data from action >>", data)
+      const jsonData = data;
+      console.log(jsonData)
+      dispatch({
+        type: GET_LICENSE_BY_ID,
+        data: jsonData
+      })
+    }
   };
 }
 
+export function getDataBasesBuildingBySearchParams (params) {
+  return async dispatch =>{
+    let queryParams =''
+    switch (true) {
+      case Boolean(params.startDate)&&Boolean(params.endDate):
+        queryParams=`?startDate=${params.startDate}&endDate=${params.endDate}`
+        break;
+      case  Boolean(params.startDate):
+        queryParams=`?startDate=${params.startDate}`
+        break;
+      case  Boolean(params.endDate):
+        queryParams=`?endDate=${params.endDate}`
+        break;
+      default:queryParams=''
+    }
+    const response = await fetch(MAIN_URL+PORT+API_GET_BASES_BUILDING_LIST_SERCH+queryParams,{
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }).catch(err=>console.log(err));
+    if(response.ok){
+      const data = await response.json();
+      console.log(data)
+      const jsonData = data;
+      console.log(jsonData)
+      dispatch({
+        type: GET_DATA_BY_SEARCH_PARAMS_BASES_BUILDING,
+        data: jsonData
+      })
+    }
+
+  }
+
+}

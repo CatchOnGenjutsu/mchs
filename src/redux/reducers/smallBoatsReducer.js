@@ -2,9 +2,9 @@ import {
   GET_BOATS_CARDS_LIST,
   GET_BOAT_CARD_INFO,
   CLEAR_BOAT_CARD_INFO,
-  SET_SEARCH_PARAMS,
-  GET_DATA_BY_SEARCH_PARAMS
-} from "./types";
+  GET_DATA_BY_SEARCH_PARAMS_BOAT,
+  SET_SEARCH_PARAMS_BOATS
+} from "../types";
 
 const initialState = {
   data: [],
@@ -18,11 +18,12 @@ const initialState = {
     unp: "",
     boatVin: "",
     engvin: "",
+    cardStatus:"Активная",
   }
 }
 
 export const smallBoatsReducer = (state = initialState, action) => {
-  // console.log("smallBoatsReducer >>", action.data)
+  console.log("smallBoatsReducer >>", action.data)
   switch (action.type) {
     case GET_BOATS_CARDS_LIST:
       return (() => ({
@@ -41,12 +42,12 @@ export const smallBoatsReducer = (state = initialState, action) => {
         ...state,
         boatInfo: Object.assign({}, action.data)
       }))();
-    case SET_SEARCH_PARAMS:
+    case SET_SEARCH_PARAMS_BOATS:
       return (() => ({
         ...state,
         searchParams: Object.assign(state.searchParams, action.data)
       }))();
-    case GET_DATA_BY_SEARCH_PARAMS:
+    case GET_DATA_BY_SEARCH_PARAMS_BOAT:
       return (() => ({
         ...state,
         data: [
@@ -54,6 +55,7 @@ export const smallBoatsReducer = (state = initialState, action) => {
         ],
       }))();
     default:
+      console.log('выход')
       return state;
   }
 };

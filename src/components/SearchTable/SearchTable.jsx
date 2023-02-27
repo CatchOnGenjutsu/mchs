@@ -1,14 +1,17 @@
 import React, { useMemo } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-
-import { useDispatch } from "react-redux";
-import { getBoatCardInfo } from "../../redux/actions";
-
+import {useDispatch} from "react-redux";
+import {
+	getBoatCardInfo,
+	getLicenseById
+} from "../../redux/actions";
 import styles from "./SearchTable.module.css";
-import { useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 
-export default function SmallBoatsTable(props) {
-	const dispatch = useDispatch();
+export default function SearchTable(props) {
+
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
 	const columns = useMemo(() => props.columns, []);
 
@@ -38,43 +41,29 @@ export default function SmallBoatsTable(props) {
 	const { pageIndex } = state;
 
 	const handleTableClick = (e) => {
-		props.setBoatId(e.target.dataset.id);
-		dispatch(getBoatCardInfo(e.target.dataset.id));
-	};
-	const handleSetBoatId = (e) => {
-		console.log("id >>>", e.target.dataset.id);
-		props.setBoatId(e.target.dataset.id);
+		e.stopPropagation()
+		const id = e.currentTarget.dataset.id
+		switch (true) {
+			case e.target.baseURI.includes('certificates'):{
+				dispatch(getLicenseById(id));
+				navigate(`./licenseId/${id}`)
+				break;			}
+			case e.target.baseURI.includes('smallboats'):{
+				dispatch(getBoatCardInfo(id));
+				navigate(`./boatId/${id}`)
+				break;
+			}
+			case e.target.baseURI.includes('basesbuilding'):{
+				props.setBuildingId(id)
+			}
+			default: ;
+		}
+
 	};
 
-	useEffect(() => {
-		const input = document.querySelector("#hide-input");
-		if (input.checked) {
-			input.click();
-		}
-	}, []);
 
 	return (
 		<>
-			<div className={styles["hide-input"]}>
-				{allColumns.map((column) => {
-					if (column.id === "cardid") {
-						return (
-							<div key={column.id}>
-								<label>
-									<input
-										type="checkbox"
-										checked={false}
-										id="hide-input"
-										{...column.getToggleHiddenProps()}
-									/>
-									{column.Header}
-								</label>
-							</div>
-						);
-					}
-				})}
-			</div>
-
 			<div className={styles["content-container"]}>
 				<table
 					className={styles.table}
@@ -97,25 +86,26 @@ export default function SmallBoatsTable(props) {
 						))}
 					</thead>
 					<tbody {...getTableBodyProps()}>
+					{console.log(page)}
 						{page.map((row) => {
 							prepareRow(row);
 							return (
 								<tr
+									data-id={row.original.id}
 									onClick={(e) => {
 										handleTableClick(e);
 									}}
-									className={styles["tr-td"]}
+									className={`${styles["tr-td"]}`}
 									{...row.getRowProps()}>
 									{row.cells.map((cell) => {
 										return (
 											<td
+												// onClickCapture={(e) => {
+												// 	handleSetId(e);
+												// }}
 												className={styles["td-table"]}
 												{...cell.getCellProps()}>
-												<div
-													data-id={row.values.cardid}
-													onClick={(e) => {
-														handleSetBoatId(e);
-													}}>
+												<div>
 													{cell.render("Cell")}
 												</div>
 											</td>
