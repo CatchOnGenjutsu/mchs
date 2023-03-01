@@ -86,7 +86,6 @@ export default function SearchTable(props) {
 						))}
 					</thead>
 					<tbody {...getTableBodyProps()}>
-					{console.log(page)}
 						{page.map((row) => {
 							prepareRow(row);
 							return (
