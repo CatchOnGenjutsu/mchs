@@ -1,17 +1,19 @@
 import React, { useMemo } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-import {useDispatch} from "react-redux";
-import {
-	getBoatCardInfo,
-	getLicenseById
-} from "../../redux/actions";
+import { useDispatch } from "react-redux";
+import { getBoatCardInfo, getLicenseById } from "../../redux/actions";
 import styles from "./SearchTable.module.css";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function SearchTable(props) {
+	const licenseInfoFromState = useSelector((state) => {
+		const { certificateReducer } = state;
+		return certificateReducer.licenseInfo;
+	});
 
-	const dispatch = useDispatch()
-	const navigate = useNavigate()
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const columns = useMemo(() => props.columns, []);
 
@@ -41,26 +43,25 @@ export default function SearchTable(props) {
 	const { pageIndex } = state;
 
 	const handleTableClick = (e) => {
-		e.stopPropagation()
-		const id = e.currentTarget.dataset.id
+		e.stopPropagation();
+		const id = e.currentTarget.dataset.id;
 		switch (true) {
-			case e.target.baseURI.includes('certificates'):{
+			case e.target.baseURI.includes("certificates"): {
 				dispatch(getLicenseById(id));
-				navigate(`./licenseId/${id}`)
-				break;			}
-			case e.target.baseURI.includes('smallboats'):{
-				dispatch(getBoatCardInfo(id));
-				navigate(`./boatId/${id}`)
+				navigate(`./licenseId/${id}`);
 				break;
 			}
-			case e.target.baseURI.includes('basesbuilding'):{
-				props.setBuildingId(id)
+			case e.target.baseURI.includes("smallboats"): {
+				dispatch(getBoatCardInfo(id));
+				navigate(`./boatId/${id}`);
+				break;
 			}
-			default: ;
+			case e.target.baseURI.includes("basesbuilding"): {
+				props.setBuildingId(id);
+			}
+			default:
 		}
-
 	};
-
 
 	return (
 		<>
@@ -104,9 +105,7 @@ export default function SearchTable(props) {
 												// }}
 												className={styles["td-table"]}
 												{...cell.getCellProps()}>
-												<div>
-													{cell.render("Cell")}
-												</div>
+												<div>{cell.render("Cell")}</div>
 											</td>
 										);
 									})}
