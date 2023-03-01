@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Certificate.module.css';
 import photoImg from './testImgAfterDelete/USA.jpg';
-import { boatDrivingLicenseSpecmarksList } from './tableOptions';
+import { boatDrivingLicenseSpecmarksList, tableLossOfControl } from './tableOptions';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -202,17 +202,17 @@ export default function Certificate(props) {
 			<div className={styles.guide__marks__container}>
 				<h3>Отметки</h3>
 				<div className={styles.block__data__container}>
-					<div key={boatDrivingLicenseSpecmarksList.keyTable}>
-						<h6 className="text-secondary">{boatDrivingLicenseSpecmarksList.caption}</h6>
+					<div key={tableLossOfControl.keyTable}>
+						<h6 className="text-secondary">{tableLossOfControl.caption}</h6>
 						<table className="table table-bordered border-secondary bg-white">
 							<thead>
 								<tr>
-									{boatDrivingLicenseSpecmarksList.nameColumn.map((item) => (
+									{tableLossOfControl.nameColumn.map((item) => (
 										<th
 											key={item[0]}
 											scope="col"
 											className={
-												'organ number position fio mark'.includes(item[0])
+												'confOrg confDocNum position fio mark'.includes(item[0])
 													? 'col-4 text-center'
 													: 'col-2 text-center'
 											}>
@@ -222,14 +222,23 @@ export default function Certificate(props) {
 								</tr>
 							</thead>
 							<tbody>
-								{specMarkFromState.map((item) => {
-									return (
-										<tr key={item.id}>
-											{boatDrivingLicenseSpecmarksList.nameColumn.map((elem) => {
-												return <td key={item.id}>{item[`${elem[0]}`]}</td>;
-											})}
-										</tr>
-									);
+								{licenseConfFromState.map((item) => {
+									if (item.confiscation['code'] === 1) {
+										return (
+											<tr key={item.id}>
+												{tableLossOfControl.nameColumn.map((elem) => {
+													if (elem[0] === 'confDocNum') {
+														return (
+															<td key={item.id}>
+																{`${item['confDate']} ${item[`${elem[0]}`]}`}
+															</td>
+														);
+													}
+													return <td key={item.id}>{item[`${elem[0]}`]}</td>;
+												})}
+											</tr>
+										);
+									}
 								})}
 							</tbody>
 						</table>

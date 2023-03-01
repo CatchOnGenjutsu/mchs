@@ -1,11 +1,11 @@
 export const tableLossOfControl = {
     keyTable: 'lossControl',
     caption: "Отметка о лишении права управления:",
-    nameColumn: {
-        term: 'Cрок лишения',
-        organ: 'Орган',
-        number: 'Дата и номер решения'
-    }
+    nameColumn: [
+        ["confDateEnd", 'Cрок лишения'],
+        ["confOrg", 'Орган'],
+        ["confDocNum", 'Дата и номер решения']
+    ]
 }
 
 export const tableCertificateWithdrawal = {
