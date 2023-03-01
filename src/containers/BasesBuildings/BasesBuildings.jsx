@@ -43,12 +43,17 @@ export default function BasesBuildings() {
 		return dataBase})
 
 	const handleBuildingId = (value) => {
-		setBuildingId(value)
-		console.log(buildingId)
+			setBuildingId(value)
 	};
 	const [show, setShow] = useState(false);
+	const [buttonType,setButtonType] = useState(null)
 
-	const handleShow = () => setShow(true);
+	const handleShow = (event) => {
+		event.stopPropagation()
+		setButtonType(event.currentTarget.dataset.type)
+		setShow(true);
+	}
+
 
 	return (
 		<>
@@ -59,16 +64,19 @@ export default function BasesBuildings() {
 					data = {dataFromStateBases}
 					buildingId={buildingId}
 					showForm = {handleShow}
+					setButtonType={setButtonType}
 				/>
 				<SearchTable
 					setBuildingId = {handleBuildingId}
 					columns={BUILDING_COLUMNS}
 					dataFromState={data}
 				/>
-				<ModalWindow
+				{show&&(<ModalWindow
 					setShow={setShow}
 					show={show}
-				/>
+					type={buttonType}
+					buildingId={buildingId}
+				/>)}
 			</div>
 		</>
 	);
