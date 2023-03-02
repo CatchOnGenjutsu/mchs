@@ -1,30 +1,28 @@
-const tableLossOfControl = {
-    keyTable:'lossControl',
-    caption:"Отметка о лишении права управления:",
-    nameColoumn:{
-        term:'Cрок лишения',
-        organ:'Орган',
-        number:'Дата и номер решения'
-    }
+export const tableLossOfControl = {
+    keyTable: 'lossControl',
+    caption: "Отметка о лишении права управления:",
+    nameColumn: [
+        ["confDateEnd", 'Cрок лишения'],
+        ["confOrg", 'Орган'],
+        ["confDocNum", 'Дата и номер решения']
+    ]
 }
 
-const tableCertificateWithdrawal = {
-    keyTable:'certificateWithdrawal',
-    caption:"Отметка об изъятиии удостоверения:",
-    nameColoumn:{
-        date:'Дата изъятия',
-        organ:'Орган',
-        position:'Должность (кем произведено изъятие)',
-        fio:' Ф.И.О. должностного лица',
-    }
+export const tableCertificateWithdrawal = {
+    keyTable: 'certificateWithdrawal',
+    caption: "Отметка об изъятиии удостоверения:",
+    nameColumn: [
+        ["confDate", 'Дата изъятия'],
+        ["confOrg", 'Орган'],
+        ["userPositions", 'Должность (кем произведено изъятие)'],
+        ["name", ' Ф.И.О. должностного лица'],
+    ]
 }
-const tableSpecialMarks ={
-    keyTable:'specialMarks',
-    caption:"Особые отметки:",
-    nameColoumn:{
-        date:'Дата',
-        note:'Отметка',
-    }
+export const boatDrivingLicenseSpecmarksList = {
+    keyTable: 'boatDrivingLicenseSpecmarksList',
+    caption: "Особые отметки:",
+    nameColumn: [
+        ['markDate', 'Дата'],
+        ["mark", 'Отметка'],
+    ]
 }
-
-export const arrayOptionsTables = [tableLossOfControl,tableCertificateWithdrawal,tableSpecialMarks]
