@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import styles from './Certificate.module.css';
 import photoImg from './testImgAfterDelete/USA.jpg';
-import { boatDrivingLicenseSpecmarksList, tableLossOfControl } from './tableOptions';
+import {
+	boatDrivingLicenseSpecmarksList,
+	tableLossOfControl,
+	tableCertificateWithdrawal,
+} from './tableOptions';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import CertificateModalWindow from './ModalWindow/CertificateModalWindow';
 
 import { useDispatch } from 'react-redux';
 import { getLicenseById } from '../../redux/actions';
 
 export default function Certificate(props) {
 	const [editMode, setEditMode] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+	const [modalWindowInputs, setModalWindowInputs] = useState(null);
 
 	const navigate = useNavigate();
 
@@ -27,6 +34,7 @@ export default function Certificate(props) {
 		const { certificateReducer } = state;
 		return certificateReducer.licenseConfList;
 	});
+
 	const handleEditMode = () => {
 		console.log('specMarkFromState>>>>', specMarkFromState);
 		console.log('licenseConfFromState>>>>', licenseConfFromState);
@@ -39,6 +47,24 @@ export default function Certificate(props) {
 		} else {
 			navigate(-1);
 		}
+	};
+
+	const handleAddNotes = (e) => {
+		console.log(e.target.id);
+		switch (e.target.id) {
+			case 'lossControl':
+				setModalWindowInputs(tableLossOfControl);
+				break;
+			case 'certificateWithdrawal':
+				setModalWindowInputs(tableCertificateWithdrawal);
+				break;
+			case 'boatDrivingLicenseSpecmarksList':
+				setModalWindowInputs(boatDrivingLicenseSpecmarksList);
+				break;
+			default:
+				break;
+		}
+		setShowModal(true);
 	};
 
 	return (
@@ -212,7 +238,7 @@ export default function Certificate(props) {
 											key={item[0]}
 											scope="col"
 											className={
-												'confOrg confDocNum position fio mark'.includes(item[0])
+												'confOrg confDocNum userPositions name mark'.includes(item[0])
 													? 'col-4 text-center'
 													: 'col-2 text-center'
 											}>
@@ -246,9 +272,61 @@ export default function Certificate(props) {
 							className={`${styles.add__buttons} btn btn-primary ${
 								editMode ? '' : styles.edit__mode
 							}`}
-							id={boatDrivingLicenseSpecmarksList.keyTable}
-							// onClick={(e) => handleAddNotes(e)}
-						>
+							id={tableLossOfControl.keyTable}
+							onClick={(e) => handleAddNotes(e)}>
+							+
+						</button>
+					</div>
+					<div key={tableCertificateWithdrawal.keyTable}>
+						<h6 className="text-secondary">{tableCertificateWithdrawal.caption}</h6>
+						<table className="table table-bordered border-secondary bg-white">
+							<thead>
+								<tr>
+									{tableCertificateWithdrawal.nameColumn.map((item) => (
+										<th
+											key={item[0]}
+											scope="col"
+											className={
+												'confOrg confDocNum userPositions name mark'.includes(item[0])
+													? 'col-4 text-center'
+													: 'col-2 text-center'
+											}>
+											{item[1]}
+										</th>
+									))}
+								</tr>
+							</thead>
+							<tbody>
+								{licenseConfFromState.map((item) => {
+									if (item.confiscation['code'] === 2) {
+										return (
+											<tr key={item.id}>
+												{tableCertificateWithdrawal.nameColumn.map((elem) => {
+													switch (elem[0]) {
+														case 'userPositions':
+															return (
+																<td key={item.id}>
+																	{item.userid[`${elem[0]}`]['posName']}
+																</td>
+															);
+														case 'name':
+															return <td key={item.id}>{item.userid['name']}</td>;
+														default:
+															return <td key={item.id}>{item[`${elem[0]}`]}</td>;
+													}
+												})}
+											</tr>
+										);
+									}
+								})}
+							</tbody>
+						</table>
+						<button
+							className={`${styles.add__buttons} btn btn-primary ${
+								editMode ? '' : styles.edit__mode
+							}`}
+							id={tableCertificateWithdrawal.keyTable}
+							onClick={(e) => handleAddNotes(e)}>
 							+
 						</button>
 					</div>
@@ -288,8 +366,7 @@ export default function Certificate(props) {
 								editMode ? '' : styles.edit__mode
 							}`}
 							id={boatDrivingLicenseSpecmarksList.keyTable}
-							// onClick={(e) => handleAddNotes(e)}
-						>
+							onClick={(e) => handleAddNotes(e)}>
 							+
 						</button>
 					</div>
@@ -310,6 +387,13 @@ export default function Certificate(props) {
 					Закрыть
 				</button>
 			</div>
+			{showModal && (
+				<CertificateModalWindow
+					setShowModal={setShowModal}
+					showModal={showModal}
+					modalWindowInputs={modalWindowInputs}
+				/>
+			)}
 		</div>
 	);
 }
