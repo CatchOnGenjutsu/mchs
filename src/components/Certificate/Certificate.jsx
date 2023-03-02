@@ -175,7 +175,6 @@ export default function Certificate(props) {
 								<p>Серия</p>
 								<span>{licenseInfoFromState.docSeries || '-'}</span>
 							</div>
-
 							<div className={styles.data__property}>
 								<p>Дата выд.</p>
 								<span>{licenseInfoFromState.docDateIssue || '-'}</span>

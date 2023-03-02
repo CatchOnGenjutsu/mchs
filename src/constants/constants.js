@@ -10,8 +10,14 @@ export const API_GET_LICENSE_LIST_SERCH = 'boats/license/search'
 export const API_GET_LICENSE_INFO_CARD = 'boats/license/drivingLicense/'
 export const API_GET_LICENSE_ADD_INFO_CARD = 'boats/license/drivingLicenseAdd/'
 
+
+ export const API_GET_BASES_BUILDING_LIST_SERCH = 'bases/search'
+ export const API_EDIT_BASES_BUILDING = 'bases/updateBoatParking/'
+ export const API_ADD_BASES_BUILDING= 'bases/addBoatParking'
+
 export const API_GET_BASES_BUILDING_LIST_SERCH = 'bases/search'
 
 export const API_GET_LICENSE_INFO_FROM_LIBS_OBLAST = 'directory/oblast/'
 export const API_GET_LICENSE_INFO_FROM_LIBS_RAYON = 'directory/rayon/'
 export const API_GET_LICENSE_INFO_FROM_LIBS_GOROD = 'directory/gorod/'
+

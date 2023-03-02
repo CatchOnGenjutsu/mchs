@@ -1,4 +1,6 @@
 import {
+    EDIT_BASES,
+    ADD_NEW_BASES,
     GET_DATA_BY_SEARCH_PARAMS_BASES_BUILDING,
     SET_SEARCH_PARAMS_BASES_BUILDING
 } from "../types";
@@ -30,7 +32,25 @@ export const basesBuildingReducer = (state=initialState,action)=>{
                         ...action.data
                     ],
                 }))();
-
+            case EDIT_BASES:
+                return (() => ({
+                    ...state,
+                    data: [
+                        ...state.data.map(el=>{
+                            if(el.parkId==action.data.parkId){
+                                el=action.data
+                                return el
+                            }else return el
+                        })
+                    ],
+                }))();
+            case ADD_NEW_BASES:
+                return (() => ({
+                    ...state,
+                    data: [
+                        ...state.data.push(action.data)
+                    ],
+                }))();
             default: return state;
         }
 }

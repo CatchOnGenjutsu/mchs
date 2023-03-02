@@ -2,30 +2,27 @@ import React, {useEffect, useState} from 'react';
 import styles from './ModalWindow.module.css'
 import {Form,Button,Modal} from "react-bootstrap";
 import {optionsForModalWindow} from "./constansForModalWindow";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {addDataBasesBuildings, editDataBasesBuildings} from "../../../redux/actions";
 function ModalWindow({setShow,show,type,buildingId}) {
-    const dataFromStateBases = useSelector(state => {
-        const {basesBuildingReducer} = state
-        return 	basesBuildingReducer.data
-    })
-    console.log(dataFromStateBases)
-    const [building,setBuilding]=useState(()=>{
-        if(dataFromStateBases.length){
-            return structuredClone(dataFromStateBases.find(el=>el.parkId==buildingId))
-        }
-        else {return null}
-    })
-    console.log(building)
-
-   // let building =
     const options = {
         add: 'Добавить новую базу',
         edit: 'Редактировать запись',
         delete:'Удалить запись'
     }
-    const handleClose = () => setShow(false);
+    const dispatch = useDispatch();
+    const dataFromStateBases = useSelector(state => {
+        const {basesBuildingReducer} = state
+        return 	basesBuildingReducer.data
+    })
     const [selectValue,setSelectValue]= useState(null)
     const [optionsInput,setOptionsInput]=useState([])
+    const [building,setBuilding]=useState(()=>{
+        if(dataFromStateBases.length&&type==='edit'){
+            return structuredClone(dataFromStateBases.find(el=>el.parkId==buildingId))
+        }
+        else {return {ownerType:"1"}}
+    })
     useEffect(()=>{
         const element = document.querySelector('#typeOwnership');
         (element && setSelectValue(element.value))
@@ -34,12 +31,32 @@ function ModalWindow({setShow,show,type,buildingId}) {
 
     const handleValue = (event)=>{
         setSelectValue(event.target.value)
+        building['ownerType']=event.target.value
+        setBuilding(building)
         selectValue==optionsForModalWindow.optionsForSelect[0].id?setOptionsInput(optionsForModalWindow.optionsForInputIndividual):setOptionsInput(optionsForModalWindow.optionsForInputLegalEntity)
     }
+    const handleClose = (event) => {
+        let buttonType
+        if(event){
+            buttonType = event.target.dataset.type
+        }
+        switch (true) {
+            case (buttonType ==='save'&& type ==='add'):{
+                dispatch(addDataBasesBuildings(building))
+                break;
+            }
+            case (buttonType ==='save'&& type ==='edit'):{
+                dispatch(editDataBasesBuildings(building))
+                break;
+            }
+
+        }
+        setShow(false)
+    };
 
     return (
         <Modal show={show} onHide={handleClose} size="lg">
-            <Modal.Header closeButton>
+            <Modal.Header closeButton >
                 <Modal.Title>{options[type]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -49,7 +66,7 @@ function ModalWindow({setShow,show,type,buildingId}) {
                         <Form.Select
                             onChange={(e) => handleValue(e)}
                             id={`typeOwnership`}
-                            value={(type==='edit'&&building)?building['ownerType']:1}
+                            value={(building)?building['ownerType']:1}
                         >
                             {optionsForModalWindow.optionsForSelect.map(el=><option value={el.id}>{el.value}</option>)}
                         </Form.Select>
@@ -61,13 +78,11 @@ function ModalWindow({setShow,show,type,buildingId}) {
                                     <Form.Control
                                         data-id={el.key}
                                         type="text"
-                                        value={(type==='edit'&&building)?building[el.key]:''}
+                                        value={(building)&&building[el.key]||''}
                                         onChange={(e)=>{
-                                        // data[e.currentTarget.dataset.id]=e.currentTarget.value
-                                        //     setBuilding(structuredClone(data))
-                                        }
-                                        }
-
+                                       building[e.currentTarget.dataset.id]=e.currentTarget.value
+                                            setBuilding(structuredClone(building))
+                                        }}
                                     />
                                 </Form.Group>
                             )
@@ -75,10 +90,10 @@ function ModalWindow({setShow,show,type,buildingId}) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                <Button variant="secondary" data-type={`close`} onClick={handleClose}>
                     Закрыть
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" data-type={`save`} onClick={handleClose}>
                     Сохранить
                 </Button>
             </Modal.Footer>
