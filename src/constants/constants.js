@@ -10,3 +10,5 @@
  export const API_GET_LICENSE_INFO_CARD ='boats/license/drivingLicense/'
 
  export const API_GET_BASES_BUILDING_LIST_SERCH = 'bases/search'
+ export const API_EDIT_BASES_BUILDING = 'bases/updateBoatParking/'
+ export const API_ADD_BASES_BUILDING= 'bases/addBoatParking'

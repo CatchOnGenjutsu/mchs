@@ -36,8 +36,12 @@ export const optionsForModalWindow = {
             label:"Телефон эксплуатанта базы"
         },
         {
+            key: "sectionName",
+            label: "Участок",
+        },
+        {
             key:"location",
-            label:"Местонахождние базы"
+            label:"Местонахождение базы"
         },
         {
             key:"phone1",
@@ -79,9 +83,14 @@ export const optionsForModalWindow = {
             label:"Телефон эксплуатанта базы"
         },
         {
-            key:"location",
-            label:"Местонахождние базы"
+            key: "sectionName",
+            label: "Участок",
         },
+        {
+            key:"location",
+            label:"Местонахождение базы"
+        },
+
         {
             key:"phone1",
             label:"Основной телефон"

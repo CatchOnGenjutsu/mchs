@@ -12,7 +12,7 @@ export default function Certificate(props) {
     console.log(licenseInfoFromState)
     return (
         <div className={styles.wrapper}>
-            <h2>Удостоверение №{licenseInfoFromState.licenseNum}</h2>
+            <h2>Удостоверение №{licenseInfoFromState.boatDrivingLicense.licenseNum}</h2>
             <div className={`${styles.main__data__container}`}>
                 <div className={styles.photo__container}>
                     <img src={photoImg} className="img-fluid" alt="main Photo"/>

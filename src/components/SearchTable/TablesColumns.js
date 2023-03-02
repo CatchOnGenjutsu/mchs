@@ -66,7 +66,7 @@ export const BUILDING_COLUMNS = [
 		accessor: "ownerContact",
 	},
 	{
-		Header: "Местонахождние и телефон базы",
+		Header: "Местонахождение и телефон базы",
 		accessor: "baseContact",
 	},
 	{

@@ -10,7 +10,7 @@ import {
   GET_DATA_BY_SEARCH_PARAMS_BASES_BUILDING,
   SET_SEARCH_PARAMS_BASES_BUILDING,
   SET_SEARCH_PARAMS_BOATS,
-  SET_SEARCH_PARAMS_LICENSE
+  SET_SEARCH_PARAMS_LICENSE, EDIT_BASES, ADD_NEW_BASES
 } from './types';
 import {
   MAIN_URL,
@@ -19,7 +19,7 @@ import {
   API_GET_BOAT_INFO_CARD,
   API_GET_LICENSE_LIST_SERCH,
   API_GET_LICENSE_INFO_CARD,
-  API_GET_BASES_BUILDING_LIST_SERCH
+  API_GET_BASES_BUILDING_LIST_SERCH, API_EDIT_BASES_BUILDING, API_ADD_BASES_BUILDING
 } from "../constants/constants";
 
 export function showHiddenMenu(id) {
@@ -208,15 +208,43 @@ export function getDataBasesBuildingBySearchParams (params) {
     }).catch(err=>console.log(err));
     if(response.ok){
       const data = await response.json();
-      console.log(data)
       const jsonData = data;
-      console.log(jsonData)
       dispatch({
         type: GET_DATA_BY_SEARCH_PARAMS_BASES_BUILDING,
         data: jsonData
       })
-    }
+    }}}
 
-  }
+  export function editDataBasesBuildings(building){
+  return async  dispatch =>{
+    const response = await fetch(MAIN_URL+PORT+API_EDIT_BASES_BUILDING+`${building.parkId}`,{
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(building)
+    })
+    if(response.ok){
+      dispatch({
+        type:EDIT_BASES,
+        data: building,
+      })
+    }}}
 
-}
+    export function addDataBasesBuildings(building){
+      return async  dispatch =>{
+        const response = await fetch(MAIN_URL+PORT+API_ADD_BASES_BUILDING,{
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(building)
+        })
+        if(response.ok) {
+          dispatch({
+            type: ADD_NEW_BASES,
+            data: building,
+          })
+        }
+
+  }}
