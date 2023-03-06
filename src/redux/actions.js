@@ -10,7 +10,11 @@ import {
   GET_DATA_BY_SEARCH_PARAMS_BASES_BUILDING,
   SET_SEARCH_PARAMS_BASES_BUILDING,
   SET_SEARCH_PARAMS_BOATS,
-  SET_SEARCH_PARAMS_LICENSE, EDIT_BASES, ADD_NEW_BASES
+  SET_SEARCH_PARAMS_LICENSE,
+  EDIT_BASES, ADD_NEW_BASES,
+  APP_NEW_SPEC_MARK,
+  GET_USERS_LIBRARY,
+  ADD_NEW_CONF_MARK
 } from './types';
 import {
   MAIN_URL,
@@ -20,14 +24,18 @@ import {
   API_GET_LICENSE_LIST_SERCH,
   API_GET_LICENSE_INFO_CARD,
 
-  API_GET_BASES_BUILDING_LIST_SERCH, API_EDIT_BASES_BUILDING, API_ADD_BASES_BUILDING
   API_GET_BASES_BUILDING_LIST_SERCH,
-  
+  API_EDIT_BASES_BUILDING,
+  API_ADD_BASES_BUILDING,
+
   API_GET_LICENSE_ADD_INFO_CARD,
   API_GET_LICENSE_INFO_FROM_LIBS_OBLAST,
   API_GET_LICENSE_INFO_FROM_LIBS_RAYON,
-  API_GET_LICENSE_INFO_FROM_LIBS_GOROD
+  API_GET_LICENSE_INFO_FROM_LIBS_GOROD,
 
+  API_ADD_NEW_SPECIAL_MARK,
+  API_ADD_NEW_CONF_MARK,
+  API_GET_USERS_LIBRARY
 } from "../constants/constants";
 
 export function showHiddenMenu(id) {
@@ -236,38 +244,94 @@ export function getDataBasesBuildingBySearchParams(params) {
         type: GET_DATA_BY_SEARCH_PARAMS_BASES_BUILDING,
         data: jsonData
       })
-    }}}
+    }
+  }
+}
 
-  export function editDataBasesBuildings(building){
-  return async  dispatch =>{
-    const response = await fetch(MAIN_URL+PORT+API_EDIT_BASES_BUILDING+`${building.parkId}`,{
+export function editDataBasesBuildings(building) {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_EDIT_BASES_BUILDING + `${building.parkId}`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(building)
     })
-    if(response.ok){
+    if (response.ok) {
       dispatch({
-        type:EDIT_BASES,
+        type: EDIT_BASES,
         data: building,
       })
-    }}}
+    }
+  }
+}
 
-    export function addDataBasesBuildings(building){
-      return async  dispatch =>{
-        const response = await fetch(MAIN_URL+PORT+API_ADD_BASES_BUILDING,{
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(building)
-        })
-        if(response.ok) {
-          dispatch({
-            type: ADD_NEW_BASES,
-            data: building,
-          })
-        }
+export function addDataBasesBuildings(building) {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_ADD_BASES_BUILDING, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(building)
+    })
+    if (response.ok) {
+      dispatch({
+        type: ADD_NEW_BASES,
+        data: building,
+      })
+    }
 
-  }}
+  }
+}
+
+
+export function addNewSpecialMark(newMark) {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_SPECIAL_MARK + newMark.licenseId, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newMark)
+    })
+    delete newMark.licenseId;
+    newMark.id = await response.json()
+    if (response.status === 200) {
+      dispatch({
+        type: APP_NEW_SPEC_MARK,
+        data: newMark,
+      })
+    }
+  }
+}
+
+export function addNewConfMark(newMark, licenseId) {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_CONF_MARK + licenseId, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newMark)
+    })
+    newMark.confid = await response.json();
+    if (response.status === 200) {
+      dispatch({
+        type: ADD_NEW_CONF_MARK,
+        data: newMark,
+      })
+    }
+  }
+}
+
+export function getUsersLibrary() {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_GET_USERS_LIBRARY)
+    const data = await response.json()
+    dispatch({
+      type: GET_USERS_LIBRARY,
+      data: data,
+    })
+  }
+}

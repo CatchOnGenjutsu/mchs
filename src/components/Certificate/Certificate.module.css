@@ -13,7 +13,7 @@
 
 .wrapper .block__data__container p {
 	color: #6c757d;
-	font-family: "Times New Roman";
+	font-family: 'Times New Roman';
 	font-size: 16px;
 	margin: 0px;
 }
@@ -125,4 +125,19 @@
 
 .edit__mode {
 	display: none;
+}
+
+.edit__column {
+	width: 4%;
+}
+
+.edit__buttons {
+	width: 2.4em;
+	height: 2.4em;
+	font-size: 1em;
+	line-height: 1em;
+	font-weight: 700;
+	padding: 0.3em 0.5em 0.24em;
+	display: block;
+	margin: 0 auto;
 }

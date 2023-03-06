@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import styles from './Certificate.module.css';
 import photoImg from './testImgAfterDelete/USA.jpg';
+import { v4 as uuidv4 } from 'uuid';
 import {
 	boatDrivingLicenseSpecmarksList,
 	tableLossOfControl,
 	tableCertificateWithdrawal,
 } from './tableOptions';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CertificateModalWindow from './ModalWindow/CertificateModalWindow';
-
-import { useDispatch } from 'react-redux';
-import { getLicenseById } from '../../redux/actions';
+import { getUsersLibrary } from '../../redux/actions';
 
 export default function Certificate(props) {
 	const [editMode, setEditMode] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [modalWindowInputs, setModalWindowInputs] = useState(null);
+	const [dataForEdit, setDataForEdit] = useState(null);
 
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const licenseInfoFromState = useSelector((state) => {
 		const { certificateReducer } = state;
@@ -50,13 +51,13 @@ export default function Certificate(props) {
 	};
 
 	const handleAddNotes = (e) => {
-		console.log(e.target.id);
 		switch (e.target.id) {
 			case 'lossControl':
 				setModalWindowInputs(tableLossOfControl);
 				break;
 			case 'certificateWithdrawal':
 				setModalWindowInputs(tableCertificateWithdrawal);
+				dispatch(getUsersLibrary());
 				break;
 			case 'boatDrivingLicenseSpecmarksList':
 				setModalWindowInputs(boatDrivingLicenseSpecmarksList);
@@ -64,6 +65,13 @@ export default function Certificate(props) {
 			default:
 				break;
 		}
+		setShowModal(true);
+	};
+
+	const handleEditNotes = (e) => {
+		const data = specMarkFromState.find((item) => item.id == e.target.id);
+		// setModalWindowInputs(boatDrivingLicenseSpecmarksList);
+		setDataForEdit(data);
 		setShowModal(true);
 	};
 
@@ -231,7 +239,7 @@ export default function Certificate(props) {
 						<h6 className="text-secondary">{tableLossOfControl.caption}</h6>
 						<table className="table table-bordered border-secondary bg-white">
 							<thead>
-								<tr>
+								<tr key={uuidv4()}>
 									{tableLossOfControl.nameColumn.map((item) => (
 										<th
 											key={item[0]}
@@ -250,16 +258,35 @@ export default function Certificate(props) {
 								{licenseConfFromState.map((item) => {
 									if (item.confiscation['code'] === 1) {
 										return (
-											<tr key={item.id}>
+											<tr key={uuidv4()}>
 												{tableLossOfControl.nameColumn.map((elem) => {
-													if (elem[0] === 'confDocNum') {
-														return (
-															<td key={item.id}>
-																{`${item['confDate']} ${item[`${elem[0]}`]}`}
-															</td>
-														);
+													switch (elem[0]) {
+														case 'confDateEnd':
+															return (
+																<td key={uuidv4()}>
+																	{new Date(item[`${elem[0]}`]).toLocaleDateString()}
+																</td>
+															);
+														case 'confDocNum':
+															return (
+																<td key={uuidv4()}>
+																	{`${new Date(item['confDate']).toLocaleDateString()} ${
+																		item[`${elem[0]}`]
+																	}`}
+																</td>
+															);
+														default:
+															return <td key={uuidv4()}>{item[`${elem[0]}`]}</td>;
 													}
-													return <td key={item.id}>{item[`${elem[0]}`]}</td>;
+													// if (elem[0] === 'confDateEnd')
+													// 	if (elem[0] === 'confDocNum') {
+													// 		return (
+													// 			<td key={uuidv4()}>
+													// 				{`${item['confDate']} ${item[`${elem[0]}`]}`}
+													// 			</td>
+													// 		);
+													// 	}
+													// return <td key={uuidv4()}>{item[`${elem[0]}`]}</td>;
 												})}
 											</tr>
 										);
@@ -280,7 +307,7 @@ export default function Certificate(props) {
 						<h6 className="text-secondary">{tableCertificateWithdrawal.caption}</h6>
 						<table className="table table-bordered border-secondary bg-white">
 							<thead>
-								<tr>
+								<tr key={uuidv4()}>
 									{tableCertificateWithdrawal.nameColumn.map((item) => (
 										<th
 											key={item[0]}
@@ -299,19 +326,25 @@ export default function Certificate(props) {
 								{licenseConfFromState.map((item) => {
 									if (item.confiscation['code'] === 2) {
 										return (
-											<tr key={item.id}>
+											<tr key={uuidv4()}>
 												{tableCertificateWithdrawal.nameColumn.map((elem) => {
 													switch (elem[0]) {
 														case 'userPositions':
 															return (
-																<td key={item.id}>
+																<td key={uuidv4()}>
 																	{item.userid[`${elem[0]}`]['posName']}
 																</td>
 															);
 														case 'name':
-															return <td key={item.id}>{item.userid['name']}</td>;
+															return <td key={uuidv4()}>{item.userid['name']}</td>;
+														case 'confDate':
+															return (
+																<td key={uuidv4()}>
+																	{new Date(item[`${elem[0]}`]).toLocaleDateString()}
+																</td>
+															);
 														default:
-															return <td key={item.id}>{item[`${elem[0]}`]}</td>;
+															return <td key={uuidv4()}>{item[`${elem[0]}`]}</td>;
 													}
 												})}
 											</tr>
@@ -333,7 +366,7 @@ export default function Certificate(props) {
 						<h6 className="text-secondary">{boatDrivingLicenseSpecmarksList.caption}</h6>
 						<table className="table table-bordered border-secondary bg-white">
 							<thead>
-								<tr>
+								<tr key={uuidv4()}>
 									{boatDrivingLicenseSpecmarksList.nameColumn.map((item) => (
 										<th
 											key={item[0]}
@@ -346,15 +379,34 @@ export default function Certificate(props) {
 											{item[1]}
 										</th>
 									))}
+									<th
+										key={uuidv4()}
+										className={`${editMode ? '' : styles.edit__mode} ${
+											styles.edit__column
+										}`}></th>
 								</tr>
 							</thead>
 							<tbody>
 								{specMarkFromState.map((item) => {
 									return (
-										<tr key={item.id}>
+										<tr key={uuidv4()}>
 											{boatDrivingLicenseSpecmarksList.nameColumn.map((elem) => {
-												return <td key={item.id}>{item[`${elem[0]}`]}</td>;
+												return <td key={uuidv4()}>{item[`${elem[0]}`]}</td>;
 											})}
+											<td
+												className={`${editMode ? '' : styles.edit__mode} ${
+													styles.edit__column
+												}`}
+												key={uuidv4()}>
+												<button
+													className={`${styles.edit__buttons} btn btn-primary ${
+														editMode ? '' : styles.edit__mode
+													}`}
+													id={item.id}
+													onClick={(e) => handleEditNotes(e)}>
+													&#9998;
+												</button>
+											</td>
 										</tr>
 									);
 								})}
@@ -372,9 +424,6 @@ export default function Certificate(props) {
 				</div>
 			</div>
 			<div className="d-flex justify-content-around mt-5">
-				<button className={`btn btn-secondary  ${editMode ? styles.edit__mode : ''}`}>
-					Экспорт в файл
-				</button>
 				<button
 					className={`btn btn-primary ${editMode ? styles.edit__mode : ''}`}
 					onClick={() => handleEditMode()}>
@@ -388,9 +437,11 @@ export default function Certificate(props) {
 			</div>
 			{showModal && (
 				<CertificateModalWindow
+					licenseIdModal={licenseInfoFromState.licenseId}
 					setShowModal={setShowModal}
 					showModal={showModal}
 					modalWindowInputs={modalWindowInputs}
+					dataForEdit={dataForEdit}
 				/>
 			)}
 		</div>
