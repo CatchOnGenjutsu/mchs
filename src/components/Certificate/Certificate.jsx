@@ -70,7 +70,8 @@ export default function Certificate(props) {
 
 	const handleEditNotes = (e) => {
 		const data = specMarkFromState.find((item) => item.id == e.target.id);
-		// setModalWindowInputs(boatDrivingLicenseSpecmarksList);
+		console.log(data);
+		setModalWindowInputs(boatDrivingLicenseSpecmarksList);
 		setDataForEdit(data);
 		setShowModal(true);
 	};
@@ -267,26 +268,15 @@ export default function Certificate(props) {
 																	{new Date(item[`${elem[0]}`]).toLocaleDateString()}
 																</td>
 															);
-														case 'confDocNum':
+														case 'confDate':
 															return (
 																<td key={uuidv4()}>
-																	{`${new Date(item['confDate']).toLocaleDateString()} ${
-																		item[`${elem[0]}`]
-																	}`}
+																	{`${new Date(item['confDate']).toLocaleDateString()}`}
 																</td>
 															);
 														default:
 															return <td key={uuidv4()}>{item[`${elem[0]}`]}</td>;
 													}
-													// if (elem[0] === 'confDateEnd')
-													// 	if (elem[0] === 'confDocNum') {
-													// 		return (
-													// 			<td key={uuidv4()}>
-													// 				{`${item['confDate']} ${item[`${elem[0]}`]}`}
-													// 			</td>
-													// 		);
-													// 	}
-													// return <td key={uuidv4()}>{item[`${elem[0]}`]}</td>;
 												})}
 											</tr>
 										);
@@ -442,6 +432,7 @@ export default function Certificate(props) {
 					showModal={showModal}
 					modalWindowInputs={modalWindowInputs}
 					dataForEdit={dataForEdit}
+					setDataForEdit={setDataForEdit}
 				/>
 			)}
 		</div>

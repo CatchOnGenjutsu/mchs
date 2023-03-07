@@ -9,34 +9,34 @@ export default function CertificateModalWindow({
 	setShowModal,
 	modalWindowInputs,
 	dataForEdit,
+	setDataForEdit,
 }) {
 	const usersLib = useSelector((state) => {
-		const { certificateReducer } = state;
-		return certificateReducer.usersLibrary;
+		const { dictionaryReducer } = state;
+		return dictionaryReducer.usersLibrary;
 	});
 
-	const [newMark, setNewMark] = useState({ userid: usersLib[0] });
+	const [newMark, setNewMark] = useState(
+		modalWindowInputs.keyTable === 'boatDrivingLicenseSpecmarksList'
+			? dataForEdit
+			: { userid: usersLib[0] }
+	);
 
 	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	if (dataForEdit !== null) {
-	// 		setNewMark(dataForEdit);
-	// 	}
-	// 	console.log('newMark >>>', newMark);
-	// }, []);
+	useEffect(() => {
+		console.log('modalWindowInputs >>>!!', modalWindowInputs);
+		console.log('dataForEdit >>>!!', dataForEdit);
+		console.log('newMark >>>!!', newMark);
+	}, []);
 
 	const handleSave = () => {
 		switch (modalWindowInputs.keyTable) {
 			case 'lossControl':
 				dispatch(addNewConfMark(newMark, licenseIdModal));
-				setShowModal(false);
-				setNewMark({});
 				break;
 			case 'certificateWithdrawal':
 				dispatch(addNewConfMark(newMark, licenseIdModal));
-				setShowModal(false);
-				setNewMark({});
 				break;
 			case 'boatDrivingLicenseSpecmarksList':
 				newMark.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
@@ -45,14 +45,17 @@ export default function CertificateModalWindow({
 				newMark.licenseId = licenseIdModal;
 				setNewMark(structuredClone(newMark));
 				if (newMark.mark !== '') {
+					console.log('Mark for edit >>>', newMark);
 					dispatch(addNewSpecialMark(newMark));
-					setShowModal(false);
-					setNewMark({});
 				}
 				break;
 			default:
+				setShowModal(false);
+				setNewMark({});
 				break;
 		}
+		setShowModal(false);
+		setNewMark({});
 	};
 
 	const handleChange = (e) => {
@@ -60,8 +63,6 @@ export default function CertificateModalWindow({
 			case 'lossControl':
 				newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
 				newMark.recdate = Date.now();
-				newMark.confDateEnd = '2025-01-01';
-				newMark.confDocNum = 'Test Doc';
 				newMark.confiscation = {};
 				newMark.confiscation.code = 1;
 				newMark.confiscation.name = 'Лишение';
@@ -72,8 +73,8 @@ export default function CertificateModalWindow({
 				if (e.currentTarget.dataset.id !== 'name') {
 					newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
 					newMark.recdate = Date.now();
-					newMark.confDateEnd = '2025-01-01';
-					newMark.confDocNum = 'Test Doc';
+					newMark.confDateEnd = '2025-01-01'; //Тестовое значение, уточнить необходимость ввода данных
+					newMark.confDocNum = 'Test Doc'; //Тестовое значение, уточнить необходимость ввода данных
 					newMark.confiscation = {};
 					newMark.confiscation.code = 2;
 					newMark.confiscation.name = 'Изъятие';
@@ -137,6 +138,39 @@ export default function CertificateModalWindow({
 								</Form.Group>
 							);
 						}
+						if (
+							item[0] !== 'markDate' &&
+							item[0] !== 'userPositions' &&
+							(item[0] === 'confDateEnd' || item[0] === 'confDate')
+						) {
+							return (
+								<Form.Group className="mb-3">
+									<Form.Label>{item[1]}</Form.Label>
+									<Form.Control
+										data-id={item[0]}
+										type="date"
+										onChange={(e) => {
+											handleChange(e);
+										}}
+									/>
+								</Form.Group>
+							);
+						}
+						if (item[0] === 'mark') {
+							return (
+								<Form.Group className="mb-3">
+									<Form.Label>{item[1]}</Form.Label>
+									<Form.Control
+										data-id={item[0]}
+										type="text"
+										value={newMark.mark}
+										onChange={(e) => {
+											handleChange(e);
+										}}
+									/>
+								</Form.Group>
+							);
+						}
 						if (item[0] !== 'markDate' && item[0] !== 'userPositions') {
 							return (
 								<Form.Group className="mb-3">
@@ -159,8 +193,8 @@ export default function CertificateModalWindow({
 					variant="secondary"
 					onClick={() => {
 						setShowModal(false);
+						setDataForEdit(null);
 						setNewMark({});
-						console.log(dataForEdit);
 					}}>
 					Закрыть
 				</Button>

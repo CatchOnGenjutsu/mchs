@@ -8,7 +8,6 @@ import {
 } from "../types";
 
 const initialState = {
-    usersLibrary: [],
     data: [],
     licenseInfo: {},
     licenseSpecmarksList: [],
@@ -48,24 +47,28 @@ export const certificateReducer = (state = initialState, action) => {
                 licenseConfList: [...action.data.licenseAdd.boatDrivingLicenseConfList]
             }))()
         case APP_NEW_SPEC_MARK:
-            return (() => ({
-                ...state,
-                licenseSpecmarksList: [
-                    ...state.licenseSpecmarksList, action.data
-                ],
-            }))();
+            const markIndex = state.licenseSpecmarksList.findIndex((item) => item.id === action.data.id);
+            if (markIndex >= 0) {
+                return (() => ({
+                    ...state,
+                    licenseSpecmarksList: [
+                        ...state.licenseSpecmarksList.map(item => item.id === action.data.id ? action.data : item)
+                    ],
+                }))();
+            } else {
+                return (() => ({
+                    ...state,
+                    licenseSpecmarksList: [
+                        ...state.licenseSpecmarksList, action.data
+                    ],
+                }))();
+            }
+
         case ADD_NEW_CONF_MARK:
             return (() => ({
                 ...state,
                 licenseConfList: [
                     ...state.licenseConfList, action.data
-                ],
-            }))();
-        case GET_USERS_LIBRARY:
-            return (() => ({
-                ...state,
-                usersLibrary: [
-                    ...action.data
                 ],
             }))();
         default:

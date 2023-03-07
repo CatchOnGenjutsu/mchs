@@ -4,7 +4,8 @@ export const tableLossOfControl = {
     nameColumn: [
         ["confDateEnd", 'Cрок лишения'],
         ["confOrg", 'Орган'],
-        ["confDocNum", 'Дата и номер решения']
+        ["confDocNum", 'Номер решения'],
+        ["confDate", 'Дата решения']
     ]
 }
 

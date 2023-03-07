@@ -12,28 +12,29 @@ import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import React from "react";
 import BasesBuildings from "./containers/BasesBuildings/BasesBuildings";
-import {useDispatch} from "react-redux";
-import {getDictionaryGimsSections, getDictionaryOwnerType} from "./redux/actions";
+import { useDispatch } from "react-redux";
+import { getDictionaryGimsSections, getDictionaryOwnerType, getUsersLibrary } from "./redux/actions";
 
 
 function App() {
-    const dispatch = useDispatch()
-    dispatch(getDictionaryGimsSections())
-    dispatch(getDictionaryOwnerType())
+  const dispatch = useDispatch()
+  dispatch(getDictionaryGimsSections())
+  dispatch(getDictionaryOwnerType())
+  dispatch(getUsersLibrary())
   return (
     <Router>
       <Header showButton={true} />
       <Sidebar />
       <div className='wrapper'>
-          <Routes>
-              <Route path="/smallboats" element={<SmallBoats />} />
-              <Route path="/smallboats/boatId/:id" element={<BoatInfo />} />
-              <Route path="/certificates" element={<Certificates />} />
-              <Route path="/certificates/licenseId/:id" element={<Certificate />} />
-              <Route path="/basesbuilding" element={<BasesBuildings/>}/>
-              <Route path="*" element={<Navigate replace to="/smallboats" />} />
-              <Route path="/login" element={<LoginPage />} />
-          </Routes>
+        <Routes>
+          <Route path="/smallboats" element={<SmallBoats />} />
+          <Route path="/smallboats/boatId/:id" element={<BoatInfo />} />
+          <Route path="/certificates" element={<Certificates />} />
+          <Route path="/certificates/licenseId/:id" element={<Certificate />} />
+          <Route path="/basesbuilding" element={<BasesBuildings />} />
+          <Route path="*" element={<Navigate replace to="/smallboats" />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
       </div>
     </Router>
   );
