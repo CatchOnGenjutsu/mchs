@@ -12,9 +12,14 @@ import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import React from "react";
 import BasesBuildings from "./containers/BasesBuildings/BasesBuildings";
+import {useDispatch} from "react-redux";
+import {getDictionaryGimsSections, getDictionaryOwnerType} from "./redux/actions";
 
 
 function App() {
+    const dispatch = useDispatch()
+    dispatch(getDictionaryGimsSections())
+    dispatch(getDictionaryOwnerType())
   return (
     <Router>
       <Header showButton={true} />

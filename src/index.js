@@ -9,7 +9,8 @@ import { rootReducer } from "./redux/rootReducer";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
-const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
+ const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
+
 
 
 

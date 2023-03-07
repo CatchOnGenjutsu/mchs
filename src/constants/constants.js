@@ -10,11 +10,13 @@ export const API_GET_LICENSE_LIST_SERCH = 'boats/license/search'
 export const API_GET_LICENSE_INFO_CARD = 'boats/license/drivingLicense/'
 export const API_GET_LICENSE_ADD_INFO_CARD = 'boats/license/drivingLicenseAdd/'
 
-
 export const API_GET_BASES_BUILDING_LIST_SERCH = 'bases/search'
 export const API_EDIT_BASES_BUILDING = 'bases/updateBoatParking/'
-export const API_ADD_BASES_BUILDING = 'bases/addBoatParking'
+export const API_ADD_BASES_BUILDING= 'bases/addBoatParking'
+export const API_DELETE_BASES_BUILDING = 'bases/deleteBoatParking/'
 
+export const API_GET_GIMS_SECTIONS = "static/info/gimsSections"
+export const API_GET_OWNER_TYPE = "static/info/personTypes"
 
 export const API_GET_LICENSE_INFO_FROM_LIBS_OBLAST = 'directory/oblast/'
 export const API_GET_LICENSE_INFO_FROM_LIBS_RAYON = 'directory/rayon/'
@@ -25,3 +27,4 @@ export const API_ADD_NEW_CONF_MARK = "boats/license/addBoatDrivingLicenseConf/"
 
 
 export const API_GET_USERS_LIBRARY = "static/info/gimsUsers"
+
