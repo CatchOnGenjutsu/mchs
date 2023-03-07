@@ -75,12 +75,12 @@ export default function SearchBlock(props) {
 									{item.selectOption.map(el=>(<option>{el}</option>))}
 								</Form.Select>
 								)}
-								{item.type==='text'&&(
+								{item.type!=='select'&&(
 									<Form.Control
 										data-id={item.key}
 										onChange={(e) => handleValue(e)}
 										className={styles["entry-field"]}
-										type="text"
+										type={item.type}
 									/>
 								)}
 								{item.description !== undefined ? (

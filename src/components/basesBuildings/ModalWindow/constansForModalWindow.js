@@ -72,7 +72,7 @@ export const optionsForModalWindow = {
         responDocdate:{
             key:"responDocdate",
             label:"Дата приказа о назначении ответственного за эксплуатацию базы",
-            type:'text'
+            type:'date'
         },
     },
     optionsForInputLegalEntity:{
@@ -137,7 +137,7 @@ export const optionsForModalWindow = {
         responDocdate:{
             key:"responDocdate",
             label:"Дата приказа о назначении ответственного за эксплуатацию базы",
-            type:'text'
+            type:'date'
         },
     },
 }

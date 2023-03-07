@@ -83,7 +83,7 @@ function ModalWindow({setShow,show,type,buildingId}) {
                     {optionsInput.map(el=>{
                         if(el.type=='select'){
                             return (
-                                <Form.Group className=' mr-auto ' >
+                                <Form.Group className=' m-1 ' >
                                     <Form.Label>{el.label}</Form.Label>
                                     <Form.Select
                                         onChange={(e) => handleValue(e)}
@@ -95,14 +95,30 @@ function ModalWindow({setShow,show,type,buildingId}) {
                                     </Form.Select>
                                 </Form.Group>
                             )
-                        }else {
+                        }else if (el.type=='text') {
                             return (
-                                <Form.Group className="mb-3" >
+                                <Form.Group className="m-1" >
                                     <Form.Label>{el.label}</Form.Label>
                                     <Form.Control
                                         data-id={el.key}
                                         disabled={type=='delete'}
-                                        type="text"
+                                        type={el.type}
+                                        value={(building)&&building[el.key]||''}
+                                        onChange={(e)=>{
+                                            building[e.currentTarget.dataset.id]=e.currentTarget.value
+                                            setBuilding(structuredClone(building))
+                                        }}
+                                    />
+                                </Form.Group>
+                            )
+                        }else{
+                            return (
+                                <Form.Group className="m-1" >
+                                    <Form.Label>{el.label}</Form.Label>
+                                    <Form.Control
+                                        data-id={el.key}
+                                        disabled={type=='delete'}
+                                        type={el.type}
                                         value={(building)&&building[el.key]||''}
                                         onChange={(e)=>{
                                             building[e.currentTarget.dataset.id]=e.currentTarget.value
