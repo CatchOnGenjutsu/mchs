@@ -278,6 +278,7 @@ export function addDataBasesBuildings(building) {
       body: JSON.stringify(building)
     })
     if (response.ok) {
+      building.parkId = await response.json()
       dispatch({
         type: ADD_NEW_BASES,
         data: building,

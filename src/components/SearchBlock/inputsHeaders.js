@@ -69,8 +69,7 @@ export const inputsHeadersCertificates = [
   {
     key: "birthDate",
     value: "Дата рождения",
-    description: "В формате: 11.11.1111",
-    type:'text'
+    type:'date'
   },
   {
     key: "licenseNum",
@@ -105,14 +104,12 @@ export const inputsHeadersBasesBuildings = [
   {
     key: "startDate",
     value: "Дата последнего обследования от",
-    description: "В формате: 11.11.1111",
-    type:'text'
+    type:'date'
   },
   {
     key: "endDate",
     value: "Дата последнего обследования до",
-    description: "В формате: 11.11.1111",
-    type:'text'
+    type:'date'
   },
   {
     key: "statusName",
