@@ -10,7 +10,7 @@ function ToolBlock({data,buildingId,showForm}) {
         <div className={`d-flex mb-2`}>
             <button data-type={`edit`} onClick={showForm} disabled={!data.length||!buildingId} className={`btn btn-danger btn-sm ms-2`}><img src={edit_icon} alt="редактировать"/></button>
             <button data-type={`add`} onClick={showForm} disabled={!data.length} className={`btn btn-danger btn-sm ms-2`}><img src={add_icon} alt="добавить"/></button>
-            <button data-type={`delete`} disabled={!data.length||!buildingId} className={`btn btn-danger btn-sm ms-2`}><img src={delete_icon} alt="удалить"/></button>
+            <button data-type={`delete`} onClick={showForm} disabled={!data.length||!buildingId} className={`btn btn-danger btn-sm ms-2`}><img src={delete_icon} alt="удалить"/></button>
         </div>
 
         </>

@@ -10,18 +10,6 @@ import {SERTIFICATES_COLUMNS} from "../../components/SearchTable/TablesColumns";
 import SearchTable from "../../components/SearchTable/SearchTable";
 
 export default function Certificates() {
-	// const [hiddenCert, setHiddenCert] = useState(false);
-	// // const [LicenseId, setLicenseId] = useState("");
-
-	const dispatch = useDispatch();
-
-	// const handleHiddenCert = () => {
-	// 	dispatch(getLicenseById());
-	// 	setHiddenCert(!hiddenCert);
-	// };
-	// const handleLicenseId = (value) => {
-	// 	setLicenseId(value);
-	// };
 	const dataFromStateCer = useSelector((state) => {
 		const {certificateReducer } = state;
 		return certificateReducer.data.map(el=>{

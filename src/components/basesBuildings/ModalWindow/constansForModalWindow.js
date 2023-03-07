@@ -1,120 +1,150 @@
 
+
 export const optionsForModalWindow = {
-    optionsForSelect:[
-        {
-            id:1,
-            value:'Физическое лицо'
+    optionsForInputIndividual:{
+        ownerType:{
+            key:"ownerType",
+            label:"Форма собственности",
+            type:'select',
+            options:[]
         },
-        {
-            id:2,
-            value:'Юридическое лицо'
-        },
-        {
-            id:3,
-            value:'ИП'
-        }
-    ],
-    optionsForInputIndividual:[
-        {
+        ownerMidname:{
             key:"ownerMidname",
-            label:"Фамилия"
+            label:"Фамилия",
+            type:'text'
         },
-        {
+        ownerName:{
             key:"ownerName",
-            label:"Имя"
+            label:"Имя",
+            type:'text'
         },
-        {
+        ownerSurname:{
             key:"ownerSurname",
-            label:"Отчество"
+            label:"Отчество",
+            type:'text'
         },
-        {
+        ownerAdress:{
             key:"ownerAddress",
-            label:"Адрес эксплуатанта базы"
+            label:"Адрес эксплуатанта базы",
+            type:'text'
         },
-        {
+        ownerPhone:{
             key:"ownerPhone",
-            label:"Телефон эксплуатанта базы"
+            label:"Телефон эксплуатанта базы",
+            type:'text'
         },
-        {
-            key: "sectionName",
+        ownerSection:{
+            key: "section",
             label: "Участок",
+            type:'select',
+            options:[]
         },
-        {
+        location:{
             key:"location",
-            label:"Местонахождение базы"
+            label:"Местонахождение базы",
+            type:'text'
         },
-        {
+        phone1:{
             key:"phone1",
-            label:"Основной телефон"
+            label:"Основной телефон",
+            type:'text'
         },
-        {
+        phone2:{
             key:"phone2",
-            label:"Дополнительный телефон"
+            label:"Дополнительный телефон",
+            type:'text'
         },
-        {
+        responPosition: {
             key:"responPosition",
-            label:"Должность ответственного за эксплуатацию базы"
+            label:"Должность ответственного за эксплуатацию базы",
+            type:'text'
         },
-        {
+        responFio: {
             key:"responFio",
-            label:"ФИО ответственного за эксплуатацию базы"
+            label:"ФИО ответственного за эксплуатацию базы",
+            type:'text'
         },
-        {
+        responDocnum:{
             key:"responDocnum",
-            label:"Номер приказа о назначении ответственного за эксплуатацию базы"
+            label:"Номер приказа о назначении ответственного за эксплуатацию базы",
+            type:'text'
         },
-        {
+        responDocdate:{
             key:"responDocdate",
-            label:"Дата приказа о назначении ответственного за эксплуатацию базы"
+            label:"Дата приказа о назначении ответственного за эксплуатацию базы",
+            type:'text'
         },
-    ],
-    optionsForInputLegalEntity:[
+    },
+    optionsForInputLegalEntity:{
+        ownerType:{
+            key:"ownerType",
+            label:"Форма собственности",
+            type:'select',
+            options:[]
+        },
 
-        {
+        ownerLeName:{
             key:"ownerLeName",
-            label:"Наименование ЮЛ"
+            label:"Наименование ЮЛ",
+            type:'text'
         },
-        {
+        ownerAdress:{
             key:"ownerAddress",
-            label:"Адрес эксплуатанта базы"
+            label:"Адрес эксплуатанта базы",
+            type:'text'
         },
-        {
+        ownerPhone:{
             key:"ownerPhone",
-            label:"Телефон эксплуатанта базы"
+            label:"Телефон эксплуатанта базы",
+            type:'text'
         },
-        {
-            key: "sectionName",
+        ownerSection:{
+            key: "section",
             label: "Участок",
+            type:'select',
+            options:[]
         },
-        {
+        location:{
             key:"location",
-            label:"Местонахождение базы"
+            label:"Местонахождение базы",
+            type:'text'
         },
-
-        {
+        phone1:{
             key:"phone1",
-            label:"Основной телефон"
+            label:"Основной телефон",
+            type:'text'
         },
-        {
+        phone2:{
             key:"phone2",
-            label:"Дополнительный телефон"
+            label:"Дополнительный телефон",
+            type:'text'
         },
-        {
+        responPosition: {
             key:"responPosition",
-            label:"Должность ответственного за эксплуатацию базы"
+            label:"Должность ответственного за эксплуатацию базы",
+            type:'text'
         },
-        {
+        responFio: {
             key:"responFio",
-            label:"ФИО ответственного за эксплуатацию базы"
+            label:"ФИО ответственного за эксплуатацию базы",
+            type:'text'
         },
-        {
+        responDocnum:{
             key:"responDocnum",
-            label:"Номер приказа о назначении ответственного за эксплуатацию базы"
+            label:"Номер приказа о назначении ответственного за эксплуатацию базы",
+            type:'text'
         },
-        {
+        responDocdate:{
             key:"responDocdate",
-            label:"Дата приказа о назначении ответственного за эксплуатацию базы"
+            label:"Дата приказа о назначении ответственного за эксплуатацию базы",
+            type:'text'
         },
-    ]
+    },
+}
 
+export const setOptionsForModalWindow = (ownerOptions,sectionOptions)=>{
+    optionsForModalWindow.optionsForInputLegalEntity.ownerType.options = ownerOptions
+    optionsForModalWindow.optionsForInputLegalEntity.ownerSection.options = sectionOptions
+    optionsForModalWindow.optionsForInputIndividual.ownerType.options = ownerOptions
+    optionsForModalWindow.optionsForInputIndividual.ownerSection.options = sectionOptions
 }

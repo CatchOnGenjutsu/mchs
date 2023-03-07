@@ -54,7 +54,6 @@ export default function BasesBuildings() {
 		setShow(true);
 	}
 
-
 	return (
 		<>
 			<div>
