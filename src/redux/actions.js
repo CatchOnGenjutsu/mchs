@@ -11,13 +11,11 @@ import {
   SET_SEARCH_PARAMS_BASES_BUILDING,
   SET_SEARCH_PARAMS_BOATS,
   SET_SEARCH_PARAMS_LICENSE,
-
-  EDIT_BASES,
-  ADD_NEW_BASES,
   GET_DICTIONARY_GIMS_SECTIONS,
   GET_DICTIONARY_OWNER_TYPE,
   DELETE_BASES,
-  EDIT_BASES, ADD_NEW_BASES,
+  EDIT_BASES,
+  ADD_NEW_BASES,
   APP_NEW_SPEC_MARK,
   GET_USERS_LIBRARY,
   ADD_NEW_CONF_MARK
@@ -35,12 +33,8 @@ import {
   API_EDIT_BASES_BUILDING,
   API_ADD_BASES_BUILDING,
   API_GET_GIMS_SECTIONS,
-  API_GET_OWNER_TYPE, 
-  API_DELETE_BASES_BUILDING
-
-  API_GET_BASES_BUILDING_LIST_SERCH,
-  API_EDIT_BASES_BUILDING,
-  API_ADD_BASES_BUILDING,
+  API_GET_OWNER_TYPE,
+  API_DELETE_BASES_BUILDING,
 
   API_GET_LICENSE_ADD_INFO_CARD,
   API_GET_LICENSE_INFO_FROM_LIBS_OBLAST,
@@ -288,66 +282,45 @@ export function addDataBasesBuildings(building) {
         type: ADD_NEW_BASES,
         data: building,
       })
-    }}}
+    }
+  }
+}
 
-    export function addDataBasesBuildings(building){
-      return async  dispatch =>{
-        const response = await fetch(MAIN_URL+PORT+API_ADD_BASES_BUILDING,{
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(building)
-        })
-        if(response.ok) {
-          building.parkId = await response.json()
-          dispatch({
-            type: ADD_NEW_BASES,
-            data: building,
-          })
-        }
-
-  }}
-
-  export function deleteDataBasesBuildings(building){
-  return async dispatch =>{
-    const response = await fetch(MAIN_URL+PORT+API_DELETE_BASES_BUILDING+`${building.parkId}`,{
-      method:"POST"
+export function deleteDataBasesBuildings(building) {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_DELETE_BASES_BUILDING + `${building.parkId}`, {
+      method: "POST"
     })
-    if(response.ok) {
+    if (response.ok) {
       dispatch({
         type: DELETE_BASES,
         data: building.parkId,
       })
     }
   }
-  }
+}
 
-  export function getDictionaryGimsSections(){
-  return async dispatch =>{
-    const response = await fetch(MAIN_URL+PORT+API_GET_GIMS_SECTIONS)
-    if(response.ok){
+export function getDictionaryGimsSections() {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_GET_GIMS_SECTIONS)
+    if (response.ok) {
       dispatch({
-        type:GET_DICTIONARY_GIMS_SECTIONS,
-        data: await response.json()
-      })
-    }
-  }
-  }
-
-export function getDictionaryOwnerType(){
-  return async dispatch =>{
-    const response = await fetch(MAIN_URL+PORT+API_GET_OWNER_TYPE)
-    if(response.ok){
-      dispatch({
-        type:GET_DICTIONARY_OWNER_TYPE,
+        type: GET_DICTIONARY_GIMS_SECTIONS,
         data: await response.json()
       })
     }
   }
 }
-    }
 
+export function getDictionaryOwnerType() {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_GET_OWNER_TYPE)
+    if (response.ok) {
+      dispatch({
+        type: GET_DICTIONARY_OWNER_TYPE,
+        data: await response.json()
+      })
+    }
   }
 }
 
