@@ -24,8 +24,6 @@ const initialState = {
 }
 
 export const certificateReducer = (state = initialState, action) => {
-    console.log("action data >>>", action.data)
-    console.log("licenseSpecmarksList state >>>", state.licenseSpecmarksList)
     switch (action.type) {
         case SET_SEARCH_PARAMS_LICENSE:
             return (() => ({

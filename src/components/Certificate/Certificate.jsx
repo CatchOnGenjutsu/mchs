@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CertificateModalWindow from './ModalWindow/CertificateModalWindow';
 import { getUsersLibrary } from '../../redux/actions';
+import Sidebar from '../Sidebar/Sidebar';
+import Header from '../Header/Header';
 
 export default function Certificate(props) {
 	const [editMode, setEditMode] = useState(false);
