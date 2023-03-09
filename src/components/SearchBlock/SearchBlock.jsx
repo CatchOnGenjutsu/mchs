@@ -72,7 +72,7 @@ export default function SearchBlock(props) {
 												  data-id={item.key}
 												  onChange={(e) => handleValue(e)}
 									>
-									{item.selectOption.map(el=>(<option>{el}</option>))}
+									{item.selectOption.map(el=>(<option value={el.id}>{el.value}</option>))}
 								</Form.Select>
 								)}
 								{item.type!=='select'&&(
