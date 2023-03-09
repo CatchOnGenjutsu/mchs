@@ -1,17 +1,17 @@
 export const inputsHeadersSmallBoats = [
   {
-    key: "personSurname",
+    key: "ownerSurname",
     value: "Фамилия",
     type:'text'
 
   },
   {
-    key: "personName",
+    key: "ownerName",
     value: "Имя",
     type:'text'
   },
   {
-    key: "personMidname",
+    key: "ownerMidname",
     value: "Отчество",
     type:'text'
   },
@@ -22,12 +22,12 @@ export const inputsHeadersSmallBoats = [
     type:'text'
   },
   {
-    key: "nameLe",
+    key: "leName",
     value: "Наим. организации",
     type:'text'
   },
   {
-    key: "unp",
+    key: "leUnp",
     value: "УНП",
     type:'text'
   },
