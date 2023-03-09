@@ -19,7 +19,7 @@ const initialState = {
         birthDate: '',
         licenseNum: '',
         persNum: '',
-        statusCard: 'Активная'
+        isActive: 1
     }
 }
 

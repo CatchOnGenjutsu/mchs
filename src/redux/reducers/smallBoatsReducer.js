@@ -18,7 +18,7 @@ const initialState = {
     unp: "",
     boatVin: "",
     engvin: "",
-    cardStatus:"Активная",
+    cardStatusCode:1,
   }
 }
 

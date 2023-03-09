@@ -50,17 +50,19 @@ function ModalWindow({setShow,show,type,buildingId}) {
 
     }
     const handleClose = (event) => {
-        console.log(building)
+
         let buttonType
         if(event){
             buttonType = event.target.dataset.type
         }
         switch (true) {
             case (buttonType ==='save'&& type ==='add'):{
+                building.sectionName = options.sectionOptions.find(el=>el.id===building.section).value
                 dispatch(addDataBasesBuildings(building))
                 break;
             }
             case (buttonType ==='save'&& type ==='edit'):{
+                building.sectionName = options.sectionOptions.find(el=>el.id===building.section).value
                 dispatch(editDataBasesBuildings(building))
                 break;
             }

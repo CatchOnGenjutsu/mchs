@@ -43,10 +43,10 @@ export const inputsHeadersSmallBoats = [
     type:'text'
   },
   {
-    key: "cardStatus",
+    key: "cardStatusCode",
     value: "Статус карточки",
     type:'select',
-    selectOption:['Активная','Архивная']
+    selectOption:[{id:1,value:'Активная'},{id:0,value:'Архивная'},{id:2,value:'Все'}]
   },
 ];
 
@@ -83,10 +83,10 @@ export const inputsHeadersCertificates = [
     type:'text'
   },
   {
-    key: "statusCard",
+    key: "isActive",
     value: "Статус карточки",
     type:'select',
-    selectOption:['Активная','Архивная']
+    selectOption:[{id:1,value:'Активная'},{id:0,value:'Архивная'},{id:2,value:'Все'}]
   },
 ];
 
