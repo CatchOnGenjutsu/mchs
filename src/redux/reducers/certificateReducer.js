@@ -4,7 +4,6 @@ import {
     SET_SEARCH_PARAMS_LICENSE,
     APP_NEW_SPEC_MARK,
     ADD_NEW_CONF_MARK,
-    GET_USERS_LIBRARY
 } from "../types";
 
 const initialState = {
@@ -26,6 +25,7 @@ const initialState = {
 export const certificateReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_SEARCH_PARAMS_LICENSE:
+            sessionStorage.setItem("searchParams", JSON.stringify(Object.assign(state.searchParams, action.data)))
             return (() => ({
                 ...state,
                 searchParams: Object.assign(state.searchParams, action.data)
@@ -61,7 +61,6 @@ export const certificateReducer = (state = initialState, action) => {
                     ],
                 }))();
             }
-
         case ADD_NEW_CONF_MARK:
             return (() => ({
                 ...state,

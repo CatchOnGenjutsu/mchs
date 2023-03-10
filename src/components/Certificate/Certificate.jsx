@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Certificate.module.css';
 import photoImg from './testImgAfterDelete/USA.jpg';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,9 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CertificateModalWindow from './ModalWindow/CertificateModalWindow';
-import { getUsersLibrary } from '../../redux/actions';
-import Sidebar from '../Sidebar/Sidebar';
-import Header from '../Header/Header';
+import { getDataCerticatesBySearchParams, getLicenseById } from '../../redux/actions';
 
 export default function Certificate(props) {
 	const [editMode, setEditMode] = useState(false);
@@ -39,8 +37,6 @@ export default function Certificate(props) {
 	});
 
 	const handleEditMode = () => {
-		console.log('specMarkFromState>>>>', specMarkFromState);
-		console.log('licenseConfFromState>>>>', licenseConfFromState);
 		setEditMode(!editMode);
 	};
 
@@ -59,7 +55,6 @@ export default function Certificate(props) {
 				break;
 			case 'certificateWithdrawal':
 				setModalWindowInputs(tableCertificateWithdrawal);
-				dispatch(getUsersLibrary());
 				break;
 			case 'boatDrivingLicenseSpecmarksList':
 				setModalWindowInputs(boatDrivingLicenseSpecmarksList);
@@ -77,6 +72,25 @@ export default function Certificate(props) {
 		setDataForEdit(data);
 		setShowModal(true);
 	};
+
+	useEffect(() => {
+		const pathArray = window.location.pathname.split('/');
+		const id = pathArray[pathArray.length - 1];
+		if (
+			window.performance
+				.getEntriesByType('navigation')
+				.map((nav) => nav.type)
+				.includes('reload')
+		) {
+			console.log('Проверка!', id);
+			dispatch(
+				getDataCerticatesBySearchParams(
+					JSON.parse(sessionStorage.getItem('searchParams'))
+				)
+			);
+			dispatch(getLicenseById(id));
+		}
+	}, []);
 
 	return (
 		<div className={styles.wrapper}>

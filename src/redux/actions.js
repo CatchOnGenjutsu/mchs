@@ -87,18 +87,18 @@ export function clearBoatCardInfo() {
 export function setSearchParams(id, value, url) {
   let object = { [`${id}`]: value }
   switch (true) {
-    case url.includes('certificates'): {
-      return (
-        {
-          type: SET_SEARCH_PARAMS_LICENSE,
-          data: object
-        }
-      )
-    }
     case url.includes('smallboats'): {
       return (
         {
           type: SET_SEARCH_PARAMS_BOATS,
+          data: object
+        }
+      )
+    }
+    case url.includes('certificates'): {
+      return (
+        {
+          type: SET_SEARCH_PARAMS_LICENSE,
           data: object
         }
       )
@@ -118,7 +118,6 @@ export function setSearchParams(id, value, url) {
 
 export function getDataBoatsBySearchParams(params) {
   return async dispatch => {
-
     const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_LIST_SERCH, {
       method: "POST",
       headers: {
@@ -142,6 +141,7 @@ export function getDataBoatsBySearchParams(params) {
 }
 
 export function getDataCerticatesBySearchParams(params) {
+  console.log("params", params)
   return async dispatch => {
     console.log(dispatch)
     const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SERCH, {

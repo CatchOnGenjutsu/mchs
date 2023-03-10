@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -34,6 +34,10 @@ export default function SearchBlock(props) {
 		console.log(e.target.baseURI);
 		switch (true) {
 			case e.target.baseURI.includes('certificates'): {
+				sessionStorage.setItem(
+					'searchParams',
+					JSON.stringify(searchParamsFromStateCertificate)
+				);
 				dispatch(getDataCerticatesBySearchParams(searchParamsFromStateCertificate));
 				break;
 			}
@@ -52,6 +56,10 @@ export default function SearchBlock(props) {
 	const handleValue = (e) => {
 		dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI));
 	};
+	useEffect(() => {
+		const paramsFromStorage = JSON.parse(sessionStorage.getItem('searchParams'));
+		console.log(paramsFromStorage);
+	});
 	return (
 		<>
 			<Form className={styles['form-inputs']}>
@@ -79,7 +87,18 @@ export default function SearchBlock(props) {
 										onChange={(e) => handleValue(e)}
 										className={styles['entry-field']}
 										type={item.type}
+										// value={
+										// 	window.location.pathname.includes('certificates')
+										// 		? searchParamsFromStateCertificate[`${item.key}`] ||
+										// 		  JSON.parse(sessionStorage.getItem('searchParams'))[
+										// 				`${item.key}`
+										// 		  ] ||
+										// 		  ''
+										// 		: ''
+										// }
 									/>
+									// 	{/* {}
+									// </Form.Control> */}
 								)}
 								{item.description !== undefined ? (
 									<Form.Text className={styles['description-text']}>
