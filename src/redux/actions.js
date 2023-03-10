@@ -1,5 +1,4 @@
 import {
-  // GET_BOATS_CARDS_LIST,
   GET_BOAT_CARD_INFO,
   CLEAR_BOAT_CARD_INFO,
   GET_DATA_BY_SEARCH_PARAMS_LICENSE,
@@ -44,30 +43,15 @@ import {
   API_GET_USERS_LIBRARY
 } from "../constants/constants";
 
-
-// export function getBoatsCardsList() {
-//   return async dispatch => {
-//     const response = await fetch(MAIN_URL+PORT+API_BOATS_LIST);
-//     const data = await response.json();
-//     for (let item of data) {
-//       const owner = `${item.agent.personSurname} ${item.agent.personName} ${item.agent.personMidname}`;
-//       item["boatType"] = item["boatType"]["btname"]
-//       item["owner"] = owner;
-//     }
-//     const jsonData = data;
-//     dispatch({
-//       type: GET_BOATS_CARDS_LIST,
-//       data: jsonData
-//     })
-//   };
-// }
-
 export function getBoatCardInfo(id) {
   return async dispatch => {
     let jsonData = {};
     if (id !== "") {
       const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(id));
       jsonData = await response.json();
+      const addTestReq = await fetch(MAIN_URL + PORT + "boats/getBoatDeals/" + String(id));
+      const addTest = await addTestReq.json();
+      console.log("addTest >>>", addTest)
     }
     dispatch({
       type: GET_BOAT_CARD_INFO,
@@ -126,7 +110,6 @@ export function getDataBoatsBySearchParams(params) {
       body: JSON.stringify(params)
     });
     const data = await response.json();
-    console.log("data from action >>", data)
     for (let item of data) {
       const owner = `${item.ownerSurname} ${item.ownerName} ${item.ownerMidname}`;
       item["owner"] = owner;
@@ -164,9 +147,7 @@ export function getDataCerticatesBySearchParams(params) {
         data: jsonData
       })
     }
-
   }
-
 }
 
 export function getLicenseById(id) {
@@ -189,7 +170,6 @@ export function getLicenseById(id) {
       data["gorodId"] = gorodName["name2"];
       const licenseAddReq = await fetch(MAIN_URL + PORT + API_GET_LICENSE_ADD_INFO_CARD + id);
       const licenseAdd = await licenseAddReq.json();
-      // data["licenseAdd"] = licenseAdd;
       const jsonData = { data: data, licenseAdd: licenseAdd }
       dispatch({
         type: GET_LICENSE_BY_ID,

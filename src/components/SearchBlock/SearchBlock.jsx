@@ -31,7 +31,6 @@ export default function SearchBlock(props) {
 
 	const handleSearchData = (e) => {
 		e.preventDefault();
-		console.log(e.target.baseURI);
 		switch (true) {
 			case e.target.baseURI.includes('certificates'): {
 				sessionStorage.setItem(
@@ -58,7 +57,6 @@ export default function SearchBlock(props) {
 	};
 	useEffect(() => {
 		const paramsFromStorage = JSON.parse(sessionStorage.getItem('searchParams'));
-		console.log(paramsFromStorage);
 	});
 	return (
 		<>

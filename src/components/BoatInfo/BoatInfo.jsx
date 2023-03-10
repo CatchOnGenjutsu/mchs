@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -20,13 +20,13 @@ import {
 import styles from './BoatInfo.module.css';
 
 export default function BoatInfo(props) {
+	const [editMode, setEditMode] = useState(false);
+
 	const boatInfoFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
 		return smallBoatsReducer.boatInfo;
 	});
 	// const tableInfo = [sizeTableColumnsObj]
-
-	console.log('boatInfoFromState >>>', boatInfoFromState);
 
 	return (
 		<div className={props.hidden === '' ? styles.hidden : ''}>
@@ -252,20 +252,17 @@ export default function BoatInfo(props) {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						{dealsHistoryTableColumns.map((item) => {
-							return (
-								<td>
-									{Object.keys(boatInfoFromState).length !== 0
-										? boatInfoFromState[`${item.id}`] !== undefined &&
-										  boatInfoFromState[`${item.id}`] !== null
-											? boatInfoFromState[`${item.id}`][`${item.key}`]
-											: '—'
-										: null}
-								</td>
-							);
-						})}
-					</tr>
+					{boatInfoFromState.boatDeals !== undefined
+						? boatInfoFromState.boatDeals.map((elem) => {
+								return (
+									<tr>
+										{dealsHistoryTableColumns.map((item) => {
+											return <td>{elem[`${item.key}`]}</td>;
+										})}
+									</tr>
+								);
+						  })
+						: null}
 				</tbody>
 			</table>
 			<table className={`${styles['secondary-table']}`}>
@@ -466,6 +463,20 @@ export default function BoatInfo(props) {
 					</tr>
 				</tbody>
 			</table>
+			<div className="d-flex justify-content-around mt-5">
+				<button
+					className={`btn btn-primary ${editMode ? styles.edit__mode : ''}`}
+					// onClick={() => handleEditMode()}
+				>
+					Редактировать
+				</button>
+				<button
+					className="btn btn-danger"
+					// onClick={() => handleCloseButton()}
+				>
+					Закрыть
+				</button>
+			</div>
 			{/*{tableInfo.map((el)=> createTable(el))}*/}
 		</div>
 	);
