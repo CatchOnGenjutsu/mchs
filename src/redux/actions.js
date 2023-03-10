@@ -1,7 +1,5 @@
 import {
-  SHOW_HIDDEN_MENU,
-  COLOR_MENU_ITEM,
-  GET_BOATS_CARDS_LIST,
+  // GET_BOATS_CARDS_LIST,
   GET_BOAT_CARD_INFO,
   CLEAR_BOAT_CARD_INFO,
   GET_DATA_BY_SEARCH_PARAMS_LICENSE,
@@ -46,19 +44,6 @@ import {
   API_GET_USERS_LIBRARY
 } from "../constants/constants";
 
-export function showHiddenMenu(id) {
-  return {
-    type: SHOW_HIDDEN_MENU,
-    data: { id },
-  };
-}
-
-export function colorMenuItem(id) {
-  return {
-    type: COLOR_MENU_ITEM,
-    data: { id },
-  };
-}
 
 // export function getBoatsCardsList() {
 //   return async dispatch => {
@@ -109,7 +94,6 @@ export function setSearchParams(id, value, url) {
           data: object
         }
       )
-      break;
     }
     case url.includes('smallboats'): {
       return (
@@ -118,7 +102,6 @@ export function setSearchParams(id, value, url) {
           data: object
         }
       )
-      break;
     }
     case url.includes('basesbuilding'): {
       return (
@@ -127,7 +110,6 @@ export function setSearchParams(id, value, url) {
           data: object
         }
       )
-      break;
     }
     default: ;
   }
