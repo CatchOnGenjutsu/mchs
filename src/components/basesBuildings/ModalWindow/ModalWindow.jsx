@@ -12,6 +12,7 @@ function ModalWindow({setShow,show,type,buildingId}) {
     }
     const dispatch = useDispatch();
     const dataFromStateBases = useSelector(state => {
+
         const {basesBuildingReducer} = state
         return 	basesBuildingReducer.data
     })
@@ -73,53 +74,35 @@ function ModalWindow({setShow,show,type,buildingId}) {
         }
         setShow(false)
     };
-    console.log(optionsInput)
     return (
-        <Modal show={show} onHide={handleClose} size="lg">
+        <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton >
                 <Modal.Title>{optionsButton[type]}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form className={`d-flex flex-wrap justify-content-between`}>
-
+                <Form className={styles.container}>
                     {optionsInput.map(el=>{
-                        if(el.type=='select'){
+                        if(el.type==='select'){
                             return (
-                                <Form.Group className=' m-1 ' >
+                                <Form.Group className={styles[`box-${el.key}`]} >
                                     <Form.Label>{el.label}</Form.Label>
                                     <Form.Select
                                         onChange={(e) => handleValue(e)}
                                         id={el.key}
                                         value={building[el.key]}
-                                        disabled={type=='delete'}
+                                        disabled={type==='delete'}
                                     >
                                         {el.options.map(el=><option value={el.id}>{el.value}</option>)}
                                     </Form.Select>
                                 </Form.Group>
                             )
-                        }else if (el.type=='text') {
+                        }else {
                             return (
-                                <Form.Group className="m-1" >
+                                <Form.Group className={styles[`box-${el.key}`]} >
                                     <Form.Label>{el.label}</Form.Label>
                                     <Form.Control
                                         data-id={el.key}
-                                        disabled={type=='delete'}
-                                        type={el.type}
-                                        value={(building)&&building[el.key]||''}
-                                        onChange={(e)=>{
-                                            building[e.currentTarget.dataset.id]=e.currentTarget.value
-                                            setBuilding(structuredClone(building))
-                                        }}
-                                    />
-                                </Form.Group>
-                            )
-                        }else{
-                            return (
-                                <Form.Group className="m-1" >
-                                    <Form.Label>{el.label}</Form.Label>
-                                    <Form.Control
-                                        data-id={el.key}
-                                        disabled={type=='delete'}
+                                        disabled={type==='delete'}
                                         type={el.type}
                                         value={(building)&&building[el.key]||''}
                                         onChange={(e)=>{

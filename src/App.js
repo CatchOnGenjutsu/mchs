@@ -1,10 +1,9 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import SmallBoats from './containers/SmallBoats/SmallBoats';
 import LoginPage from './components/LoginPage/LoginPage';
 import Certificates from './containers/CertificatesComponent/Certificates';
-
+import SmallBoats from './containers/SmallBoats/SmallBoats';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import BoatInfo from "./components/BoatInfo/BoatInfo";
 import Certificate from "./components/Certificate/Certificate";
@@ -13,14 +12,21 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import React from "react";
 import BasesBuildings from "./containers/BasesBuildings/BasesBuildings";
 import { useDispatch } from "react-redux";
-import { getDictionaryGimsSections, getDictionaryOwnerType, getUsersLibrary } from "./redux/actions";
+import {
+    getDictionaryGimsSections,
+    getDictionaryNsiCheckStatus,
+    getDictionaryOwnerType,
+    getUsersLibrary
+} from "./redux/actions";
 
 
 function App() {
   const dispatch = useDispatch()
   dispatch(getDictionaryGimsSections())
   dispatch(getDictionaryOwnerType())
+  dispatch(getDictionaryNsiCheckStatus())
   dispatch(getUsersLibrary())
+    // const BasesBuildings = React.lazy(()=>import("./containers/BasesBuildings/BasesBuildings"))
   return (
     <Router>
       <Header showButton={true} />

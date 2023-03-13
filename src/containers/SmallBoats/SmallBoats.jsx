@@ -58,7 +58,7 @@ export default function SmallBoats() {
 				</button>
 				<div className={boatId !== "" ? styles.hidden : ""}>
 					<h2>База данных маломерных судов</h2>
-					<SearchBlock inputsHeaders={inputsHeadersSmallBoats} />
+					<SearchBlock inputsHeaders={Object.values(inputsHeadersSmallBoats)} />
 					<SearchTable
 						// setId={handleBoatId}
 						columns={SMALLBOATS_COLUMNS}

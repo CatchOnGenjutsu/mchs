@@ -1,8 +1,14 @@
-import { GET_DICTIONARY_GIMS_SECTIONS, GET_DICTIONARY_OWNER_TYPE, GET_USERS_LIBRARY } from "../types";
+import {
+    GET_DICTIONARY_GIMS_SECTIONS,
+    GET_DICTIONARY_NSI_CHECK_STATUS,
+    GET_DICTIONARY_OWNER_TYPE,
+    GET_USERS_LIBRARY
+} from "../types";
 
 const initialState = {
     gimsSections: [],
     ownerType: [],
+    nsiCheckStatus: [],
     usersLibrary: [],
 }
 
@@ -18,7 +24,7 @@ export const dictionaryReducer = (state = initialState, action) => {
                         value: section.sctName
                     }
                 })
-            }))()
+            }))();
         case GET_DICTIONARY_OWNER_TYPE:
             return (() => ({
                 ...state,
@@ -28,7 +34,17 @@ export const dictionaryReducer = (state = initialState, action) => {
                         value: owner.ptName
                     }
                 })
-            }))()
+            }))();
+        case GET_DICTIONARY_NSI_CHECK_STATUS:
+            return (()=>({
+                ...state,
+                nsiCheckStatus: action.data.map(status=>{
+                    return {
+                        id:status.statusId,
+                        value:status.statusName
+                    }
+                })
+            }))();
         case GET_USERS_LIBRARY:
             return (() => ({
                 ...state,

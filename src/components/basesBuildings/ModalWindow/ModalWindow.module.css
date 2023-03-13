@@ -1,0 +1,62 @@
+.box-section{
+   grid-area: S;
+}
+.box-ownerMidname{
+    grid-area: MN;
+}
+.box-ownerName{
+    grid-area: N;
+}
+.box-ownerSurname{
+    grid-area: SN;
+}
+.box-ownerType{
+    grid-area: OT;
+}
+.box-ownerLeName{
+    grid-area: LN;
+}
+.box-ownerAddress{
+    grid-area: AD;
+}
+.box-ownerPhone{
+    grid-area: OP;
+}
+.box-location{
+    grid-area: LB;
+}
+.box-phone1{
+    grid-area: PB1;
+}
+.box-phone2{
+    grid-area: PB2;
+}
+.box-responFio{
+    grid-area:RF
+}
+.box-responPosition{
+    grid-area: RP;
+}
+
+.box-responDocnum{
+    grid-area: RDN;
+}
+.box-responDocdate{
+    grid-area: RDD;
+}
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap:15px;
+    grid-template-areas:
+    "S S . ."
+    "OT OT . ."
+    "MN N SN ."
+    "LN LN LN ."
+    "AD AD OP ."
+    "LB LB PB1 PB2"
+    "RF RF RP RP"
+    "RDN RDN RDD RDD";
+    row-gap:15px;
+
+}

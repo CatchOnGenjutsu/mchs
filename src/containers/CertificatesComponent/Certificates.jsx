@@ -25,7 +25,7 @@ export default function Certificates() {
 		<>
 				<div >
 					<h2>Удостоверения</h2>
-					<SearchBlock inputsHeaders={inputsHeadersCertificates} />
+					<SearchBlock inputsHeaders={Object.values(inputsHeadersCertificates)} />
 					<SearchTable
 						// setId={handleLicenseId}
 						columns={SERTIFICATES_COLUMNS}

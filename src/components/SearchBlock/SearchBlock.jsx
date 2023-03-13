@@ -30,6 +30,10 @@ export default function SearchBlock(props) {
 		const {basesBuildingReducer} = state;
 		return basesBuildingReducer.searchParams
 	})
+	const optionsNsiCheckStatus= useSelector((state => {
+		const {dictionaryReducer} = state
+		return dictionaryReducer.nsiCheckStatus
+	}))
 
 	const handleSearchData = (e) => {
 		e.preventDefault();

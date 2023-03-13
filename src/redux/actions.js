@@ -18,7 +18,7 @@ import {
   ADD_NEW_BASES,
   APP_NEW_SPEC_MARK,
   GET_USERS_LIBRARY,
-  ADD_NEW_CONF_MARK
+  ADD_NEW_CONF_MARK, GET_DICTIONARY_NSI_CHECK_STATUS
 
 } from './types';
 import {
@@ -43,7 +43,7 @@ import {
 
   API_ADD_NEW_SPECIAL_MARK,
   API_ADD_NEW_CONF_MARK,
-  API_GET_USERS_LIBRARY
+  API_GET_USERS_LIBRARY, API_GET_NSI_CHECK_STATUS
 } from "../constants/constants";
 
 export function showHiddenMenu(id) {
@@ -319,6 +319,17 @@ export function getDictionaryOwnerType() {
     if (response.ok) {
       dispatch({
         type: GET_DICTIONARY_OWNER_TYPE,
+        data: await response.json()
+      })
+    }
+  }
+}
+export function getDictionaryNsiCheckStatus(){
+  return async dispatch =>{
+    const response = await fetch(MAIN_URL + PORT + API_GET_NSI_CHECK_STATUS)
+    if (response.ok) {
+      dispatch({
+        type: GET_DICTIONARY_NSI_CHECK_STATUS,
         data: await response.json()
       })
     }
