@@ -69,6 +69,10 @@ export default function BoatInfo(props) {
 		setShowModal(true);
 	};
 
+	const handleCheckboxClick = (e) => {
+		e.preventDefault();
+	};
+
 	useEffect(() => {
 		const pathArray = window.location.pathname.split('/');
 		const id = pathArray[pathArray.length - 1];
@@ -511,7 +515,92 @@ export default function BoatInfo(props) {
 					</tr>
 				</tbody>
 			</table>
-			<table className={`${styles['secondary-table']}`}>
+			<div>
+				<table className={`${styles['secondary-table']}`}>
+					<caption className={styles['secondary-caption']}>
+						{specialMarksTableColumns.caption}
+					</caption>
+					<thead>
+						<tr>
+							{specialMarksTableColumns.nameColumn.map((item) => {
+								return (
+									<th
+										className={styles.deals_history_table_th}
+										id={item.key}>
+										{item.value}
+									</th>
+								);
+							})}
+							<th
+								key={uuidv4()}
+								className={`${editMode ? '' : styles.edit__mode} ${
+									styles.edit__column
+								}`}></th>
+						</tr>
+					</thead>
+					<tbody>
+						{boatInfoFromState.specMarks !== undefined
+							? boatInfoFromState.specMarks.map((elem) => {
+									return (
+										<tr>
+											{specialMarksTableColumns.nameColumn.map((item) => {
+												switch (item.type) {
+													case 'checkbox':
+														return (
+															<td>
+																{elem.bsmLock ? (
+																	<input
+																		type="checkbox"
+																		className={styles.checkbox}
+																		id={elem.bsmId}
+																		checked
+																		// disabled
+																	/>
+																) : (
+																	<input
+																		type="checkbox"
+																		className={styles.checkbox}
+																		id={elem.bsmId}
+																		disabled
+																	/>
+																)}
+															</td>
+														);
+													default:
+														return <td>{elem[`${item.key}`]}</td>;
+												}
+											})}
+											<td
+												className={`${editMode ? '' : styles.edit__mode} ${
+													styles.edit__column
+												}`}
+												key={uuidv4()}>
+												<button
+													className={`${styles.edit__buttons} btn btn-primary ${
+														editMode ? '' : styles.edit__mode
+													}`}
+													// id={elem.dealId}
+													onClick={(e) => handleEditNotes(e)}>
+													&#9998;
+												</button>
+											</td>
+										</tr>
+									);
+							  })
+							: null}
+					</tbody>
+				</table>
+
+				<button
+					className={`${styles.add__buttons} btn btn-primary ${
+						editMode ? '' : styles.edit__mode
+					}`}
+					id={specialMarksTableColumns.keyTable}
+					onClick={(e) => handleAddNotes(e)}>
+					+
+				</button>
+			</div>
+			{/* <table className={`${styles['secondary-table']}`}>
 				<caption className={styles['secondary-caption']}>Особые отметки:</caption>
 				<thead>
 					<tr>
@@ -542,7 +631,7 @@ export default function BoatInfo(props) {
 						})}
 					</tr>
 				</tbody>
-			</table>
+			</table> */}
 			<table className={`${styles['secondary-table']}`}>
 				<caption className={styles['secondary-caption']}>Документы:</caption>
 				<thead>

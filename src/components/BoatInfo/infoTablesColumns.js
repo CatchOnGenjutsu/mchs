@@ -338,18 +338,32 @@ export const enterNoteShipBookTableColumns = [
   }
 ]
 
-export const specialMarksTableColumns = [
-  {
-    id: "specialMarks",
-    value: "Дата",
-    key: "date"
-  },
-  {
-    id: "specialMarks",
-    value: "Отметка",
-    key: "mark"
-  }
-]
+export const specialMarksTableColumns = {
+  keyTable: 'specialMarksTableColumns',
+  caption: "Особые отметки:",
+  nameColumn: [
+    {
+      id: "specialMarks",
+      value: "Ограничение на рег. действия",
+      key: "bsmLock",
+      type: "checkbox"
+    },
+    {
+      id: "specialMarks",
+      value: "Дата",
+      key: "bsmDate",
+      type: "date"
+    },
+    {
+      id: "specialMarks",
+      value: "Отметка",
+      key: "bsmNote",
+      type: ""
+    },
+  ]
+
+}
+
 export const documentsTableColumns = [
   {
     id: "documents",

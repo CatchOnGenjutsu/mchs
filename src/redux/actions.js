@@ -22,12 +22,13 @@ import {
 import {
   MAIN_URL,
   PORT,
-  API_GET_BOATS_LIST_SERCH,
+  API_GET_BOATS_LIST_SEARCH,
   API_GET_BOAT_INFO_CARD,
-  API_GET_LICENSE_LIST_SERCH,
+  API_GET_BOAT_INFO_SPEC_MARKS,
+  API_GET_LICENSE_LIST_SEARCH,
   API_GET_LICENSE_INFO_CARD,
 
-  API_GET_BASES_BUILDING_LIST_SERCH,
+  API_GET_BASES_BUILDING_LIST_SEARCH,
   API_EDIT_BASES_BUILDING,
   API_ADD_BASES_BUILDING,
   API_GET_GIMS_SECTIONS,
@@ -53,9 +54,9 @@ export function getBoatCardInfo(id) {
     if (id !== "") {
       const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(id));
       jsonData = await response.json();
-      const addTestReq = await fetch(MAIN_URL + PORT + "boats/getBoatDeals/" + String(id));
-      const addTest = await addTestReq.json();
-      console.log("addTest >>>", addTest)
+      const specMarksReq = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_SPEC_MARKS + String(id));
+      const specMarks = await specMarksReq.json();
+      jsonData.specMarks = specMarks;
     }
     dispatch({
       type: GET_BOAT_CARD_INFO,
@@ -106,7 +107,7 @@ export function setSearchParams(id, value, url) {
 
 export function getDataBoatsBySearchParams(params) {
   return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_LIST_SERCH, {
+    const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_LIST_SEARCH, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -131,7 +132,7 @@ export function getDataCerticatesBySearchParams(params) {
   console.log("params", params)
   return async dispatch => {
     console.log(dispatch)
-    const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SERCH, {
+    const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SEARCH, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -198,7 +199,7 @@ export function getDataBasesBuildingBySearchParams(params) {
         break;
       default: queryParams = ''
     }
-    const response = await fetch(MAIN_URL + PORT + API_GET_BASES_BUILDING_LIST_SERCH + queryParams, {
+    const response = await fetch(MAIN_URL + PORT + API_GET_BASES_BUILDING_LIST_SEARCH + queryParams, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
