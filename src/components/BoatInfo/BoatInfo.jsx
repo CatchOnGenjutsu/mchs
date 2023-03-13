@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import BoatInfoModalWindow from './ModalWindow/BoatInfoModalWindow';
+import { getBoatCardInfo, clearBoatCardInfo } from '../../redux/actions';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
 	primaryTableLines,
@@ -22,11 +24,18 @@ import {
 import styles from './BoatInfo.module.css';
 
 export default function BoatInfo(props) {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const [editMode, setEditMode] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-	const [modalWindowInputs, setModalWindowInputs] = useState(null);
+	const [modalWindowInputs, setModalWindowInputs] = useState({});
+	const [dataForEdit, setDataForEdit] = useState({});
 
-	const navigate = useNavigate();
+	const boatInfoFromState = useSelector((state) => {
+		const { smallBoatsReducer } = state;
+		return smallBoatsReducer.boatInfo;
+	});
 
 	const handleEditMode = () => {
 		setEditMode(!editMode);
@@ -36,14 +45,10 @@ export default function BoatInfo(props) {
 		if (editMode) {
 			setEditMode(!editMode);
 		} else {
+			dispatch(clearBoatCardInfo());
 			navigate(-1);
 		}
 	};
-
-	const boatInfoFromState = useSelector((state) => {
-		const { smallBoatsReducer } = state;
-		return smallBoatsReducer.boatInfo;
-	});
 
 	const handleAddNotes = (e) => {
 		switch (e.target.id) {
@@ -55,6 +60,32 @@ export default function BoatInfo(props) {
 		}
 		setShowModal(true);
 	};
+
+	const handleEditNotes = (e) => {
+		const data = boatInfoFromState.boatDeals.find((item) => item.dealId == e.target.id);
+		data.docDate = new Date(data.docDate).toISOString().split('T')[0];
+		setModalWindowInputs(dealsHistoryTableColumns);
+		setDataForEdit(data);
+		setShowModal(true);
+	};
+
+	useEffect(() => {
+		const pathArray = window.location.pathname.split('/');
+		const id = pathArray[pathArray.length - 1];
+		if (
+			window.performance
+				.getEntriesByType('navigation')
+				.map((nav) => nav.type)
+				.includes('reload')
+		) {
+			// dispatch(
+			// 	getDataCerticatesBySearchParams(
+			// 		JSON.parse(sessionStorage.getItem('searchParams'))
+			// 	)
+			// );
+			dispatch(getBoatCardInfo(id));
+		}
+	}, []);
 	// const tableInfo = [sizeTableColumnsObj]
 
 	return (
@@ -275,7 +306,7 @@ export default function BoatInfo(props) {
 									if (item.key !== 'docName') {
 										return (
 											<th
-												className={styles['owners-history-table-th']}
+												className={styles.deals_history_table_th}
 												id={item.key}>
 												{item.value}
 											</th>
@@ -283,13 +314,18 @@ export default function BoatInfo(props) {
 									} else {
 										return (
 											<th
-												className={styles['owners-history-table-th']}
+												className={styles.deals_history_table_th}
 												id={item.key}>
 												Наименование, номер и дата документа
 											</th>
 										);
 									}
 							})}
+							<th
+								key={uuidv4()}
+								className={`${editMode ? '' : styles.edit__mode} ${
+									styles.edit__column
+								}`}></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -310,6 +346,20 @@ export default function BoatInfo(props) {
 														);
 													}
 											})}
+											<td
+												className={`${editMode ? '' : styles.edit__mode} ${
+													styles.edit__column
+												}`}
+												key={uuidv4()}>
+												<button
+													className={`${styles.edit__buttons} btn btn-primary ${
+														editMode ? '' : styles.edit__mode
+													}`}
+													id={elem.dealId}
+													onClick={(e) => handleEditNotes(e)}>
+													&#9998;
+												</button>
+											</td>
 										</tr>
 									);
 							  })
@@ -544,6 +594,8 @@ export default function BoatInfo(props) {
 					showModal={showModal}
 					setShowModal={setShowModal}
 					modalWindowInputs={modalWindowInputs}
+					dataForEdit={dataForEdit}
+					setDataForEdit={setDataForEdit}
 				/>
 			)}
 		</div>

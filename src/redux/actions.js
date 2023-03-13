@@ -13,11 +13,11 @@ import {
   DELETE_BASES,
   EDIT_BASES,
   ADD_NEW_BASES,
-  APP_NEW_SPEC_MARK,
+  ADD_NEW_SPEC_MARK,
   GET_USERS_LIBRARY,
   ADD_NEW_CONF_MARK,
-  ADD_NEW_BOAT_DEAL
-
+  ADD_NEW_BOAT_DEAL,
+  EDIT_BOAT_DEAL
 } from './types';
 import {
   MAIN_URL,
@@ -42,7 +42,9 @@ import {
   API_ADD_NEW_SPECIAL_MARK,
   API_ADD_NEW_CONF_MARK,
   API_GET_USERS_LIBRARY,
-  API_ADD_NEW_BOAT_DEAL
+
+  API_ADD_NEW_BOAT_DEAL,
+
 } from "../constants/constants";
 
 export function getBoatCardInfo(id) {
@@ -303,7 +305,7 @@ export function addNewSpecialMark(newMark) {
     newMark.id = await response.json()
     if (response.status === 200) {
       dispatch({
-        type: APP_NEW_SPEC_MARK,
+        type: ADD_NEW_SPEC_MARK,
         data: newMark,
       })
     }
@@ -353,6 +355,24 @@ export function addNewBoatDeal(newMark, boatId) {
     if (response.status === 200) {
       dispatch({
         type: ADD_NEW_BOAT_DEAL,
+        data: newMark,
+      })
+    }
+  }
+}
+
+export function editBoatDeal(newMark, boatId) {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newMark)
+    })
+    if (response.status === 200) {
+      dispatch({
+        type: EDIT_BOAT_DEAL,
         data: newMark,
       })
     }

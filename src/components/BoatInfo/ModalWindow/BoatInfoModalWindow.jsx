@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewBoatDeal } from '../../../redux/actions';
+import { addNewBoatDeal, editBoatDeal } from '../../../redux/actions';
 
 export default function BoatInfoModalWindow({
 	boatIdModal,
 	showModal,
 	setShowModal,
 	modalWindowInputs,
-	// dataForEdit,
-	// setDataForEdit,
+	dataForEdit,
+	setDataForEdit,
 }) {
 	const boatInfoFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
@@ -17,10 +17,7 @@ export default function BoatInfoModalWindow({
 	});
 
 	const [newMark, setNewMark] = useState(
-		// modalWindowInputs.keyTable === 'boatDrivingLicenseSpecmarksList'
-		// 	? dataForEdit
-		// 	:
-		{}
+		modalWindowInputs.keyTable === 'dealsHistoryTableColumns' ? dataForEdit : {}
 	);
 
 	const dispatch = useDispatch();
@@ -29,10 +26,34 @@ export default function BoatInfoModalWindow({
 		console.log('modalWindowInputs >>>!!', modalWindowInputs);
 	}, []);
 
+	const handleChange = (e) => {
+		switch (modalWindowInputs.keyTable) {
+			case 'dealsHistoryTableColumns':
+				newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
+				newMark.recdate = Date.now();
+				newMark.ownerType = boatInfoFromState.ownerType;
+				newMark.ownerName =
+					boatInfoFromState.ownerType.ptcode === 1
+						? `${boatInfoFromState.ownerSurname} ${boatInfoFromState.ownerName} ${boatInfoFromState.ownerMidname}`
+						: boatInfoFromState.leName;
+				setNewMark(newMark);
+				break;
+			default:
+				break;
+		}
+
+		setNewMark(structuredClone(newMark));
+		// console.log('newMark >>>>', newMark);
+	};
+
 	const handleSave = () => {
 		switch (modalWindowInputs.keyTable) {
 			case 'dealsHistoryTableColumns':
-				dispatch(addNewBoatDeal(newMark, boatIdModal));
+				if (dataForEdit) {
+					dispatch(editBoatDeal(newMark, boatIdModal));
+				} else {
+					dispatch(addNewBoatDeal(newMark, boatIdModal));
+				}
 				break;
 			// case 'certificateWithdrawal':
 			// 	dispatch(addNewConfMark(newMark, licenseIdModal));
@@ -57,39 +78,13 @@ export default function BoatInfoModalWindow({
 		setNewMark({});
 	};
 
-	const handleChange = (e) => {
-		switch (modalWindowInputs.keyTable) {
-			case 'dealsHistoryTableColumns':
-				newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
-				newMark.recdate = Date.now();
-				newMark.ownerType = boatInfoFromState.ownerType;
-				newMark.ownerName =
-					boatInfoFromState.ownerType.ptcode === 1
-						? `${boatInfoFromState.ownerSurname} ${boatInfoFromState.ownerName} ${boatInfoFromState.ownerMidname}`
-						: boatInfoFromState.leName;
-				setNewMark(newMark);
-				break;
-			case 'boatDrivingLicenseSpecmarksList':
-				newMark.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
-					.toISOString()
-					.slice(11, 23)}`;
-				newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
-				setNewMark(structuredClone(newMark));
-				break;
-			default:
-				break;
-		}
-
-		setNewMark(structuredClone(newMark));
-		// console.log('newMark >>>>', newMark);
-	};
-
 	return (
 		<Modal
 			show={showModal}
 			onHide={() => {
 				setShowModal(false);
 				setNewMark({});
+				setDataForEdit({});
 			}}
 			size="lg">
 			<Modal.Header closeButton>
@@ -127,6 +122,7 @@ export default function BoatInfoModalWindow({
 									<Form.Control
 										data-id={item.key}
 										type="date"
+										value={newMark[`${item.key}`]}
 										onChange={(e) => {
 											handleChange(e);
 										}}
@@ -142,6 +138,7 @@ export default function BoatInfoModalWindow({
 									<Form.Control
 										data-id={item.key}
 										type="text"
+										value={newMark[`${item.key}`]}
 										onChange={(e) => {
 											handleChange(e);
 										}}
@@ -157,8 +154,7 @@ export default function BoatInfoModalWindow({
 					variant="secondary"
 					onClick={() => {
 						setShowModal(false);
-						console.log('newMark >!>!>', newMark);
-						// setDataForEdit(null);
+						setDataForEdit({});
 						setNewMark({});
 					}}>
 					Закрыть

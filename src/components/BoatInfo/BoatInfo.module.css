@@ -92,7 +92,10 @@
 	width: calc(100% / 6);
 }
 .owners-history-table-th {
-	width: calc(100% / 3);
+	width: 50%;
+}
+.deals_history_table_th {
+	width: calc(96% / 3);
 }
 
 .add__buttons {
@@ -105,4 +108,19 @@
 
 .edit__mode {
 	display: none;
+}
+
+.edit__column {
+	width: 4%;
+}
+
+.edit__buttons {
+	width: 2.4em;
+	height: 2.4em;
+	font-size: 1em;
+	line-height: 1em;
+	font-weight: 700;
+	padding: 0.3em 0.5em 0.24em;
+	display: block;
+	margin: 0 auto;
 }

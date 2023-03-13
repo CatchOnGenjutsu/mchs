@@ -2,7 +2,7 @@ import {
     GET_DATA_BY_SEARCH_PARAMS_LICENSE,
     GET_LICENSE_BY_ID,
     SET_SEARCH_PARAMS_LICENSE,
-    APP_NEW_SPEC_MARK,
+    ADD_NEW_SPEC_MARK,
     ADD_NEW_CONF_MARK,
 } from "../types";
 
@@ -44,7 +44,7 @@ export const certificateReducer = (state = initialState, action) => {
                 licenseSpecmarksList: [...action.data.licenseAdd.boatDrivingLicenseSpecmarksList],
                 licenseConfList: [...action.data.licenseAdd.boatDrivingLicenseConfList]
             }))()
-        case APP_NEW_SPEC_MARK:
+        case ADD_NEW_SPEC_MARK:
             const markIndex = state.licenseSpecmarksList.findIndex((item) => item.id === action.data.id);
             if (markIndex >= 0) {
                 return (() => ({

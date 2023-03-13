@@ -67,7 +67,7 @@ export default function Certificate(props) {
 
 	const handleEditNotes = (e) => {
 		const data = specMarkFromState.find((item) => item.id == e.target.id);
-		console.log(data);
+		// console.log(data);
 		setModalWindowInputs(boatDrivingLicenseSpecmarksList);
 		setDataForEdit(data);
 		setShowModal(true);

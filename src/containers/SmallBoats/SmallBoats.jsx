@@ -42,7 +42,7 @@ export default function SmallBoats() {
 	return (
 		<>
 			<div>
-				<button
+				{/* <button
 					onClick={() => {
 						setBoatId('');
 						handleClearBoatInfo();
@@ -54,7 +54,7 @@ export default function SmallBoats() {
 							: `${styles['button-back']} btn btn-primary ${styles.hidden}`
 					}>
 					НАЗАД
-				</button>
+				</button> */}
 				<div className={boatId !== '' ? styles.hidden : ''}>
 					<h2>База данных маломерных судов</h2>
 					<SearchBlock inputsHeaders={inputsHeadersSmallBoats} />
@@ -64,7 +64,7 @@ export default function SmallBoats() {
 						dataFromState={dataFromState}
 					/>
 				</div>
-				<BoatInfo hidden={boatId} />
+				{/* <BoatInfo hidden={boatId} /> */}
 			</div>
 		</>
 	);
