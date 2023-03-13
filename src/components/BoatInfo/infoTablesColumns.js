@@ -217,19 +217,44 @@ export const ownersHistoryTableColumns = [
   },
 ]
 
-export const dealsHistoryTableColumns = [
-  {
-    id: "boatDeals",
-    value: "Дата сделки",
-    key: "dealDate",
-  },
-  {
-    id: "boatDeals",
-    value: "Сделка",
-    key: "note",
-  },
+export const dealsHistoryTableColumns = {
+  keyTable: 'dealsHistoryTableColumns',
+  caption: "Информация о совершаемых в отношении судна сделок:",
+  nameColumn: [
+    {
+      id: "boatDeals",
+      value: "Дата сделки",
+      key: "dealDate",
+      type: "date"
+    },
+    {
+      id: "boatDeals",
+      value: "Сделка",
+      key: "note",
+      type: ""
+    },
+    {
+      id: "boatDeals",
+      value: "Наименование документа",
+      key: "docName",
+      type: ""
+    },
+    {
+      id: "boatDeals",
+      value: "Номер документа",
+      key: "docNum",
+      type: ""
+    },
+    {
+      id: "boatDeals",
+      value: "Дата документа",
+      key: "docDate",
+      type: "date"
+    },
+  ]
 
-]
+
+}
 
 export const imposedArrestsTableColumns = [
   {

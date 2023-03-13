@@ -15,7 +15,8 @@ import {
   ADD_NEW_BASES,
   APP_NEW_SPEC_MARK,
   GET_USERS_LIBRARY,
-  ADD_NEW_CONF_MARK
+  ADD_NEW_CONF_MARK,
+  ADD_NEW_BOAT_DEAL
 
 } from './types';
 import {
@@ -40,7 +41,8 @@ import {
 
   API_ADD_NEW_SPECIAL_MARK,
   API_ADD_NEW_CONF_MARK,
-  API_GET_USERS_LIBRARY
+  API_GET_USERS_LIBRARY,
+  API_ADD_NEW_BOAT_DEAL
 } from "../constants/constants";
 
 export function getBoatCardInfo(id) {
@@ -335,6 +337,25 @@ export function getUsersLibrary() {
       type: GET_USERS_LIBRARY,
       data: data,
     })
+  }
+}
+
+export function addNewBoatDeal(newMark, boatId) {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newMark)
+    })
+    newMark.cardid = await response.json();
+    if (response.status === 200) {
+      dispatch({
+        type: ADD_NEW_BOAT_DEAL,
+        data: newMark,
+      })
+    }
   }
 }
 

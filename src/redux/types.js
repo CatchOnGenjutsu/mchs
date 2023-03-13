@@ -28,3 +28,6 @@ export const ADD_NEW_CONF_MARK = "ADD_NEW_CONF_MARK"
 
 export const GET_USERS_LIBRARY = "GET_USERS_LIBRARY"
 
+export const ADD_NEW_BOAT_DEAL = "ADD_NEW_BOAT_DEAL"
+
+

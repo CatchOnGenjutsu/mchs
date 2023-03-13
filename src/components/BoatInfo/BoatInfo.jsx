@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import BoatInfoModalWindow from './ModalWindow/BoatInfoModalWindow';
 
 import {
 	primaryTableLines,
@@ -21,15 +23,42 @@ import styles from './BoatInfo.module.css';
 
 export default function BoatInfo(props) {
 	const [editMode, setEditMode] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+	const [modalWindowInputs, setModalWindowInputs] = useState(null);
+
+	const navigate = useNavigate();
+
+	const handleEditMode = () => {
+		setEditMode(!editMode);
+	};
+
+	const handleCloseButton = () => {
+		if (editMode) {
+			setEditMode(!editMode);
+		} else {
+			navigate(-1);
+		}
+	};
 
 	const boatInfoFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
 		return smallBoatsReducer.boatInfo;
 	});
+
+	const handleAddNotes = (e) => {
+		switch (e.target.id) {
+			case 'dealsHistoryTableColumns':
+				setModalWindowInputs(dealsHistoryTableColumns);
+				break;
+			default:
+				break;
+		}
+		setShowModal(true);
+	};
 	// const tableInfo = [sizeTableColumnsObj]
 
 	return (
-		<div className={props.hidden === '' ? styles.hidden : ''}>
+		<div className={styles.info__container}>
 			<table className={styles['primary-table']}>
 				<caption className={styles['primary-caption']}>Информация об объекте:</caption>
 				<tbody>
@@ -234,37 +263,70 @@ export default function BoatInfo(props) {
 					</tr>
 				</tbody>
 			</table>
-			<table className={`${styles['secondary-table']}`}>
-				<caption className={styles['secondary-caption']}>
-					Информация о совершаемых в отношении судна сделок:
-				</caption>
-				<thead>
-					<tr>
-						{dealsHistoryTableColumns.map((item) => {
-							return (
-								<th
-									className={styles['owners-history-table-th']}
-									id={item.key}>
-									{item.value}
-								</th>
-							);
-						})}
-					</tr>
-				</thead>
-				<tbody>
-					{boatInfoFromState.boatDeals !== undefined
-						? boatInfoFromState.boatDeals.map((elem) => {
-								return (
-									<tr>
-										{dealsHistoryTableColumns.map((item) => {
-											return <td>{elem[`${item.key}`]}</td>;
-										})}
-									</tr>
-								);
-						  })
-						: null}
-				</tbody>
-			</table>
+			<div>
+				<table className={`${styles['secondary-table']}`}>
+					<caption className={styles['secondary-caption']}>
+						{dealsHistoryTableColumns.caption}
+					</caption>
+					<thead>
+						<tr>
+							{dealsHistoryTableColumns.nameColumn.map((item) => {
+								if (item.key !== 'docNum' && item.key !== 'docDate')
+									if (item.key !== 'docName') {
+										return (
+											<th
+												className={styles['owners-history-table-th']}
+												id={item.key}>
+												{item.value}
+											</th>
+										);
+									} else {
+										return (
+											<th
+												className={styles['owners-history-table-th']}
+												id={item.key}>
+												Наименование, номер и дата документа
+											</th>
+										);
+									}
+							})}
+						</tr>
+					</thead>
+					<tbody>
+						{boatInfoFromState.boatDeals !== undefined
+							? boatInfoFromState.boatDeals.map((elem) => {
+									return (
+										<tr>
+											{dealsHistoryTableColumns.nameColumn.map((item) => {
+												if (item.key !== 'docNum' && item.key !== 'docDate')
+													if (item.key !== 'docName') {
+														return <td>{elem[`${item.key}`]}</td>;
+													} else {
+														return (
+															<td>
+																{elem[`${item.key}`]}, {elem[`docNum`]} от{' '}
+																{new Date(elem[`docDate`]).toLocaleDateString()}
+															</td>
+														);
+													}
+											})}
+										</tr>
+									);
+							  })
+							: null}
+					</tbody>
+				</table>
+
+				<button
+					className={`${styles.add__buttons} btn btn-primary ${
+						editMode ? '' : styles.edit__mode
+					}`}
+					id={dealsHistoryTableColumns.keyTable}
+					onClick={(e) => handleAddNotes(e)}>
+					+
+				</button>
+			</div>
+
 			<table className={`${styles['secondary-table']}`}>
 				<caption className={styles['secondary-caption']}>Налагаемые аресты:</caption>
 				<thead>
@@ -466,18 +528,24 @@ export default function BoatInfo(props) {
 			<div className="d-flex justify-content-around mt-5">
 				<button
 					className={`btn btn-primary ${editMode ? styles.edit__mode : ''}`}
-					// onClick={() => handleEditMode()}
-				>
+					onClick={() => handleEditMode()}>
 					Редактировать
 				</button>
 				<button
 					className="btn btn-danger"
-					// onClick={() => handleCloseButton()}
-				>
+					onClick={() => handleCloseButton()}>
 					Закрыть
 				</button>
 			</div>
 			{/*{tableInfo.map((el)=> createTable(el))}*/}
+			{showModal && (
+				<BoatInfoModalWindow
+					boatIdModal={boatInfoFromState.cardid}
+					showModal={showModal}
+					setShowModal={setShowModal}
+					modalWindowInputs={modalWindowInputs}
+				/>
+			)}
 		</div>
 	);
 }

@@ -3,7 +3,8 @@ import {
   GET_BOAT_CARD_INFO,
   CLEAR_BOAT_CARD_INFO,
   GET_DATA_BY_SEARCH_PARAMS_BOAT,
-  SET_SEARCH_PARAMS_BOATS
+  SET_SEARCH_PARAMS_BOATS,
+  ADD_NEW_BOAT_DEAL
 } from "../types";
 
 const initialState = {
@@ -53,6 +54,14 @@ export const smallBoatsReducer = (state = initialState, action) => {
         data: [
           ...action.data
         ],
+      }))();
+    case ADD_NEW_BOAT_DEAL:
+      return (() => ({
+        ...state,
+        boatInfo: {
+          ...state.boatInfo,
+          boatDeals: [...state.boatInfo.boatDeals, action.data]
+        },
       }))();
     default:
       return state;
