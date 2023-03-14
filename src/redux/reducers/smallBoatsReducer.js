@@ -4,8 +4,8 @@ import {
   CLEAR_BOAT_CARD_INFO,
   GET_DATA_BY_SEARCH_PARAMS_BOAT,
   SET_SEARCH_PARAMS_BOATS,
-  ADD_NEW_BOAT_DEAL,
-  EDIT_BOAT_DEAL
+  ADD_NEW_BOAT_INFO,
+  EDIT_BOAT_INFO
 } from "../types";
 
 const initialState = {
@@ -25,7 +25,7 @@ const initialState = {
 }
 
 export const smallBoatsReducer = (state = initialState, action) => {
-  console.log("smallBoatsReducer >>", action.data)
+  console.log("smallBoatsReducer >>>", action.data)
   switch (action.type) {
     case GET_BOATS_CARDS_LIST:
       return (() => ({
@@ -56,22 +56,47 @@ export const smallBoatsReducer = (state = initialState, action) => {
           ...action.data
         ],
       }))();
-    case ADD_NEW_BOAT_DEAL:
-      return (() => ({
-        ...state,
-        boatInfo: {
-          ...state.boatInfo,
-          boatDeals: [...state.boatInfo.boatDeals, action.data]
-        },
-      }))();
-    case EDIT_BOAT_DEAL:
-      return (() => ({
-        ...state,
-        boatInfo: {
-          ...state.boatInfo,
-          boatDeals: [...state.boatInfo.boatDeals.map(item => item.dealId === action.data.dealId ? action.data : item)]
-        },
-      }))();
+    case ADD_NEW_BOAT_INFO:
+      switch (action.data.tableType) {
+        case "dealsHistoryTableColumns":
+          console.log("smallBoatsReducer >>", action.data.newInfo)
+          return (() => ({
+            ...state,
+            boatInfo: {
+              ...state.boatInfo,
+              boatDeals: [...state.boatInfo.boatDeals, action.data.newInfo]
+            },
+          }))();
+        // case "specialMarksTableColumns":
+        //   return (() => ({
+        //     ...state,
+        //     boatInfo: {
+        //       ...state.boatInfo,
+        //       specMarks
+        //         : [...state.boatInfo.specMarks
+        //           , action.data.newInfo]
+        //     },
+        //   }))();
+
+        default:
+          break;
+      }
+
+    case EDIT_BOAT_INFO:
+      switch (action.data.tableType) {
+        case "dealsHistoryTableColumns":
+          console.log("smallBoatsReducer >>", action.data.newInfo)
+          return (() => ({
+            ...state,
+            boatInfo: {
+              ...state.boatInfo,
+              boatDeals: [...state.boatInfo.boatDeals.map(item => item.dealId === action.data.newInfo.dealId ? action.data.newInfo : item)]
+            },
+          }))();
+        default:
+          break;
+      }
+
     default:
       return state;
   }

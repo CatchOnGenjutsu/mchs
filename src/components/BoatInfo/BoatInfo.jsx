@@ -31,6 +31,7 @@ export default function BoatInfo(props) {
 	const [showModal, setShowModal] = useState(false);
 	const [modalWindowInputs, setModalWindowInputs] = useState({});
 	const [dataForEdit, setDataForEdit] = useState({});
+	const [type, setType] = useState(null);
 
 	const boatInfoFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
@@ -50,27 +51,28 @@ export default function BoatInfo(props) {
 		}
 	};
 
-	const handleAddNotes = (e) => {
+	const handleAddNewData = (e) => {
 		switch (e.target.id) {
 			case 'dealsHistoryTableColumns':
 				setModalWindowInputs(dealsHistoryTableColumns);
 				break;
+			case 'specialMarksTableColumns':
+				setModalWindowInputs(specialMarksTableColumns);
+				break;
 			default:
 				break;
 		}
+		setType('save');
 		setShowModal(true);
 	};
 
 	const handleEditNotes = (e) => {
 		const data = boatInfoFromState.boatDeals.find((item) => item.dealId == e.target.id);
 		data.docDate = new Date(data.docDate).toISOString().split('T')[0];
+		setType('edit');
 		setModalWindowInputs(dealsHistoryTableColumns);
 		setDataForEdit(data);
 		setShowModal(true);
-	};
-
-	const handleCheckboxClick = (e) => {
-		e.preventDefault();
 	};
 
 	useEffect(() => {
@@ -376,7 +378,7 @@ export default function BoatInfo(props) {
 						editMode ? '' : styles.edit__mode
 					}`}
 					id={dealsHistoryTableColumns.keyTable}
-					onClick={(e) => handleAddNotes(e)}>
+					onClick={(e) => handleAddNewData(e)}>
 					+
 				</button>
 			</div>
@@ -554,7 +556,7 @@ export default function BoatInfo(props) {
 																		className={styles.checkbox}
 																		id={elem.bsmId}
 																		checked
-																		// disabled
+																		disabled
 																	/>
 																) : (
 																	<input
@@ -579,7 +581,7 @@ export default function BoatInfo(props) {
 													className={`${styles.edit__buttons} btn btn-primary ${
 														editMode ? '' : styles.edit__mode
 													}`}
-													// id={elem.dealId}
+													id={elem.bsmId}
 													onClick={(e) => handleEditNotes(e)}>
 													&#9998;
 												</button>
@@ -596,7 +598,7 @@ export default function BoatInfo(props) {
 						editMode ? '' : styles.edit__mode
 					}`}
 					id={specialMarksTableColumns.keyTable}
-					onClick={(e) => handleAddNotes(e)}>
+					onClick={(e) => handleAddNewData(e)}>
 					+
 				</button>
 			</div>
@@ -685,6 +687,7 @@ export default function BoatInfo(props) {
 					modalWindowInputs={modalWindowInputs}
 					dataForEdit={dataForEdit}
 					setDataForEdit={setDataForEdit}
+					type={type}
 				/>
 			)}
 		</div>

@@ -28,7 +28,7 @@ export const ADD_NEW_CONF_MARK = "ADD_NEW_CONF_MARK"
 
 export const GET_USERS_LIBRARY = "GET_USERS_LIBRARY"
 
-export const ADD_NEW_BOAT_DEAL = "ADD_NEW_BOAT_DEAL"
-export const EDIT_BOAT_DEAL = "EDIT_BOAT_DEAL"
+export const ADD_NEW_BOAT_INFO = "ADD_NEW_BOAT_INFO"
+export const EDIT_BOAT_INFO = "EDIT_BOAT_INFO"
 
 

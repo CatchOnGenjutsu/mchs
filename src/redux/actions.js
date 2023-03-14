@@ -16,8 +16,8 @@ import {
   ADD_NEW_SPEC_MARK,
   GET_USERS_LIBRARY,
   ADD_NEW_CONF_MARK,
-  ADD_NEW_BOAT_DEAL,
-  EDIT_BOAT_DEAL
+  ADD_NEW_BOAT_INFO,
+  EDIT_BOAT_INFO
 } from './types';
 import {
   MAIN_URL,
@@ -343,40 +343,54 @@ export function getUsersLibrary() {
   }
 }
 
-export function addNewBoatDeal(newMark, boatId) {
-  return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newMark)
-    })
-    newMark.cardid = await response.json();
-    if (response.status === 200) {
-      dispatch({
-        type: ADD_NEW_BOAT_DEAL,
-        data: newMark,
-      })
-    }
+export function addNewBoatInfo(newMark, boatId, tableType) {
+  switch (tableType) {
+    case "dealsHistoryTableColumns":
+      return async dispatch => {
+        const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newMark)
+        })
+        const dealId = await response.json();
+        newMark.dealId = dealId
+        const newData = { newInfo: newMark, tableType: tableType }
+        if (response.status === 200) {
+          dispatch({
+            type: ADD_NEW_BOAT_INFO,
+            data: newData
+          })
+        }
+      }
+    default:
+      break;
   }
+
 }
 
-export function editBoatDeal(newMark, boatId) {
-  return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newMark)
-    })
-    if (response.status === 200) {
-      dispatch({
-        type: EDIT_BOAT_DEAL,
-        data: newMark,
-      })
-    }
+export function editBoatInfo(newMark, boatId, tableType) {
+  switch (tableType) {
+    case "dealsHistoryTableColumns":
+      return async dispatch => {
+        const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newMark)
+        })
+        if (response.status === 200) {
+          dispatch({
+            type: EDIT_BOAT_INFO,
+            data: newMark,
+          })
+        }
+      }
+    default:
+      break;
   }
+
 }
 

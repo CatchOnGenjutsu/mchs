@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewBoatDeal, editBoatDeal } from '../../../redux/actions';
+import { addNewBoatInfo, editBoatInfo } from '../../../redux/actions';
 
 export default function BoatInfoModalWindow({
 	boatIdModal,
@@ -10,6 +10,7 @@ export default function BoatInfoModalWindow({
 	modalWindowInputs,
 	dataForEdit,
 	setDataForEdit,
+	type,
 }) {
 	const boatInfoFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
@@ -23,7 +24,7 @@ export default function BoatInfoModalWindow({
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		console.log('modalWindowInputs >>>!!', modalWindowInputs);
+		console.log('newMark >>>!!', newMark);
 	}, []);
 
 	const handleChange = (e) => {
@@ -38,6 +39,32 @@ export default function BoatInfoModalWindow({
 						: boatInfoFromState.leName;
 				setNewMark(newMark);
 				break;
+			case 'specialMarksTableColumns':
+				// newMark.bsmLock = false;
+				switch (e.currentTarget.dataset.id) {
+					// case 'bsmLock':
+					// 	if (e.currentTarget.value === 'on') {
+					// 		newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
+					// 	} else {
+					// 		newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
+					// 	}
+					// 	break;
+					default:
+						newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
+						newMark.cardId = boatIdModal;
+						// Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
+						newMark.editor = 2;
+						// Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
+						break;
+				}
+				// newMark.recdate = Date.now();
+				// newMark.ownerType = boatInfoFromState.ownerType;
+				// newMark.ownerName =
+				// 	boatInfoFromState.ownerType.ptcode === 1
+				// 		? `${boatInfoFromState.ownerSurname} ${boatInfoFromState.ownerName} ${boatInfoFromState.ownerMidname}`
+				// 		: boatInfoFromState.leName;
+				setNewMark(newMark);
+				break;
 			default:
 				break;
 		}
@@ -49,26 +76,27 @@ export default function BoatInfoModalWindow({
 	const handleSave = () => {
 		switch (modalWindowInputs.keyTable) {
 			case 'dealsHistoryTableColumns':
-				if (dataForEdit) {
-					dispatch(editBoatDeal(newMark, boatIdModal));
-				} else {
-					dispatch(addNewBoatDeal(newMark, boatIdModal));
+				switch (type) {
+					case 'edit':
+						console.log('edit');
+						console.log('dataForEdit', Object.keys(dataForEdit).length);
+						dispatch(editBoatInfo(newMark, boatIdModal, 'dealsHistoryTableColumns'));
+						break;
+					case 'save':
+						console.log('save');
+						dispatch(addNewBoatInfo(newMark, boatIdModal, 'dealsHistoryTableColumns'));
+						break;
+					default:
+						break;
 				}
 				break;
-			// case 'certificateWithdrawal':
-			// 	dispatch(addNewConfMark(newMark, licenseIdModal));
-			// 	break;
-			// case 'boatDrivingLicenseSpecmarksList':
-			// 	newMark.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
-			// 		.toISOString()
-			// 		.slice(11, 23)}`;
-			// 	newMark.licenseId = licenseIdModal;
-			// 	setNewMark(structuredClone(newMark));
-			// 	if (newMark.mark !== '') {
-			// 		console.log('Mark for edit >>>', newMark);
-			// 		dispatch(addNewSpecialMark(newMark));
-			// 	}
-			// 	break;
+			case 'specialMarksTableColumns':
+				if (dataForEdit) {
+					dispatch(editBoatInfo(newMark, boatIdModal, 'specialMarksTableColumns'));
+				} else {
+					dispatch(addNewBoatInfo(newMark, boatIdModal, 'specialMarksTableColumns'));
+				}
+				break;
 			default:
 				setShowModal(false);
 				setNewMark({});
@@ -130,6 +158,22 @@ export default function BoatInfoModalWindow({
 								</Form.Group>
 							);
 						}
+						if (item.type === 'checkbox') {
+							return (
+								<Form.Group className="mb-3">
+									<Form.Check type="checkbox">
+										<Form.Check.Input
+											data-id={item.key}
+											type="checkbox"
+											onChange={(e) => {
+												handleChange(e);
+											}}
+										/>
+										<Form.Check.Label>{item.value}</Form.Check.Label>
+									</Form.Check>
+								</Form.Group>
+							);
+						}
 
 						if (item.type !== 'date') {
 							return (
@@ -153,6 +197,7 @@ export default function BoatInfoModalWindow({
 				<Button
 					variant="secondary"
 					onClick={() => {
+						console.log(newMark);
 						setShowModal(false);
 						setDataForEdit({});
 						setNewMark({});
