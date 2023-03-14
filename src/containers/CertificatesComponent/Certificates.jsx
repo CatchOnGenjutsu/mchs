@@ -22,15 +22,15 @@ export default function Certificates() {
 	});
 	return (
 		<>
-			<div>
-				<h2>Удостоверения</h2>
-				<SearchBlock inputsHeaders={inputsHeadersCertificates} />
-				<SearchTable
-					// setId={handleLicenseId}
-					columns={SERTIFICATES_COLUMNS}
-					dataFromState={dataFromStateCer}
-				/>
-			</div>
+				<div>
+					<h2>Удостоверения</h2>
+					<SearchBlock inputsHeaders={Object.values(inputsHeadersCertificates)} />
+					<SearchTable
+						// setId={handleLicenseId}
+						columns={SERTIFICATES_COLUMNS}
+						dataFromState={dataFromStateCer}
+					/>
+				</div>
 		</>
 	);
 }

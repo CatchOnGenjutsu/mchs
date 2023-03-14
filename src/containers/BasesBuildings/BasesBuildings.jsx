@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {inputsHeadersBasesBuildings} from "../../components/SearchBlock/inputsHeaders";
+
 import SearchBlock from "../../components/SearchBlock/SearchBlock";
 import {BUILDING_COLUMNS} from "../../components/SearchTable/TablesColumns";
 import SearchTable from "../../components/SearchTable/SearchTable";
 import ToolBlock from "../../components/basesBuildings/ToolBlock/ToolBlock";
 
 import ModalWindow from "../../components/basesBuildings/ModalWindow/ModalWindow";
-
+import {inputsHeadersBasesBuildings, setOptionsForInputs} from "../../components/SearchBlock/inputsHeaders";
 
 
 
@@ -20,6 +20,11 @@ export default function BasesBuildings() {
 		const {basesBuildingReducer} = state
 		return 	basesBuildingReducer.data
 		})
+	const  dataOptionsForSelect = useSelector(state => {
+		const {dictionaryReducer} = state
+		return dictionaryReducer.nsiCheckStatus
+	})
+	setOptionsForInputs(dataOptionsForSelect)
 	const data = dataFromStateBases.map(base=>{
 		const dataBase= {
 			ownerLeName:``,
@@ -58,7 +63,7 @@ export default function BasesBuildings() {
 		<>
 			<div>
 				<h2>Базы и сооружения</h2>
-				<SearchBlock inputsHeaders={inputsHeadersBasesBuildings} />
+				<SearchBlock inputsHeaders={Object.values(inputsHeadersBasesBuildings)} />
 				<ToolBlock
 					data = {dataFromStateBases}
 					buildingId={buildingId}

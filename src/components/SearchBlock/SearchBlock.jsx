@@ -24,10 +24,15 @@ export default function SearchBlock(props) {
 		return certificateReducer.searchParams;
 	});
 
-	const searchParamsFromStateBasesBuilding = useSelector((state) => {
-		const { basesBuildingReducer } = state;
-		return basesBuildingReducer.searchParams;
-	});
+	const searchParamsFromStateBasesBuilding = useSelector(state => {
+		const {basesBuildingReducer} = state;
+		return basesBuildingReducer.searchParams
+	})
+	const optionsNsiCheckStatus= useSelector((state => {
+		const {dictionaryReducer} = state
+		return dictionaryReducer.nsiCheckStatus
+	}))
+
 
 	const handleSearchData = (e) => {
 		e.preventDefault();

@@ -1,5 +1,3 @@
-
-
 export const optionsForModalWindow = {
     optionsForInputIndividual:{
         ownerType:{
@@ -140,6 +138,11 @@ export const optionsForModalWindow = {
             type:'date'
         },
     },
+}
+export const optionsButton = {
+    add: 'Добавить новую базу',
+    edit: 'Редактировать запись',
+    delete:'Удалить запись'
 }
 
 export const setOptionsForModalWindow = (ownerOptions,sectionOptions)=>{

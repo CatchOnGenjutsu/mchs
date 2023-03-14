@@ -10,7 +10,7 @@ const initialState = {
     searchParams :{
         ownerCommonName:'',
         location:'',
-        statusName:'',
+        checkStatus:0,
         startDate:'',
         endDate:''
     }

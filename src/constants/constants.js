@@ -18,6 +18,7 @@ export const API_DELETE_BASES_BUILDING = 'bases/deleteBoatParking/'
 
 export const API_GET_GIMS_SECTIONS = "static/info/gimsSections"
 export const API_GET_OWNER_TYPE = "static/info/personTypes"
+export const API_GET_NSI_CHECK_STATUS = "static/info/nsiCheckStatus"
 
 export const API_GET_LICENSE_INFO_FROM_LIBS_OBLAST = 'directory/oblast/'
 export const API_GET_LICENSE_INFO_FROM_LIBS_RAYON = 'directory/rayon/'
