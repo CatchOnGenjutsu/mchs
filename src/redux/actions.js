@@ -1,7 +1,4 @@
 import {
-  SHOW_HIDDEN_MENU,
-  COLOR_MENU_ITEM,
-  GET_BOATS_CARDS_LIST,
   GET_BOAT_CARD_INFO,
   CLEAR_BOAT_CARD_INFO,
   GET_DATA_BY_SEARCH_PARAMS_LICENSE,
@@ -16,20 +13,27 @@ import {
   DELETE_BASES,
   EDIT_BASES,
   ADD_NEW_BASES,
-  APP_NEW_SPEC_MARK,
+  ADD_NEW_SPEC_MARK,
   GET_USERS_LIBRARY,
+
   ADD_NEW_CONF_MARK, GET_DICTIONARY_NSI_CHECK_STATUS
+
+
+  ADD_NEW_CONF_MARK,
+  ADD_NEW_BOAT_INFO,
+  EDIT_BOAT_INFO
 
 } from './types';
 import {
   MAIN_URL,
   PORT,
-  API_GET_BOATS_LIST_SERCH,
+  API_GET_BOATS_LIST_SEARCH,
   API_GET_BOAT_INFO_CARD,
-  API_GET_LICENSE_LIST_SERCH,
+  API_GET_BOAT_INFO_SPEC_MARKS,
+  API_GET_LICENSE_LIST_SEARCH,
   API_GET_LICENSE_INFO_CARD,
 
-  API_GET_BASES_BUILDING_LIST_SERCH,
+  API_GET_BASES_BUILDING_LIST_SEARCH,
   API_EDIT_BASES_BUILDING,
   API_ADD_BASES_BUILDING,
   API_GET_GIMS_SECTIONS,
@@ -43,39 +47,15 @@ import {
 
   API_ADD_NEW_SPECIAL_MARK,
   API_ADD_NEW_CONF_MARK,
+
   API_GET_USERS_LIBRARY, API_GET_NSI_CHECK_STATUS
 } from "../constants/constants";
 
-export function showHiddenMenu(id) {
-  return {
-    type: SHOW_HIDDEN_MENU,
-    data: { id },
-  };
-}
 
-export function colorMenuItem(id) {
-  return {
-    type: COLOR_MENU_ITEM,
-    data: { id },
-  };
-}
 
-// export function getBoatsCardsList() {
-//   return async dispatch => {
-//     const response = await fetch(MAIN_URL+PORT+API_BOATS_LIST);
-//     const data = await response.json();
-//     for (let item of data) {
-//       const owner = `${item.agent.personSurname} ${item.agent.personName} ${item.agent.personMidname}`;
-//       item["boatType"] = item["boatType"]["btname"]
-//       item["owner"] = owner;
-//     }
-//     const jsonData = data;
-//     dispatch({
-//       type: GET_BOATS_CARDS_LIST,
-//       data: jsonData
-//     })
-//   };
-// }
+  API_ADD_NEW_BOAT_DEAL,
+
+} from "../constants/constants";
 
 export function getBoatCardInfo(id) {
   return async dispatch => {
@@ -83,6 +63,9 @@ export function getBoatCardInfo(id) {
     if (id !== "") {
       const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(id));
       jsonData = await response.json();
+      const specMarksReq = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_SPEC_MARKS + String(id));
+      const specMarks = await specMarksReq.json();
+      jsonData.specMarks = specMarks;
     }
     dispatch({
       type: GET_BOAT_CARD_INFO,
@@ -102,15 +85,6 @@ export function clearBoatCardInfo() {
 export function setSearchParams(id, value, url) {
   let object = { [`${id}`]: value }
   switch (true) {
-    case url.includes('certificates'): {
-      return (
-        {
-          type: SET_SEARCH_PARAMS_LICENSE,
-          data: object
-        }
-      )
-      break;
-    }
     case url.includes('smallboats'): {
       return (
         {
@@ -118,7 +92,14 @@ export function setSearchParams(id, value, url) {
           data: object
         }
       )
-      break;
+    }
+    case url.includes('certificates'): {
+      return (
+        {
+          type: SET_SEARCH_PARAMS_LICENSE,
+          data: object
+        }
+      )
     }
     case url.includes('basesbuilding'): {
       return (
@@ -127,7 +108,6 @@ export function setSearchParams(id, value, url) {
           data: object
         }
       )
-      break;
     }
     default: ;
   }
@@ -136,8 +116,7 @@ export function setSearchParams(id, value, url) {
 
 export function getDataBoatsBySearchParams(params) {
   return async dispatch => {
-
-    const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_LIST_SERCH, {
+    const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_LIST_SEARCH, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -145,7 +124,6 @@ export function getDataBoatsBySearchParams(params) {
       body: JSON.stringify(params)
     });
     const data = await response.json();
-    console.log("data from action >>", data)
     for (let item of data) {
       const owner = `${item.ownerSurname} ${item.ownerName} ${item.ownerMidname}`;
       item["owner"] = owner;
@@ -160,9 +138,10 @@ export function getDataBoatsBySearchParams(params) {
 }
 
 export function getDataCerticatesBySearchParams(params) {
+  console.log("params", params)
   return async dispatch => {
     console.log(dispatch)
-    const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SERCH, {
+    const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SEARCH, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -182,9 +161,7 @@ export function getDataCerticatesBySearchParams(params) {
         data: jsonData
       })
     }
-
   }
-
 }
 
 export function getLicenseById(id) {
@@ -207,7 +184,6 @@ export function getLicenseById(id) {
       data["gorodId"] = gorodName["name2"];
       const licenseAddReq = await fetch(MAIN_URL + PORT + API_GET_LICENSE_ADD_INFO_CARD + id);
       const licenseAdd = await licenseAddReq.json();
-      // data["licenseAdd"] = licenseAdd;
       const jsonData = { data: data, licenseAdd: licenseAdd }
       dispatch({
         type: GET_LICENSE_BY_ID,
@@ -232,7 +208,7 @@ export function getDataBasesBuildingBySearchParams(params) {
         break;
       default: queryParams = ''
     }
-    const response = await fetch(MAIN_URL + PORT + API_GET_BASES_BUILDING_LIST_SERCH + queryParams, {
+    const response = await fetch(MAIN_URL + PORT + API_GET_BASES_BUILDING_LIST_SEARCH + queryParams, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -350,7 +326,7 @@ export function addNewSpecialMark(newMark) {
     newMark.id = await response.json()
     if (response.status === 200) {
       dispatch({
-        type: APP_NEW_SPEC_MARK,
+        type: ADD_NEW_SPEC_MARK,
         data: newMark,
       })
     }
@@ -385,5 +361,56 @@ export function getUsersLibrary() {
       data: data,
     })
   }
+}
+
+export function addNewBoatInfo(newMark, boatId, tableType) {
+  switch (tableType) {
+    case "dealsHistoryTableColumns":
+      return async dispatch => {
+        const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newMark)
+        })
+        const dealId = await response.json();
+        newMark.dealId = dealId
+        const newData = { newInfo: newMark, tableType: tableType }
+        if (response.status === 200) {
+          dispatch({
+            type: ADD_NEW_BOAT_INFO,
+            data: newData
+          })
+        }
+      }
+    default:
+      break;
+  }
+
+}
+
+export function editBoatInfo(newMark, boatId, tableType) {
+  switch (tableType) {
+    case "dealsHistoryTableColumns":
+      return async dispatch => {
+        const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newMark)
+        })
+        if (response.status === 200) {
+          dispatch({
+            type: EDIT_BOAT_INFO,
+            data: newMark,
+          })
+        }
+      }
+    default:
+      break;
+  }
+
 }
 

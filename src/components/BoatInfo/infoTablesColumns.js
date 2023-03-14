@@ -36,9 +36,9 @@ export const primaryTableLines = [
     key: ""
   },
   {
-    id:"maxPowerEngine",
-    value:"Предельная мощность двигателей:",
-    key:""
+    id: "maxPowerEngine",
+    value: "Предельная мощность двигателей:",
+    key: ""
   },
   {
     id: "engineNum",
@@ -46,17 +46,17 @@ export const primaryTableLines = [
     key: ""
   },
   {
-    id:"categoryDifficultyArea",
-    value:"Категория сложности района плавания:",
+    id: "categoryDifficultyArea",
+    value: "Категория сложности района плавания:",
     key: ""
   },
   {
-    id:"rankDifficultyArea",
-    value:"Разряд сложности района плавания:",
+    id: "rankDifficultyArea",
+    value: "Разряд сложности района плавания:",
     key: ""
   },
   {
-    id:"NumberAndDateShipTicket",
+    id: "NumberAndDateShipTicket",
     value: "№ и дата выдачи судового билета (в том числе дубликата судового билета):",
     key: ""
   }
@@ -135,9 +135,9 @@ export const toTableColumns = [
 
 export const userTableColumns = [
   {
-    id:"owner",
+    id: "owner",
     value: "Правовая форма заявителя",
-    key:"legalForm"
+    key: "legalForm"
   },
   {
     id: "owner",
@@ -178,9 +178,9 @@ export const engineTableColumns = [
     key: "engvin",
   },
   {
-    id:"enginesList",
-    value:"Тип двигателя",
-    key:"typeEngine"
+    id: "enginesList",
+    value: "Тип двигателя",
+    key: "typeEngine"
   },
   {
     id: "enginesList",
@@ -217,124 +217,163 @@ export const ownersHistoryTableColumns = [
   },
 ]
 
-export const dealsHistoryTableColumns = [
-  {
-    id:"deal",
-    value:"Дата сделки",
-    key:"dateDeal",
-  },
-  {
-    id:"deal",
-    value:"Сделка",
-    key:"dealInfo",
-  },
+export const dealsHistoryTableColumns = {
+  keyTable: 'dealsHistoryTableColumns',
+  caption: "Информация о совершаемых в отношении судна сделок:",
+  nameColumn: [
+    {
+      id: "boatDeals",
+      value: "Дата сделки",
+      key: "dealDate",
+      type: "date"
+    },
+    {
+      id: "boatDeals",
+      value: "Сделка",
+      key: "note",
+      type: ""
+    },
+    {
+      id: "boatDeals",
+      value: "Наименование документа",
+      key: "docName",
+      type: ""
+    },
+    {
+      id: "boatDeals",
+      value: "Номер документа",
+      key: "docNum",
+      type: ""
+    },
+    {
+      id: "boatDeals",
+      value: "Дата документа",
+      key: "docDate",
+      type: "date"
+    },
+  ]
 
-]
 
-export const imposedArrestsTableColumns =[
+}
+
+export const imposedArrestsTableColumns = [
   {
-    id:"imposedArrest",
-    value:"Дата",
-    key:"date"
+    id: "imposedArrest",
+    value: "Дата",
+    key: "date"
   },
   {
-    id:"imposedArrest",
-    value:"Орган",
-    key:"agency"
+    id: "imposedArrest",
+    value: "Орган",
+    key: "agency"
   },
   {
-    id:"imposedArrest",
+    id: "imposedArrest",
     value: "Должностное лицо, принявшее решение",
-    key:"officer"
+    key: "officer"
   },
   {
-    id:"imposedArrest",
-    value:"Примечание",
-    key:"note"
+    id: "imposedArrest",
+    value: "Примечание",
+    key: "note"
   },
 ]
 
 export const liftedArrestsTableColumns = [
   {
-    id:"liftedArrest",
-    value:"Дата",
-    key:"date"
+    id: "liftedArrest",
+    value: "Дата",
+    key: "date"
   },
   {
-    id:"liftedArrest",
-    value:"Орган",
-    key:"agency"
+    id: "liftedArrest",
+    value: "Орган",
+    key: "agency"
   },
   {
-    id:"liftedArrest",
+    id: "liftedArrest",
     value: "Должностное лицо, принявшее решение",
-    key:"officer"
+    key: "officer"
   },
   {
-    id:"liftedArrest",
-    value:"Примечание",
-    key:"note"
+    id: "liftedArrest",
+    value: "Примечание",
+    key: "note"
   },
 ]
 
 export const noteShipBookTableColumns = [
   {
-    id:"noteShipBook",
-    value:"Дата",
-    key:"date"
+    id: "noteShipBook",
+    value: "Дата",
+    key: "date"
   },
   {
-    id:"noteShipBook",
-    value:"Орган",
-    key:"agency"
+    id: "noteShipBook",
+    value: "Орган",
+    key: "agency"
   },
   {
-    id:"noteShipBook",
+    id: "noteShipBook",
     value: "Должностное лицо, внесшее изменение",
-    key:"officer"
+    key: "officer"
   },
   {
-    id:"noteShipBook",
-    value:"Какой раздел редактировался",
-    key:"section"
+    id: "noteShipBook",
+    value: "Какой раздел редактировался",
+    key: "section"
   },
 ]
 
 export const enterNoteShipBookTableColumns = [
   {
-    id:"enterNoteShipBook",
-    value:"Дата внесения в судовую книгу",
-    key:"enterDate"
+    id: "enterNoteShipBook",
+    value: "Дата внесения в судовую книгу",
+    key: "enterDate"
   },
   {
-    id:"enterNoteShipBook",
-    value:"Дата исключения из судовой книги",
-    key:"endDate"
+    id: "enterNoteShipBook",
+    value: "Дата исключения из судовой книги",
+    key: "endDate"
   }
 ]
 
-export const specialMarksTableColumns = [
+export const specialMarksTableColumns = {
+  keyTable: 'specialMarksTableColumns',
+  caption: "Особые отметки:",
+  nameColumn: [
+    {
+      id: "specialMarks",
+      value: "Ограничение на рег. действия",
+      key: "bsmLock",
+      type: "checkbox"
+    },
+    {
+      id: "specialMarks",
+      value: "Дата",
+      key: "bsmDate",
+      type: "date"
+    },
+    {
+      id: "specialMarks",
+      value: "Отметка",
+      key: "bsmNote",
+      type: ""
+    },
+  ]
+
+}
+
+export const documentsTableColumns = [
   {
-    id:"specialMarks",
-    value:"Дата",
-    key:"date"
+    id: "documents",
+    value: "Дата",
+    key: "date"
   },
   {
-    id:"specialMarks",
-    value:"Отметка",
-    key:"mark"
-  }
-]
-export const documentsTableColumns= [
-  {
-    id:"documents",
-    value:"Дата",
-    key:"date"
-  },
-  {
-    id:"documents",
-    value:"Документ",
-    key:"fail"
+    id: "documents",
+    value: "Документ",
+    key: "fail"
   }
 ]
 

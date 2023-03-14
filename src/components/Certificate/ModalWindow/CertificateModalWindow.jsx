@@ -73,8 +73,8 @@ export default function CertificateModalWindow({
 				if (e.currentTarget.dataset.id !== 'name') {
 					newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
 					newMark.recdate = Date.now();
-					newMark.confDateEnd = '2025-01-01'; //Тестовое значение, уточнить необходимость ввода данных
-					newMark.confDocNum = 'Test Doc'; //Тестовое значение, уточнить необходимость ввода данных
+					newMark.confDateEnd = '2020-12-12'; //Тестовое значение, уточнить необходимость ввода данных
+					newMark.confDocNum = '-'; //Тестовое значение, уточнить необходимость ввода данных
 					newMark.confiscation = {};
 					newMark.confiscation.code = 2;
 					newMark.confiscation.name = 'Изъятие';

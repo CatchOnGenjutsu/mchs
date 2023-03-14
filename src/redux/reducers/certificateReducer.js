@@ -2,9 +2,8 @@ import {
     GET_DATA_BY_SEARCH_PARAMS_LICENSE,
     GET_LICENSE_BY_ID,
     SET_SEARCH_PARAMS_LICENSE,
-    APP_NEW_SPEC_MARK,
+    ADD_NEW_SPEC_MARK,
     ADD_NEW_CONF_MARK,
-    GET_USERS_LIBRARY
 } from "../types";
 
 const initialState = {
@@ -24,10 +23,9 @@ const initialState = {
 }
 
 export const certificateReducer = (state = initialState, action) => {
-    console.log("action data >>>", action.data)
-    console.log("licenseSpecmarksList state >>>", state.licenseSpecmarksList)
     switch (action.type) {
         case SET_SEARCH_PARAMS_LICENSE:
+            sessionStorage.setItem("searchParams", JSON.stringify(Object.assign(state.searchParams, action.data)))
             return (() => ({
                 ...state,
                 searchParams: Object.assign(state.searchParams, action.data)
@@ -46,7 +44,7 @@ export const certificateReducer = (state = initialState, action) => {
                 licenseSpecmarksList: [...action.data.licenseAdd.boatDrivingLicenseSpecmarksList],
                 licenseConfList: [...action.data.licenseAdd.boatDrivingLicenseConfList]
             }))()
-        case APP_NEW_SPEC_MARK:
+        case ADD_NEW_SPEC_MARK:
             const markIndex = state.licenseSpecmarksList.findIndex((item) => item.id === action.data.id);
             if (markIndex >= 0) {
                 return (() => ({
@@ -63,7 +61,6 @@ export const certificateReducer = (state = initialState, action) => {
                     ],
                 }))();
             }
-
         case ADD_NEW_CONF_MARK:
             return (() => ({
                 ...state,

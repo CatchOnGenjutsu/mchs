@@ -1,5 +1,9 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import BoatInfoModalWindow from './ModalWindow/BoatInfoModalWindow';
+import { getBoatCardInfo, clearBoatCardInfo } from '../../redux/actions';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
 	primaryTableLines,
@@ -20,16 +24,78 @@ import {
 import styles from './BoatInfo.module.css';
 
 export default function BoatInfo(props) {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const [editMode, setEditMode] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+	const [modalWindowInputs, setModalWindowInputs] = useState({});
+	const [dataForEdit, setDataForEdit] = useState({});
+	const [type, setType] = useState(null);
+
 	const boatInfoFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
 		return smallBoatsReducer.boatInfo;
 	});
+
+	const handleEditMode = () => {
+		setEditMode(!editMode);
+	};
+
+	const handleCloseButton = () => {
+		if (editMode) {
+			setEditMode(!editMode);
+		} else {
+			dispatch(clearBoatCardInfo());
+			navigate(-1);
+		}
+	};
+
+	const handleAddNewData = (e) => {
+		switch (e.target.id) {
+			case 'dealsHistoryTableColumns':
+				setModalWindowInputs(dealsHistoryTableColumns);
+				break;
+			case 'specialMarksTableColumns':
+				setModalWindowInputs(specialMarksTableColumns);
+				break;
+			default:
+				break;
+		}
+		setType('save');
+		setShowModal(true);
+	};
+
+	const handleEditNotes = (e) => {
+		const data = boatInfoFromState.boatDeals.find((item) => item.dealId == e.target.id);
+		data.docDate = new Date(data.docDate).toISOString().split('T')[0];
+		setType('edit');
+		setModalWindowInputs(dealsHistoryTableColumns);
+		setDataForEdit(data);
+		setShowModal(true);
+	};
+
+	useEffect(() => {
+		const pathArray = window.location.pathname.split('/');
+		const id = pathArray[pathArray.length - 1];
+		if (
+			window.performance
+				.getEntriesByType('navigation')
+				.map((nav) => nav.type)
+				.includes('reload')
+		) {
+			// dispatch(
+			// 	getDataCerticatesBySearchParams(
+			// 		JSON.parse(sessionStorage.getItem('searchParams'))
+			// 	)
+			// );
+			dispatch(getBoatCardInfo(id));
+		}
+	}, []);
 	// const tableInfo = [sizeTableColumnsObj]
 
-	console.log('boatInfoFromState >>>', boatInfoFromState);
-
 	return (
-		<div className={props.hidden === '' ? styles.hidden : ''}>
+		<div className={styles.info__container}>
 			<table className={styles['primary-table']}>
 				<caption className={styles['primary-caption']}>Информация об объекте:</caption>
 				<tbody>
@@ -234,40 +300,89 @@ export default function BoatInfo(props) {
 					</tr>
 				</tbody>
 			</table>
-			<table className={`${styles['secondary-table']}`}>
-				<caption className={styles['secondary-caption']}>
-					Информация о совершаемых в отношении судна сделок:
-				</caption>
-				<thead>
-					<tr>
-						{dealsHistoryTableColumns.map((item) => {
-							return (
-								<th
-									className={styles['owners-history-table-th']}
-									id={item.key}>
-									{item.value}
-								</th>
-							);
-						})}
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						{dealsHistoryTableColumns.map((item) => {
-							return (
-								<td>
-									{Object.keys(boatInfoFromState).length !== 0
-										? boatInfoFromState[`${item.id}`] !== undefined &&
-										  boatInfoFromState[`${item.id}`] !== null
-											? boatInfoFromState[`${item.id}`][`${item.key}`]
-											: '—'
-										: null}
-								</td>
-							);
-						})}
-					</tr>
-				</tbody>
-			</table>
+			<div>
+				<table className={`${styles['secondary-table']}`}>
+					<caption className={styles['secondary-caption']}>
+						{dealsHistoryTableColumns.caption}
+					</caption>
+					<thead>
+						<tr>
+							{dealsHistoryTableColumns.nameColumn.map((item) => {
+								if (item.key !== 'docNum' && item.key !== 'docDate')
+									if (item.key !== 'docName') {
+										return (
+											<th
+												className={styles.deals_history_table_th}
+												id={item.key}>
+												{item.value}
+											</th>
+										);
+									} else {
+										return (
+											<th
+												className={styles.deals_history_table_th}
+												id={item.key}>
+												Наименование, номер и дата документа
+											</th>
+										);
+									}
+							})}
+							<th
+								key={uuidv4()}
+								className={`${editMode ? '' : styles.edit__mode} ${
+									styles.edit__column
+								}`}></th>
+						</tr>
+					</thead>
+					<tbody>
+						{boatInfoFromState.boatDeals !== undefined
+							? boatInfoFromState.boatDeals.map((elem) => {
+									return (
+										<tr>
+											{dealsHistoryTableColumns.nameColumn.map((item) => {
+												if (item.key !== 'docNum' && item.key !== 'docDate')
+													if (item.key !== 'docName') {
+														return <td>{elem[`${item.key}`]}</td>;
+													} else {
+														return (
+															<td>
+																{elem[`${item.key}`]}, {elem[`docNum`]} от{' '}
+																{new Date(elem[`docDate`]).toLocaleDateString()}
+															</td>
+														);
+													}
+											})}
+											<td
+												className={`${editMode ? '' : styles.edit__mode} ${
+													styles.edit__column
+												}`}
+												key={uuidv4()}>
+												<button
+													className={`${styles.edit__buttons} btn btn-primary ${
+														editMode ? '' : styles.edit__mode
+													}`}
+													id={elem.dealId}
+													onClick={(e) => handleEditNotes(e)}>
+													&#9998;
+												</button>
+											</td>
+										</tr>
+									);
+							  })
+							: null}
+					</tbody>
+				</table>
+
+				<button
+					className={`${styles.add__buttons} btn btn-primary ${
+						editMode ? '' : styles.edit__mode
+					}`}
+					id={dealsHistoryTableColumns.keyTable}
+					onClick={(e) => handleAddNewData(e)}>
+					+
+				</button>
+			</div>
+
 			<table className={`${styles['secondary-table']}`}>
 				<caption className={styles['secondary-caption']}>Налагаемые аресты:</caption>
 				<thead>
@@ -402,7 +517,92 @@ export default function BoatInfo(props) {
 					</tr>
 				</tbody>
 			</table>
-			<table className={`${styles['secondary-table']}`}>
+			<div>
+				<table className={`${styles['secondary-table']}`}>
+					<caption className={styles['secondary-caption']}>
+						{specialMarksTableColumns.caption}
+					</caption>
+					<thead>
+						<tr>
+							{specialMarksTableColumns.nameColumn.map((item) => {
+								return (
+									<th
+										className={styles.deals_history_table_th}
+										id={item.key}>
+										{item.value}
+									</th>
+								);
+							})}
+							<th
+								key={uuidv4()}
+								className={`${editMode ? '' : styles.edit__mode} ${
+									styles.edit__column
+								}`}></th>
+						</tr>
+					</thead>
+					<tbody>
+						{boatInfoFromState.specMarks !== undefined
+							? boatInfoFromState.specMarks.map((elem) => {
+									return (
+										<tr>
+											{specialMarksTableColumns.nameColumn.map((item) => {
+												switch (item.type) {
+													case 'checkbox':
+														return (
+															<td>
+																{elem.bsmLock ? (
+																	<input
+																		type="checkbox"
+																		className={styles.checkbox}
+																		id={elem.bsmId}
+																		checked
+																		disabled
+																	/>
+																) : (
+																	<input
+																		type="checkbox"
+																		className={styles.checkbox}
+																		id={elem.bsmId}
+																		disabled
+																	/>
+																)}
+															</td>
+														);
+													default:
+														return <td>{elem[`${item.key}`]}</td>;
+												}
+											})}
+											<td
+												className={`${editMode ? '' : styles.edit__mode} ${
+													styles.edit__column
+												}`}
+												key={uuidv4()}>
+												<button
+													className={`${styles.edit__buttons} btn btn-primary ${
+														editMode ? '' : styles.edit__mode
+													}`}
+													id={elem.bsmId}
+													onClick={(e) => handleEditNotes(e)}>
+													&#9998;
+												</button>
+											</td>
+										</tr>
+									);
+							  })
+							: null}
+					</tbody>
+				</table>
+
+				<button
+					className={`${styles.add__buttons} btn btn-primary ${
+						editMode ? '' : styles.edit__mode
+					}`}
+					id={specialMarksTableColumns.keyTable}
+					onClick={(e) => handleAddNewData(e)}>
+					+
+				</button>
+			</div>
+			{/* <table className={`${styles['secondary-table']}`}>
 				<caption className={styles['secondary-caption']}>Особые отметки:</caption>
 				<thead>
 					<tr>
@@ -433,7 +633,7 @@ export default function BoatInfo(props) {
 						})}
 					</tr>
 				</tbody>
-			</table>
+			</table> */}
 			<table className={`${styles['secondary-table']}`}>
 				<caption className={styles['secondary-caption']}>Документы:</caption>
 				<thead>
@@ -466,7 +666,30 @@ export default function BoatInfo(props) {
 					</tr>
 				</tbody>
 			</table>
+			<div className="d-flex justify-content-around mt-5">
+				<button
+					className={`btn btn-primary ${editMode ? styles.edit__mode : ''}`}
+					onClick={() => handleEditMode()}>
+					Редактировать
+				</button>
+				<button
+					className="btn btn-danger"
+					onClick={() => handleCloseButton()}>
+					Закрыть
+				</button>
+			</div>
 			{/*{tableInfo.map((el)=> createTable(el))}*/}
+			{showModal && (
+				<BoatInfoModalWindow
+					boatIdModal={boatInfoFromState.cardid}
+					showModal={showModal}
+					setShowModal={setShowModal}
+					modalWindowInputs={modalWindowInputs}
+					dataForEdit={dataForEdit}
+					setDataForEdit={setDataForEdit}
+					type={type}
+				/>
+			)}
 		</div>
 	);
 }
