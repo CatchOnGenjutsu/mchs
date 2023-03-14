@@ -47,7 +47,9 @@ import {
 
   API_GET_USERS_LIBRARY,
   API_GET_NSI_CHECK_STATUS,
-  API_ADD_NEW_BOAT_DEAL
+  API_ADD_NEW_BOAT_DEAL,
+  API_ADD_NEW_BOAT_SPEC_MARK,
+  API_EDIT_BOAT_SPEC_MARK
 } from "../constants/constants";
 
 export function getBoatCardInfo(id) {
@@ -356,7 +358,7 @@ export function getUsersLibrary() {
   }
 }
 
-export function addNewBoatInfo(newMark, boatId, tableType) {
+export function addNewBoatInfo(data, boatId, tableType) {
   switch (tableType) {
     case "dealsHistoryTableColumns":
       return async dispatch => {
@@ -365,11 +367,33 @@ export function addNewBoatInfo(newMark, boatId, tableType) {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(newMark)
+          body: JSON.stringify(data)
         })
         const dealId = await response.json();
-        newMark.dealId = dealId
-        const newData = { newInfo: newMark, tableType: tableType }
+        data.dealId = dealId
+        const newData = { newInfo: data, tableType: tableType }
+        if (response.status === 200) {
+          dispatch({
+            type: ADD_NEW_BOAT_INFO,
+            data: newData
+          })
+        }
+      }
+    case "specialMarksTableColumns":
+      // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
+      const userId = 2;
+      // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
+      return async dispatch => {
+        const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_SPEC_MARK + boatId + "/" + userId, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        const bsmId = await response.json();
+        data.bsmId = bsmId;
+        const newData = { newInfo: data, tableType: tableType }
         if (response.status === 200) {
           dispatch({
             type: ADD_NEW_BOAT_INFO,
@@ -383,7 +407,7 @@ export function addNewBoatInfo(newMark, boatId, tableType) {
 
 }
 
-export function editBoatInfo(newMark, boatId, tableType) {
+export function editBoatInfo(data, boatId, tableType) {
   switch (tableType) {
     case "dealsHistoryTableColumns":
       return async dispatch => {
@@ -392,9 +416,9 @@ export function editBoatInfo(newMark, boatId, tableType) {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(newMark)
+          body: JSON.stringify(data)
         })
-        const newData = { newInfo: newMark, tableType: tableType }
+        const newData = { newInfo: data, tableType: tableType }
         if (response.status === 200) {
           dispatch({
             type: EDIT_BOAT_INFO,
@@ -402,6 +426,32 @@ export function editBoatInfo(newMark, boatId, tableType) {
           })
         }
       }
+    case "specialMarksTableColumns":
+      // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
+      const userId = 2;
+      const bsmId = data.bsmId
+      delete data.bsmId
+      delete data.cardid
+      delete data.editor
+      // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
+      return async dispatch => {
+        const response = await fetch(MAIN_URL + PORT + API_EDIT_BOAT_SPEC_MARK + bsmId + "/" + boatId + "/" + userId, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        const newData = { newInfo: await response.json(), tableType: tableType }
+        console.log("newData action >!>!>", newData)
+        if (response.status === 200) {
+          dispatch({
+            type: EDIT_BOAT_INFO,
+            data: newData,
+          })
+        }
+      }
+
     default:
       break;
   }

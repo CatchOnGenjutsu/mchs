@@ -59,7 +59,6 @@ export const smallBoatsReducer = (state = initialState, action) => {
     case ADD_NEW_BOAT_INFO:
       switch (action.data.tableType) {
         case "dealsHistoryTableColumns":
-          console.log("smallBoatsReducer >>", action.data.newInfo)
           return (() => ({
             ...state,
             boatInfo: {
@@ -67,16 +66,14 @@ export const smallBoatsReducer = (state = initialState, action) => {
               boatDeals: [...state.boatInfo.boatDeals, action.data.newInfo]
             },
           }))();
-        // case "specialMarksTableColumns":
-        //   return (() => ({
-        //     ...state,
-        //     boatInfo: {
-        //       ...state.boatInfo,
-        //       specMarks
-        //         : [...state.boatInfo.specMarks
-        //           , action.data.newInfo]
-        //     },
-        //   }))();
+        case "specialMarksTableColumns":
+          return (() => ({
+            ...state,
+            boatInfo: {
+              ...state.boatInfo,
+              specMarks: [...state.boatInfo.specMarks, action.data.newInfo]
+            },
+          }))();
 
         default:
           break;
@@ -91,6 +88,14 @@ export const smallBoatsReducer = (state = initialState, action) => {
             boatInfo: {
               ...state.boatInfo,
               boatDeals: [...state.boatInfo.boatDeals.map(item => item.dealId === action.data.newInfo.dealId ? action.data.newInfo : item)]
+            },
+          }))();
+        case "specialMarksTableColumns":
+          return (() => ({
+            ...state,
+            boatInfo: {
+              ...state.boatInfo,
+              specMarks: [...state.boatInfo.specMarks.map(item => item.bsmId === action.data.newInfo.bsmId ? action.data.newInfo : item)]
             },
           }))();
         default:

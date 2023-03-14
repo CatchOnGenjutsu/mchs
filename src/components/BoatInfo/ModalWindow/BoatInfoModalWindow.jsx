@@ -11,90 +11,78 @@ export default function BoatInfoModalWindow({
 	dataForEdit,
 	setDataForEdit,
 	type,
+	setType,
 }) {
 	const boatInfoFromState = useSelector((state) => {
 		const { smallBoatsReducer } = state;
 		return smallBoatsReducer.boatInfo;
 	});
 
-	const [newMark, setNewMark] = useState(
-		modalWindowInputs.keyTable === 'dealsHistoryTableColumns' ? dataForEdit : {}
+	const [newData, setNewMark] = useState(
+		type === 'edit' ? structuredClone(dataForEdit) : {}
 	);
 
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		console.log('newMark >>>!!', newMark);
-	}, []);
-
 	const handleChange = (e) => {
 		switch (modalWindowInputs.keyTable) {
 			case 'dealsHistoryTableColumns':
-				newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
-				newMark.recdate = Date.now();
-				newMark.ownerType = boatInfoFromState.ownerType;
-				newMark.ownerName =
+				newData[e.currentTarget.dataset.id] = e.currentTarget.value;
+				newData.recdate = Date.now();
+				newData.ownerType = boatInfoFromState.ownerType;
+				newData.ownerName =
 					boatInfoFromState.ownerType.ptcode === 1
 						? `${boatInfoFromState.ownerSurname} ${boatInfoFromState.ownerName} ${boatInfoFromState.ownerMidname}`
 						: boatInfoFromState.leName;
-				setNewMark(newMark);
+				setNewMark(newData);
 				break;
 			case 'specialMarksTableColumns':
-				// newMark.bsmLock = false;
+				// case 'bsmLock':
 				switch (e.currentTarget.dataset.id) {
-					// case 'bsmLock':
-					// 	if (e.currentTarget.value === 'on') {
-					// 		newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
-					// 	} else {
-					// 		newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
-					// 	}
-					// 	break;
+					case 'bsmLock':
+						newData[e.currentTarget.dataset.id] = Boolean(e.currentTarget.value);
+						break;
 					default:
-						newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
-						newMark.cardId = boatIdModal;
-						// Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
-						newMark.editor = 2;
-						// Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
+						newData[e.currentTarget.dataset.id] = e.currentTarget.value;
 						break;
 				}
-				// newMark.recdate = Date.now();
-				// newMark.ownerType = boatInfoFromState.ownerType;
-				// newMark.ownerName =
-				// 	boatInfoFromState.ownerType.ptcode === 1
-				// 		? `${boatInfoFromState.ownerSurname} ${boatInfoFromState.ownerName} ${boatInfoFromState.ownerMidname}`
-				// 		: boatInfoFromState.leName;
-				setNewMark(newMark);
 				break;
 			default:
 				break;
 		}
 
-		setNewMark(structuredClone(newMark));
-		// console.log('newMark >>>>', newMark);
+		setNewMark(structuredClone(newData));
 	};
 
 	const handleSave = () => {
+		console.log('Payload >!>!', newData);
 		switch (modalWindowInputs.keyTable) {
 			case 'dealsHistoryTableColumns':
 				switch (type) {
 					case 'edit':
 						console.log('edit');
-						console.log('dataForEdit', Object.keys(dataForEdit).length);
-						dispatch(editBoatInfo(newMark, boatIdModal, 'dealsHistoryTableColumns'));
+						dispatch(editBoatInfo(newData, boatIdModal, 'dealsHistoryTableColumns'));
 						break;
 					case 'save':
 						console.log('save');
-						dispatch(addNewBoatInfo(newMark, boatIdModal, 'dealsHistoryTableColumns'));
+						dispatch(addNewBoatInfo(newData, boatIdModal, 'dealsHistoryTableColumns'));
 						break;
 					default:
 						break;
 				}
 				break;
 			case 'specialMarksTableColumns':
-				if (dataForEdit) {
-					dispatch(editBoatInfo(newMark, boatIdModal, 'specialMarksTableColumns'));
-				} else {
-					dispatch(addNewBoatInfo(newMark, boatIdModal, 'specialMarksTableColumns'));
+				switch (type) {
+					case 'edit':
+						console.log('edit');
+						dispatch(editBoatInfo(newData, boatIdModal, 'specialMarksTableColumns'));
+						break;
+					case 'save':
+						console.log('save');
+						dispatch(addNewBoatInfo(newData, boatIdModal, 'specialMarksTableColumns'));
+						break;
+					default:
+						break;
 				}
 				break;
 			default:
@@ -105,6 +93,20 @@ export default function BoatInfoModalWindow({
 		setShowModal(false);
 		setNewMark({});
 	};
+
+	useEffect(() => {
+		// console.log('newData.bsmLock >>>!!', newData.bsmLock);
+		let input = undefined;
+		switch (newData.bsmLock) {
+			case true:
+				input = document.querySelector('#locked');
+				break;
+			case false:
+				input = document.querySelector('#unlocked');
+				break;
+		}
+		input.toggleAttribute('checked');
+	}, []);
 
 	return (
 		<Modal
@@ -150,7 +152,7 @@ export default function BoatInfoModalWindow({
 									<Form.Control
 										data-id={item.key}
 										type="date"
-										value={newMark[`${item.key}`]}
+										value={newData[`${item.key}`]}
 										onChange={(e) => {
 											handleChange(e);
 										}}
@@ -161,16 +163,29 @@ export default function BoatInfoModalWindow({
 						if (item.type === 'checkbox') {
 							return (
 								<Form.Group className="mb-3">
-									<Form.Check type="checkbox">
-										<Form.Check.Input
-											data-id={item.key}
-											type="checkbox"
-											onChange={(e) => {
-												handleChange(e);
-											}}
-										/>
-										<Form.Check.Label>{item.value}</Form.Check.Label>
-									</Form.Check>
+									<Form.Label>{item.value}</Form.Label>
+									<Form.Check
+										name={item.value}
+										data-id={item.key}
+										id="locked"
+										type="radio"
+										label="Да"
+										value={1}
+										onChange={(e) => {
+											handleChange(e);
+										}}
+									/>
+									<Form.Check
+										name={item.value}
+										data-id={item.key}
+										id="unlocked"
+										type="radio"
+										label="Нет"
+										value={''}
+										onChange={(e) => {
+											handleChange(e);
+										}}
+									/>
 								</Form.Group>
 							);
 						}
@@ -182,7 +197,7 @@ export default function BoatInfoModalWindow({
 									<Form.Control
 										data-id={item.key}
 										type="text"
-										value={newMark[`${item.key}`]}
+										value={newData[`${item.key}`]}
 										onChange={(e) => {
 											handleChange(e);
 										}}
@@ -197,10 +212,11 @@ export default function BoatInfoModalWindow({
 				<Button
 					variant="secondary"
 					onClick={() => {
-						console.log(newMark);
+						console.log(dataForEdit);
 						setShowModal(false);
 						setDataForEdit({});
 						setNewMark({});
+						setType(null);
 					}}>
 					Закрыть
 				</Button>

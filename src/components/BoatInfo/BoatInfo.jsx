@@ -67,11 +67,26 @@ export default function BoatInfo(props) {
 	};
 
 	const handleEditNotes = (e) => {
-		const data = boatInfoFromState.boatDeals.find((item) => item.dealId == e.target.id);
-		data.docDate = new Date(data.docDate).toISOString().split('T')[0];
-		setType('edit');
-		setModalWindowInputs(dealsHistoryTableColumns);
+		let data = null;
+		console.log('e.target.currentTarget.tabletype', e.target.dataset.tabletype);
+		switch (e.target.dataset.tabletype) {
+			case 'dealsHistoryTableColumns':
+				data = boatInfoFromState.boatDeals.find((item) => item.dealId == e.target.id);
+				data.docDate = new Date(data.docDate).toISOString().split('T')[0];
+
+				setModalWindowInputs(dealsHistoryTableColumns);
+				break;
+			case 'specialMarksTableColumns':
+				data = boatInfoFromState.specMarks.find((item) => item.bsmId == e.target.id);
+				console.log('data', data);
+				// data.docDate = new Date(data.docDate).toISOString().split('T')[0];
+				setModalWindowInputs(specialMarksTableColumns);
+				break;
+			default:
+				break;
+		}
 		setDataForEdit(data);
+		setType('edit');
 		setShowModal(true);
 	};
 
@@ -361,6 +376,7 @@ export default function BoatInfo(props) {
 													className={`${styles.edit__buttons} btn btn-primary ${
 														editMode ? '' : styles.edit__mode
 													}`}
+													data-tabletype={dealsHistoryTableColumns.keyTable}
 													id={elem.dealId}
 													onClick={(e) => handleEditNotes(e)}>
 													&#9998;
@@ -569,7 +585,13 @@ export default function BoatInfo(props) {
 															</td>
 														);
 													default:
-														return <td>{elem[`${item.key}`]}</td>;
+														if (elem.bsmLock) {
+															return (
+																<td className={styles.red_text}>{elem[`${item.key}`]}</td>
+															);
+														} else {
+															return <td>{elem[`${item.key}`]}</td>;
+														}
 												}
 											})}
 											<td
@@ -581,6 +603,7 @@ export default function BoatInfo(props) {
 													className={`${styles.edit__buttons} btn btn-primary ${
 														editMode ? '' : styles.edit__mode
 													}`}
+													data-tabletype={specialMarksTableColumns.keyTable}
 													id={elem.bsmId}
 													onClick={(e) => handleEditNotes(e)}>
 													&#9998;
@@ -602,38 +625,6 @@ export default function BoatInfo(props) {
 					+
 				</button>
 			</div>
-			{/* <table className={`${styles['secondary-table']}`}>
-				<caption className={styles['secondary-caption']}>Особые отметки:</caption>
-				<thead>
-					<tr>
-						{specialMarksTableColumns.map((item) => {
-							return (
-								<th
-									className={styles['owners-history-table-th']}
-									id={item.key}>
-									{item.value}
-								</th>
-							);
-						})}
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						{specialMarksTableColumns.map((item) => {
-							return (
-								<td>
-									{Object.keys(boatInfoFromState).length !== 0
-										? boatInfoFromState[`${item.id}`] !== undefined &&
-										  boatInfoFromState[`${item.id}`] !== null
-											? boatInfoFromState[`${item.id}`][`${item.key}`]
-											: '—'
-										: null}
-								</td>
-							);
-						})}
-					</tr>
-				</tbody>
-			</table> */}
 			<table className={`${styles['secondary-table']}`}>
 				<caption className={styles['secondary-caption']}>Документы:</caption>
 				<thead>
@@ -688,6 +679,7 @@ export default function BoatInfo(props) {
 					dataForEdit={dataForEdit}
 					setDataForEdit={setDataForEdit}
 					type={type}
+					setType={setType}
 				/>
 			)}
 		</div>

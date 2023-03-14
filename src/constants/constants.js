@@ -31,4 +31,7 @@ export const API_ADD_NEW_CONF_MARK = "boats/license/addBoatDrivingLicenseConf/"
 export const API_GET_USERS_LIBRARY = "static/info/gimsUsers"
 
 export const API_ADD_NEW_BOAT_DEAL = "boats/saveBoatDeals/"
+export const API_ADD_NEW_BOAT_SPEC_MARK = "boats/addBoatCardSpecmarks/"
+export const API_EDIT_BOAT_SPEC_MARK = "boats/updateBoatCardSpecmarks/"
+
 
