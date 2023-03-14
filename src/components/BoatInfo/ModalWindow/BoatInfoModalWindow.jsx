@@ -95,17 +95,18 @@ export default function BoatInfoModalWindow({
 	};
 
 	useEffect(() => {
-		// console.log('newData.bsmLock >>>!!', newData.bsmLock);
-		let input = undefined;
-		switch (newData.bsmLock) {
-			case true:
-				input = document.querySelector('#locked');
-				break;
-			case false:
-				input = document.querySelector('#unlocked');
-				break;
+		if (newData.bsmLock !== undefined) {
+			let input = undefined;
+			switch (newData.bsmLock) {
+				case true:
+					input = document.querySelector('#locked');
+					break;
+				case false:
+					input = document.querySelector('#unlocked');
+					break;
+			}
+			input.toggleAttribute('checked');
 		}
-		input.toggleAttribute('checked');
 	}, []);
 
 	return (
