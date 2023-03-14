@@ -394,10 +394,11 @@ export function editBoatInfo(newMark, boatId, tableType) {
           },
           body: JSON.stringify(newMark)
         })
+        const newData = { newInfo: newMark, tableType: tableType }
         if (response.status === 200) {
           dispatch({
             type: EDIT_BOAT_INFO,
-            data: newMark,
+            data: newData,
           })
         }
       }
