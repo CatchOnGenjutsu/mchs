@@ -1,18 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import styles from './ModalWindow.module.css'
 import {Form,Button,Modal} from "react-bootstrap";
-import {optionsForModalWindow, setOptionsForModalWindow} from "./constansForModalWindow";
+import {optionsForModalWindow, setOptionsForModalWindow,optionsButton} from "./constansForModalWindow";
 import {useDispatch, useSelector} from "react-redux";
 import {addDataBasesBuildings, deleteDataBasesBuildings, editDataBasesBuildings} from "../../../redux/actions";
 function ModalWindow({setShow,show,type,buildingId}) {
-    const optionsButton = {
-        add: 'Добавить новую базу',
-        edit: 'Редактировать запись',
-        delete:'Удалить запись'
-    }
     const dispatch = useDispatch();
     const dataFromStateBases = useSelector(state => {
-
         const {basesBuildingReducer} = state
         return 	basesBuildingReducer.data
     })
@@ -24,56 +18,83 @@ function ModalWindow({setShow,show,type,buildingId}) {
         }
     }))
     setOptionsForModalWindow(options.ownerOptions,options.sectionOptions)
-    const [building,setBuilding]=useState(()=>{
+    const [form,setForm]=useState(()=>{
         if(dataFromStateBases.length&&(type==='edit'||type==='delete')){
             return structuredClone(dataFromStateBases.find(el=>el.parkId==buildingId))
         }
         else {return {ownerType:options.ownerOptions[0].id,section:options.sectionOptions[0].id}}
     })
+    const [errors,setErrors]= useState({})
 
     const [optionsInput,setOptionsInput]=useState(()=>{
-      return   building.ownerType==options.ownerOptions[0].id?Object.values(optionsForModalWindow.optionsForInputIndividual):Object.values(optionsForModalWindow.optionsForInputLegalEntity)
+      return   form.ownerType==options.ownerOptions[0].id?Object.values(optionsForModalWindow.optionsForInputIndividual):Object.values(optionsForModalWindow.optionsForInputLegalEntity)
     })
 
     const handleValue = (event)=>{
         if(event.target.id=='ownerType'){
-            building[event.target.id]=event.target.value
-            setBuilding(building)
+            form[event.target.id]=event.target.value
+            setForm({...form})
             event.target.value==options.ownerOptions[0].id?setOptionsInput(Object.values(optionsForModalWindow.optionsForInputIndividual)):setOptionsInput(Object.values(optionsForModalWindow.optionsForInputLegalEntity))
         }
         if(event.target.id=='section'){
-            console.log(event.target.id)
-            building[event.target.id]=Number(event.target.value)
-            setBuilding({...building})
-           console.log(building)
+            form[event.target.id]=Number(event.target.value)
+            setForm({...form})
         }
 
 
     }
     const handleClose = (event) => {
-
         let buttonType
         if(event){
             buttonType = event.target.dataset.type
         }
-        switch (true) {
-            case (buttonType ==='save'&& type ==='add'):{
-                building.sectionName = options.sectionOptions.find(el=>el.id===building.section).value
-                dispatch(addDataBasesBuildings(building))
-                break;
-            }
-            case (buttonType ==='save'&& type ==='edit'):{
-                building.sectionName = options.sectionOptions.find(el=>el.id===building.section).value
-                dispatch(editDataBasesBuildings(building))
-                break;
-            }
-            case (buttonType ==='delete'&& type ==='delete'):{
-                dispatch(deleteDataBasesBuildings(building))
-                break;
-            }
-        }
-        setShow(false)
+       if(!editErrors(buttonType)) {
+           switch (true) {
+               case (buttonType ==='save'&& type ==='add'):{
+                   form.sectionName = options.sectionOptions.find(el=>el.id===form.section).value
+                   dispatch(addDataBasesBuildings(form))
+                   break;
+               }
+               case (buttonType ==='save'&& type ==='edit'):{
+                   form.sectionName = options.sectionOptions.find(el=>el.id===form.section).value
+                   dispatch(editDataBasesBuildings(form))
+                   break;
+               }
+               case (buttonType ==='delete'&& type ==='delete'):{
+                   dispatch(deleteDataBasesBuildings(form))
+                   break;
+               }
+           }
+           setShow(false)
+       }
+
+
+
+
     };
+    const editErrors = (buttonType)=>{
+        if(buttonType==='save'){
+            const {ownerName,ownerMidname,ownerLeName,ownerAddress,ownerPhone,location,responPosition,responFio}=form
+            const newErrors={}
+            if(form.ownerType==options.ownerOptions[0].id){
+                if(!ownerName || ownerName==='') newErrors.ownerName = 'Заполните имя'
+                if(!ownerMidname || ownerMidname==='') newErrors.ownerMidname = 'Заполните фамилию'
+            }else {
+                if(!ownerLeName || ownerLeName==='') newErrors.ownerLeName = 'Заполните наименование'
+            }
+
+            if(!ownerAddress || ownerAddress==='') newErrors.ownerAddress = 'Заполните адрес эксплуатанта'
+            if(!ownerPhone || ownerPhone==='') newErrors.ownerPhone = 'Заполните телефон эксплуатанта'
+            if(!location || location==='') newErrors.location = 'Заполните местонахождение базы'
+            if(!responPosition || responPosition==='') newErrors.responPosition = 'Заполните должность ответственного'
+            if(!responFio || responFio==='') newErrors.responFio = 'Заполните ФИО ответственного'
+            console.log(newErrors)
+            if(Object.keys(newErrors).length>0){
+                setErrors(newErrors)
+                return true
+            }else return false
+        }else return false
+    }
     return (
         <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton >
@@ -84,12 +105,12 @@ function ModalWindow({setShow,show,type,buildingId}) {
                     {optionsInput.map(el=>{
                         if(el.type==='select'){
                             return (
-                                <Form.Group className={styles[`box-${el.key}`]} >
+                                <Form.Group className={styles[`box-${el.key}`]}  >
                                     <Form.Label>{el.label}</Form.Label>
                                     <Form.Select
                                         onChange={(e) => handleValue(e)}
                                         id={el.key}
-                                        value={building[el.key]}
+                                        value={form[el.key]}
                                         disabled={type==='delete'}
                                     >
                                         {el.options.map(el=><option value={el.id}>{el.value}</option>)}
@@ -98,18 +119,20 @@ function ModalWindow({setShow,show,type,buildingId}) {
                             )
                         }else {
                             return (
-                                <Form.Group className={styles[`box-${el.key}`]} >
+                                <Form.Group className={styles[`box-${el.key}`]}>
                                     <Form.Label>{el.label}</Form.Label>
                                     <Form.Control
-                                        data-id={el.key}
+                                        id={el.key}
                                         disabled={type==='delete'}
+                                        isInvalid={!!errors[el.key]}
                                         type={el.type}
-                                        value={(building)&&building[el.key]||''}
+                                        value={(form)&&form[el.key]||''}
                                         onChange={(e)=>{
-                                            building[e.currentTarget.dataset.id]=e.currentTarget.value
-                                            setBuilding(structuredClone(building))
+                                            form[e.currentTarget.id]=e.currentTarget.value
+                                            setForm(structuredClone(form))
                                         }}
                                     />
+                                    <Form.Control.Feedback type={'invalid'}>{errors[el.key]}</Form.Control.Feedback>
                                 </Form.Group>
                             )
                         }

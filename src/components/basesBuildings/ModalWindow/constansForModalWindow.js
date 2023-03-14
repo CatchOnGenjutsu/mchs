@@ -139,6 +139,11 @@ export const optionsForModalWindow = {
         },
     },
 }
+export const optionsButton = {
+    add: 'Добавить новую базу',
+    edit: 'Редактировать запись',
+    delete:'Удалить запись'
+}
 
 export const setOptionsForModalWindow = (ownerOptions,sectionOptions)=>{
     optionsForModalWindow.optionsForInputLegalEntity.ownerType.options = ownerOptions
