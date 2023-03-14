@@ -15,10 +15,7 @@ import {
   ADD_NEW_BASES,
   ADD_NEW_SPEC_MARK,
   GET_USERS_LIBRARY,
-
-  ADD_NEW_CONF_MARK, GET_DICTIONARY_NSI_CHECK_STATUS
-
-
+  GET_DICTIONARY_NSI_CHECK_STATUS,
   ADD_NEW_CONF_MARK,
   ADD_NEW_BOAT_INFO,
   EDIT_BOAT_INFO
@@ -48,13 +45,9 @@ import {
   API_ADD_NEW_SPECIAL_MARK,
   API_ADD_NEW_CONF_MARK,
 
-  API_GET_USERS_LIBRARY, API_GET_NSI_CHECK_STATUS
-} from "../constants/constants";
-
-
-
-  API_ADD_NEW_BOAT_DEAL,
-
+  API_GET_USERS_LIBRARY,
+  API_GET_NSI_CHECK_STATUS,
+  API_ADD_NEW_BOAT_DEAL
 } from "../constants/constants";
 
 export function getBoatCardInfo(id) {
@@ -300,8 +293,8 @@ export function getDictionaryOwnerType() {
     }
   }
 }
-export function getDictionaryNsiCheckStatus(){
-  return async dispatch =>{
+export function getDictionaryNsiCheckStatus() {
+  return async dispatch => {
     const response = await fetch(MAIN_URL + PORT + API_GET_NSI_CHECK_STATUS)
     if (response.ok) {
       dispatch({
