@@ -96,15 +96,8 @@ export default function BoatInfoModalWindow({
 
 	useEffect(() => {
 		if (newData.bsmLock !== undefined) {
-			let input = undefined;
-			switch (newData.bsmLock) {
-				case true:
-					input = document.querySelector('#locked');
-					break;
-				case false:
-					input = document.querySelector('#unlocked');
-					break;
-			}
+			const lockSelector = newData.bsmLock ? '#locked' : '#unlocked';
+			const input = document.querySelector(lockSelector);
 			input.toggleAttribute('checked');
 		}
 	}, []);
