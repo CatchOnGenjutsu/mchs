@@ -6,6 +6,7 @@ export const PORT = ':8080/'
 export const API_GET_BOATS_LIST_SEARCH = 'boats/search'
 export const API_GET_BOAT_INFO_CARD = 'boats/getBoatCard/'
 export const API_GET_BOAT_INFO_SPEC_MARKS = "boats/getBoatCardSpecmarks/"
+export const API_GET_BOAT_INFO_ARRESTS = "boats/getBoatArrests/"
 
 export const API_GET_LICENSE_LIST_SEARCH = 'boats/license/search'
 export const API_GET_LICENSE_INFO_CARD = 'boats/license/drivingLicense/'

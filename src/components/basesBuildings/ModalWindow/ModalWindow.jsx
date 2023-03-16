@@ -8,7 +8,7 @@ function ModalWindow({setShow,show,type,buildingId}) {
     const dispatch = useDispatch();
     const dataFromStateBases = useSelector(state => {
         const {basesBuildingReducer} = state
-        return 	basesBuildingReducer.data
+        return   basesBuildingReducer.data
     })
     const options= useSelector((state => {
         const {dictionaryReducer} = state

@@ -1,12 +1,12 @@
 ::-webkit-scrollbar {
-	width: 0;
+  width: 0;
 }
 
 
 .hidden {
-	display: none;
+  display: none;
 }
 
 .button-back {
-	width: 6vw;
+  width: 6vw;
 }

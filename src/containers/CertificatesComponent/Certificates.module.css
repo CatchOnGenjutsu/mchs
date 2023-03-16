@@ -1,10 +1,10 @@
 ::-webkit-scrollbar {
-	width: 0;
+  width: 0;
 }
 
 .button-back {
-	width: 8vw;
+  width: 8vw;
 }
 .hidden {
-	display: none;
+  display: none;
 }

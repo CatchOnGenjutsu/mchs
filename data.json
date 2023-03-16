@@ -1,244 +1,320 @@
 {
-	"data": [
-		{
-			"cardid": 1,
-			"regNum": "123",
-			"personSurname": "Маслов",
-			"personName": "Игорь",
-			"personMidname": "Вадимович",
-			"boatType": {
-				"btcode": 1,
-				"btname": "Катер",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Валера",
-			"engineNum": 1,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 4,
-			"regNum": "321",
-			"personSurname": "Конев",
-			"personName": "Андрей",
-			"personMidname": "Тытымович",
-			"boatType": {
-				"btcode": 2,
-				"btname": "Лодка",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Летящая",
-			"engineNum": 2,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 7,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 18,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 5,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 6,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 17,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 8,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 9,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 10,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 11,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 12,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 13,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 14,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 15,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		},
-		{
-			"cardid": 16,
-			"regNum": "213",
-			"personSurname": "Щеглов",
-			"personName": "Олег",
-			"personMidname": "Петрович",
-			"boatType": {
-				"btcode": 3,
-				"btname": "Плот",
-				"btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
-			},
-			"boatName": "Плавучий",
-			"engineNum": 3,
-			"boatVin": "VINTEST"
-		}
-	]
+  "test": [
+    {
+      "arrId": 2,
+      "cardid": {
+        "cardid": 1,
+        "regNum": "1",
+        "tiketNum": "0",
+        "boatName": "Test",
+        "boatType": {
+          "btcode": 1,
+          "btname": "Катер",
+          "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+        },
+        "boatYear": "2023",
+        "boatVin": "VINTEST",
+        "parkingPlace": null,
+        "saCategory": {
+          "sacCode": 0,
+          "sacName": "категория сложности 0",
+          "sacSign": "0",
+          "sacNote": "плавание без ограничений по условиям плавания"
+        },
+        "boatLength": "100.00",
+        "boatWidth": "100.00",
+        "boatHeight": "100.00",
+        "bodyMaterial": {
+          "matcode": 1,
+          "matname": "металлические",
+          "matnote": "Изготавливаются из алюминия и его сплавов или стали"
+        },
+        "boatPayload": 100,
+        "passengersNum": 1,
+        "serviceLife": null,
+        "engineNum": 2,
+        "agentDoverennost": null,
+        "ownerType": { "ptcode": 1, "ptSign": "ФЛ", "ptName": "физическое лицо" },
+        "ownerSurname": "Маслов",
+        "ownerName": "Игорь",
+        "ownerMidname": "Вадимович",
+        "ownerBirthDate": null,
+        "ownerPersNum": "000",
+        "ownerDocType": { "dtcode": 1, "dtname": "паспорт" },
+        "ownerDocNum": "N000001",
+        "ownerDocDepartment": "N308",
+        "ownerDocDateIssue": "2023-01-22",
+        "leUnp": "1234567",
+        "leName": null,
+        "leDocDepartment": null,
+        "leEgrNum": null,
+        "ownerPhone": "009",
+        "ownerAddress": "Платонова",
+        "cardDate": "2023-02-10 00:00:00.000",
+        "cardDateEnd": null,
+        "agentSurname": null,
+        "agentName": null,
+        "agentMidname": null,
+        "agentDocType": null,
+        "agentDocNum": null,
+        "agentPersNum": null,
+        "agentDocDepartment": null,
+        "agentDocDateIssue": null,
+        "agentAddress": null,
+        "note": null
+      },
+      "isActiv": true,
+      "onDate": "2021-12-31 21:00:00.000",
+      "onOrg": "Суд Брагинского района",
+      "onOfficer": "Судья 1-й категории Малышко П.Ю.",
+      "actOrg": "БК 0001212 от 12.05.2022",
+      "offDate": null,
+      "offOrg": null,
+      "offOficer": null,
+      "offDoc": null,
+      "note": "Осужден с конфискацией имущества"
+    }
+  ],
+  "data": [
+    {
+      "cardid": 1,
+      "regNum": "123",
+      "personSurname": "Маслов",
+      "personName": "Игорь",
+      "personMidname": "Вадимович",
+      "boatType": {
+        "btcode": 1,
+        "btname": "Катер",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Валера",
+      "engineNum": 1,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 4,
+      "regNum": "321",
+      "personSurname": "Конев",
+      "personName": "Андрей",
+      "personMidname": "Тытымович",
+      "boatType": {
+        "btcode": 2,
+        "btname": "Лодка",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Летящая",
+      "engineNum": 2,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 7,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 18,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 5,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 6,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 17,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 8,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 9,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 10,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 11,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 12,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 13,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 14,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 15,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    },
+    {
+      "cardid": 16,
+      "regNum": "213",
+      "personSurname": "Щеглов",
+      "personName": "Олег",
+      "personMidname": "Петрович",
+      "boatType": {
+        "btcode": 3,
+        "btname": "Плот",
+        "btnote": " Моторное судно, движение которого осуществляется при помощи установленного на нем стационарного двигателя."
+      },
+      "boatName": "Плавучий",
+      "engineNum": 3,
+      "boatVin": "VINTEST"
+    }
+  ]
 }
