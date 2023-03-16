@@ -14,7 +14,7 @@ import {
   ownersHistoryTableColumns,
   dealsHistoryTableColumns,
   boatArrestsTableColumns,
-  liftedArrestsTableColumns,
+  removeBoatArrestsTableColumns,
   noteShipBookTableColumns,
   enterNoteShipBookTableColumns,
   specialMarksTableColumns,
@@ -24,15 +24,14 @@ import {
 import styles from './BoatInfo.module.css';
 
 export default function BoatInfo(props) {
-  const colon = ':';
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const [editMode, setEditMode] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState({});
   const [dataForEdit, setDataForEdit] = useState({});
   const [type, setType] = useState(null);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const boatInfoFromState = useSelector((state) => {
   const { smallBoatsReducer } = state;
@@ -53,47 +52,60 @@ export default function BoatInfo(props) {
   };
 
   const handleAddNewData = (e) => {
-  switch (e.target.id) {
-    case 'dealsHistoryTableColumns':
-    setModalWindowInputs(dealsHistoryTableColumns);
-    break;
-    case 'specialMarksTableColumns':
-    setModalWindowInputs(specialMarksTableColumns);
-    break;
-    case 'documentsTableColumns':
-    setModalWindowInputs(documentsTableColumns);
-    break;
-    default:
-    break;
-  }
-  setType('save');
-  setShowModal(true);
+    switch (e.target.id) {
+      case 'dealsHistoryTableColumns':
+        setModalWindowInputs(dealsHistoryTableColumns);
+        break;
+      case 'specialMarksTableColumns':
+        setModalWindowInputs(specialMarksTableColumns);
+        break;
+      case 'documentsTableColumns':
+        setModalWindowInputs(documentsTableColumns);
+        break;
+      case 'boatArrestsTableColumns':
+        setModalWindowInputs(boatArrestsTableColumns);
+        const fields = [
+          ...boatArrestsTableColumns.nameColumn.map(item => Object.values(item)).map(elem => elem[2]), 
+          ...removeBoatArrestsTableColumns.nameColumn.map(item => Object.values(item)).map(elem => elem[2])
+        ]
+        let data = {}
+        fields.forEach(item => data[item] = null)
+        data.isActiv = null
+        setDataForEdit(data);
+        break;
+      default:
+        break;
+    }
+    setType('save');
+    setShowModal(true);
   };
 
   const handleEditNotes = (e) => {
   let data = null;
-  console.log('e.target.currentTarget.tabletype', e.target.dataset.tabletype);
   switch (e.target.dataset.tabletype) {
     case 'dealsHistoryTableColumns':
-    data = boatInfoFromState.boatDeals.find((item) => item.dealId == e.target.id);
-    data.docDate = new Date(data.docDate).toISOString().split('T')[0];
-
-    setModalWindowInputs(dealsHistoryTableColumns);
-    break;
+      data = boatInfoFromState.boatDeals.find((item) => item.dealId == e.target.id);
+      data.docDate = new Date(data.docDate).toISOString().split('T')[0];
+      setType('edit');
+      setModalWindowInputs(dealsHistoryTableColumns);
+      break;
     case 'specialMarksTableColumns':
-    data = boatInfoFromState.specMarks.find((item) => item.bsmId == e.target.id);
-    console.log('data', data);
-    // data.docDate = new Date(data.docDate).toISOString().split('T')[0];
-    setModalWindowInputs(specialMarksTableColumns);
-    break;
+      data = boatInfoFromState.specMarks.find((item) => item.bsmId == e.target.id);
+      setType('edit');
+      setModalWindowInputs(specialMarksTableColumns);
+      break;
     case 'documentsTableColumns':
-    data = boatInfoFromState.documentsDtos.find((item) => item.docid === e.target.id);
-    setModalWindowInputs(documentsTableColumns);
+      data = boatInfoFromState.documentsDtos.find((item) => item.docid === e.target.id);
+      setModalWindowInputs(documentsTableColumns);
+      setType('edit');
+    case "boatArrestsTableColumns":
+      data = boatInfoFromState.boatArrests.find((item) => item.arrId === Number(e.target.id));
+      setModalWindowInputs(removeBoatArrestsTableColumns);
+      setType('edit');
     default:
     break;
   }
   setDataForEdit(data);
-  setType('edit');
   setShowModal(true);
   };
 
@@ -447,20 +459,19 @@ export default function BoatInfo(props) {
       {boatInfoFromState.boatArrests !== undefined
         ?
         boatInfoFromState.boatArrests.map((elem) => {
-          console.log("elem >!>!", elem)
           return (
             <>
               {!elem.isActiv ? 
               ( 
                 <>
                   <tr>
-                    {boatArrestsTableColumns.nameColumn.map((item) => {
+                    {removeBoatArrestsTableColumns.nameColumn.map((item) => {
                       switch (item.key) {
-                        case 'onDocName':
+                        case 'offDocName':
                           return (
                             <td>{elem[`offDocName`]} от {new Date(elem[`offDocDate`]).toLocaleDateString()}</td>
                           );
-                        case 'onDocDate':
+                        case 'offDocDate':
                           break;
                         case 'isActiv':
                           if (elem[`isActiv`]) {
@@ -473,15 +484,7 @@ export default function BoatInfo(props) {
                           return <td>{elem[`${item.key}`]}</td>;
                       }
                     })}
-                    <td className={`${editMode ? '' : styles.edit__mode} ${styles.edit__column}`} key={uuidv4()}>
-                    <button
-                      className={`${styles.edit__buttons} btn btn-primary ${editMode ? '' : styles.edit__mode}`}
-                      data-tabletype={boatArrestsTableColumns.keyTable}
-                      id={elem.arrId}
-                      onClick={(e) => handleEditNotes(e)}>
-                      &#9998;
-                    </button>
-                    </td>
+                    <td className={`${editMode ? '' : styles.edit__mode} ${styles.edit__column}`} key={uuidv4()}></td>
                   </tr>
                   <tr>
                     {boatArrestsTableColumns.nameColumn.map((item) => {
@@ -500,15 +503,7 @@ export default function BoatInfo(props) {
                           return <td>{elem[`${item.key}`]}</td>;
                       }
                       })}
-                      <td className={`${editMode ? '' : styles.edit__mode} ${styles.edit__column}`} key={uuidv4()}>
-                        <button 
-                          className={`${styles.edit__buttons} btn btn-primary ${editMode ? '' : styles.edit__mode}`}
-                          data-tabletype={boatArrestsTableColumns.keyTable}
-                          id={elem.arrId}
-                          onClick={(e) => handleEditNotes(e)}>
-                          &#9998;
-                        </button>
-                      </td>
+                      <td className={`${editMode ? '' : styles.edit__mode} ${styles.edit__column}`} key={uuidv4()}></td>
                   </tr>
                 </>
               ) : (
@@ -557,7 +552,7 @@ export default function BoatInfo(props) {
       className={`${styles.add__buttons} btn btn-primary ${
       editMode ? '' : styles.edit__mode
       }`}
-      id={dealsHistoryTableColumns.keyTable}
+      id={boatArrestsTableColumns.keyTable}
       onClick={(e) => handleAddNewData(e)}>
       +
     </button>
@@ -823,21 +818,3 @@ export default function BoatInfo(props) {
   </div>
   );
 }
-
-// function createTable(table) {
-//   console.log(Object.keys(table))
-//   return (
-//     <table className={`${styles["secondary-table"]}`}>
-//       <caption className={styles["secondary-caption"]}>
-//         {table.caption}
-//       </caption>
-//       <tbody>
-//       <tr>
-//         {Object.keys(table).slice(1).map((el)=><th className={styles["line-name"]}>{typeof table[el]==='object'?table[el].value:table[el]}</th>)}
-//       </tr>
-//       <tr></tr>
-//       </tbody>
-//     </table>
-//   )
-//
-// }

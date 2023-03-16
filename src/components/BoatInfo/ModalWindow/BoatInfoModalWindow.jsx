@@ -14,84 +14,104 @@ export default function BoatInfoModalWindow({
   setType,
 }) {
   const boatInfoFromState = useSelector((state) => {
-  const { smallBoatsReducer } = state;
-  return smallBoatsReducer.boatInfo;
+    const { smallBoatsReducer } = state;
+    return smallBoatsReducer.boatInfo;
   });
 
-  const [newData, setNewMark] = useState(
-  type === 'edit' ? structuredClone(dataForEdit) : {}
+  const [newData, setNewData] = useState(
+    type === 'edit' || modalWindowInputs.keyTable === "boatArrestsTableColumns" ? structuredClone(dataForEdit) : {}
   );
+
+  // const [removeArrestData, setRemoveArrestData] = useState(
+  //   modalWindowInputs.keyTable === "removeBoatArrestsTableColumns" ? structuredClone(dataForEdit) : {}
+  // )
+
 
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-  switch (modalWindowInputs.keyTable) {
-    case 'dealsHistoryTableColumns':
-    newData[e.currentTarget.dataset.id] = e.currentTarget.value;
-    newData.recdate = Date.now();
-    newData.ownerType = boatInfoFromState.ownerType;
-    newData.ownerName =
-      boatInfoFromState.ownerType.ptcode === 1
-      ? `${boatInfoFromState.ownerSurname} ${boatInfoFromState.ownerName} ${boatInfoFromState.ownerMidname}`
-      : boatInfoFromState.leName;
-    setNewMark(newData);
-    break;
-    case 'specialMarksTableColumns':
-    // case 'bsmLock':
-    switch (e.currentTarget.dataset.id) {
-      case 'bsmLock':
-      newData[e.currentTarget.dataset.id] = Boolean(e.currentTarget.value);
-      break;
-      default:
-      newData[e.currentTarget.dataset.id] = e.currentTarget.value;
-      break;
-    }
-    break;
-    default:
-    break;
-  }
+    switch (modalWindowInputs.keyTable) {
+      case 'dealsHistoryTableColumns':
+        newData[e.currentTarget.dataset.id] = e.currentTarget.value;
+        newData.recdate = Date.now();
+        newData.ownerType = boatInfoFromState.ownerType;
+        newData.ownerName =
+          boatInfoFromState.ownerType.ptcode === 1
+          ? `${boatInfoFromState.ownerSurname} ${boatInfoFromState.ownerName} ${boatInfoFromState.ownerMidname}`
+          : boatInfoFromState.leName;
+        setNewData(newData);
+        break;
+      case 'specialMarksTableColumns':
+        switch (e.currentTarget.dataset.id) {
+          case 'bsmLock':
+          newData[e.currentTarget.dataset.id] = Boolean(e.currentTarget.value);
+          break;
+          default:
+          newData[e.currentTarget.dataset.id] = e.currentTarget.value;
+          break;
+        }
+        break;
+      case 'removeBoatArrestsTableColumns':
+        newData[e.currentTarget.dataset.id] = e.currentTarget.value;
 
-  setNewMark(structuredClone(newData));
+      case 'boatArrestsTableColumns':
+        newData[e.currentTarget.dataset.id] = e.currentTarget.value;
+        newData.isActiv = true;
+        newData.cardid = boatIdModal;
+        // setNewData(newData)
+      default:
+        break;
+    }
+    setNewData(structuredClone(newData));
+    // setRemoveArrestData(Object.assign(removeArrestData, newData))
   };
 
   const handleSave = () => {
-  console.log('Payload >!>!', newData);
-  switch (modalWindowInputs.keyTable) {
-    case 'dealsHistoryTableColumns':
-    switch (type) {
-      case 'edit':
-      console.log('edit');
-      dispatch(editBoatInfo(newData, boatIdModal, 'dealsHistoryTableColumns'));
+    console.log('Payload >!>!', newData);
+    switch (modalWindowInputs.keyTable) {
+      case 'dealsHistoryTableColumns':
+      switch (type) {
+        case 'edit':
+          console.log('edit');
+          dispatch(editBoatInfo(newData, boatIdModal, 'dealsHistoryTableColumns'));
+          break;
+        case 'save':
+          console.log('save');
+          dispatch(addNewBoatInfo(newData, boatIdModal, 'dealsHistoryTableColumns'));
+          break;
+        default:
+          break;
+      }
       break;
-      case 'save':
-      console.log('save');
-      dispatch(addNewBoatInfo(newData, boatIdModal, 'dealsHistoryTableColumns'));
-      break;
+      case 'specialMarksTableColumns':
+        switch (type) {
+          case 'edit':
+            console.log('edit');
+            dispatch(editBoatInfo(newData, boatIdModal, 'specialMarksTableColumns'));
+            break;
+          case 'save':
+            console.log('save');
+            dispatch(addNewBoatInfo(newData, boatIdModal, 'specialMarksTableColumns'));
+            break;
+          default:
+            break;
+        }
+        break;
+      case 'removeBoatArrestsTableColumns':
+        newData.isActiv = false;
+        setNewData(newData);
+        setNewData(structuredClone(newData));
+        dispatch(editBoatInfo(newData, boatIdModal, 'boatArrestsTableColumns'));
+      case "boatArrestsTableColumns":
+        dispatch(addNewBoatInfo(newData, boatIdModal, 'boatArrestsTableColumns'));
+        break;
       default:
-      break;
+        setShowModal(false);
+        setNewData({});
+        break;
     }
-    break;
-    case 'specialMarksTableColumns':
-    switch (type) {
-      case 'edit':
-      console.log('edit');
-      dispatch(editBoatInfo(newData, boatIdModal, 'specialMarksTableColumns'));
-      break;
-      case 'save':
-      console.log('save');
-      dispatch(addNewBoatInfo(newData, boatIdModal, 'specialMarksTableColumns'));
-      break;
-      default:
-      break;
-    }
-    break;
-    default:
     setShowModal(false);
-    setNewMark({});
-    break;
-  }
-  setShowModal(false);
-  setNewMark({});
+    setNewData({});
   };
 
   useEffect(() => {
@@ -107,7 +127,7 @@ export default function BoatInfoModalWindow({
     show={showModal}
     onHide={() => {
     setShowModal(false);
-    setNewMark({});
+    setNewData({});
     setDataForEdit({});
     }}
     size="lg">
@@ -117,78 +137,81 @@ export default function BoatInfoModalWindow({
     <Modal.Body>
     <Form>
       {modalWindowInputs.nameColumn.map((item) => {
-      switch (item.type) {
-        case 'date':
-        return (
-          <Form.Group className="mb-3">
-          <Form.Label>{item.value}</Form.Label>
-          <Form.Control
-            data-id={item.key}
-            type="date"
-            value={newData[`${item.key}`]}
-            onChange={(e) => {
-            handleChange(e);
-            }}
-          />
-          </Form.Group>
-        );
-        case 'file':
-        return (
-          <Form.Group className="mb-3">
-          <Form.Label>{item.value}</Form.Label>
-          <Form.Control
-            data-id={item.key}
-            type="file"
-            // value={newData[`${item.key}`]}
-            onChange={(e) => {
-            handleChange(e);
-            }}
-          />
-          </Form.Group>
-        );
-        case 'checkbox':
-        return (
-          <Form.Group className="mb-3">
-          <Form.Label>{item.value}</Form.Label>
-          <Form.Check
-            name={item.value}
-            data-id={item.key}
-            id="locked"
-            type="radio"
-            label="Да"
-            value={1}
-            onChange={(e) => {
-            handleChange(e);
-            }}
-          />
-          <Form.Check
-            name={item.value}
-            data-id={item.key}
-            id="unlocked"
-            type="radio"
-            label="Нет"
-            value={''}
-            onChange={(e) => {
-            handleChange(e);
-            }}
-          />
-          </Form.Group>
-        );
-        default:
-        return (
-          <Form.Group className="mb-3">
-          <Form.Label>{item.value}</Form.Label>
-          <Form.Control
-            data-id={item.key}
-            type="text"
-            value={newData[`${item.key}`]}
-            onChange={(e) => {
-            handleChange(e);
-            }}
-          />
-          </Form.Group>
-        );
-      }
+        if (item.key !== "isActiv"){
+          switch (item.type) {
+            case 'date':
+            return (
+              <Form.Group className="mb-3">
+              <Form.Label>{item.value}</Form.Label>
+              <Form.Control
+                data-id={item.key}
+                type="date"
+                value={newData[`${item.key}`]}
+                onChange={(e) => {
+                handleChange(e);
+                }}
+              />
+              </Form.Group>
+            );
+            case 'file':
+            return (
+              <Form.Group className="mb-3">
+              <Form.Label>{item.value}</Form.Label>
+              <Form.Control
+                data-id={item.key}
+                type="file"
+                // value={newData[`${item.key}`]}
+                onChange={(e) => {
+                handleChange(e);
+                }}
+              />
+              </Form.Group>
+            );
+            case 'checkbox':
+              return (
+                <Form.Group className="mb-3">
+                <Form.Label>{item.value}</Form.Label>
+                <Form.Check
+                  name={item.value}
+                  data-id={item.key}
+                  id="locked"
+                  type="radio"
+                  label="Да"
+                  value={1}
+                  onChange={(e) => {
+                  handleChange(e);
+                  }}
+                />
+                <Form.Check
+                  name={item.value}
+                  data-id={item.key}
+                  id="unlocked"
+                  type="radio"
+                  label="Нет"
+                  value={''}
+                  onChange={(e) => {
+                  handleChange(e);
+                  }}
+                />
+                </Form.Group>
+              );
+            default:
+            return (
+              <Form.Group className="mb-3">
+              <Form.Label>{item.value}</Form.Label>
+              <Form.Control
+                data-id={item.key}
+                type="text"
+                value={newData[`${item.key}`]}
+                onChange={(e) => {
+                handleChange(e);
+                }}
+              />
+              </Form.Group>
+            );
+          }
+        }
+        
       })}
     </Form>
     </Modal.Body>
@@ -196,11 +219,11 @@ export default function BoatInfoModalWindow({
     <Button
       variant="secondary"
       onClick={() => {
-      console.log(dataForEdit);
-      setShowModal(false);
-      setDataForEdit({});
-      setNewMark({});
-      setType(null);
+        // console.log("newData >!>!", newData)
+        setShowModal(false);
+        setDataForEdit({});
+        setNewData({});
+        setType(null);
       }}>
       Закрыть
     </Button>

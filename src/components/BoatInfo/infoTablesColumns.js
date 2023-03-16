@@ -304,6 +304,54 @@ export const boatArrestsTableColumns = {
   }
   ]
 }
+export const removeBoatArrestsTableColumns = {
+  keyTable: 'removeBoatArrestsTableColumns',
+  caption: "Снятие ареста:",
+  nameColumn: [
+  {
+    id: "boatArrest",
+    value: "Дата снятия",
+    key: "offDate",
+    type: "date"
+  },
+  {
+    id: "boatArrest",
+    value: "Признак ареста",
+    key: "isActiv",
+    type: ""
+  },
+  {
+    id: "boatArrest",
+    value: "Орган",
+    key: "offOrg",
+    type: ""
+  },
+  {
+    id: "boatArrest",
+    value: "Должностное лицо, принявшее решение",
+    key: "offOfficer",
+    type: ""
+  },
+  {
+    id: "boatArrest",
+    value: "Наименование и номер документа",
+    key: "offDocName",
+    type: ""
+  },
+  {
+    id: "boatArrest",
+    value: "Дата документа",
+    key: "offDocDate",
+    type: "date"
+  },
+  {
+    id: "boatArrest",
+    value: "Примечание",
+    key: "offNote",
+    type: ""
+  }
+  ]
+}
 
 export const liftedArrestsTableColumns = [
   {

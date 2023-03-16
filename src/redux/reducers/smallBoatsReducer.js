@@ -74,6 +74,14 @@ export const smallBoatsReducer = (state = initialState, action) => {
         specMarks: [...state.boatInfo.specMarks, action.data.newInfo]
       },
       }))();
+    case "boatArrestsTableColumns":
+      return (() => ({
+      ...state,
+      boatInfo: {
+        ...state.boatInfo,
+        boatArrests: [action.data.newInfo, ...state.boatInfo.boatArrests]
+      },
+      }))();
 
     default:
       break;
@@ -81,25 +89,33 @@ export const smallBoatsReducer = (state = initialState, action) => {
   break;
   case EDIT_BOAT_INFO:
     switch (action.data.tableType) {
-    case "dealsHistoryTableColumns":
-      console.log("smallBoatsReducer >>", action.data.newInfo)
-      return (() => ({
-      ...state,
-      boatInfo: {
-        ...state.boatInfo,
-        boatDeals: [...state.boatInfo.boatDeals.map(item => item.dealId === action.data.newInfo.dealId ? action.data.newInfo : item)]
-      },
-      }))();
-    case "specialMarksTableColumns":
-      return (() => ({
-      ...state,
-      boatInfo: {
-        ...state.boatInfo,
-        specMarks: [...state.boatInfo.specMarks.map(item => item.bsmId === action.data.newInfo.bsmId ? action.data.newInfo : item)]
-      },
-      }))();
-    default:
-      break;
+      case "dealsHistoryTableColumns":
+        console.log("smallBoatsReducer >>", action.data.newInfo)
+        return (() => ({
+        ...state,
+        boatInfo: {
+          ...state.boatInfo,
+          boatDeals: [...state.boatInfo.boatDeals.map(item => item.dealId === action.data.newInfo.dealId ? action.data.newInfo : item)]
+        },
+        }))();
+      case "specialMarksTableColumns":
+        return (() => ({
+          ...state,
+          boatInfo: {
+            ...state.boatInfo,
+            specMarks: [...state.boatInfo.specMarks.map(item => item.bsmId === action.data.newInfo.bsmId ? action.data.newInfo : item)]
+          },
+        }))();
+      case "boatArrestsTableColumns":
+        return (() => ({
+          ...state,
+          boatInfo: {
+            ...state.boatInfo,
+            boatArrests: [...state.boatInfo.boatArrests.map(item => item.arrId === action.data.newInfo.arrId ? action.data.newInfo : item)]
+          },
+        }))();
+      default:
+        break;
     }
     break;
   default:

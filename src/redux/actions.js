@@ -50,7 +50,8 @@ import {
   API_ADD_NEW_BOAT_DEAL,
   API_ADD_NEW_BOAT_SPEC_MARK,
   API_EDIT_BOAT_SPEC_MARK,
-  API_GET_BOAT_INFO_ARRESTS
+  API_GET_BOAT_INFO_ARRESTS,
+  API_ADD_BOAT_INFO_ARRESTS
 } from "../constants/constants";
 
 export function getBoatCardInfo(id) {
@@ -366,44 +367,64 @@ export function addNewBoatInfo(data, boatId, tableType) {
   switch (tableType) {
   case "dealsHistoryTableColumns":
     return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
-      method: "POST",
-      headers: {
-      'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    const dealId = await response.json();
-    data.dealId = dealId
-    const newData = { newInfo: data, tableType: tableType }
-    if (response.status === 200) {
-      dispatch({
-      type: ADD_NEW_BOAT_INFO,
-      data: newData
+      const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
+        method: "POST",
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       })
-    }
+      const dealId = await response.json();
+      data.dealId = dealId
+      const newData = { newInfo: data, tableType: tableType }
+      if (response.status === 200) {
+        dispatch({
+        type: ADD_NEW_BOAT_INFO,
+        data: newData
+        })
+      }
     }
   case "specialMarksTableColumns":
     // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
     const userId = 2;
     // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
     return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_SPEC_MARK + boatId + "/" + userId, {
-      method: "POST",
-      headers: {
-      'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    const bsmId = await response.json();
-    data.bsmId = bsmId;
-    const newData = { newInfo: data, tableType: tableType }
-    if (response.status === 200) {
-      dispatch({
-      type: ADD_NEW_BOAT_INFO,
-      data: newData
+      const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_SPEC_MARK + boatId + "/" + userId, {
+        method: "POST",
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       })
+      const bsmId = await response.json();
+      data.bsmId = bsmId;
+      const newData = { newInfo: data, tableType: tableType }
+      if (response.status === 200) {
+        dispatch({
+        type: ADD_NEW_BOAT_INFO,
+        data: newData
+        })
+      }
     }
+
+  case "boatArrestsTableColumns":
+    return async dispatch => {
+      const response = await fetch(MAIN_URL + PORT + API_ADD_BOAT_INFO_ARRESTS + boatId, {
+        method: "POST",
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const arrId = await response.json();
+      data.arrId = arrId
+      const newData = { newInfo: data, tableType: tableType }
+      if (response.status === 200) {
+        dispatch({
+        type: ADD_NEW_BOAT_INFO,
+        data: newData
+        })
+      }
     }
   case "documentsTableColumns":
   default:
@@ -414,51 +435,68 @@ export function addNewBoatInfo(data, boatId, tableType) {
 
 export function editBoatInfo(data, boatId, tableType) {
   switch (tableType) {
-  case "dealsHistoryTableColumns":
-    return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
-      method: "POST",
-      headers: {
-      'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    const newData = { newInfo: data, tableType: tableType }
-    if (response.status === 200) {
-      dispatch({
-      type: EDIT_BOAT_INFO,
-      data: newData,
+    case "dealsHistoryTableColumns":
+      return async dispatch => {
+        const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
+          method: "POST",
+          headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        const newData = { newInfo: data, tableType: tableType }
+        if (response.status === 200) {
+          dispatch({
+            type: EDIT_BOAT_INFO,
+            data: newData,
+          })
+        }
+      }
+    case "specialMarksTableColumns":
+      // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
+      const userId = 2;
+      const bsmId = data.bsmId
+      delete data.bsmId
+      delete data.cardid
+      delete data.editor
+      // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
+      return async dispatch => {
+      const response = await fetch(MAIN_URL + PORT + API_EDIT_BOAT_SPEC_MARK + bsmId + "/" + boatId + "/" + userId, {
+        method: "POST",
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       })
+      const newData = { newInfo: await response.json(), tableType: tableType }
+      console.log("newData action >!>!>", newData)
+      if (response.status === 200) {
+        dispatch({
+        type: EDIT_BOAT_INFO,
+        data: newData,
+        })
+      }
     }
-    }
-  case "specialMarksTableColumns":
-    // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
-    const userId = 2;
-    const bsmId = data.bsmId
-    delete data.bsmId
-    delete data.cardid
-    delete data.editor
-    // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
-    return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_EDIT_BOAT_SPEC_MARK + bsmId + "/" + boatId + "/" + userId, {
-      method: "POST",
-      headers: {
-      'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    const newData = { newInfo: await response.json(), tableType: tableType }
-    console.log("newData action >!>!>", newData)
-    if (response.status === 200) {
-      dispatch({
-      type: EDIT_BOAT_INFO,
-      data: newData,
-      })
-    }
-    }
-
-  default:
-    break;
+    case "boatArrestsTableColumns":
+      return async dispatch => {
+        const response = await fetch(MAIN_URL + PORT + API_ADD_BOAT_INFO_ARRESTS + boatId, {
+          method: "POST",
+          headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        const newData = { newInfo: data, tableType: tableType }
+        if (response.status === 200) {
+          dispatch({
+            type: EDIT_BOAT_INFO,
+            data: newData,
+          })
+        }
+      }
+    
+    default:
+      break;
   }
 
 }
