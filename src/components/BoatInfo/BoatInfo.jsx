@@ -110,6 +110,7 @@ export default function BoatInfo(props) {
   };
 
   useEffect(() => {
+  console.log("boatInfoFromState >!>!", boatInfoFromState)
   const pathArray = window.location.pathname.split('/');
   const id = pathArray[pathArray.length - 1];
   if (

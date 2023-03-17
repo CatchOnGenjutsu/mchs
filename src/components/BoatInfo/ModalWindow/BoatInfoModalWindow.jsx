@@ -98,11 +98,14 @@ export default function BoatInfoModalWindow({
         }
         break;
       case 'removeBoatArrestsTableColumns':
+        console.log('edit');
         newData.isActiv = false;
         setNewData(newData);
         setNewData(structuredClone(newData));
         dispatch(editBoatInfo(newData, boatIdModal, 'boatArrestsTableColumns'));
+        break;
       case "boatArrestsTableColumns":
+        console.log('save');
         dispatch(addNewBoatInfo(newData, boatIdModal, 'boatArrestsTableColumns'));
         break;
       default:
@@ -219,7 +222,7 @@ export default function BoatInfoModalWindow({
     <Button
       variant="secondary"
       onClick={() => {
-        // console.log("newData >!>!", newData)
+        console.log("boatInfoFromState >!>!", boatInfoFromState)
         setShowModal(false);
         setDataForEdit({});
         setNewData({});
