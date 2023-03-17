@@ -21,6 +21,7 @@ export default function BoatInfoModalWindow({
   const [newData, setNewData] = useState(
     type === 'edit' || modalWindowInputs.keyTable === "boatArrestsTableColumns" ? structuredClone(dataForEdit) : {}
   );
+  const [file, setFile] = useState();
 
   // const [removeArrestData, setRemoveArrestData] = useState(
   //   modalWindowInputs.keyTable === "removeBoatArrestsTableColumns" ? structuredClone(dataForEdit) : {}
@@ -53,12 +54,15 @@ export default function BoatInfoModalWindow({
         break;
       case 'removeBoatArrestsTableColumns':
         newData[e.currentTarget.dataset.id] = e.currentTarget.value;
-
       case 'boatArrestsTableColumns':
         newData[e.currentTarget.dataset.id] = e.currentTarget.value;
         newData.isActiv = true;
         newData.cardid = boatIdModal;
         // setNewData(newData)
+      case 'documentsTableColumns':
+        if(e.target.files[0]) {
+          setFile(e.target.files[0])
+        }
       default:
         break;
     }
@@ -108,6 +112,15 @@ export default function BoatInfoModalWindow({
         console.log('save');
         dispatch(addNewBoatInfo(newData, boatIdModal, 'boatArrestsTableColumns'));
         break;
+      case "documentsTableColumns":
+        console.log('save docs');
+        // const form = document.querySelector("#form")
+        const formData = new FormData()
+        // const input = document.querySelector("#inputFile")
+        formData.append("file", file)
+        // console.log("formData >!>!", formData)
+        dispatch(addNewBoatInfo(formData, boatIdModal, 'documentsTableColumns'));
+        break;
       default:
         setShowModal(false);
         setNewData({});
@@ -138,13 +151,14 @@ export default function BoatInfoModalWindow({
     <Modal.Title>{modalWindowInputs.caption}</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-    <Form>
+    <Form id="form">
       {modalWindowInputs.nameColumn.map((item) => {
-        if (item.key !== "isActiv"){
+        if (item.key !== "isActiv" && item.key !== "docdate" && item.key !== "docname"){
           switch (item.type) {
             case 'date':
             return (
               <Form.Group className="mb-3">
+             
               <Form.Label>{item.value}</Form.Label>
               <Form.Control
                 data-id={item.key}
@@ -158,17 +172,21 @@ export default function BoatInfoModalWindow({
             );
             case 'file':
             return (
-              <Form.Group className="mb-3">
-              <Form.Label>{item.value}</Form.Label>
+              // <Form.Group className="mb-3">
+                 <>
+              {/* <Form.Label>{item.value}</Form.Label> */}
               <Form.Control
                 data-id={item.key}
+                id="inputFile"
                 type="file"
+                accept="image/*"
                 // value={newData[`${item.key}`]}
                 onChange={(e) => {
-                handleChange(e);
+                  handleChange(e);
                 }}
               />
-              </Form.Group>
+              </>
+              // </Form.Group>
             );
             case 'checkbox':
               return (
@@ -222,7 +240,6 @@ export default function BoatInfoModalWindow({
     <Button
       variant="secondary"
       onClick={() => {
-        console.log("boatInfoFromState >!>!", boatInfoFromState)
         setShowModal(false);
         setDataForEdit({});
         setNewData({});

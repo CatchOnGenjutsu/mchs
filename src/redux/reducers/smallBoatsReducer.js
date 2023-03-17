@@ -82,7 +82,14 @@ export const smallBoatsReducer = (state = initialState, action) => {
         boatArrests: [action.data.newInfo, ...state.boatInfo.boatArrests]
       },
       }))();
-
+    case "documentsTableColumns":
+      return (() => ({
+      ...state,
+      boatInfo: {
+        ...state.boatInfo,
+        documentsDtos: [action.data.newInfo, ...state.boatInfo.documentsDtos]
+      },
+      }))();
     default:
       break;
     }

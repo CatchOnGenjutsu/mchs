@@ -51,7 +51,8 @@ import {
   API_ADD_NEW_BOAT_SPEC_MARK,
   API_EDIT_BOAT_SPEC_MARK,
   API_GET_BOAT_INFO_ARRESTS,
-  API_ADD_BOAT_INFO_ARRESTS
+  API_ADD_BOAT_INFO_ARRESTS,
+  API_ADD_BOAT_INFO_DOCS,
 } from "../constants/constants";
 
 export function getBoatCardInfo(id) {
@@ -427,6 +428,20 @@ export function addNewBoatInfo(data, boatId, tableType) {
       }
     }
   case "documentsTableColumns":
+    return async dispatch => {
+      const response = await fetch(MAIN_URL + PORT + API_ADD_BOAT_INFO_DOCS + `?cardid=${boatId}&signature=false`, {
+        method: "POST",
+        body: data
+      })
+      const newFile = await response.json();
+      const newData = { newInfo: newFile, tableType: tableType }
+      if (response.status === 200) {
+        dispatch({
+        type: ADD_NEW_BOAT_INFO,
+        data: newData
+        })
+      }
+    }
   default:
     break;
   }

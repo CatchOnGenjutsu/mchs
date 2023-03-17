@@ -21,6 +21,12 @@ import {
   documentsTableColumns,
 } from './infoTablesColumns';
 
+import {
+  MAIN_URL,
+  PORT,
+  API_ADD_BOAT_INFO_DOCS_DOWNLOAD
+} from "../../constants/constants"
+
 import styles from './BoatInfo.module.css';
 
 export default function BoatInfo(props) {
@@ -59,9 +65,6 @@ export default function BoatInfo(props) {
       case 'specialMarksTableColumns':
         setModalWindowInputs(specialMarksTableColumns);
         break;
-      case 'documentsTableColumns':
-        setModalWindowInputs(documentsTableColumns);
-        break;
       case 'boatArrestsTableColumns':
         setModalWindowInputs(boatArrestsTableColumns);
         const fields = [
@@ -72,6 +75,9 @@ export default function BoatInfo(props) {
         fields.forEach(item => data[item] = null)
         data.isActiv = null
         setDataForEdit(data);
+        break;
+      case 'documentsTableColumns':
+        setModalWindowInputs(documentsTableColumns);
         break;
       default:
         break;
@@ -94,13 +100,13 @@ export default function BoatInfo(props) {
       setType('edit');
       setModalWindowInputs(specialMarksTableColumns);
       break;
-    case 'documentsTableColumns':
-      data = boatInfoFromState.documentsDtos.find((item) => item.docid === e.target.id);
-      setModalWindowInputs(documentsTableColumns);
-      setType('edit');
     case "boatArrestsTableColumns":
       data = boatInfoFromState.boatArrests.find((item) => item.arrId === Number(e.target.id));
       setModalWindowInputs(removeBoatArrestsTableColumns);
+      setType('edit');
+    case 'documentsTableColumns':
+      data = boatInfoFromState.documentsDtos.find((item) => item.docid === e.target.id);
+      setModalWindowInputs(documentsTableColumns);
       setType('edit');
     default:
     break;
@@ -745,8 +751,8 @@ export default function BoatInfo(props) {
               return (
                 <td>
                 <a
-                  href={`http://file:${elem.filePath}`}
-                  target="_blank">
+                  href={`${MAIN_URL}${PORT}${API_ADD_BOAT_INFO_DOCS_DOWNLOAD}${encodeURI(elem.docname)}?cardid=${boatInfoFromState.cardid}&signature=false`}
+                  >
                   {elem[`${item.key}`]}
                 </a>
                 </td>
@@ -754,7 +760,7 @@ export default function BoatInfo(props) {
               } else {
               return (
                 <td>
-                {new Date(elem[`${item.key}`]).toLocaleDateString()}
+                  {new Date(elem[`${item.key}`]).toLocaleDateString()}
                 </td>
               );
               }
