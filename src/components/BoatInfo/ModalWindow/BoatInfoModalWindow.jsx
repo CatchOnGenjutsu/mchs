@@ -12,6 +12,7 @@ export default function BoatInfoModalWindow({
   setDataForEdit,
   type,
   setType,
+  fileType
 }) {
   const boatInfoFromState = useSelector((state) => {
     const { smallBoatsReducer } = state;
@@ -114,12 +115,18 @@ export default function BoatInfoModalWindow({
         break;
       case "documentsTableColumns":
         console.log('save docs');
-        // const form = document.querySelector("#form")
         const formData = new FormData()
-        // const input = document.querySelector("#inputFile")
-        formData.append("file", file)
-        // console.log("formData >!>!", formData)
-        dispatch(addNewBoatInfo(formData, boatIdModal, 'documentsTableColumns'));
+        formData.append("file", file);
+        switch (fileType) {
+          case "file":
+            dispatch(addNewBoatInfo(formData, boatIdModal, 'documentsTableColumns', false));
+            break;
+          case "signature":
+            dispatch(addNewBoatInfo(formData, boatIdModal, 'documentsTableColumns', true));
+            break;
+          default:
+            break;
+        }
         break;
       default:
         setShowModal(false);
@@ -129,7 +136,6 @@ export default function BoatInfoModalWindow({
     setShowModal(false);
     setNewData({});
   };
-
   useEffect(() => {
   if (newData.bsmLock !== undefined) {
     const lockSelector = newData.bsmLock ? '#locked' : '#unlocked';
@@ -171,23 +177,23 @@ export default function BoatInfoModalWindow({
               </Form.Group>
             );
             case 'file':
-            return (
-              // <Form.Group className="mb-3">
-                 <>
-              {/* <Form.Label>{item.value}</Form.Label> */}
-              <Form.Control
-                data-id={item.key}
-                id="inputFile"
-                type="file"
-                accept="image/*"
-                // value={newData[`${item.key}`]}
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-              />
-              </>
-              // </Form.Group>
-            );
+              return (
+                // <Form.Group className="mb-3">
+                  <>
+                {/* <Form.Label>{item.value}</Form.Label> */}
+                <Form.Control
+                  data-id={item.key}
+                  id="inputFile"
+                  type="file"
+                  accept="image/*"
+                  // value={newData[`${item.key}`]}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+                </>
+                // </Form.Group>
+              );
             case 'checkbox':
               return (
                 <Form.Group className="mb-3">

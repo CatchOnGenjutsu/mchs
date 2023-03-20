@@ -53,6 +53,7 @@ import {
   API_GET_BOAT_INFO_ARRESTS,
   API_ADD_BOAT_INFO_ARRESTS,
   API_ADD_BOAT_INFO_DOCS,
+  API_DELETE_BOAT_INFO_DOCS,
 } from "../constants/constants";
 
 export function getBoatCardInfo(id) {
@@ -303,13 +304,13 @@ export function getDictionaryOwnerType() {
 }
 export function getDictionaryNsiCheckStatus() {
   return async dispatch => {
-  const response = await fetch(MAIN_URL + PORT + API_GET_NSI_CHECK_STATUS)
-  if (response.ok) {
-    dispatch({
-    type: GET_DICTIONARY_NSI_CHECK_STATUS,
-    data: await response.json()
-    })
-  }
+    const response = await fetch(MAIN_URL + PORT + API_GET_NSI_CHECK_STATUS)
+      if (response.ok) {
+        dispatch({
+          type: GET_DICTIONARY_NSI_CHECK_STATUS,
+          data: await response.json()
+        })
+    }
   }
 }
 
@@ -364,7 +365,7 @@ export function getUsersLibrary() {
   }
 }
 
-export function addNewBoatInfo(data, boatId, tableType) {
+export function addNewBoatInfo(data, boatId, tableType, fileType) {
   switch (tableType) {
   case "dealsHistoryTableColumns":
     return async dispatch => {
@@ -429,12 +430,12 @@ export function addNewBoatInfo(data, boatId, tableType) {
     }
   case "documentsTableColumns":
     return async dispatch => {
-      const response = await fetch(MAIN_URL + PORT + API_ADD_BOAT_INFO_DOCS + `?cardid=${boatId}&signature=false`, {
+      const response = await fetch(MAIN_URL + PORT + API_ADD_BOAT_INFO_DOCS + `?cardid=${boatId}&signature=${fileType}`, {
         method: "POST",
         body: data
       })
       const newFile = await response.json();
-      const newData = { newInfo: newFile, tableType: tableType }
+      const newData = { newInfo: newFile, tableType: tableType, fileType: fileType }
       if (response.status === 200) {
         dispatch({
         type: ADD_NEW_BOAT_INFO,
@@ -514,5 +515,17 @@ export function editBoatInfo(data, boatId, tableType) {
       break;
   }
 
+}
+
+export function deleteBoatInfo(cardid, signature, fileName, tableType){
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_DELETE_BOAT_INFO_DOCS + cardid + `/${signature}/${fileName}`);
+    const newData = {newInfo: await response.json(), tableType: tableType}
+      dispatch({
+        type: EDIT_BOAT_INFO,
+        data: newData
+      })
+    
+  }
 }
 

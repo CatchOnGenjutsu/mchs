@@ -11,6 +11,7 @@ import {
 const initialState = {
   data: [],
   boatInfo: {},
+  signName: "",
   searchParams: {
   ownerSurname: "",
   ownerName: "",
@@ -35,9 +36,12 @@ export const smallBoatsReducer = (state = initialState, action) => {
     ],
     }))();
   case GET_BOAT_CARD_INFO:
+    const sign = action.data.documentsDtos.find(item => item.docnote === "signature")
+    console.log("sign >!>!", sign)
     return (() => ({
     ...state,
-    boatInfo: Object.assign({}, action.data)
+    boatInfo: Object.assign({}, action.data),
+    signName: !!sign ? sign.docname : ""
     }))();
   case CLEAR_BOAT_CARD_INFO:
     return (() => ({
@@ -83,11 +87,14 @@ export const smallBoatsReducer = (state = initialState, action) => {
       },
       }))();
     case "documentsTableColumns":
+      console.log("action.data.fileType", action.data.fileType)
+      console.log("action.data.newInfo.docname", action.data.newInfo.docname)
       return (() => ({
       ...state,
       boatInfo: {
         ...state.boatInfo,
-        documentsDtos: [action.data.newInfo, ...state.boatInfo.documentsDtos]
+        documentsDtos: [action.data.newInfo, ...state.boatInfo.documentsDtos],
+        signName: action.data.fileType ? action.data.newInfo.docname : ""
       },
       }))();
     default:
@@ -119,6 +126,15 @@ export const smallBoatsReducer = (state = initialState, action) => {
           boatInfo: {
             ...state.boatInfo,
             boatArrests: [...state.boatInfo.boatArrests.map(item => item.arrId === action.data.newInfo.arrId ? action.data.newInfo : item)]
+          },
+        }))();
+        case "documentsTableColumns":
+        return (() => ({
+          ...state,
+          boatInfo: {
+            ...state.boatInfo,
+            documentsDtos: [...state.boatInfo.documentsDtos.filter(item => item.docid !== action.data.newInfo)],
+            signName: action.data.fileType === "file" ? state.signName : ""
           },
         }))();
       default:

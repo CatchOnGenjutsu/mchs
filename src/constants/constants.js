@@ -37,6 +37,7 @@ export const API_EDIT_BOAT_SPEC_MARK = "boats/updateBoatCardSpecmarks/"
 export const API_ADD_BOAT_INFO_ARRESTS = "boats/saveBoatArrests/"
 export const API_ADD_BOAT_INFO_DOCS = "boats/file/uploadfile"
 export const API_ADD_BOAT_INFO_DOCS_DOWNLOAD = "boats/file/download/"
+export const API_DELETE_BOAT_INFO_DOCS = "boats/file/delete/"
 
 
 

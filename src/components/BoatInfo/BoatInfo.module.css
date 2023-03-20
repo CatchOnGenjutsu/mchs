@@ -125,6 +125,18 @@
   margin: 0.1em auto;
 }
 
+.delete__buttons {
+  width: 2.2em;
+  height: 2.2em;
+  font-size: 0.9em;
+  line-height: 1em;
+  font-weight: 700;
+  padding: 0.3em 0.3em 0.24em;
+  display: block;
+  margin: 0.1em auto;
+  color: red;
+}
+
 .checkbox {
   -webkit-appearance: none;
   background-color: #f1f1f1;
@@ -148,4 +160,69 @@
 .red_text {
   color: red;
   font-weight: 600;
+}
+
+.documents__container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.doc__table__container{
+  width: 50%;
+}
+.doc__table {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 1em;
+  border-collapse: collapse;
+  caption-side: top;
+  border: 1px solid rgb(221, 221, 221);
+}
+.sign__table__container {
+  width: 40%;
+}
+.sign__table {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 1em;
+  border-collapse: collapse;
+  caption-side: top;
+  border: 1px solid rgb(221, 221, 221);
+}
+
+.sign__table td {
+  font-size: 0.9em;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.sign__table th {
+  font-size: 0.9em;
+  border: 1px solid black;
+  text-align: center;
+  background-color: #ebebebef;
+  font-weight: 500;
+}
+.doc__table td {
+  font-size: 0.9em;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.doc__table th {
+  font-size: 0.9em;
+  border: 1px solid black;
+  text-align: center;
+  background-color: #ebebebef;
+  font-weight: 500;
+}
+
+.sign__image {
+  min-width: 40%;
+  max-width: 40%;
+}
+
+.sign__buttons_container{
+  display: flex;
+  justify-content: space-around;
 }

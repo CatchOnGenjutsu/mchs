@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import BoatInfoModalWindow from './ModalWindow/BoatInfoModalWindow';
-import { getBoatCardInfo, clearBoatCardInfo } from '../../redux/actions';
+import { getBoatCardInfo, clearBoatCardInfo, deleteBoatInfo } from '../../redux/actions';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -35,17 +35,22 @@ export default function BoatInfo(props) {
   const [modalWindowInputs, setModalWindowInputs] = useState({});
   const [dataForEdit, setDataForEdit] = useState({});
   const [type, setType] = useState(null);
+  const [fileType, setFileType] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const boatInfoFromState = useSelector((state) => {
-  const { smallBoatsReducer } = state;
-  return smallBoatsReducer.boatInfo;
+    const { smallBoatsReducer } = state;
+    return smallBoatsReducer.boatInfo;
+  });
+  const signName = useSelector((state) => {
+    const { smallBoatsReducer } = state;
+    return smallBoatsReducer.signName;
   });
 
   const handleEditMode = () => {
-  setEditMode(!editMode);
+    setEditMode(!editMode);
   };
 
   const handleCloseButton = () => {
@@ -77,7 +82,18 @@ export default function BoatInfo(props) {
         setDataForEdit(data);
         break;
       case 'documentsTableColumns':
-        setModalWindowInputs(documentsTableColumns);
+        switch (e.target.dataset.doctype) {
+          case "signature":
+            setFileType("signature")
+            console.log("Тут! signature");
+            setModalWindowInputs(documentsTableColumns);
+            break;
+          case "file":
+            setFileType("file")
+            console.log("Тут! file");
+            setModalWindowInputs(documentsTableColumns);
+            break;
+        }
         break;
       default:
         break;
@@ -94,46 +110,58 @@ export default function BoatInfo(props) {
       data.docDate = new Date(data.docDate).toISOString().split('T')[0];
       setType('edit');
       setModalWindowInputs(dealsHistoryTableColumns);
+      setDataForEdit(data);
+      setShowModal(true);
       break;
     case 'specialMarksTableColumns':
       data = boatInfoFromState.specMarks.find((item) => item.bsmId == e.target.id);
       setType('edit');
       setModalWindowInputs(specialMarksTableColumns);
+      setDataForEdit(data);
+      setShowModal(true);
       break;
     case "boatArrestsTableColumns":
       data = boatInfoFromState.boatArrests.find((item) => item.arrId === Number(e.target.id));
       setModalWindowInputs(removeBoatArrestsTableColumns);
       setType('edit');
+      setDataForEdit(data);
+      setShowModal(true);
+      break;
     case 'documentsTableColumns':
-      data = boatInfoFromState.documentsDtos.find((item) => item.docid === e.target.id);
-      setModalWindowInputs(documentsTableColumns);
-      setType('edit');
+      switch (e.target.dataset.doctype) {
+        case "signature":
+          console.log("Тут!");
+          dispatch(deleteBoatInfo(boatInfoFromState.cardid, true, signName, 'documentsTableColumns'))
+          break;
+        case "file":
+          dispatch(deleteBoatInfo(boatInfoFromState.cardid, false, e.target.dataset.docname, 'documentsTableColumns'))
+          break;
+        default:
+          break;
+      }
     default:
     break;
   }
-  setDataForEdit(data);
-  setShowModal(true);
+
   };
 
   useEffect(() => {
-  console.log("boatInfoFromState >!>!", boatInfoFromState)
-  const pathArray = window.location.pathname.split('/');
-  const id = pathArray[pathArray.length - 1];
-  if (
-    window.performance
-    .getEntriesByType('navigation')
-    .map((nav) => nav.type)
-    .includes('reload')
-  ) {
-    // dispatch(
-    //   getDataCerticatesBySearchParams(
-    //   JSON.parse(sessionStorage.getItem('searchParams'))
-    //   )
-    // );
-    dispatch(getBoatCardInfo(id));
-  }
+    const pathArray = window.location.pathname.split('/');
+    const id = pathArray[pathArray.length - 1];
+    if (
+      window.performance
+      .getEntriesByType('navigation')
+      .map((nav) => nav.type)
+      .includes('reload')
+    ) {
+      // dispatch(
+      //   getDataCerticatesBySearchParams(
+      //   JSON.parse(sessionStorage.getItem('searchParams'))
+      //   )
+      // );
+      dispatch(getBoatCardInfo(id));
+    }
   }, []);
-  // const tableInfo = [sizeTableColumnsObj]
 
   return (
   <div className={styles.info__container}>
@@ -715,88 +743,131 @@ export default function BoatInfo(props) {
       +
     </button>
     </div>
-    <div>
-    <table className={`${styles['secondary-table']}`}>
-      <caption className={styles['secondary-caption']}>
-      {documentsTableColumns.caption}
-      </caption>
-      <thead>
-      <tr>
-        {documentsTableColumns.nameColumn.map((item) => {
-        if (item.key !== 'docfile') {
-          return (
-          <th
-            className={styles.deals_history_table_th}
-            id={item.key}>
-            {item.value}
-          </th>
-          );
-        }
-        })}
-        <th
-        key={uuidv4()}
-        className={`${editMode ? '' : styles.edit__mode} ${
-          styles.edit__column
-        }`}></th>
-      </tr>
-      </thead>
-      <tbody>
-      {boatInfoFromState.documentsDtos !== undefined
-        ? boatInfoFromState.documentsDtos.map((elem) => {
-          return (
+ 
+    <div className={styles.documents__container}>
+      <div className={styles.doc__table__container}>
+        <table className={styles.doc__table}>
+          <caption className={styles['secondary-caption']}>
+            {documentsTableColumns.caption}
+          </caption>
+          <thead>
           <tr>
             {documentsTableColumns.nameColumn.map((item) => {
-            if (item.key !== 'docfile') {
-              if (item.type !== 'date') {
-              return (
-                <td>
-                <a
-                  href={`${MAIN_URL}${PORT}${API_ADD_BOAT_INFO_DOCS_DOWNLOAD}${encodeURI(elem.docname)}?cardid=${boatInfoFromState.cardid}&signature=false`}
-                  >
-                  {elem[`${item.key}`]}
-                </a>
-                </td>
-              );
-              } else {
-              return (
-                <td>
-                  {new Date(elem[`${item.key}`]).toLocaleDateString()}
-                </td>
-              );
+              if (item.key !== 'docfile') {
+                return (
+                  <th
+                    className={styles.deals_history_table_th}
+                    id={item.key}>
+                    {item.value}
+                  </th>
+                );
               }
-            }
             })}
-            <td
-            className={`${editMode ? '' : styles.edit__mode} ${
-              styles.edit__column
-            }`}
-            key={uuidv4()}>
-            <button
-              className={`${styles.edit__buttons} btn btn-primary ${
-              editMode ? '' : styles.edit__mode
-              }`}
-              data-tabletype={documentsTableColumns.keyTable}
-              id={elem.docid}
-              onClick={(e) => handleEditNotes(e)}>
-              &#9998;
-            </button>
-            </td>
+            <th
+              key={uuidv4()}
+              className={`${editMode ? '' : styles.edit__mode} ${styles.edit__column}`}></th>
           </tr>
-          );
-        })
-        : null}
-      </tbody>
-    </table>
-
-    <button
-      className={`${styles.add__buttons} btn btn-primary ${
-      editMode ? '' : styles.edit__mode
-      }`}
-      id={documentsTableColumns.keyTable}
-      onClick={(e) => handleAddNewData(e)}>
-      +
-    </button>
+          </thead>
+          <tbody>
+            {boatInfoFromState.documentsDtos !== undefined
+              ? boatInfoFromState.documentsDtos.map((elem) => {
+                if (elem.docnote !== "signature") {
+                  return (
+                    <tr>
+                      {documentsTableColumns.nameColumn.map((item) => {
+                      if (item.key !== 'docfile') {
+                        if (item.type !== 'date') {
+                        return (
+                          <td>
+                          <a
+                            href={`${MAIN_URL}${PORT}${API_ADD_BOAT_INFO_DOCS_DOWNLOAD}${encodeURI(elem.docname)}?cardid=${boatInfoFromState.cardid}&signature=false`}
+                            >
+                            {elem[`${item.key}`]}
+                          </a>
+                          </td>
+                        );
+                        } else {
+                        return (
+                          <td>
+                            {new Date(elem[`${item.key}`]).toLocaleDateString()}
+                          </td>
+                        );
+                        }
+                      }
+                      })}
+                      <td
+                      className={`${editMode ? '' : styles.edit__mode} ${
+                        styles.edit__column
+                      }`}
+                      key={uuidv4()}>
+                      <button
+                        className={`${styles.delete__buttons} btn btn-danger ${
+                        editMode ? '' : styles.edit__mode
+                        }`}
+                        data-tabletype={documentsTableColumns.keyTable}
+                        data-docname ={elem.docname}
+                        data-doctype="file"
+                        id={elem.docid}
+                        onClick={(e) => handleEditNotes(e)}>
+                        &#10006;
+                      </button>
+                      </td>
+                    </tr>
+                  );
+                }
+                  
+              })
+            : null}
+          </tbody>
+        </table>
+        <button
+          className={`${styles.add__buttons} btn btn-primary ${
+          editMode ? '' : styles.edit__mode
+          }`}
+          data-doctype="file"
+          id={documentsTableColumns.keyTable}
+          onClick={(e) => handleAddNewData(e)}>
+          +
+        </button>
+      </div>
+      <div className={styles.sign__table__container}>
+        <table className={styles.sign__table}>
+        {/* styles.sign__container  */}
+          <thead>
+            <th>Подпись собственника, арендатора, лизингополучателя (их представителя), подтверждающая получение судового билета</th>
+          </thead>
+          <tbody>
+            <td>
+              {signName && <img className={styles.sign__image} src={`http://10.0.1.30:8080/boats/file/download/${signName}?cardid=${boatInfoFromState.cardid}&signature=true`} alt="Подпись" />}
+            </td>
+          </tbody>
+        </table>
+        <div className={styles.sign__buttons_container}>
+          <button
+            className={`${styles.add__buttons} btn btn-primary ${
+            editMode ? '' : styles.edit__mode
+            }`}
+            id={documentsTableColumns.keyTable}
+            data-doctype="signature"
+            onClick={(e) => handleAddNewData(e)}>
+            +
+          </button>
+          {signName && 
+          <button
+            className={`${styles.add__buttons} btn btn-danger ${
+            editMode ? '' : styles.edit__mode
+            }`}
+            data-tabletype={documentsTableColumns.keyTable}
+            data-doctype="signature"
+            id={documentsTableColumns.keyTable}
+            onClick={(e) => handleEditNotes(e)}>
+            &#10006;
+          </button>}
+        </div>
+        
+      </div>
     </div>
+
     <div className="d-flex justify-content-around mt-5">
     <button
       className={`btn btn-primary ${editMode ? styles.edit__mode : ''}`}
@@ -820,6 +891,7 @@ export default function BoatInfo(props) {
       setDataForEdit={setDataForEdit}
       type={type}
       setType={setType}
+      fileType={fileType}
     />
     )}
   </div>
