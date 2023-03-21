@@ -179,8 +179,8 @@ export const engineTableColumns = [
   },
   {
   id: "enginesList",
-  value: "Тип двигателя",
-  key: "typeEngine"
+  value: "Год выпуска двигателя",
+  key: "engProdYear"
   },
   {
   id: "enginesList",
