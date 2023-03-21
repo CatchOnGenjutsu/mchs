@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewSpecialMark, addNewConfMark } from '../../../redux/actions';
+import { addNewSpecialMark, addNewConfMark } from '../../../redux/certificateReducer/actionsCertificate';
 
 export default function CertificateModalWindow({
   licenseIdModal,

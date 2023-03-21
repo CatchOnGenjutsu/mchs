@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewBoatInfo, editBoatInfo } from '../../../redux/actions';
+import { addNewBoatInfo, editBoatInfo } from '../../../redux/smallBoatsReducer/actionsSmallBoats';
 
 export default function BoatInfoModalWindow({
   boatIdModal,

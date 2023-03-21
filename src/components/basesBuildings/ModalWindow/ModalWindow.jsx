@@ -3,7 +3,7 @@ import styles from './ModalWindow.module.css'
 import {Form,Button,Modal} from "react-bootstrap";
 import {optionsForModalWindow, setOptionsForModalWindow,optionsButton} from "./constansForModalWindow";
 import {useDispatch, useSelector} from "react-redux";
-import {addDataBasesBuildings, deleteDataBasesBuildings, editDataBasesBuildings} from "../../../redux/actions";
+import {addDataBasesBuildings, deleteDataBasesBuildings, editDataBasesBuildings} from "../../../redux/baseBuildingReducer/actionsBaseBuilding";
 function ModalWindow({setShow,show,type,buildingId}) {
     const dispatch = useDispatch();
     const dataFromStateBases = useSelector(state => {

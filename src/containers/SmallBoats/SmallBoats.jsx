@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SearchBlock from '../../components/SearchBlock/SearchBlock.jsx';
 import SearchTable from '../../components/SearchTable/SearchTable.jsx';
 import BoatInfo from '../../components/BoatInfo/BoatInfo.jsx';
-import { getBoatsCardsList, clearBoatCardInfo } from '../../redux/actions';
+import {  clearBoatCardInfo } from '../../redux/smallBoatsReducer/actionsSmallBoats';
 import { SMALLBOATS_COLUMNS } from '../../components/SearchTable/TablesColumns';
 import { inputsHeadersSmallBoats } from '../../components/SearchBlock/inputsHeaders.js';
 

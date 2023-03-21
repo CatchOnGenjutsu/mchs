@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import { useDispatch } from "react-redux";
-import { getBoatCardInfo, getLicenseById } from "../../redux/actions";
+import { getBoatCardInfo } from "../../redux/smallBoatsReducer/actionsSmallBoats";
+import { getLicenseById } from "../../redux/certificateReducer/actionsCertificate";
 import styles from "./SearchTable.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";

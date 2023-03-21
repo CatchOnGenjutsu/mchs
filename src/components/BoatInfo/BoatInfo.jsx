@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import BoatInfoModalWindow from './ModalWindow/BoatInfoModalWindow';
-import { getBoatCardInfo, clearBoatCardInfo, deleteBoatInfo } from '../../redux/actions';
+import { getBoatCardInfo, clearBoatCardInfo, deleteBoatInfo } from '../../redux//smallBoatsReducer/actionsSmallBoats';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -130,10 +130,10 @@ export default function BoatInfo(props) {
     case 'documentsTableColumns':
       switch (e.target.dataset.doctype) {
         case "signature":
-          console.log("Тут!");
           dispatch(deleteBoatInfo(boatInfoFromState.cardid, true, signName, 'documentsTableColumns'))
           break;
         case "file":
+          console.log("Тут!");
           dispatch(deleteBoatInfo(boatInfoFromState.cardid, false, e.target.dataset.docname, 'documentsTableColumns'))
           break;
         default:
@@ -830,7 +830,7 @@ export default function BoatInfo(props) {
           +
         </button>
       </div>
-      <div className={styles.sign__table__container}>
+      {/* <div className={styles.sign__table__container}> */}
         <table className={styles.sign__table}>
         {/* styles.sign__container  */}
           <thead>
@@ -842,7 +842,7 @@ export default function BoatInfo(props) {
             </td>
           </tbody>
         </table>
-        <div className={styles.sign__buttons_container}>
+        {/* <div className={styles.sign__buttons_container}>
           <button
             className={`${styles.add__buttons} btn btn-primary ${
             editMode ? '' : styles.edit__mode
@@ -863,9 +863,9 @@ export default function BoatInfo(props) {
             onClick={(e) => handleEditNotes(e)}>
             &#10006;
           </button>}
-        </div>
+        </div> */}
         
-      </div>
+      {/* </div> */}
     </div>
 
     <div className="d-flex justify-content-around mt-5">

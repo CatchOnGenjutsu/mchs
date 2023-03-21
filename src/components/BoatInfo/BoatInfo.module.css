@@ -182,7 +182,9 @@
   width: 40%;
 }
 .sign__table {
-  width: 100%;
+  /* display: block; */
+  height: max-content;
+  width: 40%;
   margin: 0 auto;
   margin-top: 1em;
   border-collapse: collapse;

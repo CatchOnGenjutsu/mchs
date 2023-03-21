@@ -1,89 +1,27 @@
 import {
-  GET_BOAT_CARD_INFO,
-  CLEAR_BOAT_CARD_INFO,
   GET_DATA_BY_SEARCH_PARAMS_LICENSE,
   GET_DATA_BY_SEARCH_PARAMS_BOAT,
-  GET_LICENSE_BY_ID,
   GET_DATA_BY_SEARCH_PARAMS_BASES_BUILDING,
   SET_SEARCH_PARAMS_BASES_BUILDING,
   SET_SEARCH_PARAMS_BOATS,
   SET_SEARCH_PARAMS_LICENSE,
   GET_DICTIONARY_GIMS_SECTIONS,
   GET_DICTIONARY_OWNER_TYPE,
-  DELETE_BASES,
-  EDIT_BASES,
-  ADD_NEW_BASES,
-  ADD_NEW_SPEC_MARK,
   GET_USERS_LIBRARY,
   GET_DICTIONARY_NSI_CHECK_STATUS,
-  ADD_NEW_CONF_MARK,
-  ADD_NEW_BOAT_INFO,
-  EDIT_BOAT_INFO
-
 } from './types';
 import {
   MAIN_URL,
   PORT,
   API_GET_BOATS_LIST_SEARCH,
-  API_GET_BOAT_INFO_CARD,
-  API_GET_BOAT_INFO_SPEC_MARKS,
   API_GET_LICENSE_LIST_SEARCH,
-  API_GET_LICENSE_INFO_CARD,
-
   API_GET_BASES_BUILDING_LIST_SEARCH,
-  API_EDIT_BASES_BUILDING,
-  API_ADD_BASES_BUILDING,
   API_GET_GIMS_SECTIONS,
   API_GET_OWNER_TYPE,
-  API_DELETE_BASES_BUILDING,
-
-  API_GET_LICENSE_ADD_INFO_CARD,
-  API_GET_LICENSE_INFO_FROM_LIBS_OBLAST,
-  API_GET_LICENSE_INFO_FROM_LIBS_RAYON,
-  API_GET_LICENSE_INFO_FROM_LIBS_GOROD,
-
-  API_ADD_NEW_SPECIAL_MARK,
-  API_ADD_NEW_CONF_MARK,
-
   API_GET_USERS_LIBRARY,
   API_GET_NSI_CHECK_STATUS,
-  API_ADD_NEW_BOAT_DEAL,
-  API_ADD_NEW_BOAT_SPEC_MARK,
-  API_EDIT_BOAT_SPEC_MARK,
-  API_GET_BOAT_INFO_ARRESTS,
-  API_ADD_BOAT_INFO_ARRESTS,
-  API_ADD_BOAT_INFO_DOCS,
-  API_DELETE_BOAT_INFO_DOCS,
 } from "../constants/constants";
 
-export function getBoatCardInfo(id) {
-  return async dispatch => {
-  let jsonData = {};
-  if (id !== "") {
-    const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(id));
-    jsonData = await response.json();
-    const specMarksReq = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_SPEC_MARKS + String(id));
-    const specMarks = await specMarksReq.json();
-    const boatArrestsReq = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_ARRESTS + String(id));
-    const boatArrests = await boatArrestsReq.json();
-    jsonData.specMarks = specMarks;
-    jsonData.boatArrests = boatArrests.reverse();
-  }
-  dispatch({
-    type: GET_BOAT_CARD_INFO,
-    data: jsonData
-  })
-  };
-}
-
-export function clearBoatCardInfo() {
-  return (
-  {
-    type: CLEAR_BOAT_CARD_INFO,
-    data: {}
-  }
-  )
-}
 export function setSearchParams(id, value, url) {
   let object = { [`${id}`]: value }
   switch (true) {
@@ -166,35 +104,6 @@ export function getDataCerticatesBySearchParams(params) {
   }
 }
 
-export function getLicenseById(id) {
-  return async dispatch => {
-  const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_INFO_CARD + id);
-  if (response.ok) {
-    const data = await response.json();
-    data["docType"] = data["docType"]["dtname"]
-    data["licenseType"] = data["licenseType"]["name"]
-    data["docSeries"] = data["docNum"].slice(2);
-    data["docNum"] = data["docNum"].slice(0, 2);
-    const oblast = await fetch(MAIN_URL + PORT + API_GET_LICENSE_INFO_FROM_LIBS_OBLAST + data.oblId);
-    const rayon = await fetch(MAIN_URL + PORT + API_GET_LICENSE_INFO_FROM_LIBS_RAYON + data.rayonId);
-    const gorod = await fetch(MAIN_URL + PORT + API_GET_LICENSE_INFO_FROM_LIBS_GOROD + data.gorodId);
-    const oblastName = await oblast.json();
-    const rayonName = await rayon.json();
-    const gorodName = await gorod.json();
-    data["oblId"] = oblastName["name"];
-    data["rayonId"] = rayonName["name"];
-    data["gorodId"] = gorodName["name2"];
-    const licenseAddReq = await fetch(MAIN_URL + PORT + API_GET_LICENSE_ADD_INFO_CARD + id);
-    const licenseAdd = await licenseAddReq.json();
-    const jsonData = { data: data, licenseAdd: licenseAdd }
-    dispatch({
-    type: GET_LICENSE_BY_ID,
-    data: jsonData
-    })
-  }
-  };
-}
-
 export function getDataBasesBuildingBySearchParams(params) {
   return async dispatch => {
   let queryParams = ''
@@ -228,64 +137,13 @@ export function getDataBasesBuildingBySearchParams(params) {
   }
 }
 
-export function editDataBasesBuildings(building) {
-  return async dispatch => {
-  const response = await fetch(MAIN_URL + PORT + API_EDIT_BASES_BUILDING + `${building.parkId}`, {
-    method: "POST",
-    headers: {
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(building)
-  })
-  if (response.ok) {
-    dispatch({
-    type: EDIT_BASES,
-    data: building,
-    })
-  }
-  }
-}
-
-export function addDataBasesBuildings(building) {
-  return async dispatch => {
-  const response = await fetch(MAIN_URL + PORT + API_ADD_BASES_BUILDING, {
-    method: "POST",
-    headers: {
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(building)
-  })
-  if (response.ok) {
-    building.parkId = await response.json()
-    dispatch({
-    type: ADD_NEW_BASES,
-    data: building,
-    })
-  }
-  }
-}
-
-export function deleteDataBasesBuildings(building) {
-  return async dispatch => {
-  const response = await fetch(MAIN_URL + PORT + API_DELETE_BASES_BUILDING + `${building.parkId}`, {
-    method: "POST"
-  })
-  if (response.ok) {
-    dispatch({
-    type: DELETE_BASES,
-    data: building.parkId,
-    })
-  }
-  }
-}
-
 export function getDictionaryGimsSections() {
   return async dispatch => {
   const response = await fetch(MAIN_URL + PORT + API_GET_GIMS_SECTIONS)
   if (response.ok) {
     dispatch({
-    type: GET_DICTIONARY_GIMS_SECTIONS,
-    data: await response.json()
+      type: GET_DICTIONARY_GIMS_SECTIONS,
+      data: await response.json()
     })
   }
   }
@@ -296,8 +154,8 @@ export function getDictionaryOwnerType() {
   const response = await fetch(MAIN_URL + PORT + API_GET_OWNER_TYPE)
   if (response.ok) {
     dispatch({
-    type: GET_DICTIONARY_OWNER_TYPE,
-    data: await response.json()
+      type: GET_DICTIONARY_OWNER_TYPE,
+      data: await response.json()
     })
   }
   }
@@ -314,46 +172,6 @@ export function getDictionaryNsiCheckStatus() {
   }
 }
 
-
-export function addNewSpecialMark(newMark) {
-  return async dispatch => {
-  const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_SPECIAL_MARK + newMark.licenseId, {
-    method: "POST",
-    headers: {
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newMark)
-  })
-  delete newMark.licenseId;
-  newMark.id = await response.json()
-  if (response.status === 200) {
-    dispatch({
-    type: ADD_NEW_SPEC_MARK,
-    data: newMark,
-    })
-  }
-  }
-}
-
-export function addNewConfMark(newMark, licenseId) {
-  return async dispatch => {
-  const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_CONF_MARK + licenseId, {
-    method: "POST",
-    headers: {
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newMark)
-  })
-  newMark.confid = await response.json();
-  if (response.status === 200) {
-    dispatch({
-    type: ADD_NEW_CONF_MARK,
-    data: newMark,
-    })
-  }
-  }
-}
-
 export function getUsersLibrary() {
   return async dispatch => {
   const response = await fetch(MAIN_URL + PORT + API_GET_USERS_LIBRARY)
@@ -365,167 +183,4 @@ export function getUsersLibrary() {
   }
 }
 
-export function addNewBoatInfo(data, boatId, tableType, fileType) {
-  switch (tableType) {
-  case "dealsHistoryTableColumns":
-    return async dispatch => {
-      const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
-        method: "POST",
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      const dealId = await response.json();
-      data.dealId = dealId
-      const newData = { newInfo: data, tableType: tableType }
-      if (response.status === 200) {
-        dispatch({
-        type: ADD_NEW_BOAT_INFO,
-        data: newData
-        })
-      }
-    }
-  case "specialMarksTableColumns":
-    // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
-    const userId = 2;
-    // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
-    return async dispatch => {
-      const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_SPEC_MARK + boatId + "/" + userId, {
-        method: "POST",
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      const bsmId = await response.json();
-      data.bsmId = bsmId;
-      const newData = { newInfo: data, tableType: tableType }
-      if (response.status === 200) {
-        dispatch({
-        type: ADD_NEW_BOAT_INFO,
-        data: newData
-        })
-      }
-    }
-
-  case "boatArrestsTableColumns":
-    return async dispatch => {
-      const response = await fetch(MAIN_URL + PORT + API_ADD_BOAT_INFO_ARRESTS + boatId, {
-        method: "POST",
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      const arrId = await response.json();
-      data.arrId = arrId
-      const newData = { newInfo: data, tableType: tableType }
-      if (response.status === 200) {
-        dispatch({
-        type: ADD_NEW_BOAT_INFO,
-        data: newData
-        })
-      }
-    }
-  case "documentsTableColumns":
-    return async dispatch => {
-      const response = await fetch(MAIN_URL + PORT + API_ADD_BOAT_INFO_DOCS + `?cardid=${boatId}&signature=${fileType}`, {
-        method: "POST",
-        body: data
-      })
-      const newFile = await response.json();
-      const newData = { newInfo: newFile, tableType: tableType, fileType: fileType }
-      if (response.status === 200) {
-        dispatch({
-        type: ADD_NEW_BOAT_INFO,
-        data: newData
-        })
-      }
-    }
-  default:
-    break;
-  }
-
-}
-
-export function editBoatInfo(data, boatId, tableType) {
-  switch (tableType) {
-    case "dealsHistoryTableColumns":
-      return async dispatch => {
-        const response = await fetch(MAIN_URL + PORT + API_ADD_NEW_BOAT_DEAL + boatId, {
-          method: "POST",
-          headers: {
-          'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-        const newData = { newInfo: data, tableType: tableType }
-        if (response.status === 200) {
-          dispatch({
-            type: EDIT_BOAT_INFO,
-            data: newData,
-          })
-        }
-      }
-    case "specialMarksTableColumns":
-      // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
-      const userId = 2;
-      const bsmId = data.bsmId
-      delete data.bsmId
-      delete data.cardid
-      delete data.editor
-      // Тестовое значение, поменять при добавлении логики логирования и введения разделения на пользователей
-      return async dispatch => {
-      const response = await fetch(MAIN_URL + PORT + API_EDIT_BOAT_SPEC_MARK + bsmId + "/" + boatId + "/" + userId, {
-        method: "POST",
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      const newData = { newInfo: await response.json(), tableType: tableType }
-      console.log("newData action >!>!>", newData)
-      if (response.status === 200) {
-        dispatch({
-        type: EDIT_BOAT_INFO,
-        data: newData,
-        })
-      }
-    }
-    case "boatArrestsTableColumns":
-      return async dispatch => {
-        const response = await fetch(MAIN_URL + PORT + API_ADD_BOAT_INFO_ARRESTS + boatId, {
-          method: "POST",
-          headers: {
-          'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-        const newData = { newInfo: data, tableType: tableType }
-        if (response.status === 200) {
-          dispatch({
-            type: EDIT_BOAT_INFO,
-            data: newData,
-          })
-        }
-      }
-    
-    default:
-      break;
-  }
-
-}
-
-export function deleteBoatInfo(cardid, signature, fileName, tableType){
-  return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_DELETE_BOAT_INFO_DOCS + cardid + `/${signature}/${fileName}`);
-    const newData = {newInfo: await response.json(), tableType: tableType}
-      dispatch({
-        type: EDIT_BOAT_INFO,
-        data: newData
-      })
-    
-  }
-}
 

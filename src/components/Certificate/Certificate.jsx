@@ -10,7 +10,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CertificateModalWindow from './ModalWindow/CertificateModalWindow';
-import { getDataCerticatesBySearchParams, getLicenseById } from '../../redux/actions';
+import { getDataCerticatesBySearchParams } from '../../redux/actions';
+import { getLicenseById } from '../../redux/certificateReducer/actionsCertificate';
 
 export default function Certificate(props) {
   const [editMode, setEditMode] = useState(false);
