@@ -177,7 +177,7 @@ export default function BoatInfoModalWindow({
                   data-id={item.key}
                   id="inputFile"
                   type="file"
-                  accept="image/*"
+                  accept="*"
                   // value={newData[`${item.key}`]}
                   onChange={(e) => {
                     handleChange(e);

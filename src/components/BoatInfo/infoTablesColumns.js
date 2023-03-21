@@ -168,52 +168,52 @@ export const userTableColumns = [
 
 export const engineTableColumns = [
   {
-  id: "enginesList",
-  value: "Название (марка)",
-  key: "engname",
+    id: "enginesList",
+    value: "Название (марка)",
+    key: "engname",
   },
   {
-  id: "enginesList",
-  value: "Заводской (идентификационный номер)",
-  key: "engvin",
+    id: "enginesList",
+    value: "Заводской (идентификационный номер)",
+    key: "engvin",
   },
   {
-  id: "enginesList",
-  value: "Год выпуска двигателя",
-  key: "engProdYear"
+    id: "enginesList",
+    value: "Год выпуска двигателя",
+    key: "engProdYear"
   },
   {
-  id: "enginesList",
-  value: "Мощность (л.с.)",
-  key: "engpwr",
+    id: "enginesList",
+    value: "Мощность (л.с.)",
+    key: "engpwr",
   },
   {
-  id: "enginesList",
-  value: "Предельная мощность двигателей судна",
-  key: "maxpwr",
+    id: "enginesList",
+    value: "Предельная мощность двигателей судна",
+    key: "maxpwr",
   },
   {
-  id: "enginesList",
-  value: "Дата постановки на учет",
-  key: "recdate",
+    id: "enginesList",
+    value: "Дата постановки на учет",
+    key: "recdate",
   },
   {
-  id: "enginesList",
-  value: "Дата снятия с учета",
-  key: "recdate",
+    id: "enginesList",
+    value: "Дата снятия с учета",
+    key: "recdate",
   },
 ]
 
 export const ownersHistoryTableColumns = [
   {
-  id: "owner",
-  value: "Ф.И.О. владельца",
-  key: "fio",
+    id: "owner",
+    value: "Ф.И.О. владельца",
+    key: "fio",
   },
   {
-  id: "owner",
-  value: "Дата установления права собственности",
-  key: "recdate",
+    id: "owner",
+    value: "Дата установления права собственности",
+    key: "recdate",
   },
 ]
 

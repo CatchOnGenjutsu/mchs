@@ -473,7 +473,7 @@ export default function BoatInfo(props) {
           default:
           return (
             <th
-            className={styles.deals_history_table_th}
+            className={styles.arrests_table_th}
             id={item.key}>
             {item.value}
             </th>
@@ -751,13 +751,21 @@ export default function BoatInfo(props) {
           <tr>
             {documentsTableColumns.nameColumn.map((item) => {
               if (item.key !== 'docfile') {
-                return (
-                  <th
-                    className={styles.deals_history_table_th}
-                    id={item.key}>
-                    {item.value}
-                  </th>
-                );
+                if (item.key === "docdate") {
+                  return (
+                    <th
+                      className={`${styles.deals_history_table_th} ${styles.docs_table_date_th}`}
+                      id={item.key}>
+                      {item.value}
+                    </th>)
+                } else {
+                  return (
+                    <th
+                      className={styles.deals_history_table_th}
+                      id={item.key}>
+                      {item.value}
+                    </th>)
+                }
               }
             })}
             <th
@@ -776,11 +784,11 @@ export default function BoatInfo(props) {
                         if (item.type !== 'date') {
                         return (
                           <td>
-                          <a
-                            href={`${MAIN_URL}${PORT}${API_ADD_BOAT_INFO_DOCS_DOWNLOAD}${encodeURI(elem.docname)}?cardid=${boatInfoFromState.cardid}&signature=false`}
-                            >
-                            {elem[`${item.key}`]}
-                          </a>
+                            <a
+                              href={`${MAIN_URL}${PORT}${API_ADD_BOAT_INFO_DOCS_DOWNLOAD}${encodeURI(elem.docname)}?cardid=${boatInfoFromState.cardid}&signature=false`}
+                              >
+                              {elem[`${item.key}`]}
+                            </a>
                           </td>
                         );
                         } else {

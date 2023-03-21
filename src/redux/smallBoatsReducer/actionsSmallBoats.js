@@ -226,7 +226,11 @@ export function editBoatInfo(data, boatId, tableType) {
 
 export function deleteBoatInfo(cardid, signature, fileName, tableType){
   return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_DELETE_BOAT_INFO_DOCS + cardid + `/${signature}/${fileName}`);
+    const response = await fetch(MAIN_URL + PORT + API_DELETE_BOAT_INFO_DOCS + cardid + `/${signature}/${encodeURI(fileName)}`,
+    {
+      method: "POST",
+    }
+    );
     const newData = {newInfo: await response.json(), tableType: tableType}
       dispatch({
         type: EDIT_BOAT_INFO,

@@ -97,6 +97,9 @@
 .deals_history_table_th {
   width: calc(96% / 3);
 }
+.arrests_table_th {
+  width: calc(96% / 6);
+}
 
 .add__buttons {
   font-size: 1.4em;
@@ -227,4 +230,8 @@
 .sign__buttons_container{
   display: flex;
   justify-content: space-around;
+}
+
+.docs_table_date_th {
+  width: 10%;
 }
