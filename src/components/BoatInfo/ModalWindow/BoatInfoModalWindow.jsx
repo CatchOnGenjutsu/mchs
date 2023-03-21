@@ -72,16 +72,13 @@ export default function BoatInfoModalWindow({
   };
 
   const handleSave = () => {
-    console.log('Payload >!>!', newData);
     switch (modalWindowInputs.keyTable) {
       case 'dealsHistoryTableColumns':
       switch (type) {
         case 'edit':
-          console.log('edit');
           dispatch(editBoatInfo(newData, boatIdModal, 'dealsHistoryTableColumns'));
           break;
         case 'save':
-          console.log('save');
           dispatch(addNewBoatInfo(newData, boatIdModal, 'dealsHistoryTableColumns'));
           break;
         default:
@@ -91,11 +88,9 @@ export default function BoatInfoModalWindow({
       case 'specialMarksTableColumns':
         switch (type) {
           case 'edit':
-            console.log('edit');
             dispatch(editBoatInfo(newData, boatIdModal, 'specialMarksTableColumns'));
             break;
           case 'save':
-            console.log('save');
             dispatch(addNewBoatInfo(newData, boatIdModal, 'specialMarksTableColumns'));
             break;
           default:
@@ -103,18 +98,15 @@ export default function BoatInfoModalWindow({
         }
         break;
       case 'removeBoatArrestsTableColumns':
-        console.log('edit');
         newData.isActiv = false;
         setNewData(newData);
         setNewData(structuredClone(newData));
         dispatch(editBoatInfo(newData, boatIdModal, 'boatArrestsTableColumns'));
         break;
       case "boatArrestsTableColumns":
-        console.log('save');
         dispatch(addNewBoatInfo(newData, boatIdModal, 'boatArrestsTableColumns'));
         break;
       case "documentsTableColumns":
-        console.log('save docs');
         const formData = new FormData()
         formData.append("file", file);
         switch (fileType) {

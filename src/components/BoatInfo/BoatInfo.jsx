@@ -85,12 +85,10 @@ export default function BoatInfo(props) {
         switch (e.target.dataset.doctype) {
           case "signature":
             setFileType("signature")
-            console.log("Тут! signature");
             setModalWindowInputs(documentsTableColumns);
             break;
           case "file":
             setFileType("file")
-            console.log("Тут! file");
             setModalWindowInputs(documentsTableColumns);
             break;
         }
@@ -133,7 +131,6 @@ export default function BoatInfo(props) {
           dispatch(deleteBoatInfo(boatInfoFromState.cardid, true, signName, 'documentsTableColumns'))
           break;
         case "file":
-          console.log("Тут!");
           dispatch(deleteBoatInfo(boatInfoFromState.cardid, false, e.target.dataset.docname, 'documentsTableColumns'))
           break;
         default:
@@ -834,12 +831,16 @@ export default function BoatInfo(props) {
         <table className={styles.sign__table}>
         {/* styles.sign__container  */}
           <thead>
-            <th>Подпись собственника, арендатора, лизингополучателя (их представителя), подтверждающая получение судового билета</th>
+            <tr>
+              <th>Подпись собственника, арендатора, лизингополучателя (их представителя), подтверждающая получение судового билета</th>
+            </tr>
           </thead>
           <tbody>
-            <td>
-              {signName && <img className={styles.sign__image} src={`http://10.0.1.30:8080/boats/file/download/${signName}?cardid=${boatInfoFromState.cardid}&signature=true`} alt="Подпись" />}
-            </td>
+            <tr>
+              <td>
+                {signName && <img className={styles.sign__image} src={`http://10.0.1.30:8080/boats/file/download/${signName}?cardid=${boatInfoFromState.cardid}&signature=true`} alt="Подпись" />}
+              </td>
+            </tr>
           </tbody>
         </table>
         {/* <div className={styles.sign__buttons_container}>

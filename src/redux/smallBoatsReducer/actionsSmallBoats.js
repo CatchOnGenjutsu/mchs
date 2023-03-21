@@ -193,7 +193,6 @@ export function editBoatInfo(data, boatId, tableType) {
         body: JSON.stringify(data)
       })
       const newData = { newInfo: await response.json(), tableType: tableType }
-      console.log("newData action >!>!>", newData)
       if (response.status === 200) {
         dispatch({
         type: EDIT_BOAT_INFO,

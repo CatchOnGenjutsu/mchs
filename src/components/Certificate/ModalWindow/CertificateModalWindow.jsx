@@ -26,11 +26,8 @@ export default function CertificateModalWindow({
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-  console.log('modalWindowInputs >>>!!', modalWindowInputs);
-  console.log('dataForEdit >>>!!', dataForEdit);
-  console.log('newMark >>>!!', newMark);
-  }, []);
+  // useEffect(() => {
+  // }, []);
 
   const handleSave = () => {
   switch (modalWindowInputs.keyTable) {
@@ -47,7 +44,6 @@ export default function CertificateModalWindow({
     newMark.licenseId = licenseIdModal;
     setNewMark(structuredClone(newMark));
     if (newMark.mark !== '') {
-      console.log('Mark for edit >>>', newMark);
       dispatch(addNewSpecialMark(newMark));
     }
     break;
@@ -61,45 +57,44 @@ export default function CertificateModalWindow({
   };
 
   const handleChange = (e) => {
-  switch (modalWindowInputs.keyTable) {
-    case 'lossControl':
-    newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
-    newMark.recdate = Date.now();
-    newMark.confiscation = {};
-    newMark.confiscation.code = 1;
-    newMark.confiscation.name = 'Лишение';
-    newMark.confiscation.note = '';
-    setNewMark(newMark);
-    break;
-    case 'certificateWithdrawal':
-    if (e.currentTarget.dataset.id !== 'name') {
+    switch (modalWindowInputs.keyTable) {
+      case 'lossControl':
       newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
       newMark.recdate = Date.now();
-      newMark.confDateEnd = '2020-12-12'; //Тестовое значение, уточнить необходимость ввода данных
-      newMark.confDocNum = '-'; //Тестовое значение, уточнить необходимость ввода данных
       newMark.confiscation = {};
-      newMark.confiscation.code = 2;
-      newMark.confiscation.name = 'Изъятие';
+      newMark.confiscation.code = 1;
+      newMark.confiscation.name = 'Лишение';
       newMark.confiscation.note = '';
-    } else {
-      newMark.userid = usersLib.find((item) => item.userid == e.target.value);
+      setNewMark(newMark);
+      break;
+      case 'certificateWithdrawal':
+      if (e.currentTarget.dataset.id !== 'name') {
+        newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
+        newMark.recdate = Date.now();
+        newMark.confDateEnd = '2020-12-12'; //Тестовое значение, уточнить необходимость ввода данных
+        newMark.confDocNum = '-'; //Тестовое значение, уточнить необходимость ввода данных
+        newMark.confiscation = {};
+        newMark.confiscation.code = 2;
+        newMark.confiscation.name = 'Изъятие';
+        newMark.confiscation.note = '';
+      } else {
+        newMark.userid = usersLib.find((item) => item.userid == e.target.value);
+      }
+
+      setNewMark(newMark);
+      break;
+      case 'boatDrivingLicenseSpecmarksList':
+      newMark.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
+        .toISOString()
+        .slice(11, 23)}`;
+      newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
+      setNewMark(structuredClone(newMark));
+      break;
+      default:
+      break;
     }
 
-    setNewMark(newMark);
-    break;
-    case 'boatDrivingLicenseSpecmarksList':
-    newMark.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
-      .toISOString()
-      .slice(11, 23)}`;
-    newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
     setNewMark(structuredClone(newMark));
-    break;
-    default:
-    break;
-  }
-
-  setNewMark(structuredClone(newMark));
-  console.log('newMark >>>>', newMark);
   };
 
   return (

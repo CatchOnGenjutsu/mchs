@@ -26,7 +26,6 @@ const initialState = {
 }
 
 export const smallBoatsReducer = (state = initialState, action) => {
-  console.log("smallBoatsReducer >>>", action.data)
   switch (action.type) {
   case GET_BOATS_CARDS_LIST:
     return (() => ({
@@ -37,7 +36,6 @@ export const smallBoatsReducer = (state = initialState, action) => {
     }))();
   case GET_BOAT_CARD_INFO:
     const sign = action.data.documentsDtos.find(item => item.docnote === "signature")
-    console.log("sign >!>!", sign)
     return (() => ({
     ...state,
     boatInfo: Object.assign({}, action.data),
@@ -87,8 +85,6 @@ export const smallBoatsReducer = (state = initialState, action) => {
       },
       }))();
     case "documentsTableColumns":
-      console.log("action.data.fileType", action.data.fileType)
-      console.log("action.data.newInfo.docname", action.data.newInfo.docname)
       return (() => ({
       ...state,
       boatInfo: {
@@ -104,7 +100,6 @@ export const smallBoatsReducer = (state = initialState, action) => {
   case EDIT_BOAT_INFO:
     switch (action.data.tableType) {
       case "dealsHistoryTableColumns":
-        console.log("smallBoatsReducer >>", action.data.newInfo)
         return (() => ({
         ...state,
         boatInfo: {

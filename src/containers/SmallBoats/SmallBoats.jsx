@@ -15,14 +15,6 @@ export default function SmallBoats() {
 
   const [boatId, setBoatId] = useState('');
 
-  // useEffect(() => {
-  //   dispatch(getBoatsCardsList());
-  // }, []);
-
-  // const handleBoatId = (value) => {
-  //   console.log(value)
-  //   setBoatId(value);
-  // };
 
   const handleClearBoatInfo = () => {
   dispatch(clearBoatCardInfo());
@@ -42,29 +34,15 @@ export default function SmallBoats() {
   return (
   <>
     <div>
-    {/* <button
-      onClick={() => {
-      setBoatId('');
-      handleClearBoatInfo();
-      }}
-      type="button"
-      className={
-      boatId !== ''
-        ? `${styles['button-back']} btn btn-primary`
-        : `${styles['button-back']} btn btn-primary ${styles.hidden}`
-      }>
-      НАЗАД
-    </button> */}
-    <div className={boatId !== '' ? styles.hidden : ''}>
-      <h2>База данных маломерных судов</h2>
-      <SearchBlock inputsHeaders={Object.values(inputsHeadersSmallBoats)} />
-      <SearchTable
-      // setId={handleBoatId}
-      columns={SMALLBOATS_COLUMNS}
-      dataFromState={dataFromState}
-      />
-    </div>
-    {/* <BoatInfo hidden={boatId} /> */}
+      <div className={boatId !== '' ? styles.hidden : ''}>
+        <h2>База данных маломерных судов</h2>
+        <SearchBlock inputsHeaders={Object.values(inputsHeadersSmallBoats)} />
+        <SearchTable
+        // setId={handleBoatId}
+        columns={SMALLBOATS_COLUMNS}
+        dataFromState={dataFromState}
+        />
+      </div>
     </div>
   </>
   );

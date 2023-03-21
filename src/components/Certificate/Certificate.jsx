@@ -70,12 +70,11 @@ export default function Certificate(props) {
   };
 
   const handleEditNotes = (e) => {
-  const data = specMarkFromState.find((item) => item.id == e.target.id);
-  // console.log(data);
-  setType("edit");
-  setModalWindowInputs(boatDrivingLicenseSpecmarksList);
-  setDataForEdit(data);
-  setShowModal(true);
+    const data = specMarkFromState.find((item) => item.id == e.target.id);
+    setType("edit");
+    setModalWindowInputs(boatDrivingLicenseSpecmarksList);
+    setDataForEdit(data);
+    setShowModal(true);
   };
 
   useEffect(() => {
@@ -87,7 +86,6 @@ export default function Certificate(props) {
     .map((nav) => nav.type)
     .includes('reload')
   ) {
-    console.log('Проверка!', id);
     dispatch(
     getDataCerticatesBySearchParams(
       JSON.parse(sessionStorage.getItem('searchParams'))

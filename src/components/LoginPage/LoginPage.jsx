@@ -9,8 +9,6 @@ export default function LoginPage() {
   const [userPas, setUserPas] = useState("");
 
   const handleButtonClick = () => {
-  console.log(userEmail);
-  console.log(userPas);
   window.location.assign("http://localhost:3005");
   };
 

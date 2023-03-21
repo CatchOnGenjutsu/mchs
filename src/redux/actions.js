@@ -78,29 +78,26 @@ export function getDataBoatsBySearchParams(params) {
 }
 
 export function getDataCerticatesBySearchParams(params) {
-  console.log("params", params)
   return async dispatch => {
-  console.log(dispatch)
-  const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SEARCH, {
-    method: "POST",
-    headers: {
-    'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(params)
-  }).catch(err => console.log(err));
-  if (response.ok) {
-    const data = await response.json();
-    for (let item of data) {
-    const fio = `${item.surname} ${item.name} ${item.midname}`;
-    item["fio"] = fio;
+    const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SEARCH, {
+      method: "POST",
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }).catch(err => console.log(err));
+    if (response.ok) {
+      const data = await response.json();
+      for (let item of data) {
+      const fio = `${item.surname} ${item.name} ${item.midname}`;
+      item["fio"] = fio;
+      }
+      const jsonData = data;
+      dispatch({
+      type: GET_DATA_BY_SEARCH_PARAMS_LICENSE,
+      data: jsonData
+      })
     }
-    const jsonData = data;
-    console.log(jsonData)
-    dispatch({
-    type: GET_DATA_BY_SEARCH_PARAMS_LICENSE,
-    data: jsonData
-    })
-  }
   }
 }
 

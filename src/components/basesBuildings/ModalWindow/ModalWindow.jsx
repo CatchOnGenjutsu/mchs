@@ -4,6 +4,7 @@ import {Form,Button,Modal} from "react-bootstrap";
 import {optionsForModalWindow, setOptionsForModalWindow,optionsButton} from "./constansForModalWindow";
 import {useDispatch, useSelector} from "react-redux";
 import {addDataBasesBuildings, deleteDataBasesBuildings, editDataBasesBuildings} from "../../../redux/baseBuildingReducer/actionsBaseBuilding";
+
 function ModalWindow({setShow,show,type,buildingId}) {
     const dispatch = useDispatch();
     const dataFromStateBases = useSelector(state => {
@@ -88,7 +89,6 @@ function ModalWindow({setShow,show,type,buildingId}) {
             if(!location || location==='') newErrors.location = 'Заполните местонахождение базы'
             if(!responPosition || responPosition==='') newErrors.responPosition = 'Заполните должность ответственного'
             if(!responFio || responFio==='') newErrors.responFio = 'Заполните ФИО ответственного'
-            console.log(newErrors)
             if(Object.keys(newErrors).length>0){
                 setErrors(newErrors)
                 return true
