@@ -21,12 +21,12 @@ export const primaryTableLines = [
   key: "btname"
   },
   {
-  id: "something",
+  id: "boatVid",
   value: "Вид:",
-  key: ""
+  key: "name"
   },
   {
-  id: "something",
+  id: "boatYear",
   value: "Год постройки:",
   key: ""
   },
@@ -36,29 +36,29 @@ export const primaryTableLines = [
   key: ""
   },
   {
-  id: "maxPowerEngine",
+  id: "engpwrmax",
   value: "Предельная мощность двигателей:",
   key: ""
   },
   {
-  id: "engineNum",
-  value: "Количество двигателей:",
-  key: ""
+    id: "engineNum",
+    value: "Количество двигателей:",
+    key: ""
   },
   {
-  id: "categoryDifficultyArea",
-  value: "Категория сложности района плавания:",
-  key: ""
+    id: "saCategory",
+    value: "Категория сложности района плавания:",
+    key: "sacName"
   },
   {
-  id: "rankDifficultyArea",
-  value: "Разряд сложности района плавания:",
-  key: ""
+    id: "saCategory",
+    value: "Разряд сложности района плавания:",
+    key: "sacSign"
   },
   {
-  id: "NumberAndDateShipTicket",
-  value: "№ и дата выдачи судового билета (в том числе дубликата судового билета):",
-  key: ""
+    id: "tiketNum",
+    value: "№ и дата выдачи судового билета (в том числе дубликата судового билета):",
+    key: ""
   }
 ];
 
@@ -135,24 +135,24 @@ export const toTableColumns = [
 
 export const userTableColumns = [
   {
-  id: "owner",
+  id: "ownerType",
   value: "Правовая форма заявителя",
-  key: "legalForm"
+  key: "ptName"
   },
   {
-  id: "owner",
+  id: "ownerName",
   value: "Ф.И.О.",
   key: "fio",
   },
   {
-  id: "owner",
+  id: "ownerAddress",
   value: "Адрес",
-  key: "address",
+  key: "",
   },
   {
-  id: "owner",
+  id: "ownerDocType",
   value: "Сведения о документе, удостоверяющем личность",
-  key: "persDocumentData",
+  key: "",
   },
   {
   id: "owner",
@@ -160,9 +160,9 @@ export const userTableColumns = [
   key: "nameLe",
   },
   {
-  id: "owner",
+  id: "ownerPhone",
   value: "Номера телефонов для связи",
-  key: "phone",
+  key: "",
   },
 ]
 
@@ -188,19 +188,19 @@ export const engineTableColumns = [
     key: "engpwr",
   },
   {
-    id: "enginesList",
+    id: "engpwrmax",
     value: "Предельная мощность двигателей судна",
     key: "maxpwr",
   },
   {
     id: "enginesList",
     value: "Дата постановки на учет",
-    key: "recdate",
+    key: "dateReg",
   },
   {
     id: "enginesList",
     value: "Дата снятия с учета",
-    key: "recdate",
+    key: "dateRegEnd",
   },
 ]
 
@@ -401,14 +401,14 @@ export const noteShipBookTableColumns = [
 
 export const enterNoteShipBookTableColumns = [
   {
-  id: "enterNoteShipBook",
-  value: "Дата внесения в судовую книгу",
-  key: "enterDate"
+    id: "cardDate",
+    value: "Дата внесения в судовую книгу",
+    key: ""
   },
   {
-  id: "enterNoteShipBook",
-  value: "Дата исключения из судовой книги",
-  key: "endDate"
+    id: "cardDateEnd",
+    value: "Дата исключения из судовой книги",
+    key: ""
   }
 ]
 

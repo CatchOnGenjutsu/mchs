@@ -89,7 +89,7 @@
   width: 20%;
 }
 .engine-table-th {
-  width: calc(100% / 6);
+  width: calc(100% / 7);
 }
 .owners-history-table-th {
   width: 50%;
@@ -99,6 +99,10 @@
 }
 .arrests_table_th {
   width: calc(96% / 6);
+}
+
+.note-ship-book-table-columns-th {
+  width: calc(100% / 4);
 }
 
 .add__buttons {

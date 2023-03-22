@@ -174,8 +174,8 @@ export default function BoatInfo(props) {
           ? boatInfoFromState[`${item.id}`] !== undefined &&
             boatInfoFromState[`${item.id}`] !== null
             ? item.key === ''
-            ? boatInfoFromState[`${item.id}`]
-            : boatInfoFromState[`${item.id}`][`${item.key}`]
+              ? boatInfoFromState[`${item.id}`]
+              : boatInfoFromState[`${item.id}`][`${item.key}`]
             : '—'
           : null}
         </td>
@@ -247,9 +247,11 @@ export default function BoatInfo(props) {
             ) : (
               <td className={styles['to-th']}>Негодное</td>
             )
+            ) : !!elem[`${item.id}`] ? (
+              <td className={styles['to-th']}>{elem[`${item.id}`]}</td>
             ) : (
-            <td className={styles['to-th']}>{elem[`${item.id}`]}</td>
-            );
+              <td className={styles['to-th']}>—</td>
+            )
           })}
           </tr>
         );
@@ -283,10 +285,14 @@ export default function BoatInfo(props) {
           ? boatInfoFromState[`${item.id}`] !== undefined &&
             boatInfoFromState[`${item.id}`] !== null
             ? item.key === 'fio'
-            ? `${boatInfoFromState[`${item.id}`]['personSurname']} ${
-              boatInfoFromState[`${item.id}`]['personName']
-              } ${boatInfoFromState[`${item.id}`]['personMidname']}`
-            : boatInfoFromState[`${item.id}`][`${item.key}`]
+              ? `${boatInfoFromState['ownerSurname']} ${
+                boatInfoFromState['ownerName']
+                } ${boatInfoFromState['ownerMidname']}`
+                : item.id === 'ownerDocType'
+                  ? `${boatInfoFromState[`ownerDocType`]['dtname']} ${boatInfoFromState[`ownerDocNum`]}`
+                  :  item.key === ''
+                    ? boatInfoFromState[`${item.id}`]
+                    : boatInfoFromState[`${item.id}`][`${item.key}`]
             : '—'
           : null}
         </td>
@@ -316,11 +322,19 @@ export default function BoatInfo(props) {
         return (
           <tr>
           {engineTableColumns.map((item) => {
-            return (
-            <td className={styles['engine-table-th']}>
-              {elem[`${item.key}`]}
-            </td>
-            );
+            if (item.id === "engpwrmax") {
+              return (
+                <td className={styles['engine-table-th']}>
+                  {boatInfoFromState["engpwrmax"]}
+                </td>
+                );
+            } else {
+              return (
+                <td className={styles['engine-table-th']}>
+                  {elem[`${item.key}`]}
+                </td>
+                );
+            }
           })}
           </tr>
         );
@@ -598,7 +612,7 @@ export default function BoatInfo(props) {
       {noteShipBookTableColumns.map((item) => {
         return (
         <th
-          className={styles['owners-history-table-th']}
+          className={styles['note-ship-book-table-columns-th']}
           id={item.key}>
           {item.value}
         </th>
@@ -648,7 +662,7 @@ export default function BoatInfo(props) {
           {Object.keys(boatInfoFromState).length !== 0
           ? boatInfoFromState[`${item.id}`] !== undefined &&
             boatInfoFromState[`${item.id}`] !== null
-            ? boatInfoFromState[`${item.id}`][`${item.key}`]
+            ? boatInfoFromState[`${item.id}`]
             : '—'
           : null}
         </td>
