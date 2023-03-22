@@ -65,7 +65,7 @@ export const smallBoatsReducer = (state = initialState, action) => {
       ...state,
       boatInfo: {
         ...state.boatInfo,
-        boatDeals: [...state.boatInfo.boatDeals, action.data.newInfo]
+        boatDeals: [action.data.newInfo, ...state.boatInfo.boatDeals]
       },
       }))();
     case "specialMarksTableColumns":
@@ -73,7 +73,7 @@ export const smallBoatsReducer = (state = initialState, action) => {
       ...state,
       boatInfo: {
         ...state.boatInfo,
-        specMarks: [...state.boatInfo.specMarks, action.data.newInfo]
+        specMarks: [action.data.newInfo, ...state.boatInfo.specMarks]
       },
       }))();
     case "boatArrestsTableColumns":

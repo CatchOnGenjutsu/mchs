@@ -7,6 +7,8 @@ import {addDataBasesBuildings, deleteDataBasesBuildings, editDataBasesBuildings}
 
 function ModalWindow({setShow,show,type,buildingId}) {
     const dispatch = useDispatch();
+    const [saveKey, setSaveKey] = useState(false)
+
     const dataFromStateBases = useSelector(state => {
         const {basesBuildingReducer} = state
         return   basesBuildingReducer.data
@@ -68,10 +70,6 @@ function ModalWindow({setShow,show,type,buildingId}) {
            }
            setShow(false)
        }
-
-
-
-
     };
     const editErrors = (buttonType)=>{
         if(buttonType==='save'){
@@ -92,8 +90,10 @@ function ModalWindow({setShow,show,type,buildingId}) {
             if(Object.keys(newErrors).length>0){
                 setErrors(newErrors)
                 return true
-            }else return false
-        }else return false
+            } else {
+                return false
+            }
+        } else return false
     }
     return (
         <Modal show={show} onHide={handleClose} size="xl">
