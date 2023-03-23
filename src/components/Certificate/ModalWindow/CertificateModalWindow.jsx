@@ -13,9 +13,11 @@ export default function CertificateModalWindow({
   type,
   setType
 }) {
+  const dispatch = useDispatch();
+
   const usersLib = useSelector((state) => {
-  const { dictionaryReducer } = state;
-  return dictionaryReducer.usersLibrary;
+    const { dictionaryReducer } = state;
+    return dictionaryReducer.usersLibrary;
   });
 
   const [newMark, setNewMark] = useState(
@@ -24,78 +26,76 @@ export default function CertificateModalWindow({
     : { userid: usersLib[0] }
   );
 
-  const dispatch = useDispatch();
 
   // useEffect(() => {
   // }, []);
 
-  const handleSave = () => {
-  switch (modalWindowInputs.keyTable) {
-    case 'lossControl':
-    dispatch(addNewConfMark(newMark, licenseIdModal));
-    break;
-    case 'certificateWithdrawal':
-    dispatch(addNewConfMark(newMark, licenseIdModal));
-    break;
-    case 'boatDrivingLicenseSpecmarksList':
-    newMark.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
-      .toISOString()
-      .slice(11, 23)}`;
-    newMark.licenseId = licenseIdModal;
-    setNewMark(structuredClone(newMark));
-    if (newMark.mark !== '') {
-      dispatch(addNewSpecialMark(newMark));
-    }
-    break;
-    default:
-    setShowModal(false);
-    setNewMark({});
-    break;
-  }
-  setShowModal(false);
-  setNewMark({});
-  };
-
   const handleChange = (e) => {
     switch (modalWindowInputs.keyTable) {
       case 'lossControl':
-      newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
-      newMark.recdate = Date.now();
-      newMark.confiscation = {};
-      newMark.confiscation.code = 1;
-      newMark.confiscation.name = 'Лишение';
-      newMark.confiscation.note = '';
-      setNewMark(newMark);
-      break;
-      case 'certificateWithdrawal':
-      if (e.currentTarget.dataset.id !== 'name') {
         newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
         newMark.recdate = Date.now();
-        newMark.confDateEnd = '2020-12-12'; //Тестовое значение, уточнить необходимость ввода данных
-        newMark.confDocNum = '-'; //Тестовое значение, уточнить необходимость ввода данных
         newMark.confiscation = {};
-        newMark.confiscation.code = 2;
-        newMark.confiscation.name = 'Изъятие';
+        newMark.confiscation.code = 1;
+        newMark.confiscation.name = 'Лишение';
         newMark.confiscation.note = '';
-      } else {
-        newMark.userid = usersLib.find((item) => item.userid == e.target.value);
-      }
-
-      setNewMark(newMark);
-      break;
+        setNewMark(newMark);
+        break;
+      case 'certificateWithdrawal':
+        if (e.currentTarget.dataset.id !== 'name') {
+          newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
+          newMark.recdate = Date.now();
+          newMark.confDateEnd = '2020-12-12'; //Тестовое значение, уточнить необходимость ввода данных
+          newMark.confDocNum = '-'; //Тестовое значение, уточнить необходимость ввода данных
+          newMark.confiscation = {};
+          newMark.confiscation.code = 2;
+          newMark.confiscation.name = 'Изъятие';
+          newMark.confiscation.note = '';
+        } else {
+          newMark.userid = usersLib.find((item) => item.userid == e.target.value);
+        }
+        setNewMark(newMark);
+        break;
       case 'boatDrivingLicenseSpecmarksList':
-      newMark.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
-        .toISOString()
-        .slice(11, 23)}`;
-      newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
-      setNewMark(structuredClone(newMark));
-      break;
+        newMark.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
+          .toISOString()
+          .slice(11, 23)}`;
+        newMark[e.currentTarget.dataset.id] = e.currentTarget.value;
+        setNewMark(structuredClone(newMark));
+        break;
       default:
       break;
     }
 
     setNewMark(structuredClone(newMark));
   };
+
+  const handleSave = () => {
+    switch (modalWindowInputs.keyTable) {
+      case 'lossControl':
+      dispatch(addNewConfMark(newMark, licenseIdModal));
+      break;
+      case 'certificateWithdrawal':
+      dispatch(addNewConfMark(newMark, licenseIdModal));
+      break;
+      case 'boatDrivingLicenseSpecmarksList':
+      newMark.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
+        .toISOString()
+        .slice(11, 23)}`;
+      newMark.licenseId = licenseIdModal;
+      setNewMark(structuredClone(newMark));
+      if (newMark.mark !== '') {
+        dispatch(addNewSpecialMark(newMark));
+      }
+      break;
+      default:
+      setShowModal(false);
+      setNewMark({});
+      break;
+    }
+    setShowModal(false);
+    setNewMark({});
+    };
 
   return (
   <Modal
@@ -114,19 +114,19 @@ export default function CertificateModalWindow({
     <Modal.Body>
     <Form>
       {modalWindowInputs.nameColumn.map((item) => {
-      if (item[0] === 'name') {
+      if (item.key === 'name') {
         return (
         <Form.Group className="mb-3">
-          <Form.Label>{item[1]}</Form.Label>
+          <Form.Label>{item.value}</Form.Label>
           <Form.Select
-          data-id={item[0]}
+          data-id={item.key}
           type="select"
           onChange={(e) => {
             handleChange(e);
           }}>
           {usersLib.map((elem) => (
             <option
-            data-id={item[0]}
+            data-id={item.key}
             value={elem.userid}>
             {elem.name}
             </option>
@@ -136,15 +136,15 @@ export default function CertificateModalWindow({
         );
       }
       if (
-        item[0] !== 'markDate' &&
-        item[0] !== 'userPositions' &&
-        (item[0] === 'confDateEnd' || item[0] === 'confDate')
+        item.key !== 'markDate' &&
+        item.key !== 'userPositions' &&
+        (item.key === 'confDateEnd' || item.key === 'confDate')
       ) {
         return (
         <Form.Group className="mb-3">
-          <Form.Label>{item[1]}</Form.Label>
+          <Form.Label>{item.value}</Form.Label>
           <Form.Control
-          data-id={item[0]}
+          data-id={item.key}
           type="date"
           onChange={(e) => {
             handleChange(e);
@@ -153,12 +153,12 @@ export default function CertificateModalWindow({
         </Form.Group>
         );
       }
-      if (item[0] === 'mark') {
+      if (item.key === 'mark') {
         return (
         <Form.Group className="mb-3">
-          <Form.Label>{item[1]}</Form.Label>
+          <Form.Label>{item.value}</Form.Label>
           <Form.Control
-          data-id={item[0]}
+          data-id={item.key}
           type="text"
           value={!!newMark.mark ? newMark.mark  : ""}
           onChange={(e) => {
@@ -168,12 +168,12 @@ export default function CertificateModalWindow({
         </Form.Group>
         );
       }
-      if (item[0] !== 'markDate' && item[0] !== 'userPositions') {
+      if (item.key !== 'markDate' && item.key !== 'userPositions') {
         return (
         <Form.Group className="mb-3">
-          <Form.Label>{item[1]}</Form.Label>
+          <Form.Label>{item.value}</Form.Label>
           <Form.Control
-          data-id={item[0]}
+          data-id={item.key}
           type="text"
           onChange={(e) => {
             handleChange(e);
@@ -189,10 +189,11 @@ export default function CertificateModalWindow({
     <Button
       variant="secondary"
       onClick={() => {
-      setType(null);
-      setShowModal(false);
-      setDataForEdit(null);
-      setNewMark({});
+        console.log("newMark", newMark)
+        setType(null);
+        setShowModal(false);
+        setDataForEdit(null);
+        setNewMark({});
       }}>
       Закрыть
     </Button>

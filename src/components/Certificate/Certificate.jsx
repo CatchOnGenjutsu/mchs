@@ -25,18 +25,18 @@ export default function Certificate(props) {
   const dispatch = useDispatch();
 
   const licenseInfoFromState = useSelector((state) => {
-  const { certificateReducer } = state;
-  return certificateReducer.licenseInfo;
+    const { certificateReducer } = state;
+    return certificateReducer.licenseInfo;
   });
 
   const specMarkFromState = useSelector((state) => {
-  const { certificateReducer } = state;
-  return certificateReducer.licenseSpecmarksList;
+    const { certificateReducer } = state;
+    return certificateReducer.licenseSpecmarksList;
   });
 
   const licenseConfFromState = useSelector((state) => {
-  const { certificateReducer } = state;
-  return certificateReducer.licenseConfList;
+    const { certificateReducer } = state;
+    return certificateReducer.licenseConfList;
   });
 
   const handleEditMode = () => {
@@ -253,184 +253,191 @@ export default function Certificate(props) {
     </div>
     </div>
     <div className={styles.guide__marks__container}>
-    <h3>Отметки</h3>
-    <div className={styles.block__data__container}>
-      <div key={tableLossOfControl.keyTable}>
-      <h6 className="text-secondary">{tableLossOfControl.caption}</h6>
-      <table className="table table-bordered border-secondary bg-white">
-        <thead>
-        <tr key={uuidv4()}>
-          {tableLossOfControl.nameColumn.map((item) => (
-          <th
-            key={item[0]}
-            scope="col"
-            className={
-            'confOrg confDocNum userPositions name mark'.includes(item[0])
-              ? 'col-4 text-center'
-              : 'col-2 text-center'
-            }>
-            {item[1]}
-          </th>
-          ))}
-        </tr>
-        </thead>
-        <tbody>
-        {licenseConfFromState.map((item) => {
-          if (item.confiscation['code'] === 1) {
-          return (
-            <tr key={uuidv4()}>
-            {tableLossOfControl.nameColumn.map((elem) => {
-              switch (elem[0]) {
-              case 'confDateEnd':
+      <h3>Отметки</h3>
+      <div className={styles.block__data__container}>
+        <div key={tableLossOfControl.keyTable}>
+          <h6 className="text-secondary">{tableLossOfControl.caption}</h6>
+          <table className = {`table table-bordered border-secondary bg-white`}>
+            <thead>
+              <tr>
+                {tableLossOfControl.nameColumn.map((item) => {
+                  return (
+                    <th
+                      className = {
+                        'confOrg confDocNum userPositions name mark'.includes(item.key)
+                          ? 'col-4 text-center'
+                          : 'col-2 text-center'
+                        }
+                      id = {item.key}>
+                      {item.value}
+                    </th>
+                  );
+                }
+                )}
+              </tr>
+            </thead>
+            <tbody>
+            {licenseConfFromState.map((elem) => {
+              if (elem.confiscation['code'] === 1) {
                 return (
-                <td key={uuidv4()}>
-                  {new Date(item[`${elem[0]}`]).toLocaleDateString()}
-                </td>
+                  <tr>
+                    {tableLossOfControl.nameColumn.map((item) => {
+                      if (item.key !== 'confDate' && item.key !== 'confDateEnd') {
+                        return <td>{elem[`${item.key}`]}</td>;
+                      } else {
+                        return (
+                          <td>
+                            {new Date(elem[`${item.key}`]).toLocaleDateString()}
+                          </td>
+                        );
+                      }
+                    })}
+                  </tr>
                 );
-              case 'confDate':
-                return (
-                <td key={uuidv4()}>
-                  {`${new Date(item['confDate']).toLocaleDateString()}`}
-                </td>
-                );
-              default:
-                return <td key={uuidv4()}>{item[`${elem[0]}`]}</td>;
               }
             })}
-            </tr>
-          );
-          }
-        })}
-        </tbody>
-      </table>
-      <button
-        className={`${styles.add__buttons} btn btn-primary ${
-        editMode ? '' : styles.edit__mode
-        }`}
-        id={tableLossOfControl.keyTable}
-        onClick={(e) => handleAddNotes(e)}>
-        +
-      </button>
-      </div>
-      <div key={tableCertificateWithdrawal.keyTable}>
-      <h6 className="text-secondary">{tableCertificateWithdrawal.caption}</h6>
-      <table className="table table-bordered border-secondary bg-white">
-        <thead>
-        <tr key={uuidv4()}>
-          {tableCertificateWithdrawal.nameColumn.map((item) => (
-          <th
-            key={item[0]}
-            scope="col"
-            className={
-            'confOrg confDocNum userPositions name mark'.includes(item[0])
-              ? 'col-4 text-center'
-              : 'col-2 text-center'
-            }>
-            {item[1]}
-          </th>
-          ))}
-        </tr>
-        </thead>
-        <tbody>
-        {licenseConfFromState.map((item) => {
-          if (item.confiscation['code'] === 2) {
-          return (
-            <tr key={uuidv4()}>
-            {tableCertificateWithdrawal.nameColumn.map((elem) => {
-              switch (elem[0]) {
-              case 'userPositions':
-                return (
-                <td key={uuidv4()}>
-                  {item.userid[`${elem[0]}`]['posName']}
-                </td>
-                );
-              case 'name':
-                return <td key={uuidv4()}>{item.userid['name']}</td>;
-              case 'confDate':
-                return (
-                <td key={uuidv4()}>
-                  {new Date(item[`${elem[0]}`]).toLocaleDateString()}
-                </td>
-                );
-              default:
-                return <td key={uuidv4()}>{item[`${elem[0]}`]}</td>;
-              }
-            })}
-            </tr>
-          );
-          }
-        })}
-        </tbody>
-      </table>
-      <button
-        className={`${styles.add__buttons} btn btn-primary ${
-        editMode ? '' : styles.edit__mode
-        }`}
-        id={tableCertificateWithdrawal.keyTable}
-        onClick={(e) => handleAddNotes(e)}>
-        +
-      </button>
-      </div>
-      <div key={boatDrivingLicenseSpecmarksList.keyTable}>
-      <h6 className="text-secondary">{boatDrivingLicenseSpecmarksList.caption}</h6>
-      <table className="table table-bordered border-secondary bg-white">
-        <thead>
-        <tr key={uuidv4()}>
-          {boatDrivingLicenseSpecmarksList.nameColumn.map((item) => (
-          <th
-            key={item[0]}
-            scope="col"
-            className={
-            'organ number position fio mark'.includes(item[0])
-              ? 'col-4 text-center'
-              : 'col-2 text-center'
-            }>
-            {item[1]}
-          </th>
-          ))}
-          <th
-          key={uuidv4()}
-          className={`${editMode ? '' : styles.edit__mode} ${
-            styles.edit__column
-          }`}></th>
-        </tr>
-        </thead>
-        <tbody>
-        {specMarkFromState.map((item) => {
-          return (
-          <tr key={uuidv4()}>
-            {boatDrivingLicenseSpecmarksList.nameColumn.map((elem) => {
-            return <td key={uuidv4()}>{item[`${elem[0]}`]}</td>;
-            })}
-            <td
-            className={`${editMode ? '' : styles.edit__mode} ${
-              styles.edit__column
+            </tbody>
+          </table>
+          <button
+            className={`${styles.add__buttons} btn btn-primary ${
+            editMode ? '' : styles.edit__mode
             }`}
-            key={uuidv4()}>
-            <button
-              className={`${styles.edit__buttons} btn btn-primary ${
-              editMode ? '' : styles.edit__mode
-              }`}
-              id={item.id}
-              onClick={(e) => handleEditNotes(e)}>
-              &#9998;
-            </button>
-            </td>
-          </tr>
-          );
-        })}
-        </tbody>
-      </table>
-      <button
-        className={`${styles.add__buttons} btn btn-primary ${
-        editMode ? '' : styles.edit__mode
-        }`}
-        id={boatDrivingLicenseSpecmarksList.keyTable}
-        onClick={(e) => handleAddNotes(e)}>
-        +
-      </button>
+            id={tableLossOfControl.keyTable}
+            onClick={(e) => handleAddNotes(e)}>
+            +
+          </button>
+        </div>
+        <div key={tableCertificateWithdrawal.keyTable}>
+          <h6 className="text-secondary">{tableCertificateWithdrawal.caption}</h6>
+          <table className = {`table table-bordered border-secondary bg-white`}>
+            <thead>
+              <tr>
+                {tableCertificateWithdrawal.nameColumn.map((item) => {
+                  return (
+                    <th
+                      className = {
+                        'confOrg confDocNum userPositions name mark'.includes(item.key)
+                          ? 'col-4 text-center'
+                          : 'col-2 text-center'
+                        }
+                      id = {item.key}>
+                      {item.value}
+                    </th>
+                  );
+                }
+                )}
+              </tr>
+            </thead>
+            <tbody>
+            {licenseConfFromState.map((elem) => {
+              if (elem.confiscation['code'] === 2) {
+                return (
+                  <tr>
+                    {tableCertificateWithdrawal.nameColumn.map((item) => {
+                      switch (item.key) {
+                        case 'userPositions':
+                          return (
+                          <td key={uuidv4()}>
+                            {elem.userid[`${item.key}`]['posName']}
+                          </td>
+                          );
+                        case 'name':
+                          return <td key={uuidv4()}>{elem.userid['name']}</td>;
+                        case 'confDate':
+                          return (
+                          <td key={uuidv4()}>
+                            {new Date(elem[`${item.key}`]).toLocaleDateString()}
+                          </td>
+                          );
+                        default:
+                          return <td key={uuidv4()}>{elem[`${item.key}`]}</td>;
+                      }
+                    })}
+                  </tr>
+                );
+              }
+            })}
+            </tbody>
+          </table>
+          <button
+            className={`${styles.add__buttons} btn btn-primary ${
+            editMode ? '' : styles.edit__mode
+            }`}
+            id={tableCertificateWithdrawal.keyTable}
+            onClick={(e) => handleAddNotes(e)}>
+            +
+          </button>
+        </div>
+        <div key={boatDrivingLicenseSpecmarksList.keyTable}>
+          <h6 className="text-secondary">{boatDrivingLicenseSpecmarksList.caption}</h6>
+          <table className = {`table table-bordered border-secondary bg-white`}>
+            <thead>
+              <tr>
+                {boatDrivingLicenseSpecmarksList.nameColumn.map((item) => {
+                  return (
+                    <th
+                      className = {
+                        'confOrg confDocNum userPositions name mark'.includes(item.key)
+                          ? 'col-4 text-center'
+                          : 'col-2 text-center'
+                        }
+                      id = {item.key}>
+                      {item.value}
+                    </th>
+                  );
+                })}
+                <th
+                  key={uuidv4()}
+                  className={`${editMode ? '' : styles.edit__mode} ${
+                    styles.edit__column
+                  }`}></th>
+              </tr>
+            </thead>
+            <tbody>
+            {specMarkFromState.map((elem) => {
+              return (
+                <tr>
+                  {boatDrivingLicenseSpecmarksList.nameColumn.map((item) => {
+                    if (item.key !== 'markDate') {
+                      return <td>{elem[`${item.key}`]}</td>;
+                    } else {
+                      return (
+                        <td>
+                          {new Date(elem[`${item.key}`]).toLocaleDateString()}
+                        </td>
+                      );
+                    }
+                  })}
+                  <td
+                    className={`${editMode ? '' : styles.edit__mode} ${
+                      styles.edit__column
+                    }`}
+                    key={uuidv4()}>
+                      <button
+                        className={`${styles.edit__buttons} btn btn-primary ${
+                        editMode ? '' : styles.edit__mode
+                        }`}
+                        id={elem.id}
+                        onClick={(e) => handleEditNotes(e)}>
+                        &#9998;
+                      </button>
+                  </td>
+                </tr>
+              );
+            })}
+            </tbody>
+          </table>
+
+          <button
+            className={`${styles.add__buttons} btn btn-primary ${
+            editMode ? '' : styles.edit__mode
+            }`}
+            id={boatDrivingLicenseSpecmarksList.keyTable}
+            onClick={(e) => handleAddNotes(e)}>
+            +
+          </button>
+        </div>
       </div>
-    </div>
     </div>
     <div className="d-flex justify-content-around mt-5">
     <button

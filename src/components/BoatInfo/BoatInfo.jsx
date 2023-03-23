@@ -38,7 +38,7 @@ export default function BoatInfo(props) {
   const [fileType, setFileType] = useState(null);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const boatInfoFromState = useSelector((state) => {
     const { smallBoatsReducer } = state;
@@ -54,12 +54,12 @@ export default function BoatInfo(props) {
   };
 
   const handleCloseButton = () => {
-  if (editMode) {
-    setEditMode(!editMode);
-  } else {
-    dispatch(clearBoatCardInfo());
-    navigate(-1);
-  }
+    if (editMode) {
+      setEditMode(!editMode);
+    } else {
+      dispatch(clearBoatCardInfo());
+      navigate(-1);
+    }
   };
 
   const handleAddNewData = (e) => {
