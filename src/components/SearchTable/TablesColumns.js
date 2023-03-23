@@ -12,36 +12,39 @@ export const SMALLBOATS_COLUMNS = [
   accessor: "owner",
   },
   {
+    Header: "Идентификационный номер",
+    accessor: "ownerPersNum",
+  },
+  {
   Header: "Наименование организации",
-  accessor: "nameLe",
+  accessor: "leName",
   },
   {
   Header: "УНП",
-  accessor: "unp",
+  accessor: "leUnp",
   },
   {
-  Header: "Заводской номер двигателя",
-  accessor: "engvin",
-  },
-
+  Header: "Адрес",
+  accessor: "address",
+  }
 ];
 
 export  const SERTIFICATES_COLUMNS = [
   {
-  Header: "Номер удостоверения",
-  accessor: "licenseNum",
+    Header: "Номер удостоверения",
+    accessor: "licenseNum",
   },
   {
-  Header: "Идентификационный номер",
-  accessor: "persNum",
+    Header: "ФИО",
+    accessor: "fio",
   },
   {
-  Header: "ФИО",
-  accessor: "fio",
-  },
+    Header: "Дата рождения",
+    accessor: "birthDate",
+    },
   {
-  Header: "Дата рождения",
-  accessor: "birthDate",
+    Header: "Идентификационный номер",
+    accessor: "persNum",
   },
   {
   Header: "Тип удостоверения",

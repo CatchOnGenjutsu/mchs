@@ -37,7 +37,7 @@ export const primaryTableLines = [
   },
   {
   id: "engpwrmax",
-  value: "Предельная мощность двигателей:",
+  value: "Предельная мощность двигателей (л.с.):",
   key: ""
   },
   {
@@ -155,9 +155,9 @@ export const userTableColumns = [
   key: "",
   },
   {
-  id: "owner",
+  id: "leName",
   value: "Сведения о юридическом лице, ИП",
-  key: "nameLe",
+  key: "",
   },
   {
   id: "ownerPhone",
@@ -219,7 +219,7 @@ export const ownersHistoryTableColumns = [
 
 export const dealsHistoryTableColumns = {
   keyTable: 'dealsHistoryTableColumns',
-  caption: "Информация о совершаемых в отношении судна сделок:",
+  caption: "Сведения о правах собственности:",
   nameColumn: [
   {
     id: "boatDeals",
@@ -229,7 +229,7 @@ export const dealsHistoryTableColumns = {
   },
   {
     id: "boatDeals",
-    value: "Сделка",
+    value: "Документ подтверждающий право собственности",
     key: "note",
     type: ""
   },

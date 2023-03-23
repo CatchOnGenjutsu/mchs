@@ -17,18 +17,18 @@ export default function SmallBoats() {
 
 
   const handleClearBoatInfo = () => {
-  dispatch(clearBoatCardInfo());
+    dispatch(clearBoatCardInfo());
   };
 
   const dataFromState = useSelector((state) => {
-  const { smallBoatsReducer } = state;
-  return smallBoatsReducer.data.map((el) => {
-    if (el.cardid) {
-    el.id = el.cardid;
-    delete el.cardid;
-    }
-    return el;
-  });
+    const { smallBoatsReducer } = state;
+    return smallBoatsReducer.data.map((el) => {
+      if (el.cardid) {
+      el.id = el.cardid;
+      delete el.cardid;
+      }
+      return el;
+    });
   });
 
   return (

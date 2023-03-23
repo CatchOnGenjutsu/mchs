@@ -184,6 +184,48 @@ export default function BoatInfo(props) {
       })}
     </tbody>
     </table>
+    <table className={`${styles['secondary-table']}`}>
+    <caption className={styles['secondary-caption']}>
+      Сведения о собственнике:
+    </caption>
+    <thead>
+      <tr>
+      {userTableColumns.map((item) => {
+        return (
+        <th
+          className={styles['owner-table-th']}
+          id={item.key}>
+          {item.value}
+        </th>
+        );
+      })}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      {userTableColumns.map((item) => {
+        return (
+        <td>
+          {Object.keys(boatInfoFromState).length !== 0
+          ? boatInfoFromState[`${item.id}`] !== undefined &&
+            boatInfoFromState[`${item.id}`] !== null
+            ? item.key === 'fio'
+              ? `${boatInfoFromState['ownerSurname']} ${
+                boatInfoFromState['ownerName']
+                } ${boatInfoFromState['ownerMidname']}`
+                : item.id === 'ownerDocType'
+                  ? `${boatInfoFromState[`ownerDocType`]['dtname']} ${boatInfoFromState[`ownerDocNum`]}`
+                  :  item.key === ''
+                    ? boatInfoFromState[`${item.id}`]
+                    : boatInfoFromState[`${item.id}`][`${item.key}`]
+            : '—'
+          : null}
+        </td>
+        );
+      })}
+      </tr>
+    </tbody>
+    </table>
     <table className={styles['secondary-table']}>
     <caption className={styles['secondary-caption']}>Размерения судна:</caption>
     <thead>
@@ -259,48 +301,7 @@ export default function BoatInfo(props) {
       : null}
     </tbody>
     </table>
-    <table className={`${styles['secondary-table']}`}>
-    <caption className={styles['secondary-caption']}>
-      Сведения о собственнике:
-    </caption>
-    <thead>
-      <tr>
-      {userTableColumns.map((item) => {
-        return (
-        <th
-          className={styles['owner-table-th']}
-          id={item.key}>
-          {item.value}
-        </th>
-        );
-      })}
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-      {userTableColumns.map((item) => {
-        return (
-        <td>
-          {Object.keys(boatInfoFromState).length !== 0
-          ? boatInfoFromState[`${item.id}`] !== undefined &&
-            boatInfoFromState[`${item.id}`] !== null
-            ? item.key === 'fio'
-              ? `${boatInfoFromState['ownerSurname']} ${
-                boatInfoFromState['ownerName']
-                } ${boatInfoFromState['ownerMidname']}`
-                : item.id === 'ownerDocType'
-                  ? `${boatInfoFromState[`ownerDocType`]['dtname']} ${boatInfoFromState[`ownerDocNum`]}`
-                  :  item.key === ''
-                    ? boatInfoFromState[`${item.id}`]
-                    : boatInfoFromState[`${item.id}`][`${item.key}`]
-            : '—'
-          : null}
-        </td>
-        );
-      })}
-      </tr>
-    </tbody>
-    </table>
+
     <table className={`${styles['secondary-table']}`}>
     <caption className={styles['secondary-caption']}>Двигатели:</caption>
     <thead>
@@ -639,7 +640,7 @@ export default function BoatInfo(props) {
     </table>
     <table className={`${styles['secondary-table']}`}>
     <caption className={styles['secondary-caption']}>
-      Отметки о внесении в судовую книгу / исключении из судовой книги судна:
+      Отметки о внесении судна в судовую книгу / исключении судна из судовой книги:
     </caption>
     <thead>
       <tr>

@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CertificateModalWindow from './ModalWindow/CertificateModalWindow';
-import { getDataCerticatesBySearchParams } from '../../redux/actions';
+import { getDataCertificatesBySearchParams } from '../../redux/actions';
 import { getLicenseById } from '../../redux/certificateReducer/actionsCertificate';
 
 export default function Certificate(props) {
@@ -87,7 +87,7 @@ export default function Certificate(props) {
     .includes('reload')
   ) {
     dispatch(
-    getDataCerticatesBySearchParams(
+    getDataCertificatesBySearchParams(
       JSON.parse(sessionStorage.getItem('searchParams'))
     )
     );
@@ -248,7 +248,7 @@ export default function Certificate(props) {
       </div>
       <div className={`${styles.data}  flex-wrap`}>
       <p>Выдано</p>
-      <span>{licenseInfoFromState.licenseDocDepartment || '-'}</span>
+      <span>ГИМС</span>
       </div>
     </div>
     </div>

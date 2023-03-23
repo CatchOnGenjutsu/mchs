@@ -9,8 +9,8 @@ import { useSelector } from "react-redux";
 
 export default function SearchTable(props) {
   const licenseInfoFromState = useSelector((state) => {
-  const { certificateReducer } = state;
-  return certificateReducer.licenseInfo;
+    const { certificateReducer } = state;
+    return certificateReducer.licenseInfo;
   });
 
   const dispatch = useDispatch();
@@ -19,19 +19,19 @@ export default function SearchTable(props) {
   const columns = useMemo(() => props.columns, []);
 
   const {
-  getTableProps,
-  getTableBodyProps,
-  headerGroups,
-  page,
-  nextPage,
-  previousPage,
-  canNextPage,
-  canPreviousPage,
-  pageOptions,
-  state,
-  // rows,
-  prepareRow,
-  allColumns,
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    state,
+    // rows,
+    prepareRow,
+    allColumns,
   } = useTable(
   {
     columns,

@@ -55,6 +55,7 @@ export function setSearchParams(id, value, url) {
 }
 
 export function getDataBoatsBySearchParams(params) {
+  console.log("params", params)
   return async dispatch => {
   const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_LIST_SEARCH, {
     method: "POST",
@@ -65,8 +66,10 @@ export function getDataBoatsBySearchParams(params) {
   });
   const data = await response.json();
   for (let item of data) {
-    const owner = `${item.ownerSurname} ${item.ownerName} ${item.ownerMidname}`;
-    item["owner"] = owner;
+    if (item.ownerSurname && item.ownerName && item.ownerMidname) {
+      const owner = `${item.ownerSurname} ${item.ownerName} ${item.ownerMidname}`;
+      item["owner"] = owner;
+    }
   }
   const jsonData = data;
 
@@ -77,7 +80,7 @@ export function getDataBoatsBySearchParams(params) {
   };
 }
 
-export function getDataCerticatesBySearchParams(params) {
+export function getDataCertificatesBySearchParams(params) {
   return async dispatch => {
     const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SEARCH, {
       method: "POST",

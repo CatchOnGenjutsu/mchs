@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   setSearchParams,
   getDataBoatsBySearchParams,
-  getDataCerticatesBySearchParams,
+  getDataCertificatesBySearchParams,
   getDataBasesBuildingBySearchParams,
 } from '../../redux/actions';
 import Button from 'react-bootstrap/Button';
@@ -15,22 +15,22 @@ export default function SearchBlock(props) {
   const dispatch = useDispatch();
 
   const searchParamsFromStateBoat = useSelector((state) => {
-  const { smallBoatsReducer } = state;
-  return smallBoatsReducer.searchParams;
+    const { smallBoatsReducer } = state;
+    return smallBoatsReducer.searchParams;
   });
 
   const searchParamsFromStateCertificate = useSelector((state) => {
-  const { certificateReducer } = state;
-  return certificateReducer.searchParams;
+    const { certificateReducer } = state;
+    return certificateReducer.searchParams;
   });
 
   const searchParamsFromStateBasesBuilding = useSelector(state => {
-  const {basesBuildingReducer} = state;
-  return basesBuildingReducer.searchParams
-  })
-  const optionsNsiCheckStatus= useSelector((state => {
-  const {dictionaryReducer} = state
-  return dictionaryReducer.nsiCheckStatus
+    const { basesBuildingReducer } = state;
+    return basesBuildingReducer.searchParams
+    })
+    const optionsNsiCheckStatus = useSelector((state => {
+    const { dictionaryReducer } = state
+    return dictionaryReducer.nsiCheckStatus
   }))
 
 
@@ -42,7 +42,7 @@ export default function SearchBlock(props) {
       'searchParams',
       JSON.stringify(searchParamsFromStateCertificate)
     );
-    dispatch(getDataCerticatesBySearchParams(searchParamsFromStateCertificate));
+    dispatch(getDataCertificatesBySearchParams(searchParamsFromStateCertificate));
     break;
     }
     case e.target.baseURI.includes('smallboats'): {
@@ -58,10 +58,11 @@ export default function SearchBlock(props) {
   };
 
   const handleValue = (e) => {
-  dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI));
+    dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI));
   };
+  
   useEffect(() => {
-  const paramsFromStorage = JSON.parse(sessionStorage.getItem('searchParams'));
+    const paramsFromStorage = JSON.parse(sessionStorage.getItem('searchParams'));
   });
   return (
   <>
