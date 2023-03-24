@@ -67,10 +67,6 @@ function ModalWindow({setShow,show,type,buildingId}) {
            }
            setShow(false)
        }
-
-
-
-
     };
     const editErrors = (buttonType)=>{
         if(buttonType==='save'){
