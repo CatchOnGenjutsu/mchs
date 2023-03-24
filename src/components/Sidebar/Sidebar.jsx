@@ -48,7 +48,7 @@ export default function Sidebar() {
     console.log("window.location.href", window.location.href)
   })
   if (!isLogin) {
-    return (  
+    return (
       <div className={styles['sidebar-container']}>
         <ul className={styles['sidebar-list']}>
         {sidebarListArray.map((item) => (
