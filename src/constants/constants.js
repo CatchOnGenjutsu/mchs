@@ -6,6 +6,7 @@ export const PORT = ':8080/'
 export const API_GET_BOATS_LIST_SEARCH = 'boats/search'
 export const API_GET_BOAT_INFO_CARD = 'boats/getBoatCard/'
 export const API_GET_BOAT_INFO_SPEC_MARKS = "boats/getBoatCardSpecmarks/"
+export const API_GET_BOAT_INFO_ARRESTS = "boats/getBoatArrests/"
 
 export const API_GET_LICENSE_LIST_SEARCH = 'boats/license/search'
 export const API_GET_LICENSE_INFO_CARD = 'boats/license/drivingLicense/'
@@ -31,4 +32,12 @@ export const API_ADD_NEW_CONF_MARK = "boats/license/addBoatDrivingLicenseConf/"
 export const API_GET_USERS_LIBRARY = "static/info/gimsUsers"
 
 export const API_ADD_NEW_BOAT_DEAL = "boats/saveBoatDeals/"
+export const API_ADD_NEW_BOAT_SPEC_MARK = "boats/addBoatCardSpecmarks/"
+export const API_EDIT_BOAT_SPEC_MARK = "boats/updateBoatCardSpecmarks/"
+export const API_ADD_BOAT_INFO_ARRESTS = "boats/saveBoatArrests/"
+export const API_ADD_BOAT_INFO_DOCS = "boats/file/uploadfile"
+export const API_ADD_BOAT_INFO_DOCS_DOWNLOAD = "boats/file/download/"
+export const API_DELETE_BOAT_INFO_DOCS = "boats/file/delete/"
+
+
 

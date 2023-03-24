@@ -3,12 +3,15 @@ import styles from './ModalWindow.module.css'
 import {Form,Button,Modal} from "react-bootstrap";
 import {optionsForModalWindow, setOptionsForModalWindow,optionsButton} from "./constansForModalWindow";
 import {useDispatch, useSelector} from "react-redux";
-import {addDataBasesBuildings, deleteDataBasesBuildings, editDataBasesBuildings} from "../../../redux/actions";
+import {addDataBasesBuildings, deleteDataBasesBuildings, editDataBasesBuildings} from "../../../redux/baseBuildingReducer/actionsBaseBuilding";
+
 function ModalWindow({setShow,show,type,buildingId}) {
     const dispatch = useDispatch();
+    const [saveKey, setSaveKey] = useState(false)
+
     const dataFromStateBases = useSelector(state => {
         const {basesBuildingReducer} = state
-        return 	basesBuildingReducer.data
+        return   basesBuildingReducer.data
     })
     const options= useSelector((state => {
         const {dictionaryReducer} = state
@@ -84,12 +87,13 @@ function ModalWindow({setShow,show,type,buildingId}) {
             if(!location || location==='') newErrors.location = 'Заполните местонахождение базы'
             if(!responPosition || responPosition==='') newErrors.responPosition = 'Заполните должность ответственного'
             if(!responFio || responFio==='') newErrors.responFio = 'Заполните ФИО ответственного'
-            console.log(newErrors)
             if(Object.keys(newErrors).length>0){
                 setErrors(newErrors)
                 return true
-            }else return false
-        }else return false
+            } else {
+                return false
+            }
+        } else return false
     }
     return (
         <Modal show={show} onHide={handleClose} size="xl">
