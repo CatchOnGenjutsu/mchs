@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "../Header/Header";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import styles from "./LoginPage.module.css";
@@ -9,20 +8,19 @@ export default function LoginPage() {
   const [userPas, setUserPas] = useState("");
 
   const handleButtonClick = () => {
-  window.location.assign("http://localhost:3005");
+    window.location.assign("http://localhost:3005/smallboats");
   };
 
   const handleUserEmail = (e) => {
-  setUserEmail(e.target.value);
+    setUserEmail(e.target.value);
   };
 
   const handleUserPas = (e) => {
-  setUserPas(e.target.value);
+    setUserPas(e.target.value);
   };
 
   return (
   <>
-    <Header showButton={false} />
     <div className={styles["form-container"]}>
     <Form className={styles["login-form"]}>
       <Form.Group

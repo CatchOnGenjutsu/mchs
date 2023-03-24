@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Header.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Header(props) {
-  useEffect(() => {}, []);
+  const [isLogin, setIsLogin]= useState("")
+  useEffect(() => {
+    window.location.href.includes("login") ? setIsLogin("login") : setIsLogin("")
+  }, [window.location.href]);
   return (
   <div className={styles.header_bg}>
     <div className={styles.left_header_block}>
@@ -24,17 +27,19 @@ function Header(props) {
       </h2>
     </div>
     </div>
-    {props.showButton === true ? (
-    <Link
+
+    {!isLogin &&<NavLink
       className={styles['exit-button']}
-      to={'/login'}>
+      to={'/login'}
+      >
       <button
-      type="button"
-      className={`${styles.logout} btn btn-primary`}>
-      ВЫХОД
+        onClick={() => window.location.pathname = "http://localhost:3005/login" }
+        type="button"
+        className={`${styles.logout} btn btn-primary`}>
+        ВЫХОД
       </button>
-    </Link>
-    ) : null}
+    </NavLink>}
+
   </div>
   );
 }
