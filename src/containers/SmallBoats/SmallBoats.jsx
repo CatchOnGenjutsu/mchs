@@ -37,12 +37,7 @@ export default function SmallBoats() {
       return el;
     });
   });
-  useEffect(() => {
-    dispatch(getDictionaryGimsSections());
-    dispatch(getDictionaryOwnerType());
-    dispatch(getDictionaryNsiCheckStatus());
-    dispatch(getUsersLibrary());
-  }, [])
+  
 
   return (
   <>

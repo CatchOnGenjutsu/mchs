@@ -11,15 +11,30 @@ import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import React, { useEffect, useState } from "react";
 import BasesBuildings from "./containers/BasesBuildings/BasesBuildings";
+import { useDispatch } from 'react-redux';
 
+import {
+  getDictionaryGimsSections,
+  getDictionaryNsiCheckStatus,
+  getDictionaryOwnerType,
+  getUsersLibrary
+} from "./redux/actions";
 
 function App() {
+  const dispatch = useDispatch()
   const [isLogin, setIsLoginApp]= useState("");
 
   useEffect(() => {
     window.location.pathname.includes("login") ? setIsLoginApp("login") : setIsLoginApp("")
+    dispatch(getDictionaryGimsSections());
+    dispatch(getDictionaryOwnerType());
+    dispatch(getDictionaryNsiCheckStatus());
+    dispatch(getUsersLibrary());
   }, [window.location.pathname])
 
+  // useEffect(() => {
+    
+  // }, [])
     // const BasesBuildings = React.lazy(()=>import("./containers/BasesBuildings/BasesBuildings"))
   return (
     <Router>
