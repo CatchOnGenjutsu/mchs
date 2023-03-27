@@ -100,6 +100,11 @@ export const inputsHeadersBasesBuildings ={
   value: "Наименование ЮЛ, ФИО эксплуатанта",
   type:'text'
   },
+  ownerUnp: {
+    key: "ownerUnp",
+    value: "УНП",
+    type:'text'
+  },
   location:{
   key: "location",
   value: "Местонах.\n" + "базы",

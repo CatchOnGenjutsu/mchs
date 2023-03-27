@@ -7,12 +7,7 @@ import BoatInfo from '../../components/BoatInfo/BoatInfo.jsx';
 import {  clearBoatCardInfo } from '../../redux/smallBoatsReducer/actionsSmallBoats';
 import { SMALLBOATS_COLUMNS } from '../../components/SearchTable/TablesColumns';
 import { inputsHeadersSmallBoats } from '../../components/SearchBlock/inputsHeaders.js';
-import {
-  getDictionaryGimsSections,
-  getDictionaryNsiCheckStatus,
-  getDictionaryOwnerType,
-  getUsersLibrary
-} from "../../redux/actions";
+
 
 import styles from './SmallBoats.module.css';
 
@@ -37,7 +32,6 @@ export default function SmallBoats() {
       return el;
     });
   });
-  
 
   return (
   <>

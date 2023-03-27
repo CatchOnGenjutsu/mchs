@@ -3,7 +3,7 @@ import styles from './ModalWindow.module.css'
 import {Form,Button,Modal} from "react-bootstrap";
 import {optionsForModalWindow, setOptionsForModalWindow,optionsButton} from "./constansForModalWindow";
 import {useDispatch, useSelector} from "react-redux";
-import {addDataBasesBuildings, deleteDataBasesBuildings, editDataBasesBuildings} from "../../../redux/baseBuildingReducer/actionsBaseBuilding";
+import {addDataBasesBuildings,  editDataBasesBuildings} from "../../../redux/baseBuildingReducer/actionsBaseBuilding";
 
 function ModalWindow({setShow,show,type,buildingId}) {
     const dispatch = useDispatch();
@@ -17,12 +17,13 @@ function ModalWindow({setShow,show,type,buildingId}) {
         const {dictionaryReducer} = state
         return {
             sectionOptions:dictionaryReducer.gimsSections,
-            ownerOptions:dictionaryReducer.ownerType
+            ownerOptions:dictionaryReducer.ownerType.filter(el=>el.id==2||el.id==3)
         }
     }))
+
     setOptionsForModalWindow(options.ownerOptions,options.sectionOptions)
     const [form,setForm]=useState(()=>{
-        if(dataFromStateBases.length&&(type==='edit'||type==='delete')){
+        if(dataFromStateBases.length&&(type==='edit')){
             return structuredClone(dataFromStateBases.find(el=>el.parkId==buildingId))
         }
         else {return {ownerType:options.ownerOptions[0].id,section:options.sectionOptions[0].id}}
@@ -30,21 +31,18 @@ function ModalWindow({setShow,show,type,buildingId}) {
     const [errors,setErrors]= useState({})
 
     const [optionsInput,setOptionsInput]=useState(()=>{
-      return   form.ownerType==options.ownerOptions[0].id?Object.values(optionsForModalWindow.optionsForInputIndividual):Object.values(optionsForModalWindow.optionsForInputLegalEntity)
+      return   Object.values(optionsForModalWindow.optionsForInputLegalEntity)
     })
 
     const handleValue = (event)=>{
         if(event.target.id=='ownerType'){
             form[event.target.id]=event.target.value
             setForm({...form})
-            event.target.value==options.ownerOptions[0].id?setOptionsInput(Object.values(optionsForModalWindow.optionsForInputIndividual)):setOptionsInput(Object.values(optionsForModalWindow.optionsForInputLegalEntity))
         }
         if(event.target.id=='section'){
             form[event.target.id]=Number(event.target.value)
             setForm({...form})
         }
-
-
     }
     const handleClose = (event) => {
         let buttonType
@@ -63,10 +61,6 @@ function ModalWindow({setShow,show,type,buildingId}) {
                    dispatch(editDataBasesBuildings(form))
                    break;
                }
-               case (buttonType ==='delete'&& type ==='delete'):{
-                   dispatch(deleteDataBasesBuildings(form))
-                   break;
-               }
            }
            setShow(false)
        }
@@ -75,13 +69,7 @@ function ModalWindow({setShow,show,type,buildingId}) {
         if(buttonType==='save'){
             const {ownerName,ownerMidname,ownerLeName,ownerAddress,ownerPhone,location,responPosition,responFio}=form
             const newErrors={}
-            if(form.ownerType==options.ownerOptions[0].id){
-                if(!ownerName || ownerName==='') newErrors.ownerName = 'Заполните имя'
-                if(!ownerMidname || ownerMidname==='') newErrors.ownerMidname = 'Заполните фамилию'
-            }else {
-                if(!ownerLeName || ownerLeName==='') newErrors.ownerLeName = 'Заполните наименование'
-            }
-
+            if(!ownerLeName || ownerLeName==='') newErrors.ownerLeName = 'Заполните наименование'
             if(!ownerAddress || ownerAddress==='') newErrors.ownerAddress = 'Заполните адрес эксплуатанта'
             if(!ownerPhone || ownerPhone==='') newErrors.ownerPhone = 'Заполните телефон эксплуатанта'
             if(!location || location==='') newErrors.location = 'Заполните местонахождение базы'
@@ -111,7 +99,6 @@ function ModalWindow({setShow,show,type,buildingId}) {
                                         onChange={(e) => handleValue(e)}
                                         id={el.key}
                                         value={form[el.key]}
-                                        disabled={type==='delete'}
                                     >
                                         {el.options.map(el=><option value={el.id}>{el.value}</option>)}
                                     </Form.Select>
@@ -123,7 +110,6 @@ function ModalWindow({setShow,show,type,buildingId}) {
                                     <Form.Label>{el.label}</Form.Label>
                                     <Form.Control
                                         id={el.key}
-                                        disabled={type==='delete'}
                                         isInvalid={!!errors[el.key]}
                                         type={el.type}
                                         value={(form)&&form[el.key]||''}
@@ -143,8 +129,8 @@ function ModalWindow({setShow,show,type,buildingId}) {
                 <Button variant="secondary" data-type={`close`} onClick={handleClose}>
                     Закрыть
                 </Button>
-                <Button variant="primary" data-type={type==='delete'?'delete':`save`} onClick={handleClose}>
-                    {type==='delete'?'Удалить':`Сохранить`}
+                <Button variant="primary" data-type={`save`} onClick={handleClose}>
+                    Сохранить
                 </Button>
             </Modal.Footer>
         </Modal>

@@ -37,7 +37,7 @@ export default function BasesBuildings() {
     note:``,
     id:base.parkId
   }
-  dataBase.ownerLeName = base.ownerLeName?base.ownerLeName: (checkMeaning(base.ownerMidname) +' '+ checkMeaning(base.ownerName)+' '+ checkMeaning(base.ownerSurname))
+  dataBase.ownerLeName = base.ownerLeName
   dataBase.ownerContact = checkMeaning(base.ownerAddress)+ ' тел: '+ checkMeaning(base.ownerPhone)
   dataBase.baseContact = checkMeaning(base.location)+' тел1: '+checkMeaning(base.phone1)+' тел2: '+checkMeaning(base.phone2)
   dataBase.responData = checkMeaning(base.responPosition)+' '+checkMeaning(base.responFio)+' приказ № '+checkMeaning(base.responDocnum)+' от '+checkMeaning(base.responDocdate)
