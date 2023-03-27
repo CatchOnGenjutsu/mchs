@@ -41,8 +41,9 @@ export const certificateReducer = (state = initialState, action) => {
       return (() => ({
         ...state,
         licenseInfo: Object.assign({}, action.data.data),
-        licenseSpecmarksList: [...action.data.licenseAdd.boatDrivingLicenseSpecmarksList],
-        licenseConfList: [...action.data.licenseAdd.boatDrivingLicenseConfList]
+        licenseSpecmarksList: [...
+          action.data.licenseAdd.boatDrivingLicenseSpecmarksList.reverse()],
+        licenseConfList: [...action.data.licenseAdd.boatDrivingLicenseConfList.sort((a, b) => b.confDate - a.confDate)]
       }))()
     case ADD_NEW_SPEC_MARK:
       const markIndex = state.licenseSpecmarksList.findIndex((item) => item.id === action.data.id);
