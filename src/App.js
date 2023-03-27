@@ -2,16 +2,13 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import LoginPage from './components/LoginPage/LoginPage';
-import Certificates from './containers/CertificatesComponent/Certificates';
 import SmallBoats from './containers/SmallBoats/SmallBoats';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import Certificates from './containers/CertificatesComponent/Certificates';
+import BasesBuildings from "./containers/BasesBuildings/BasesBuildings";
 import BoatInfo from "./components/BoatInfo/BoatInfo";
 import Certificate from "./components/Certificate/Certificate";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
-import React, { useEffect, useState } from "react";
-import { useDispatch} from 'react-redux';
-import BasesBuildings from "./containers/BasesBuildings/BasesBuildings";
 import {
   getDictionaryGimsSections,
   getDictionaryNsiCheckStatus,
@@ -19,19 +16,22 @@ import {
   getUsersLibrary
 } from "./redux/actions";
 
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch} from 'react-redux';
 
 function App() {
-  const [isLogin, setIsLoginApp]= useState("");
   const dispatch = useDispatch();
+  const [isLogin, setIsLoginApp]= useState("");
+  
   useEffect(() => {
+    window.location.pathname.includes("login") ? setIsLoginApp("login") : setIsLoginApp("")
     dispatch(getDictionaryGimsSections());
     dispatch(getDictionaryOwnerType());
     dispatch(getDictionaryNsiCheckStatus());
     dispatch(getUsersLibrary());
-    window.location.pathname.includes("login") ? setIsLoginApp("login") : setIsLoginApp("")
   }, [window.location.pathname])
 
-    // const BasesBuildings = React.lazy(()=>import("./containers/BasesBuildings/BasesBuildings"))
   return (
     <Router>
       <Header />

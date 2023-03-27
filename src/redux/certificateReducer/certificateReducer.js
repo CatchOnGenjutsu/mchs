@@ -57,7 +57,7 @@ export const certificateReducer = (state = initialState, action) => {
         return (() => ({
           ...state,
           licenseSpecmarksList: [
-            ...state.licenseSpecmarksList, action.data
+            action.data, ...state.licenseSpecmarksList
           ],
         }))();
       }
@@ -65,7 +65,7 @@ export const certificateReducer = (state = initialState, action) => {
       return (() => ({
         ...state,
         licenseConfList: [
-          ...state.licenseConfList, action.data
+          action.data, ...state.licenseConfList
         ],
       }))();
     default:

@@ -33,7 +33,6 @@ export default function SmallBoats() {
     });
   });
 
-
   return (
   <>
     <div>
