@@ -44,6 +44,9 @@
 .box-responDocdate{
     grid-area: RDD;
 }
+.box-note{
+    grid-area: Note;
+}
 .container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -56,7 +59,9 @@
     "AD AD OP ."
     "LB LB PB1 PB2"
     "RF RF RP RP"
-    "RDN RDN RDD RDD";
+    "RDN RDN RDD RDD"
+    "Note Note Note Note"
+;
     row-gap:15px;
 
 }

@@ -51,16 +51,7 @@ export const basesBuildingReducer = (state=initialState,action)=>{
             ...state.data,action.data
           ],
         }))();
-      case DELETE_BASES:
-        return (() => {
-            state.data.splice(state.data.findIndex(el=>el.parkId==action.data),1);
-            return {
-              ...state,
-              data: [
-                ...state.data
-              ],
-            }
-        })();
+
       default: return state;
     }
 }

@@ -10,13 +10,24 @@ import Certificate from "./components/Certificate/Certificate";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import React, { useEffect, useState } from "react";
+import { useDispatch} from 'react-redux';
 import BasesBuildings from "./containers/BasesBuildings/BasesBuildings";
+import {
+  getDictionaryGimsSections,
+  getDictionaryNsiCheckStatus,
+  getDictionaryOwnerType,
+  getUsersLibrary
+} from "./redux/actions";
 
 
 function App() {
   const [isLogin, setIsLoginApp]= useState("");
-
+  const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(getDictionaryGimsSections());
+    dispatch(getDictionaryOwnerType());
+    dispatch(getDictionaryNsiCheckStatus());
+    dispatch(getUsersLibrary());
     window.location.pathname.includes("login") ? setIsLoginApp("login") : setIsLoginApp("")
   }, [window.location.pathname])
 
