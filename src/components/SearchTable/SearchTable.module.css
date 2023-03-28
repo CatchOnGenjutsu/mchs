@@ -56,3 +56,6 @@ select:has(option:checked)
 {
   background-color: rgb(198, 229, 255);
 }
+.selected{
+  background-color: #00ff26 !important;
+}

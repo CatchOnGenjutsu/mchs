@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import SearchBlock from "../../components/SearchBlock/SearchBlock";
 import {BUILDING_COLUMNS} from "../../components/SearchTable/TablesColumns";
-import SearchTable from "../../components/SearchTable/SearchTable";
+import {MemoSearchTable} from "../../components/SearchTable/SearchTable";
 import ToolBlock from "../../components/basesBuildings/ToolBlock/ToolBlock";
 
 import ModalWindow from "../../components/basesBuildings/ModalWindow/ModalWindow";
@@ -70,7 +70,7 @@ export default function BasesBuildings() {
       showForm = {handleShow}
       setButtonType={setButtonType}
     />
-    <SearchTable
+    <MemoSearchTable
       setBuildingId = {handleBuildingId}
       columns={BUILDING_COLUMNS}
       dataFromState={data}

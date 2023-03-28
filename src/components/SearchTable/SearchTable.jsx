@@ -1,13 +1,18 @@
-import React, { useMemo } from "react";
+import React, { useMemo,useState,useEffect } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import { getBoatCardInfo } from "../../redux/smallBoatsReducer/actionsSmallBoats";
 import { getLicenseById } from "../../redux/certificateReducer/actionsCertificate";
 import styles from "./SearchTable.module.css";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 
 export default function SearchTable(props) {
+  const [paginationState, setPaginationState] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const [selectedRow, setSelectedRow] = useState(null);
   const licenseInfoFromState = useSelector((state) => {
     const { certificateReducer } = state;
     return certificateReducer.licenseInfo;
@@ -28,7 +33,7 @@ export default function SearchTable(props) {
     canNextPage,
     canPreviousPage,
     pageOptions,
-    state,
+    state: { pageIndex, pageSize },
     // rows,
     prepareRow,
     allColumns,
@@ -36,12 +41,15 @@ export default function SearchTable(props) {
   {
     columns,
     data: props.dataFromState,
+    initialState: paginationState
   },
   useSortBy,
   usePagination
   );
 
-  const { pageIndex } = state;
+  useEffect(() => {
+    setPaginationState({ pageIndex, pageSize });
+  }, [pageIndex, pageSize]);
 
   const handleTableClick = (e) => {
   e.stopPropagation();
@@ -94,9 +102,10 @@ export default function SearchTable(props) {
         <tr
           data-id={row.original.id}
           onClick={(e) => {
+            setSelectedRow(row.id)
           handleTableClick(e);
           }}
-          className={`${styles["tr-td"]}`}
+          className={`${selectedRow === row.id.toString() ? styles['selected'] : ''} ${styles["tr-td"]}`}
           {...row.getRowProps()}>
           {row.cells.map((cell) => {
           return (
@@ -104,7 +113,7 @@ export default function SearchTable(props) {
             // onClickCapture={(e) => {
             //   handleSetId(e);
             // }}
-            className={styles["td-table"]}
+            className={styles["td-table"] }
             {...cell.getCellProps()}>
             <div>{cell.render("Cell")}</div>
             </td>
@@ -146,3 +155,6 @@ export default function SearchTable(props) {
   </>
   );
 }
+
+export const MemoSearchTable = React.memo(SearchTable)
+console.log(MemoSearchTable)
