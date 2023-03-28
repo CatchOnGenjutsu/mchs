@@ -29,7 +29,7 @@ export const SMALLBOATS_COLUMNS = [
   }
 ];
 
-export  const SERTIFICATES_COLUMNS = [
+export const SERTIFICATES_COLUMNS = [
   {
     Header: "Номер удостоверения",
     accessor: "licenseNum",
@@ -47,16 +47,16 @@ export  const SERTIFICATES_COLUMNS = [
     accessor: "persNum",
   },
   {
-  Header: "Тип удостоверения",
-  accessor: "licenseType",
+    Header: "Тип удостоверения",
+    accessor: "licenseType",
   },
   {
-  Header: "Дата выдачи",
-  accessor: "licenseDate",
+    Header: "Дата выдачи",
+    accessor: "licenseDate",
   },
   {
-  Header: "Действителен до",
-  accessor: "licenseDateEnd",
+    Header: "Действителен до",
+    accessor: "licenseDateEnd",
   }
 ]
 export const BUILDING_COLUMNS = [
@@ -92,5 +92,38 @@ export const BUILDING_COLUMNS = [
   Header: "Примечание",
   accessor: "note",
   },
-
+]
+export const SMALLBOATS_REG_COLUMNS = [
+  {
+    Header: "Дата регистрации заявления",
+    accessor: "operDate",
+  },
+  {
+    Header: "ФИО",
+    accessor: "fio",
+  },
+  {
+    Header: "Ид. номер заявителя",
+    accessor: "persNum",
+    },
+  {
+    Header: "Наим. организации",
+    accessor: "nameLe",
+  },
+  {
+    Header: "УНП",
+    accessor: "unp",
+  },
+  {
+    Header: "Рег. номер судна",
+    accessor: "regNum",
+  },
+  {
+    Header: "Участок",
+    accessor: "rayonId",
+  },
+  {
+    Header: "Статус заявления",
+    accessor: "statusName",
+  }
 ]

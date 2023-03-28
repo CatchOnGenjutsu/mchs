@@ -11,7 +11,8 @@ import {
   GET_USERS_LIBRARY,
   GET_DICTIONARY_NSI_CHECK_STATUS,
   GET_ATE_LIBRARY,
-  GET_APP_REG_STATUS_LIBRARY
+  GET_APP_REG_STATUS_LIBRARY,
+  GET_DATA_BY_SEARCH_PARAMS_BOATS_REG
 } from "./types";
 import {
   MAIN_URL,
@@ -162,15 +163,19 @@ export function getDataBoatsRegBySearchParams(params) {
     if (response.ok) {
       const data = await response.json();
       console.log(data)
-      // for (let item of data) {
-      // const fio = `${item.surname} ${item.name} ${item.midname}`;
-      // item["fio"] = fio;
-      // }
-      // const jsonData = data;
-      // dispatch({
-      // type: GET_DATA_BY_SEARCH_PARAMS_LICENSE,
-      // data: jsonData
-      // })
+      for (let item of data) {
+        if(!!item.midname) {
+          const fio = `${item.surname} ${item.name} ${item.midname}`;
+          item["fio"] = fio;
+        } else {
+          item["fio"] = null;
+        }
+      }
+      const jsonData = data;
+      dispatch({
+        type: GET_DATA_BY_SEARCH_PARAMS_BOATS_REG,
+        data: jsonData
+      })
     }
   }
 }

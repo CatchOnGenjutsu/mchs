@@ -7,14 +7,14 @@ import SearchTable from '../../components/SearchTable/SearchTable';
 
 export default function Certificates() {
   const dataFromStateCer = useSelector((state) => {
-  const { certificateReducer } = state;
-  return certificateReducer.data.map((el) => {
-    if (Boolean(el.licenseId)) {
-    el.id = el.licenseId;
-    delete el.licenseId;
-    }
-    return el;
-  });
+    const { certificateReducer } = state;
+    return certificateReducer.data.map((el) => {
+      if (Boolean(el.licenseId)) {
+        el.id = el.licenseId;
+        delete el.licenseId;
+      }
+      return el;
+    });
   });
   return (
     <div>

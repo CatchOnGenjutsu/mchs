@@ -12,6 +12,7 @@ export default function SearchTable(props) {
     const { certificateReducer } = state;
     return certificateReducer.licenseInfo;
   });
+  console.log("props.dataFromState", props.dataFromState)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,24 +45,24 @@ export default function SearchTable(props) {
   const { pageIndex } = state;
 
   const handleTableClick = (e) => {
-  e.stopPropagation();
-  const id = e.currentTarget.dataset.id;
-  switch (true) {
-    case e.target.baseURI.includes("certificates"): {
-    dispatch(getLicenseById(id));
-    navigate(`./licenseId/${id}`);
-    break;
+    e.stopPropagation();
+    const id = e.currentTarget.dataset.id;
+    switch (true) {
+      case e.target.baseURI.includes("certificates"): {
+        dispatch(getLicenseById(id));
+        navigate(`./licenseId/${id}`);
+        break;
+      }
+      case e.target.baseURI.includes("smallboats"): {
+        dispatch(getBoatCardInfo(id));
+        navigate(`./boatId/${id}`);
+        break;
+      }
+      case e.target.baseURI.includes("basesbuilding"): {
+        props.setBuildingId(id);
+      }
+      default:
     }
-    case e.target.baseURI.includes("smallboats"): {
-    dispatch(getBoatCardInfo(id));
-    navigate(`./boatId/${id}`);
-    break;
-    }
-    case e.target.baseURI.includes("basesbuilding"): {
-    props.setBuildingId(id);
-    }
-    default:
-  }
   };
 
   return (
