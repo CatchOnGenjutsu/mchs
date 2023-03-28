@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Select from 'react-select';
 
 import {
   setSearchParams,
   getDataBoatsBySearchParams,
   getDataCertificatesBySearchParams,
   getDataBasesBuildingBySearchParams,
+  getDataBoatsRegBySearchParams
 } from '../../redux/actions';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -32,34 +34,42 @@ export default function SearchBlock(props) {
     const { dictionaryReducer } = state
     return dictionaryReducer.nsiCheckStatus
   }))
-
-
-  const handleSearchData = (e) => {
-  e.preventDefault();
-  switch (true) {
-    case e.target.baseURI.includes('certificates'): {
-    sessionStorage.setItem(
-      'searchParams',
-      JSON.stringify(searchParamsFromStateCertificate)
-    );
-    dispatch(getDataCertificatesBySearchParams(searchParamsFromStateCertificate));
-    break;
-    }
-    case e.target.baseURI.includes('smallboats'): {
-    dispatch(getDataBoatsBySearchParams(searchParamsFromStateBoat));
-    break;
-    }
-    case e.target.baseURI.includes('basesbuilding'): {
-    dispatch(getDataBasesBuildingBySearchParams(searchParamsFromStateBasesBuilding));
-    break;
-    }
-    default:
-  }
-  };
+  const searchParamsFromStateBoatsReg = useSelector((state) => {
+    const { smallBoatsRegReducer } = state;
+    return smallBoatsRegReducer.searchParams;
+  });
 
   const handleValue = (e) => {
-    dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI));
+    e.target ? dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI)) : dispatch(setSearchParams("rayonId", e.value, window.location.href))
   };
+
+  const handleSearchData = (e) => {
+    e.preventDefault();
+    switch (true) {
+      case window.location.href.includes('smallboatsreg'): {
+        dispatch(getDataBoatsRegBySearchParams(searchParamsFromStateBoatsReg));
+        break;
+      }
+      case e.target.baseURI.includes('certificates'): {
+        sessionStorage.setItem(
+          'searchParams',
+          JSON.stringify(searchParamsFromStateCertificate)
+        );
+        dispatch(getDataCertificatesBySearchParams(searchParamsFromStateCertificate));
+        break;
+      }
+      case e.target.baseURI.includes('smallboats'): {
+        dispatch(getDataBoatsBySearchParams(searchParamsFromStateBoat));
+        break;
+      }
+      case e.target.baseURI.includes('basesbuilding'): {
+        dispatch(getDataBasesBuildingBySearchParams(searchParamsFromStateBasesBuilding));
+        break;
+      }
+      default:
+    }
+  };
+
   
   useEffect(() => {
     const paramsFromStorage = JSON.parse(sessionStorage.getItem('searchParams'));
@@ -77,15 +87,27 @@ export default function SearchBlock(props) {
         <Form.Label className={styles['label-text']}>{item.value}</Form.Label>
         {item.type === 'select' && (
           <Form.Select
-          className={`mb-2`}
-          data-id={item.key}
-          onChange={(e) => handleValue(e)}>
-          {item.selectOption.map((el) => (
-            <option value={el.id}>{el.value}</option>
-          ))}
+            className={`mb-2`}
+            data-id={item.key}
+            onChange={(e) => handleValue(e)}>
+            {item.selectOption.map((el) => (
+              <option value={el.id}>{el.value}</option>
+            ))}
           </Form.Select>
         )}
-        {item.type !== 'select' && (
+        {item.type === 'selectRayon' && (
+          <Select
+            className={`basic-single mb-2 ${styles.search_select}`}
+            classNamePrefix="select"
+            data-id={item.key}
+            onChange={(e) => handleValue(e)}
+            defaultValue={item.selectOption[0]}
+            isSearchable={true}
+            name="rayon"
+            options={item.selectOption}
+          />
+        )}
+        {item.type !== 'select' && item.type !== 'selectRayon' && (
           <Form.Control
           data-id={item.key}
           onChange={(e) => handleValue(e)}

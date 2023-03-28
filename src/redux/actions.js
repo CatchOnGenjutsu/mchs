@@ -5,11 +5,14 @@ import {
   SET_SEARCH_PARAMS_BASES_BUILDING,
   SET_SEARCH_PARAMS_BOATS,
   SET_SEARCH_PARAMS_LICENSE,
+  SET_SEARCH_PARAMS_BOATS_REG,
   GET_DICTIONARY_GIMS_SECTIONS,
   GET_DICTIONARY_OWNER_TYPE,
   GET_USERS_LIBRARY,
   GET_DICTIONARY_NSI_CHECK_STATUS,
-} from './types';
+  GET_ATE_LIBRARY,
+  GET_APP_REG_STATUS_LIBRARY
+} from "./types";
 import {
   MAIN_URL,
   PORT,
@@ -19,37 +22,47 @@ import {
   API_GET_GIMS_SECTIONS,
   API_GET_OWNER_TYPE,
   API_GET_USERS_LIBRARY,
-  API_GET_NSI_CHECK_STATUS,
+  API_GET_ATE_LIBRARY,
+  API_GET_APP_REG_STATUS_LIBRARY,
+  API_GET_BOATS_REG_LIST_SEARCH
 } from "../constants/constants";
 
 export function setSearchParams(id, value, url) {
   let object = { [`${id}`]: value }
   switch (true) {
-  case url.includes('smallboats'): {
-    return (
-    {
-      type: SET_SEARCH_PARAMS_BOATS,
-      data: object
+    case url.includes("smallboatsreg"): {
+      return (
+        {
+          type: SET_SEARCH_PARAMS_BOATS_REG,
+          data: object
+        }
+      )
     }
-    )
-  }
-  case url.includes('certificates'): {
-    return (
-    {
-      type: SET_SEARCH_PARAMS_LICENSE,
-      data: object
+    case url.includes("smallboats"): {
+      return (
+      {
+        type: SET_SEARCH_PARAMS_BOATS,
+        data: object
+      }
+      )
     }
-    )
-  }
-  case url.includes('basesbuilding'): {
-    return (
-    {
-      type: SET_SEARCH_PARAMS_BASES_BUILDING,
-      data: object
+    case url.includes("certificates"): {
+      return (
+      {
+        type: SET_SEARCH_PARAMS_LICENSE,
+        data: object
+      }
+      )
     }
-    )
-  }
-  default: ;
+    case url.includes("basesbuilding"): {
+      return (
+        {
+          type: SET_SEARCH_PARAMS_BASES_BUILDING,
+          data: object
+        }
+      )
+    }
+    default: ;
   }
 
 }
@@ -60,7 +73,7 @@ export function getDataBoatsBySearchParams(params) {
   const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_LIST_SEARCH, {
     method: "POST",
     headers: {
-    'Content-Type': 'application/json'
+    "Content-Type": "application/json"
     },
     body: JSON.stringify(params)
   });
@@ -85,7 +98,7 @@ export function getDataCertificatesBySearchParams(params) {
     const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SEARCH, {
       method: "POST",
       headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
       },
       body: JSON.stringify(params)
     }).catch(err => console.log(err));
@@ -106,23 +119,23 @@ export function getDataCertificatesBySearchParams(params) {
 
 export function getDataBasesBuildingBySearchParams(params) {
   return async dispatch => {
-  let queryParams = ''
+  let queryParams = ""
   switch (true) {
     case Boolean(params.startDate) && Boolean(params.endDate):
-    queryParams = `?startDate=${params.startDate}&endDate=${params.endDate}`
-    break;
+      queryParams = `?startDate=${params.startDate}&endDate=${params.endDate}`
+      break;
     case Boolean(params.startDate):
-    queryParams = `?startDate=${params.startDate}`
-    break;
+      queryParams = `?startDate=${params.startDate}`
+      break;
     case Boolean(params.endDate):
-    queryParams = `?endDate=${params.endDate}`
-    break;
-    default: queryParams = ''
+      queryParams = `?endDate=${params.endDate}`
+      break;
+    default: queryParams = ""
   }
   const response = await fetch(MAIN_URL + PORT + API_GET_BASES_BUILDING_LIST_SEARCH + queryParams, {
     method: "POST",
     headers: {
-    'Content-Type': 'application/json'
+    "Content-Type": "application/json"
     },
     body: JSON.stringify(params)
   }).catch(err => console.log(err));
@@ -134,6 +147,31 @@ export function getDataBasesBuildingBySearchParams(params) {
     data: jsonData
     })
   }
+  }
+}
+
+export function getDataBoatsRegBySearchParams(params) {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_LIST_SEARCH, {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json"
+      },
+      body: JSON.stringify(params)
+    }).catch(err => console.log(err));
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+      // for (let item of data) {
+      // const fio = `${item.surname} ${item.name} ${item.midname}`;
+      // item["fio"] = fio;
+      // }
+      // const jsonData = data;
+      // dispatch({
+      // type: GET_DATA_BY_SEARCH_PARAMS_LICENSE,
+      // data: jsonData
+      // })
+    }
   }
 }
 
@@ -162,7 +200,7 @@ export function getDictionaryOwnerType() {
 }
 export function getDictionaryNsiCheckStatus() {
   return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_GET_NSI_CHECK_STATUS)
+    const response = await fetch(MAIN_URL + PORT + API_GET_APP_REG_STATUS_LIBRARY)
       if (response.ok) {
         dispatch({
           type: GET_DICTIONARY_NSI_CHECK_STATUS,
@@ -178,6 +216,28 @@ export function getUsersLibrary() {
   const data = await response.json()
   dispatch({
     type: GET_USERS_LIBRARY,
+    data: data,
+  })
+  }
+}
+
+export function getAteLibrary() {
+  return async dispatch => {
+  const response = await fetch(MAIN_URL + PORT + API_GET_ATE_LIBRARY)
+  const data = await response.json()
+  dispatch({
+    type: GET_ATE_LIBRARY,
+    data: data,
+  })
+  }
+}
+
+export function getApplicationRegLibrary() {
+  return async dispatch => {
+  const response = await fetch(MAIN_URL + PORT + API_GET_APP_REG_STATUS_LIBRARY)
+  const data = await response.json()
+  dispatch({
+    type: GET_APP_REG_STATUS_LIBRARY,
     data: data,
   })
   }

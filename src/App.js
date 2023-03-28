@@ -9,14 +9,17 @@ import BoatInfo from "./components/BoatInfo/BoatInfo";
 import Certificate from "./components/Certificate/Certificate";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
+import SmallBoatsRegistration from './containers/SmallBoatsRegistration/SmallBoatsRegistration';
 import {
   getDictionaryGimsSections,
   getDictionaryNsiCheckStatus,
   getDictionaryOwnerType,
-  getUsersLibrary
+  getUsersLibrary,
+  getAteLibrary,
+  getApplicationRegLibrary
 } from "./redux/actions";
 
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch} from 'react-redux';
 
@@ -30,6 +33,8 @@ function App() {
     dispatch(getDictionaryOwnerType());
     dispatch(getDictionaryNsiCheckStatus());
     dispatch(getUsersLibrary());
+    dispatch(getAteLibrary());
+    dispatch(getApplicationRegLibrary());
   }, [window.location.pathname])
 
   return (
@@ -46,6 +51,7 @@ function App() {
               <Route path="/certificates" element={<Certificates />} />
               <Route path="/certificates/licenseId/:id" element={<Certificate />} />
               <Route path="/basesbuilding" element={<BasesBuildings />} />
+              <Route path="/smallboatsreg" element={<SmallBoatsRegistration />} />
               <Route path="*" element={<Navigate replace to="/login" />} />
             </Routes>
           </div>

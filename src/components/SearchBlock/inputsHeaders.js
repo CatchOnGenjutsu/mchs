@@ -55,41 +55,41 @@ export const inputsHeadersSmallBoats = {
 
 export const inputsHeadersCertificates ={
   surname:{
-  key: "surname",
-  value: "Фамилия",
-  type:'text'
+    key: "surname",
+    value: "Фамилия",
+    type:'text'
   },
   name:{
-  key: "name",
-  value: "Имя",
-  type:'text'
+    key: "name",
+    value: "Имя",
+    type:'text'
   },
   midname: {
-  key: "midname",
-  value: "Отчество",
-  type:'text'
+    key: "midname",
+    value: "Отчество",
+    type:'text'
   },
   birthDate:{
-  key: "birthDate",
-  value: "Дата рождения",
-  type:'date'
+    key: "birthDate",
+    value: "Дата рождения",
+    type:'date'
   },
   licenseNum:{
-  key: "licenseNum",
-  value: "Номер удост.",
-  type:'text'
+    key: "licenseNum",
+    value: "Номер удост.",
+    type:'text'
   },
   persNum:{
-  key: "persNum",
-  value: "Ид. номер",
-  description: "В формате 1111111X111XX1",
-  type:'text'
+    key: "persNum",
+    value: "Ид. номер",
+    description: "В формате 1111111X111XX1",
+    type:'text'
   },
   isActive: {
-  key: "isActive",
-  value: "Статус карточки",
-  type:'select',
-  selectOption:[{id:1,value:'Активная'},{id:0,value:'Архивная'},{id:2,value:'Все'}]
+    key: "isActive",
+    value: "Статус карточки",
+    type:'select',
+    selectOption:[{id:1,value:'Активная'},{id:0,value:'Архивная'},{id:2,value:'Все'}]
   }
 }
 
@@ -128,10 +128,61 @@ export const inputsHeadersBasesBuildings ={
   },
 }
 
+export const inputsHeadersSmallBoatsRegistration = {
+  surname:{
+    key: "surname",
+    value: "Фамилия",
+    type:'text'
+  },
+  name:{
+    key: "name",
+    value: "Имя",
+    type:'text'
+  },
+  midname: {
+    key: "midname",
+    value: "Отчество",
+    type:'text'
+  },
+  regNum:{
+    key: "regNum",
+    value: "Рег. номер судна",
+    description: "В формате XX 1111",
+    type:'text'
+  },
+  unp:{
+    key: "unp",
+    value: "УНП",
+    type:'text'
+  },
+  nameLe:{
+    key: "nameLe",
+    value: "Наименование организации",
+    type:'text'
+  },
+  rayonId: {
+    key: "rayonId",
+    value: "Участок",
+    type:'selectRayon',
+    selectOption:[{value:0, label:'Все'}]
+  },
+  status: {
+    key: "status",
+    value: "Статус",
+    type:'select',
+    selectOption:[{id:0,value:'Все'},{id:2,value:'Зарегистрировано'},{id:1,value:'Черновик'}]
+  }
+}
+
 
 export const setOptionsForInputs = (nsiCheckStatusOptions)=>{
-  if(inputsHeadersBasesBuildings.checkStatus.selectOption.length===1){
-  inputsHeadersBasesBuildings.checkStatus.selectOption.push(...nsiCheckStatusOptions)
+  if(inputsHeadersBasesBuildings.checkStatus.selectOption.length===1) {
+    inputsHeadersBasesBuildings.checkStatus.selectOption.push(...nsiCheckStatusOptions)
   }
+}
 
+export const setOptionsForInputsATE = (inputsOptions)=>{
+  if(inputsHeadersSmallBoatsRegistration.rayonId.selectOption.length===1) {
+    inputsHeadersSmallBoatsRegistration.rayonId.selectOption.push(...inputsOptions)
+  }
 }

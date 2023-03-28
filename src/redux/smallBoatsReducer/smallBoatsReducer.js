@@ -13,15 +13,15 @@ const initialState = {
   boatInfo: {},
   signName: "",
   searchParams: {
-  ownerSurname: "",
-  ownerName: "",
-  ownerMidname: "",
-  regNum: "",
-  leName: "",
-  leUnp: "",
-  boatVin: "",
-  engvin: "",
-  cardStatusCode: 1,
+    ownerSurname: "",
+    ownerName: "",
+    ownerMidname: "",
+    regNum: "",
+    leName: "",
+    leUnp: "",
+    boatVin: "",
+    engvin: "",
+    cardStatusCode: 1,
   }
 }
 

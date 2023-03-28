@@ -13,16 +13,15 @@ import {inputsHeadersBasesBuildings, setOptionsForInputs} from "../../components
 
 
 export default function BasesBuildings() {
-
   const checkMeaning = (property)=>property?property:''
   const [buildingId,setBuildingId]= useState(null)
   const dataFromStateBases = useSelector(state => {
   const {basesBuildingReducer} = state
   return   basesBuildingReducer.data
   })
-  const  dataOptionsForSelect = useSelector(state => {
-  const {dictionaryReducer} = state
-  return dictionaryReducer.nsiCheckStatus
+  const dataOptionsForSelect = useSelector(state => {
+    const {dictionaryReducer} = state
+    return dictionaryReducer.nsiCheckStatus
   })
   setOptionsForInputs(dataOptionsForSelect)
   const data = dataFromStateBases.map(base=>{

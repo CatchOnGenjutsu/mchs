@@ -194,14 +194,14 @@ export default function Certificate(props) {
         <span>{licenseInfoFromState.docType || '-'}</span>
         </div>
         <div className={styles.data__property}>
-        <p>Номер</p>
-        <span>{licenseInfoFromState.docNum || '-'}</span>
+        <p>Серия</p>
+        <span>{licenseInfoFromState.docSeries || '-'}</span>
         </div>
       </div>
       <div className={`${styles.data} flex-wrap`}>
         <div className={styles.data__property}>
-        <p>Серия</p>
-        <span>{licenseInfoFromState.docSeries || '-'}</span>
+          <p>Номер</p>
+          <span>{licenseInfoFromState.docNum || '-'}</span>
         </div>
         <div className={styles.data__property}>
         <p>Дата выд.</p>

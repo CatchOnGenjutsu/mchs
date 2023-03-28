@@ -2,7 +2,9 @@ import {
   GET_DICTIONARY_GIMS_SECTIONS,
   GET_DICTIONARY_NSI_CHECK_STATUS,
   GET_DICTIONARY_OWNER_TYPE,
-  GET_USERS_LIBRARY
+  GET_USERS_LIBRARY,
+  GET_ATE_LIBRARY,
+  GET_APP_REG_STATUS_LIBRARY
 } from "../types";
 
 const initialState = {
@@ -10,6 +12,8 @@ const initialState = {
   ownerType: [],
   nsiCheckStatus: [],
   usersLibrary: [],
+  ateLibrary: [],
+  appRegStatusLibrary: []
 }
 
 
@@ -52,8 +56,20 @@ export const dictionaryReducer = (state = initialState, action) => {
           ...action.data
         ],
       }))();
-
-
+    case GET_ATE_LIBRARY:
+      return (() => ({
+        ...state,
+        ateLibrary: [
+          ...action.data
+        ],
+      }))();
+    case GET_APP_REG_STATUS_LIBRARY:
+      return (() => ({
+        ...state,
+        appRegStatusLibrary: [
+          ...action.data
+        ],
+      }))();
   }
   return state
 }
