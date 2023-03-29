@@ -18,7 +18,8 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
     const { certificateReducer } = state;
     return certificateReducer.licenseInfo;
   });
-
+  debugger
+console.log(sortedData)
   console.log("props.dataFromState", dataFromState)
 
   const dispatch = useDispatch();
@@ -53,6 +54,10 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
     setSortedData(sortedData)
     setPaginationState({ pageIndex, pageSize });
   }, [pageIndex, pageSize,sortedData]);
+  useEffect(() => {
+    setSortedData(dataFromState)
+  }, [dataFromState]);
+
 console.log(sortBy)
   const handleTableClick = (e) => {
     e.stopPropagation();
