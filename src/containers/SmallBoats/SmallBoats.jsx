@@ -35,16 +35,14 @@ export default function SmallBoats() {
 
   return (
     <>
-      <div>
-        <div className={boatId !== '' ? styles.hidden : ''}>
-          <h2>База данных маломерных судов</h2>
-          <SearchBlock inputsHeaders={Object.values(inputsHeadersSmallBoats)} />
-          <SearchTable
-            // setId={handleBoatId}
-            columns={SMALLBOATS_COLUMNS}
-            dataFromState={dataFromState}
-          />
-        </div>
+      <div className={boatId !== '' ? styles.hidden : ''}>
+        <h2>База данных маломерных судов</h2>
+        <SearchBlock inputsHeaders={Object.values(inputsHeadersSmallBoats)} />
+        <SearchTable
+          // setId={handleBoatId}
+          headerColumns={SMALLBOATS_COLUMNS}
+          dataFromState={dataFromState}
+        />
       </div>
     </>
   );

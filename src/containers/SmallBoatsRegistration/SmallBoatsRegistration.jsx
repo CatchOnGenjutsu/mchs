@@ -27,7 +27,7 @@ export default function SmallBoatsRegistration() {
       <h2>Регистрация маломерных судов</h2>
       <SearchBlock inputsHeaders={Object.values(inputsHeadersSmallBoatsRegistration)} />
       <SearchTable
-        columns={SMALLBOATS_REG_COLUMNS}
+        headerColumns={SMALLBOATS_REG_COLUMNS}
         dataFromState={dataFromStateBoatsReg}
       />
     </div>

@@ -71,7 +71,7 @@ export default function BasesBuildings() {
     />
     <MemoSearchTable
       setBuildingId = {handleBuildingId}
-      columns={BUILDING_COLUMNS}
+      headerColumns={BUILDING_COLUMNS}
       dataFromState={data}
     />
     {show&&(<ModalWindow
