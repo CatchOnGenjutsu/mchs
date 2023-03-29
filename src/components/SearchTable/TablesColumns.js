@@ -120,7 +120,7 @@ export const SMALLBOATS_REG_COLUMNS = [
   },
   {
     Header: "Участок",
-    accessor: "rayonId",
+    accessor: "rayonName",
   },
   {
     Header: "Статус заявления",

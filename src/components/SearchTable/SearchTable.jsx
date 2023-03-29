@@ -56,6 +56,11 @@ export default function SearchTable(props) {
     e.stopPropagation();
     const id = e.currentTarget.dataset.id;
     switch (true) {
+      // case e.target.baseURI.includes("smallboatsreg"): {
+      //   dispatch(getBoatRegInfo(id));
+      //   navigate(`./boatId/${id}`);
+      //   break;
+      // }
       case e.target.baseURI.includes("certificates"): {
         dispatch(getLicenseById(id));
         navigate(`./licenseId/${id}`);

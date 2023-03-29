@@ -1,3 +1,4 @@
+import store from "./store";
 import {
   GET_DATA_BY_SEARCH_PARAMS_LICENSE,
   GET_DATA_BY_SEARCH_PARAMS_BOAT,
@@ -111,8 +112,8 @@ export function getDataCertificatesBySearchParams(params) {
       }
       const jsonData = data;
       dispatch({
-      type: GET_DATA_BY_SEARCH_PARAMS_LICENSE,
-      data: jsonData
+        type: GET_DATA_BY_SEARCH_PARAMS_LICENSE,
+        data: jsonData
       })
     }
   }
@@ -152,6 +153,8 @@ export function getDataBasesBuildingBySearchParams(params) {
 }
 
 export function getDataBoatsRegBySearchParams(params) {
+  const state = store.getState();
+  const ateLibrary = state.dictionaryReducer.ateLibrary;
   return async dispatch => {
     const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_LIST_SEARCH, {
       method: "POST",
@@ -170,6 +173,7 @@ export function getDataBoatsRegBySearchParams(params) {
         } else {
           item["fio"] = null;
         }
+        item["rayonName"] = ateLibrary.find((elem) => elem.uiddistrict === item.rayonId).namedistrictRu
       }
       const jsonData = data;
       dispatch({

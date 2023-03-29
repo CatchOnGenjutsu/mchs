@@ -34,9 +34,15 @@ export default function SearchBlock(props) {
     const { dictionaryReducer } = state
     return dictionaryReducer.nsiCheckStatus
   }))
+
+  const ateLibrary = useSelector((state) => {
+    const { dictionaryReducer } = state;
+    return dictionaryReducer.ateLibrary
+  })
+
   const searchParamsFromStateBoatsReg = useSelector((state) => {
     const { smallBoatsRegReducer } = state;
-    return smallBoatsRegReducer.searchParams;
+    return smallBoatsRegReducer.searchParams
   });
 
   const handleValue = (e) => {
