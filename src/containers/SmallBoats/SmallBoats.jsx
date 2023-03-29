@@ -41,7 +41,7 @@ export default function SmallBoats() {
         <SearchBlock inputsHeaders={Object.values(inputsHeadersSmallBoats)} />
         <SearchTable
         // setId={handleBoatId}
-        columns={SMALLBOATS_COLUMNS}
+            headerColumns={SMALLBOATS_COLUMNS}
         dataFromState={dataFromState}
         />
       </div>

@@ -22,7 +22,7 @@ export default function Certificates() {
       <SearchBlock inputsHeaders={Object.values(inputsHeadersCertificates)} />
       <SearchTable
         // setId={handleLicenseId}
-        columns={SERTIFICATES_COLUMNS}
+        headerColumns={SERTIFICATES_COLUMNS}
         dataFromState={dataFromStateCer}
       />
     </div>

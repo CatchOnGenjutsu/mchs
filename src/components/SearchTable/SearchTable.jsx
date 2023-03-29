@@ -7,23 +7,25 @@ import styles from "./SearchTable.module.css";
 import { useNavigate } from "react-router-dom";
 
 
-export default function SearchTable(props) {
+export default function SearchTable({setBuildingId,headerColumns,dataFromState}) {
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
+  const [sortedData, setSortedData] = useState(dataFromState);
   const [selectedRow, setSelectedRow] = useState(null);
   const licenseInfoFromState = useSelector((state) => {
     const { certificateReducer } = state;
     return certificateReducer.licenseInfo;
   });
-  console.log("props.dataFromState", props.dataFromState)
+  debugger
+console.log(sortedData)
+  console.log("props.dataFromState", dataFromState)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const columns = useMemo(() => props.columns, []);
-
+  const columns = useMemo(() => headerColumns, [headerColumns]);
   const {
     getTableProps,
     getTableBodyProps,
@@ -34,14 +36,14 @@ export default function SearchTable(props) {
     canNextPage,
     canPreviousPage,
     pageOptions,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize,sortBy },
     // rows,
     prepareRow,
     allColumns,
   } = useTable(
   {
     columns,
-    data: props.dataFromState,
+    data: sortedData,
     initialState: paginationState
   },
   useSortBy,
@@ -49,9 +51,14 @@ export default function SearchTable(props) {
   );
 
   useEffect(() => {
+    setSortedData(sortedData)
     setPaginationState({ pageIndex, pageSize });
-  }, [pageIndex, pageSize]);
+  }, [pageIndex, pageSize,sortedData]);
+  useEffect(() => {
+    setSortedData(dataFromState)
+  }, [dataFromState]);
 
+console.log(sortBy)
   const handleTableClick = (e) => {
     e.stopPropagation();
     const id = e.currentTarget.dataset.id;
@@ -67,12 +74,12 @@ export default function SearchTable(props) {
         break;
       }
       case e.target.baseURI.includes("basesbuilding"): {
-        props.setBuildingId(id);
+        setBuildingId(id);
       }
       default:
     }
   };
-
+console.log(headerGroups[0].getHeaderGroupProps())
   return (
   <>
     <div className={styles["content-container"]}>
@@ -125,7 +132,7 @@ export default function SearchTable(props) {
       })}
       </tbody>
     </table>
-    {props.dataFromState.length > 0 && pageOptions.length > 1 ? (
+    {dataFromState.length > 0 && pageOptions.length > 1 ? (
       <div>
       <span>
         {" "}
