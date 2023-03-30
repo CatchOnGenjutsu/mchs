@@ -45,7 +45,6 @@ export default function Sidebar() {
   };
   useEffect(() => {
     window.location.href.includes("login") ? setIsLogin("login") : setIsLogin("")
-    console.log("window.location.href", window.location.href)
   })
   if (!isLogin) {
     return (

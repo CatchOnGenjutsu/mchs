@@ -1,10 +1,12 @@
 import {
   SET_SEARCH_PARAMS_BOATS_REG,
-  GET_DATA_BY_SEARCH_PARAMS_BOATS_REG
+  GET_DATA_BY_SEARCH_PARAMS_BOATS_REG,
+  GET_BOATS_REG_INFO
 } from "../types"
 
 const initialState = {
   data: [],
+  appRegData: {},
   searchParams: {
     surname: '',
     name: '',
@@ -32,6 +34,11 @@ export const smallBoatsRegReducer = (state = initialState, action) => {
           ...action.data
         ],
       }))();
+    case GET_BOATS_REG_INFO:
+      return (() => ({
+        ...state,
+        appRegData: Object.assign({}, action.data.data),
+      }))()
     // case GET_LICENSE_BY_ID:
     //   return (() => ({
     //     ...state,
