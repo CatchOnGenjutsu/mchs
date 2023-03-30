@@ -1,8 +1,9 @@
 import React, { useMemo,useState,useEffect } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch } from "react-redux";
 import { getBoatCardInfo } from "../../redux/smallBoatsReducer/actionsSmallBoats";
 import { getLicenseById } from "../../redux/certificateReducer/actionsCertificate";
+import { getBoatRegInfo } from "../../redux/SmallBoatsRegReducer/actionsSmallBoatsReg";
 import styles from "./SearchTable.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -14,11 +15,6 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
   });
   const [sortedData, setSortedData] = useState(dataFromState);
   const [selectedRow, setSelectedRow] = useState(null);
-  
-  const licenseInfoFromState = useSelector((state) => {
-    const { certificateReducer } = state;
-    return certificateReducer.licenseInfo;
-  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +30,7 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
     canNextPage,
     canPreviousPage,
     pageOptions,
-    state: { pageIndex, pageSize,sortBy },
+    state: { pageIndex, pageSize, sortBy },
     // rows,
     prepareRow,
     allColumns,
@@ -56,16 +52,15 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
     setSortedData(dataFromState)
   }, [dataFromState]);
 
-console.log(sortBy)
   const handleTableClick = (e) => {
     e.stopPropagation();
     const id = e.currentTarget.dataset.id;
     switch (true) {
-      // case e.target.baseURI.includes("smallboatsreg"): {
-      //   dispatch(getBoatRegInfo(id));
-      //   navigate(`./boatId/${id}`);
-      //   break;
-      // }
+      case e.target.baseURI.includes("smallboatsreg"): {
+        dispatch(getBoatRegInfo(id));
+        navigate(`./app/${id}`);
+        break;
+      }
       case e.target.baseURI.includes("certificates"): {
         dispatch(getLicenseById(id));
         navigate(`./licenseId/${id}`);
@@ -78,11 +73,11 @@ console.log(sortBy)
       }
       case e.target.baseURI.includes("basesbuilding"): {
         setBuildingId(id);
+        break;
       }
       default:
     }
   };
-console.log(headerGroups[0].getHeaderGroupProps())
   return (
   <>
     <div className={styles["content-container"]}>

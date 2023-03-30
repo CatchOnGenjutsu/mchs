@@ -10,6 +10,7 @@ import Certificate from "./components/Certificate/Certificate";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SmallBoatsRegistration from './containers/SmallBoatsRegistration/SmallBoatsRegistration';
+import AppBoatReg from './components/AppBoatReg/AppBoatReg';
 import {
   getDictionaryGimsSections,
   getDictionaryNsiCheckStatus,
@@ -52,6 +53,7 @@ function App() {
               <Route path="/certificates/licenseId/:id" element={<Certificate />} />
               <Route path="/basesbuilding" element={<BasesBuildings />} />
               <Route path="/smallboatsreg" element={<SmallBoatsRegistration />} />
+              <Route path="/smallboatsreg/app/:id" element={<AppBoatReg />} />
               <Route path="*" element={<Navigate replace to="/login" />} />
             </Routes>
           </div>

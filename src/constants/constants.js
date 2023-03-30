@@ -42,5 +42,8 @@ export const API_DELETE_BOAT_INFO_DOCS = "boats/file/delete/"
 
 export const API_GET_BOATS_REG_LIST_SEARCH = "boatCardApp/search"
 
+export const API_GET_BOATS_REG_INFO = "boatCardApp/getBoatCardApp/"
+
+
 
 
