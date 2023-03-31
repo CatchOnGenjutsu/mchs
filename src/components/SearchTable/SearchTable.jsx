@@ -2,8 +2,9 @@
 
 import React, { useMemo,useState,useEffect } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { getBoatCardInfo } from "../../redux/smallBoatsReducer/actionsSmallBoats";
+import{setSortState} from "../../redux/actions"
 import { getLicenseById } from "../../redux/certificateReducer/actionsCertificate";
 import { getBoatRegInfo } from "../../redux/SmallBoatsRegReducer/actionsSmallBoatsReg";
 import styles from "./SearchTable.module.css";
@@ -13,11 +14,14 @@ import { useNavigate } from "react-router-dom";
 export default function SearchTable({setBuildingId,headerColumns,dataFromState}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const sortState = useSelector((state)=>{
+    const{tableReducer}=state
+    return tableReducer.sortState
+  })
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
-  const [sortState,setSortState]=useState([{desc:null, id: null}])
   const [selectedRow, setSelectedRow] = useState(null);
   const columns = useMemo(() => headerColumns, [headerColumns]);
   const {
@@ -43,7 +47,7 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
   );
 
   useEffect(() => {
-    setSortState(sortBy)
+    dispatch(setSortState(sortBy))
   }, [sortBy]);
 
   useEffect(() => {
@@ -93,9 +97,7 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
                           {...column.getHeaderProps(column.getSortByToggleProps())}
                       >
                         {column.render("Header")}
-                        <span>
-            {column.isSorted ? (column.isSortedDesc ? " ▼" : " ▲") : "  "}
-          </span>
+                        <span>{column.isSorted ? (column.isSortedDesc ? " ▼" : " ▲") : "  "}</span>
                       </th>
                   ))}
                 </tr>
