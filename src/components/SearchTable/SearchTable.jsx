@@ -1,3 +1,5 @@
+
+
 import React, { useMemo,useState,useEffect } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import { useDispatch } from "react-redux";
@@ -9,16 +11,14 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function SearchTable({setBuildingId,headerColumns,dataFromState}) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [paginationState, setPaginationState] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
-  const [sortedData, setSortedData] = useState(dataFromState);
+  const [sortState,setSortState]=useState([{desc:null, id: null}])
   const [selectedRow, setSelectedRow] = useState(null);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const columns = useMemo(() => headerColumns, [headerColumns]);
   const {
     getTableProps,
@@ -30,27 +30,26 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
     canNextPage,
     canPreviousPage,
     pageOptions,
-    state: { pageIndex, pageSize, sortBy },
-    // rows,
+    state: { pageIndex, pageSize,sortBy },
     prepareRow,
-    allColumns,
   } = useTable(
-  {
-    columns,
-    data: sortedData,
-    initialState: paginationState
-  },
-  useSortBy,
-  usePagination
+      {
+        columns,
+        data: dataFromState,
+        initialState: {...paginationState,sortBy:sortState},
+      },
+      useSortBy,
+      usePagination
   );
 
   useEffect(() => {
-    setSortedData(sortedData)
-    setPaginationState({ pageIndex, pageSize });
-  }, [pageIndex, pageSize,sortedData]);
+    setSortState(sortBy)
+  }, [sortBy]);
+
   useEffect(() => {
-    setSortedData(dataFromState)
-  }, [dataFromState]);
+    setPaginationState({ pageIndex, pageSize });
+  }, [pageIndex, pageSize]);
+
 
   const handleTableClick = (e) => {
     e.stopPropagation();
@@ -79,88 +78,88 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
     }
   };
   return (
-  <>
-    <div className={styles["content-container"]}>
-    <table
-      className={styles.table}
-      {...getTableProps()}>
-      <caption className={styles.caption}>Результаты поиска:</caption>
-      <thead>
-      {headerGroups.map((headerGroup) => (
-        <tr {...headerGroup.getHeaderGroupProps()}>
-        {headerGroup.headers.map((column) => (
-          <th
-          className={styles["th-table"]}
-          {...column.getHeaderProps(column.getSortByToggleProps())}>
-          {column.render("Header")}
-          <span>
+      <>
+        <div className={styles["content-container"]}>
+          <table
+              className={styles.table}
+              {...getTableProps()}>
+            <caption className={styles.caption}>Результаты поиска:</caption>
+            <thead>
+            {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                      <th
+                          className={styles["th-table"]}
+                          {...column.getHeaderProps(column.getSortByToggleProps())}
+                      >
+                        {column.render("Header")}
+                        <span>
             {column.isSorted ? (column.isSortedDesc ? " ▼" : " ▲") : "  "}
           </span>
-          </th>
-        ))}
-        </tr>
-      ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-      {page.map((row) => {
-        prepareRow(row);
-        return (
-        <tr
-          data-id={row.original.id}
-          onClick={(e) => {
-            setSelectedRow(row.id)
-          handleTableClick(e);
-          }}
-          className={`${selectedRow === row.id.toString() ? styles['selected'] : ''} ${styles["tr-td"]}`}
-          {...row.getRowProps()}>
-          {row.cells.map((cell) => {
-          return (
-            <td
-            // onClickCapture={(e) => {
-            //   handleSetId(e);
-            // }}
-            className={styles["td-table"] }
-            {...cell.getCellProps()}>
-            <div>{cell.render("Cell")}</div>
-            </td>
-          );
-          })}
-        </tr>
-        );
-      })}
-      </tbody>
-    </table>
-    {dataFromState.length > 0 && pageOptions.length > 1 ? (
-      <div>
+                      </th>
+                  ))}
+                </tr>
+            ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                  <tr
+                      data-id={row.original.id}
+                      onClick={(e) => {
+                        setSelectedRow(row.id)
+                        handleTableClick(e);
+                      }}
+                      className={`${selectedRow === row.id.toString() ? styles['selected'] : ''} ${styles["tr-td"]}`}
+                      {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                          <td
+                              // onClickCapture={(e) => {
+                              //   handleSetId(e);
+                              // }}
+                              className={styles["td-table"] }
+                              {...cell.getCellProps()}>
+                            <div>{cell.render("Cell")}</div>
+                          </td>
+                      );
+                    })}
+                  </tr>
+              );
+            })}
+            </tbody>
+          </table>
+          {dataFromState.length > 0 && pageOptions.length > 1 ? (
+              <div>
       <span>
         {" "}
         Страница:{" "}
         <strong>
         {" "}
-        {pageIndex + 1} из {pageOptions.length}
+          {pageIndex + 1} из {pageOptions.length}
         </strong>{" "}
       </span>
-      <button
-        onClick={() => previousPage()}
-        disabled={!canPreviousPage}
-        type="button"
-        className={`${styles["pagination-buttons"]} btn btn-primary`}>
-        Предыдущая
-      </button>
+                <button
+                    onClick={() => previousPage()}
+                    disabled={!canPreviousPage}
+                    type="button"
+                    className={`${styles["pagination-buttons"]} btn btn-primary`}>
+                  Предыдущая
+                </button>
 
-      <button
-        onClick={() => nextPage()}
-        disabled={!canNextPage}
-        type="button"
-        className={`btn btn-primary`}>
-        Следующая
-      </button>
-      </div>
-    ) : null}
-    </div>
-  </>
+                <button
+                    onClick={() => nextPage()}
+                    disabled={!canNextPage}
+                    type="button"
+                    className={`btn btn-primary`}>
+                  Следующая
+                </button>
+              </div>
+          ) : null}
+        </div>
+      </>
   );
 }
 
 export const MemoSearchTable = React.memo(SearchTable)
-console.log(MemoSearchTable)
