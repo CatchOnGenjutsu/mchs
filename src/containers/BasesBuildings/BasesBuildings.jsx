@@ -39,8 +39,8 @@ export default function BasesBuildings() {
   dataBase.ownerLeName = base.ownerLeName
   dataBase.ownerContact = checkMeaning(base.ownerAddress)+ ' тел: '+ checkMeaning(base.ownerPhone)
   dataBase.baseContact = checkMeaning(base.location)+' тел1: '+checkMeaning(base.phone1)+' тел2: '+checkMeaning(base.phone2)
-  dataBase.responData = checkMeaning(base.responPosition)+' '+checkMeaning(base.responFio)+' приказ № '+checkMeaning(base.responDocnum)+' от '+checkMeaning(base.responDocdate)
-  dataBase.checkDate = checkMeaning(base.checkDate)
+  dataBase.responData = checkMeaning(base.responPosition)+' '+checkMeaning(base.responFio)+' приказ № '+checkMeaning(base.responDocnum)+' от '+checkMeaning(!!base.responDocdate ? new Date(base.responDocdate).toLocaleDateString() : "")
+  dataBase.checkDate = checkMeaning(!!base.checkDate ? new Date(base.checkDate).toLocaleDateString() : "")
   dataBase.statusName = checkMeaning(base.statusName)
   dataBase.sectionName = checkMeaning(base.sectionName)
   dataBase.note = checkMeaning(base.note)

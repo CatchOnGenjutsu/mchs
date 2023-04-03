@@ -124,7 +124,7 @@ export default function Certificate(props) {
       <div className={`${styles.data} flex-wrap`}>
         <div className={styles.data}>
         <p>Дата рождения</p>
-        <span>{licenseInfoFromState.birthDate || '-'}</span>
+        <span>{new Date(licenseInfoFromState.birthDate).toLocaleDateString() || '-'}</span>
         </div>
 
         <div className={styles.data}>
@@ -205,7 +205,7 @@ export default function Certificate(props) {
         </div>
         <div className={styles.data__property}>
         <p>Дата выд.</p>
-        <span>{licenseInfoFromState.docDateIssue || '-'}</span>
+        <span>{new Date(licenseInfoFromState.docDateIssue).toLocaleDateString() || '-'}</span>
         </div>
       </div>
       <div className={`${styles.data}  flex-wrap`}>
@@ -233,7 +233,7 @@ export default function Certificate(props) {
       </div>
       <div className={styles.data__property}>
         <p>Дата выдачи</p>
-        <span>{licenseInfoFromState.licenseDate || '-'}</span>
+        <span>{new Date(licenseInfoFromState.licenseDate.slice(0, 10)).toLocaleDateString() || '-'}</span>
       </div>
       </div>
       <div className={`${styles.data} flex-wrap`}>
@@ -243,7 +243,7 @@ export default function Certificate(props) {
       </div>
       <div className={styles.data__property}>
         <p>Действительно до</p>
-        <span>{licenseInfoFromState.licenseDateEnd || '-'}</span>
+        <span>{new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)).toLocaleDateString() || '-'}</span>
       </div>
       </div>
       <div className={`${styles.data}  flex-wrap`}>
