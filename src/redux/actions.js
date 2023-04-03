@@ -13,6 +13,7 @@ import {
   GET_DICTIONARY_NSI_CHECK_STATUS,
   GET_ATE_LIBRARY,
   GET_APP_REG_STATUS_LIBRARY,
+  SET_SORT_STATE_TABLE,
   GET_DATA_BY_SEARCH_PARAMS_BOATS_REG
 } from "./types";
 import {
@@ -28,7 +29,12 @@ import {
   API_GET_APP_REG_STATUS_LIBRARY,
   API_GET_BOATS_REG_LIST_SEARCH
 } from "../constants/constants";
-
+export function setSortState(data){
+  return{
+    type:SET_SORT_STATE_TABLE,
+    data:data
+  }
+}
 export function setSearchParams(id, value, url) {
   let object = { [`${id}`]: value }
   switch (true) {

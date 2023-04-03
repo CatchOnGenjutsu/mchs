@@ -39,6 +39,7 @@ export const EDIT_BOAT_INFO = "EDIT_BOAT_INFO"
 
 export const GET_BOATS_REG_INFO = "GET_BOATS_REG_INFO"
 
+export const SET_SORT_STATE_TABLE = "SET_SORT_STATE_TABLE"
 
 
 
