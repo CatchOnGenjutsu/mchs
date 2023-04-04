@@ -36,7 +36,11 @@ export default function CertificateModalWindow({
   const handleChange = (e) => {
     switch (modalWindowInputs.keyTable) {
       case 'lossControl':
-        newData[e.currentTarget.dataset.id] = e.currentTarget.value;
+        // if (e.target.dataset.id === "confDateEnd") {
+        //   newData[e.currentTarget.dataset.id] = 
+        // } else {
+          newData[e.currentTarget.dataset.id] = e.currentTarget.value;
+        // }
         newData.recdate = Date.now();
         newData.confiscation = {};
         newData.confiscation.code = 1;
@@ -178,20 +182,38 @@ export default function CertificateModalWindow({
           item.key !== 'userPositions' &&
           (item.key === 'confDateEnd' || item.key === 'confDate')
         ) {
-          return (
-          <Form.Group className="mb-3">
-            <Form.Label>{item.value}</Form.Label>
-            <Form.Control
-              isInvalid={!!errors[item.key]}
+          if (item.key === 'confDateEnd') {
+            return (
+              <Form.Group className="mb-3">
+              <Form.Label>{item.value}</Form.Label>
+              <Form.Control
               data-id={item.key}
-              type="date"
+              type="number"
+              isInvalid={!!errors[item.key]}
               onChange={(e) => {
                 handleChange(e);
               }}
-            />
-            <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
-          </Form.Group>
-          );
+              />
+              <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
+            </Form.Group>
+            );
+          } else {
+            return (
+              <Form.Group className="mb-3">
+                <Form.Label>{item.value}</Form.Label>
+                <Form.Control
+                  isInvalid={!!errors[item.key]}
+                  data-id={item.key}
+                  type="date"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                />
+                <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
+              </Form.Group>
+            );
+          }
+
         }
         if (item.key === 'mark') {
           return (

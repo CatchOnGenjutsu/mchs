@@ -122,8 +122,11 @@ export function getDataCertificatesBySearchParams(params) {
     if (response.ok) {
       const data = await response.json();
       for (let item of data) {
-      const fio = `${item.surname} ${item.name} ${item.midname}`;
-      item["fio"] = fio;
+        const fio = `${item.surname} ${item.name} ${item.midname}`;
+        item["fio"] = fio;
+        item.birthDate = !!item.birthDate ?  new Date(item.birthDate).toLocaleDateString() : ""
+        item.licenseDate = !!item.licenseDate ?  new Date(item.licenseDate).toLocaleDateString() : ""
+        item.licenseDateEnd = !!item.licenseDateEnd ?  new Date(item.licenseDateEnd).toLocaleDateString() : ""
       }
       const jsonData = data;
       dispatch({

@@ -97,39 +97,39 @@ export const sizeTableColumns = [
 
 export const toTableColumns = [
   {
-  id: "toDate",
-  value: "Дата",
-  key: "",
+    id: "toDate",
+    value: "Дата",
+    key: "",
   },
   {
-  id: "name",
-  value: "Должностное лицо, проводившее ТО (Ф.И.О., номер печати)",
-  key: "stampNum",
+    id: "name",
+    value: "Должностное лицо, проводившее ТО (Ф.И.О., номер печати)",
+    key: "stampNum",
   },
   {
-  id: "result",
-  value: "Годное/негодное",
-  key: "",
+    id: "result",
+    value: "Годное/негодное",
+    key: "",
   },
   {
-  id: "validity",
-  value: "Cрок действия",
-  key: "",
+    id: "validity",
+    value: "Cрок действия",
+    key: "",
   },
   {
-  id: "endDate",
-  value: "Дата окончания ТО",
-  key: "",
+    id: "endDate",
+    value: "Дата окончания ТО",
+    key: "",
   },
   {
-  id: "docname",
-  value: "№ акта ТО маломерного судна при признании его негодным (запрещенным к эксплуатации)",
-  key: "",
+    id: "docname",
+    value: "№ акта ТО маломерного судна при признании его негодным (запрещенным к эксплуатации)",
+    key: "",
   },
   {
-  id: "name",
-  value: "Ф.И.О. составителя",
-  key: "",
+    id: "name",
+    value: "Ф.И.О. составителя",
+    key: "",
   }
 ]
 

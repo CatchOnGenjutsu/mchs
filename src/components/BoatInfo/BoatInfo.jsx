@@ -284,16 +284,17 @@ export default function BoatInfo(props) {
           <tr>
           {toTableColumns.map((item) => {
             return typeof elem[`${item.id}`] === 'boolean' ? (
-            elem[`${item.id}`] === true ? (
-              <td className={styles['to-th']}>Годное</td>
-            ) : (
-              <td className={styles['to-th']}>Негодное</td>
-            )
-            ) : !!elem[`${item.id}`] ? (
-              <td className={styles['to-th']}>{elem[`${item.id}`]}</td>
-            ) : (
-              <td className={styles['to-th']}>—</td>
-            )
+              elem[`${item.id}`] === true ? (
+                <td className={styles['to-th']}>Годное</td>
+              ) : (
+                <td className={styles['to-th']}>Негодное</td>
+              )
+              ) : !!elem[`${item.id}`] ? (
+                item.id === "toDate" ? <td className={styles['to-th']}>{new Date(elem[`${item.id}`].slice(0, 10)).toLocaleDateString()}</td> :
+                <td className={styles['to-th']}>{elem[`${item.id}`]}</td>
+              ) : (
+                <td className={styles['to-th']}>—</td>
+              )
           })}
           </tr>
         );
@@ -330,11 +331,15 @@ export default function BoatInfo(props) {
                 </td>
                 );
             } else {
-              return (
-                <td className={styles['engine-table-th']}>
-                  {elem[`${item.key}`]}
-                </td>
-                );
+              if ((item.key === "dateReg" || item.key === "dateRegEnd") && !!elem[`${item.key}`]) {
+                return <td className={styles['engine-table-th']}>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
+              } else {
+                return (
+                    <td className={styles['engine-table-th']}>
+                      {elem[`${item.key}`]}
+                    </td>
+                  );
+              }
             }
           })}
           </tr>
@@ -393,9 +398,9 @@ export default function BoatInfo(props) {
           if (item.key !== 'docName') {
           return (
             <th
-            className={styles.deals_history_table_th}
-            id={item.key}>
-            {item.value}
+              className={styles.deals_history_table_th}
+              id={item.key}>
+                {item.value}
             </th>
           );
           } else {
@@ -423,14 +428,16 @@ export default function BoatInfo(props) {
             {dealsHistoryTableColumns.nameColumn.map((item) => {
             if (item.key !== 'docNum' && item.key !== 'docDate')
               if (item.key !== 'docName') {
-              return <td>{elem[`${item.key}`]}</td>;
+                if (item.key === "dealDate" && !!elem[`${item.key}`]) {
+                  return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>
+                } else return <td>{elem[`${item.key}`]}</td>;
               } else {
-              return (
-                <td>
-                {elem[`${item.key}`]}, {elem[`docNum`]} от{' '}
-                {new Date(elem[`docDate`]).toLocaleDateString()}
-                </td>
-              );
+                return (
+                  <td>
+                  {elem[`${item.key}`]}, {elem[`docNum`]} от{' '}
+                  {new Date(elem[`docDate`]).toLocaleDateString()}
+                  </td>
+                );
               }
             })}
             <td
@@ -475,16 +482,15 @@ export default function BoatInfo(props) {
         {boatArrestsTableColumns.nameColumn.map((item) => {
         switch (item.key) {
           case 'onDocName':
-          return (
-            <th
-            className={styles.deals_history_table_th}
-            id={item.key}>
-            Наименование, номер и дата документа
-            </th>
-          );
+            return (
+              <th
+              className={styles.deals_history_table_th}
+              id={item.key}>
+              Наименование, номер и дата документа
+              </th>
+            );
           case 'onDocDate':
-          break;
-
+            break;
           default:
           return (
             <th
@@ -526,7 +532,8 @@ export default function BoatInfo(props) {
                           } else {
                             return <td>Снят</td>;
                           }
-
+                        case "offDate":
+                          return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
                         default:
                           return <td>{elem[`${item.key}`]}</td>;
                       }
@@ -546,6 +553,8 @@ export default function BoatInfo(props) {
                           } else {
                             return <td>Снят</td>;
                           }
+                        case "onDate":
+                          return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
                         default:
                           return <td>{elem[`${item.key}`]}</td>;
                       }
@@ -567,6 +576,8 @@ export default function BoatInfo(props) {
                   break;
                 case 'isActiv':
                   return <td>Наложен</td>;
+                case "onDate":
+                  return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
                 default:
                   return <td>{elem[`${item.key}`]}</td>;
                 }
@@ -663,7 +674,7 @@ export default function BoatInfo(props) {
           {Object.keys(boatInfoFromState).length !== 0
           ? boatInfoFromState[`${item.id}`] !== undefined &&
             boatInfoFromState[`${item.id}`] !== null
-            ? boatInfoFromState[`${item.id}`]
+            ? item.id === "cardDate" ? new Date(boatInfoFromState[`${item.id}`].slice(0, 10)).toLocaleDateString()  : boatInfoFromState[`${item.id}`]
             : '—'
           : null}
         </td>
@@ -703,25 +714,35 @@ export default function BoatInfo(props) {
             {specialMarksTableColumns.nameColumn.map((item) => {
             switch (item.type) {
               case 'checkbox':
-              return (
-                <td>
-                <input
-                  type="checkbox"
-                  className={styles.checkbox}
-                  id={elem.bsmId}
-                  checked={elem.bsmLock}
-                  disabled
-                />
-                </td>
-              );
-              default:
-              if (elem.bsmLock) {
                 return (
-                <td className={styles.red_text}>{elem[`${item.key}`]}</td>
+                  <td>
+                  <input
+                    type="checkbox"
+                    className={styles.checkbox}
+                    id={elem.bsmId}
+                    checked={elem.bsmLock}
+                    disabled
+                  />
+                  </td>
                 );
-              } else {
-                return <td>{elem[`${item.key}`]}</td>;
-              }
+              default:
+                if (item.key === "specialMarks") {
+                  return <td>elem[`${item.key}`]</td>
+                }
+                if (elem.bsmLock) {
+                  if (item.key === "bsmDate") {
+                    return <td className={styles.red_text}>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>
+                  } else {
+                    return <td className={styles.red_text}>{elem[`${item.key}`]}</td>
+                  }
+                } else {
+                  if (item.key === "bsmDate") {
+                    return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>
+                  } else {
+                    return <td>{elem[`${item.key}`]}</td>;
+                  }
+                  
+                }
             }
             })}
             <td
