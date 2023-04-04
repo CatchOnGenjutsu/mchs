@@ -93,7 +93,7 @@ export const BUILDING_COLUMNS = [
   accessor: "note",
   },
 ]
-export const SMALLBOATS_REG_COLUMNS = [
+export const SMALLBOATS_ADMIN_COLUMNS = [
   {
     Header: "Дата регистрации заявления",
     accessor: "operDate",

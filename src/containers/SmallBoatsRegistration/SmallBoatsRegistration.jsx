@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchBlock from '../../components/SearchBlock/SearchBlock';
 import SearchTable from '../../components/SearchTable/SearchTable';
-import { SMALLBOATS_REG_COLUMNS } from '../../components/SearchTable/TablesColumns';
+import { SMALLBOATS_ADMIN_COLUMNS } from '../../components/SearchTable/TablesColumns';
 import { inputsHeadersSmallBoatsRegistration, setOptionsForInputsATE } from '../../components/SearchBlock/inputsHeaders';
 import { useSelector } from 'react-redux';
 
@@ -27,7 +27,7 @@ export default function SmallBoatsRegistration() {
       <h2>Регистрация маломерных судов</h2>
       <SearchBlock inputsHeaders={Object.values(inputsHeadersSmallBoatsRegistration)} />
       <SearchTable
-        headerColumns={SMALLBOATS_REG_COLUMNS}
+        headerColumns={SMALLBOATS_ADMIN_COLUMNS}
         dataFromState={dataFromStateBoatsReg}
       />
     </div>
