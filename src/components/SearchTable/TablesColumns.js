@@ -127,3 +127,4 @@ export const SMALLBOATS_ADMIN_COLUMNS = [
     accessor: "statusName",
   }
 ]
+

@@ -7,7 +7,8 @@ import {
   getDataBoatsBySearchParams,
   getDataCertificatesBySearchParams,
   getDataBasesBuildingBySearchParams,
-  getDataBoatsRegBySearchParams
+  getDataBoatsRegBySearchParams,
+  getDataRegInfChangeBySearchParams
 } from '../../redux/actions';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -45,6 +46,11 @@ export default function SearchBlock(props) {
     return smallBoatsRegReducer.searchParams
   });
 
+  const  searchParamsFromStateRegInfChanges = useSelector((state)=>{
+    const { registrationInformationChangesReducer } = state;
+    return registrationInformationChangesReducer.searchParams
+  })
+
   const handleValue = (e) => {
     e.target ? dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI)) : dispatch(setSearchParams("rayonId", e.value, window.location.href))
   };
@@ -52,6 +58,10 @@ export default function SearchBlock(props) {
   const handleSearchData = (e) => {
     e.preventDefault();
     switch (true) {
+      case e.target.baseURI.includes('reginformationchanges'):{
+        dispatch(getDataRegInfChangeBySearchParams(searchParamsFromStateRegInfChanges));
+        break;
+      }
       case window.location.href.includes('smallboatsreg'): {
         dispatch(getDataBoatsRegBySearchParams(searchParamsFromStateBoatsReg));
         break;

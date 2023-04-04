@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/redux/globalReducers/tableReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/RegistrationInformationChanges/RegistrationInformationChanges.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/RegistrationInformationChanges/RegistrationInformationChanges.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/RegistrationInformationChangesReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchBlock/SearchBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBlock/SearchBlock.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchTable/TablesColumns.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchTable/TablesColumns.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/sidebarSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/sidebarSettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/SmallBoatsRegistration/SmallBoatsRegistration.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/SmallBoatsRegistration/SmallBoatsRegistration.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/rootReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types.js" afterDir="false" />
@@ -78,7 +86,7 @@
       <workItem from="1679468459366" duration="1184000" />
       <workItem from="1679552898828" duration="594000" />
       <workItem from="1679645780167" duration="38978000" />
-      <workItem from="1680244928590" duration="8328000" />
+      <workItem from="1680244928590" duration="27593000" />
     </task>
     <servers />
   </component>
