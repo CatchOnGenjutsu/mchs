@@ -1,0 +1,1 @@
+import {GET_REG_INFORM_CHANGES} from "../types"

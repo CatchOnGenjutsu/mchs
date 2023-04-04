@@ -127,3 +127,4 @@ export const SMALLBOATS_REG_COLUMNS = [
     accessor: "statusName",
   }
 ]
+

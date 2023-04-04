@@ -15,7 +15,7 @@ export default function SmallBoatsRegistration() {
   dataOptionsForSelectATE.forEach(item => {
     dataOptionsForSelectATEValidated.push({value: item.uiddistrict, label: item.namedistrictRu})
   })
-  setOptionsForInputsATE(dataOptionsForSelectATEValidated);
+  setOptionsForInputsATE(dataOptionsForSelectATEValidated,document.location.pathname.slice(1));
 
   const dataFromStateBoatsReg = useSelector((state) => {
     const { smallBoatsRegReducer } = state;
