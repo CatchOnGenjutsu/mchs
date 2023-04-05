@@ -4,6 +4,7 @@ import {
   SET_SEARCH_PARAMS_LICENSE,
   ADD_NEW_SPEC_MARK,
   ADD_NEW_CONF_MARK,
+  REVOKE_LICENSE
 } from "../types";
 
 const initialState = {
@@ -42,7 +43,7 @@ export const certificateReducer = (state = initialState, action) => {
         ...state,
         licenseInfo: Object.assign({}, action.data.data),
         licenseSpecmarksList: [...
-          action.data.licenseAdd.boatDrivingLicenseSpecmarksList.reverse()],
+          action.data.licenseAdd.boatDrivingLicenseSpecmarksList],
         licenseConfList: [...action.data.licenseAdd.boatDrivingLicenseConfList.sort((a, b) => b.confDate - a.confDate)]
       }))()
     case ADD_NEW_SPEC_MARK:
@@ -68,6 +69,11 @@ export const certificateReducer = (state = initialState, action) => {
         licenseConfList: [
           action.data, ...state.licenseConfList
         ],
+      }))();
+    case REVOKE_LICENSE:
+      return(() => ({
+        ...state,
+        data: [...state.data.filter((item) => item.licenseId !== Number(action.data))]
       }))();
     default:
       return state;

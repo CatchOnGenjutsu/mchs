@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Certificate.module.css';
-import photoImg from './testImgAfterDelete/USA.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import CertificateModalWindow from './ModalWindow/CertificateModalWindow';
+
+import { getDataCertificatesBySearchParams } from '../../redux/actions';
+import { getLicenseById } from '../../redux/certificateReducer/actionsCertificate';
+import { addNewSpecialMark, revokeLicense } from '../../redux/certificateReducer/actionsCertificate';
+
 import { v4 as uuidv4 } from 'uuid';
 import {
   boatDrivingLicenseSpecmarksList,
   tableLossOfControl,
   tableCertificateWithdrawal,
 } from './tableOptions';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import CertificateModalWindow from './ModalWindow/CertificateModalWindow';
-import { getDataCertificatesBySearchParams } from '../../redux/actions';
-import { getLicenseById } from '../../redux/certificateReducer/actionsCertificate';
+import photoImg from './testImgAfterDelete/USA.jpg';
+import styles from './Certificate.module.css';
+
 
 export default function Certificate(props) {
   const [editMode, setEditMode] = useState(false);
@@ -29,6 +34,13 @@ export default function Certificate(props) {
     return certificateReducer.licenseInfo;
   });
 
+  const [isActive, setIsActive] = useState(true);
+
+  const searchParamsFromStateCertificate = useSelector((state) => {
+    const { certificateReducer } = state;
+    return certificateReducer.searchParams;
+  });
+
   const specMarkFromState = useSelector((state) => {
     const { certificateReducer } = state;
     return certificateReducer.licenseSpecmarksList;
@@ -40,7 +52,7 @@ export default function Certificate(props) {
   });
 
   const handleEditMode = () => {
-  setEditMode(!editMode);
+    setEditMode(!editMode);
   };
 
   const handleCloseButton = () => {
@@ -52,21 +64,21 @@ export default function Certificate(props) {
   };
 
   const handleAddNotes = (e) => {
-  switch (e.target.id) {
-    case 'lossControl':
-    setModalWindowInputs(tableLossOfControl);
-    break;
-    case 'certificateWithdrawal':
-    setModalWindowInputs(tableCertificateWithdrawal);
-    break;
-    case 'boatDrivingLicenseSpecmarksList':
-    setModalWindowInputs(boatDrivingLicenseSpecmarksList);
-    break;
-    default:
-    break;
-  }
-  setType("save");
-  setShowModal(true);
+    switch (e.target.id) {
+      case 'lossControl':
+        setModalWindowInputs(tableLossOfControl);
+        break;
+      case 'certificateWithdrawal':
+        setModalWindowInputs(tableCertificateWithdrawal);
+        break;
+      case 'boatDrivingLicenseSpecmarksList':
+        setModalWindowInputs(boatDrivingLicenseSpecmarksList);
+        break;
+      default:
+        break;
+    }
+    setType("save");
+    setShowModal(true);
   };
 
   const handleEditNotes = (e) => {
@@ -77,22 +89,37 @@ export default function Certificate(props) {
     setShowModal(true);
   };
 
-  useEffect(() => {
-  const pathArray = window.location.pathname.split('/');
-  const id = pathArray[pathArray.length - 1];
-  if (
-    window.performance
-    .getEntriesByType('navigation')
-    .map((nav) => nav.type)
-    .includes('reload')
-  ) {
-    dispatch(
-    getDataCertificatesBySearchParams(
-      JSON.parse(sessionStorage.getItem('searchParams'))
-    )
-    );
-    dispatch(getLicenseById(id));
+  const handleRevokeButton = () => {
+    const newData = {
+      mark: "Удостоверение аннулировано",
+      markDate: `${new Date().toISOString().slice(0, 10)} ${new Date()
+        .toISOString()
+        .slice(11, 23)}`,
+      licenseId: licenseInfoFromState.licenseId
+    }
+    dispatch(addNewSpecialMark(newData));
+    dispatch(revokeLicense(licenseInfoFromState.licenseId));
+    handleEditMode();
+    setIsActive(false);
   }
+
+  useEffect(() => {
+    const pathArray = window.location.pathname.split('/');
+    const id = pathArray[pathArray.length - 1];
+    if (
+      window.performance
+      .getEntriesByType('navigation')
+      .map((nav) => nav.type)
+      .includes('reload')
+    ) {
+      dispatch(
+      getDataCertificatesBySearchParams(
+        JSON.parse(sessionStorage.getItem('searchParams'))
+      )
+      );
+      dispatch(getLicenseById(id));
+    }
+    // setIsActive(new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)) > new Date() ? true : false)
   }, []);
 
   return (
@@ -399,10 +426,10 @@ export default function Certificate(props) {
                 <tr>
                   {boatDrivingLicenseSpecmarksList.nameColumn.map((item) => {
                     if (item.key !== 'markDate') {
-                      return <td>{elem[`${item.key}`]}</td>;
+                      return <td className={elem.mark === "Удостоверение аннулировано" ? styles.red_text : ""}>{elem[`${item.key}`]}</td>;
                     } else {
                       return (
-                        <td>
+                        <td className={elem.mark === "Удостоверение аннулировано" ? styles.red_text : ""}>
                           {new Date(elem[`${item.key}`]).toLocaleDateString()}
                         </td>
                       );
@@ -440,11 +467,26 @@ export default function Certificate(props) {
       </div>
     </div>
     <div className="d-flex justify-content-around mt-5">
-    <button
-      className={`btn btn-primary ${editMode ? styles.edit__mode : ''}`}
-      onClick={() => handleEditMode()}>
-      Редактировать
-    </button>
+    { 
+      Object.keys(licenseInfoFromState).length > 0  ? 
+        isActive && 
+        <button
+          className={`btn btn-primary ${editMode ? styles.edit__mode : ''} 
+            ${new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)) < new Date() || licenseInfoFromState.licenseDateRevoked !== null ? styles.hidden : ""}`}
+          onClick={() => handleEditMode()}>
+          Редактировать
+        </button> : null
+    }
+    {
+      Object.keys(licenseInfoFromState).length > 0  ? 
+      <button
+        className={`btn btn-outline-danger ${editMode ? '' : styles.edit__mode} 
+        ${new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)) > new Date() ? "" : styles.hidden}`}
+        onClick={() => handleRevokeButton()}>
+        Аннулировать
+      </button> : null
+    }
+    
     <button
       className="btn btn-danger"
       onClick={() => handleCloseButton()}>
