@@ -69,6 +69,10 @@ export const BUILDING_COLUMNS = [
   accessor: "ownerContact",
   },
   {
+    Header: "УНП",
+    accessor: "unp",
+  },
+  {
   Header: "Местонахождение и телефон базы",
   accessor: "baseContact",
   },
@@ -126,5 +130,35 @@ export const SMALLBOATS_ADMIN_COLUMNS = [
     Header: "Статус заявления",
     accessor: "statusName",
   }
+]
+export const COLUMNS_FORM_SEARCH_BOAT_CARDS = [
+  {
+    Header: "Рег. номер судна",
+    accessor: "regNum",
+  },
+  {
+    Header: "Зав. номер судна",
+    accessor: "boatVin",
+  },
+  {
+    Header: "ФИО Собственника",
+    accessor: "fio",
+  },
+  {
+    Header: "Идентификационный номер",
+    accessor: "ownerPersNum",
+  },
+  {
+    Header: "Наименование организации",
+    accessor: "leName",
+  },
+  {
+    Header: "УНП",
+    accessor: "unp",
+  },
+  {
+    Header: "Номер судового билета",
+    accessor: "tiketNum",
+  },
 ]
 

@@ -7,9 +7,10 @@ import {
   getDataBoatsBySearchParams,
   getDataCertificatesBySearchParams,
   getDataBasesBuildingBySearchParams,
-  getDataBoatsRegBySearchParams,
-  getDataRegInfChangeBySearchParams
+  getDataBoatsRegBySearchParams
 } from '../../redux/actions';
+import{getDataRegInfChangeBySearchParams,
+  getDataRegInfChangeBoatCardsBySearchParams} from '../../redux/RegistrationInformationChangesReducer/actionRegInfChanges'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './SearchBlock.module.css';
@@ -46,9 +47,9 @@ export default function SearchBlock(props) {
     return smallBoatsRegReducer.searchParams
   });
 
-  const  searchParamsFromStateRegInfChanges = useSelector((state)=>{
+  const  stateRegInfChanges = useSelector((state)=>{
     const { registrationInformationChangesReducer } = state;
-    return registrationInformationChangesReducer.searchParams
+    return registrationInformationChangesReducer
   })
 
   const handleValue = (e) => {
@@ -57,9 +58,14 @@ export default function SearchBlock(props) {
 
   const handleSearchData = (e) => {
     e.preventDefault();
+    const urlPath = new URL(e.target.baseURI).pathname.slice(1)
     switch (true) {
-      case e.target.baseURI.includes('reginformationchanges'):{
-        dispatch(getDataRegInfChangeBySearchParams(searchParamsFromStateRegInfChanges));
+      case urlPath === 'reginformationchanges':{
+        dispatch(getDataRegInfChangeBySearchParams(stateRegInfChanges.searchParams));
+        break;
+      }
+      case urlPath ==='reginformationchanges/searchboatcard':{
+        dispatch(getDataRegInfChangeBoatCardsBySearchParams(stateRegInfChanges.searchParamsBoatCards))
         break;
       }
       case window.location.href.includes('smallboatsreg'): {

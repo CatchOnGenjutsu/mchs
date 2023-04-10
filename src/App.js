@@ -12,6 +12,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import SmallBoatsRegistration from './containers/SmallBoatsRegistration/SmallBoatsRegistration';
 import AppBoatReg from './components/AppBoatReg/AppBoatReg';
 import RegistrationInformationChanges from './containers/RegistrationInformationChanges/RegistrationInformationChanges'
+import FormSearchBoatCard from './containers/FormSearchBoatCard/FormSearchBoatCard'
 import {
   getDictionaryGimsSections,
   getDictionaryNsiCheckStatus,
@@ -49,7 +50,7 @@ function App() {
             <Routes>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/smallboats" element={<SmallBoats />} />
-              <Route path="/smallboats/boatId/:id" element={<BoatInfo />} />
+              <Route path="/smallboats/boatId/:id" element={<BoatInfo/>} />
               <Route path="/certificates" element={<Certificates />} />
               <Route path="/certificates/licenseId/:id" element={<Certificate />} />
               <Route path="/basesbuilding" element={<BasesBuildings />} />
@@ -57,6 +58,7 @@ function App() {
               <Route path="/smallboatsreg/app/:id" element={<AppBoatReg />} />
               <Route path="*" element={<Navigate replace to="/login" />} />
               <Route path="/reginformationchanges" element={<RegistrationInformationChanges/>}/>
+              <Route path="/reginformationchanges/searchboatcard" element={<FormSearchBoatCard/>}/>
             </Routes>
           </div>
       } 

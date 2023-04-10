@@ -44,7 +44,8 @@ export const API_GET_BOATS_REG_LIST_SEARCH = "boatCardApp/search"
 
 export const API_GET_BOATS_REG_INFO = "boatCardApp/getBoatCardApp/"
 
-export const  API_REG_INFORM_CHANGE = "/boatCardModif/search"
+export const  API_REG_INFORM_CHANGE = "boatCardModif/search"
+export const  API_REG_INFORM_CHANGE_BOAT_CARD = "boatCardModif/searchBoatCard"
 
 
 

@@ -218,6 +218,56 @@ export const inputsRegInformChange ={
     selectOption:[{id:0,value:'Все'},{id:2,value:'Зарегистрировано'},{id:1,value:'Черновик'}]
   }
 }
+export const inputsFindBoatToChange ={
+  surname:{
+    key: "surname",
+    value: "Фамилия",
+    type:'text'
+  },
+  name:{
+    key: "name",
+    value: "Имя",
+    type:'text'
+  },
+  midname: {
+    key: "midname",
+    value: "Отчество",
+    type:'text'
+  },
+  regNum:{
+    key: "regNum",
+    value: "Рег. номер судна",
+    description: "В формате XX 1111",
+    type:'text'
+  },
+  boatVin:{
+    key: "boatVin",
+    value: "Зав. номер судна",
+    description: "Цифры и латиница",
+    type:'text'
+  },
+  persNum:{
+    key: "persNum",
+    value: "Ид. номер собств.",
+    description: "Цифры и латиница",
+    type:'text'
+  },
+  tiketNum: {
+    key: "tiketNum",
+    value: "Номер суд. билета",
+    type:'text'
+  },
+  name_le: {
+    key: "name_le",
+    value: "Наим. организации",
+    type:'text'
+  },
+  leUnp: {
+    key: "leUnp",
+    value: "УНП организации",
+    type:'text'
+  }
+}
 
 export const setOptionsForInputs = (nsiCheckStatusOptions)=>{
   if(inputsHeadersBasesBuildings.checkStatus.selectOption.length===1) {

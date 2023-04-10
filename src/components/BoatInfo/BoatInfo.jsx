@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import BoatInfoModalWindow from './ModalWindow/BoatInfoModalWindow';
 import { getBoatCardInfo, clearBoatCardInfo, deleteBoatInfo } from '../../redux//smallBoatsReducer/actionsSmallBoats';
 import { v4 as uuidv4 } from 'uuid';
@@ -38,6 +38,7 @@ export default function BoatInfo(props) {
   const [fileType, setFileType] = useState(null);
 
   const navigate = useNavigate();
+
   const dispatch = useDispatch()
 
   const boatInfoFromState = useSelector((state) => {
@@ -59,6 +60,8 @@ export default function BoatInfo(props) {
     } else {
       dispatch(clearBoatCardInfo());
       navigate(-1);
+      console.log()
+
     }
   };
 
