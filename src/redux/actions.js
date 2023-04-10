@@ -8,6 +8,7 @@ import {
   SET_SEARCH_PARAMS_LICENSE,
   SET_SEARCH_PARAMS_BOATS_REG,
   SET_SEARCH_PARAMS_REG_INFORM_CHANGES,
+  SET_SEARCH_PARAMS_BOATS_ADMIN_PROC,
   GET_DICTIONARY_GIMS_SECTIONS,
   GET_DICTIONARY_OWNER_TYPE,
   GET_USERS_LIBRARY,
@@ -15,7 +16,8 @@ import {
   GET_ATE_LIBRARY,
   GET_APP_REG_STATUS_LIBRARY,
   SET_SORT_STATE_TABLE,
-  GET_DATA_BY_SEARCH_PARAMS_BOATS_REG
+  GET_DATA_BY_SEARCH_PARAMS_BOATS_REG,
+  GET_REG_INFORM_CHANGES
 } from "./types";
 import {
   MAIN_URL,
@@ -28,7 +30,8 @@ import {
   API_GET_USERS_LIBRARY,
   API_GET_ATE_LIBRARY,
   API_GET_APP_REG_STATUS_LIBRARY,
-  API_GET_BOATS_REG_LIST_SEARCH
+  API_GET_BOATS_REG_LIST_SEARCH,
+  API_REG_INFORM_CHANGE
 } from "../constants/constants";
 export function setSortState(data){
   return{
@@ -37,6 +40,7 @@ export function setSortState(data){
   }
 }
 export function setSearchParams(id, value, url) {
+  url = new URL(url).pathname.slice(1)
   let object = { [`${id}`]: value }
   switch (true) {
     case url.includes("smallboatsreg"): {
@@ -47,10 +51,20 @@ export function setSearchParams(id, value, url) {
         }
       )
     }
-    case url.includes("reginformationchanges"):{
+    case url==="reginformationchanges":{
+      console.log(1)
       return (
           {
             type: SET_SEARCH_PARAMS_REG_INFORM_CHANGES,
+            data: object
+          }
+      )
+    }
+    case url==="reginformationchanges/searchboatcard":{
+      console.log(2)
+      return (
+          {
+            type: SET_SEARCH_PARAMS_BOATS_ADMIN_PROC,
             data: object
           }
       )
@@ -185,14 +199,10 @@ export function getDataBoatsRegBySearchParams(params) {
       const data = await response.json();
       console.log(data)
       for (let item of data) {
-        if(!!item.midname) {
-          const fio = `${item.surname} ${item.name} ${item.midname}`;
-          item["fio"] = fio;
-        } else {
-          item["fio"] = null;
-        }
-        item["rayonName"] = ateLibrary.find((elem) => elem.uiddistrict === item.rayonId).namedistrictRu
-      }
+          item["fio"] = `${item.surname?item.surname:''} ${item.name?item.name:''} ${item.midname?item.midname:''}`;
+        if(item.rayonId){
+          item["rayonName"] = ateLibrary.find((elem) => elem.uiddistrict === item.rayonId).namedistrictRu
+        }else {item["rayonName"] = ''}      }
       dispatch({
         type: GET_DATA_BY_SEARCH_PARAMS_BOATS_REG,
         data: data
@@ -200,36 +210,7 @@ export function getDataBoatsRegBySearchParams(params) {
     }
   }
 }
-export function getDataRegInfChangeBySearchParams(params) {
-  const state = store.getState();
-  const ateLibrary = state.dictionaryReducer.ateLibrary;
-  return async dispatch => {
-    const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_LIST_SEARCH, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(params)
-    }).catch(err => console.log(err));
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data)
-      for (let item of data) {
-        if(!!item.midname) {
-          const fio = `${item.surname} ${item.name} ${item.midname}`;
-          item["fio"] = fio;
-        } else {
-          item["fio"] = null;
-        }
-        item["rayonName"] = ateLibrary.find((elem) => elem.uiddistrict === item.rayonId).namedistrictRu
-      }
-      dispatch({
-        type: GET_DATA_BY_SEARCH_PARAMS_BOATS_REG,
-        data: data
-      })
-    }
-  }
-}
+
 
 export function getDictionaryGimsSections() {
   return async dispatch => {

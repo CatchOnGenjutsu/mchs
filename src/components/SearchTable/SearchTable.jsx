@@ -11,7 +11,7 @@ import styles from "./SearchTable.module.css";
 import { useNavigate } from "react-router-dom";
 
 
-export default function SearchTable({setBuildingId,headerColumns,dataFromState}) {
+export default function SearchTable({setId,headerColumns,dataFromState}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const sortState = useSelector((state)=>{
@@ -75,7 +75,11 @@ export default function SearchTable({setBuildingId,headerColumns,dataFromState})
         break;
       }
       case e.target.baseURI.includes("basesbuilding"): {
-        setBuildingId(id);
+        setId(id);
+        break;
+      }
+      case e.target.baseURI.includes("reginformationchanges"): {
+        setId(id);
         break;
       }
       default:

@@ -2,21 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/containers/RegistrationInformationChanges/RegistrationInformationChanges.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/RegistrationInformationChanges/RegistrationInformationChanges.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/RegistrationInformationChangesReducer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/ToolBlock/ToolBlock.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/ToolBlock/ToolBlock.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/FormSearchBoatCard/FormSearchBoatCard.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/containers/FormSearchBoatCard/FormSearchBoatCard.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resourсes/open-icon.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BoatInfo/BoatInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BoatInfo/BoatInfo.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SearchBlock/SearchBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBlock/SearchBlock.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SearchTable/TablesColumns.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchTable/TablesColumns.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/sidebarSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/sidebarSettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/basesBuildings/ToolBlock/ToolBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/basesBuildings/ToolBlock/ToolBlock.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/SmallBoatsRegistration/SmallBoatsRegistration.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/SmallBoatsRegistration/SmallBoatsRegistration.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/BasesBuildings/BasesBuildings.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/BasesBuildings/BasesBuildings.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/RegistrationInformationChanges/RegistrationInformationChanges.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/RegistrationInformationChanges/RegistrationInformationChanges.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/RegistrationInformationChangesReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/RegistrationInformationChangesReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/rootReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resourсes/delete_icon.svg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +32,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JSX File" />
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
+        <option value="JSX File" />
       </list>
     </option>
   </component>
@@ -56,6 +62,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/resourсes" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -66,6 +73,8 @@
       <recent name="D:\Залужный Илья\Проекты\mchs\src\components\Certificate\testImgAfterDelete" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Залужный Илья\Проекты\mchs\src\containers" />
+      <recent name="D:\Залужный Илья\Проекты\mchs\src\components\AdministrativeProcedures" />
       <recent name="D:\Залужный Илья\Проекты\mchs\src\components\basesBuildings" />
       <recent name="D:\Залужный Илья\Проекты\mchs\src\redux\reducers" />
     </key>
@@ -86,7 +95,7 @@
       <workItem from="1679468459366" duration="1184000" />
       <workItem from="1679552898828" duration="594000" />
       <workItem from="1679645780167" duration="38978000" />
-      <workItem from="1680244928590" duration="27593000" />
+      <workItem from="1680244928590" duration="83232000" />
     </task>
     <servers />
   </component>
@@ -119,5 +128,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

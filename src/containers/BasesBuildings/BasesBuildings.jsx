@@ -28,6 +28,7 @@ export default function BasesBuildings() {
   const dataBase= {
     ownerLeName:``,
     ownerContact:``,
+    unp:'',
     baseContact:``,
     responData:``,
     checkDate:``,
@@ -38,6 +39,7 @@ export default function BasesBuildings() {
   }
   dataBase.ownerLeName = base.ownerLeName
   dataBase.ownerContact = checkMeaning(base.ownerAddress)+ ' тел: '+ checkMeaning(base.ownerPhone)
+  dataBase.unp = checkMeaning(base.ownerUnp)
   dataBase.baseContact = checkMeaning(base.location)+' тел1: '+checkMeaning(base.phone1)+' тел2: '+checkMeaning(base.phone2)
   dataBase.responData = checkMeaning(base.responPosition)+' '+checkMeaning(base.responFio)+' приказ № '+checkMeaning(base.responDocnum)+' от '+checkMeaning(!!base.responDocdate ? new Date(base.responDocdate).toLocaleDateString() : "")
   dataBase.checkDate = checkMeaning(!!base.checkDate ? new Date(base.checkDate).toLocaleDateString() : "")
@@ -70,7 +72,7 @@ export default function BasesBuildings() {
       setButtonType={setButtonType}
     />
     <MemoSearchTable
-      setBuildingId = {handleBuildingId}
+      setId = {handleBuildingId}
       headerColumns={BUILDING_COLUMNS}
       dataFromState={data}
     />
