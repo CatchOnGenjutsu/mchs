@@ -9,10 +9,11 @@ import BoatInfo from "./components/BoatInfo/BoatInfo";
 import Certificate from "./components/Certificate/Certificate";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
-import SmallBoatsRegistration from './containers/SmallBoatsRegistration/SmallBoatsRegistration';
+import SmallBoatsRegistration from './containers/AdministrativeProcedures/SmallBoatsRegistration/SmallBoatsRegistration';
 import AppBoatReg from './components/AppBoatReg/AppBoatReg';
-import RegistrationInformationChanges from './containers/RegistrationInformationChanges/RegistrationInformationChanges'
+import RegistrationInformationChanges from './containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges'
 import FormSearchBoatCard from './containers/FormSearchBoatCard/FormSearchBoatCard'
+import IndividualStatement from './components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement'
 import {
   getDictionaryGimsSections,
   getDictionaryNsiCheckStatus,
@@ -59,6 +60,7 @@ function App() {
               <Route path="*" element={<Navigate replace to="/login" />} />
               <Route path="/reginformationchanges" element={<RegistrationInformationChanges/>}/>
               <Route path="/reginformationchanges/searchboatcard" element={<FormSearchBoatCard/>}/>
+              <Route path="/reginformationchanges/individual/add" element={<IndividualStatement/>}/>
             </Routes>
           </div>
       } 

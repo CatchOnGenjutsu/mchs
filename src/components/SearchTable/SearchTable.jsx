@@ -70,7 +70,6 @@ export default function SearchTable({setId,headerColumns,dataFromState}) {
         break;
       }
       case e.target.baseURI.includes("smallboats"): {
-        dispatch(getBoatCardInfo(id));
         navigate(`./boatId/${id}`);
         break;
       }

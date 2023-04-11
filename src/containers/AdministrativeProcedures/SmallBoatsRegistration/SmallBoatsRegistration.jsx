@@ -1,8 +1,8 @@
 import React from 'react';
-import SearchBlock from '../../components/SearchBlock/SearchBlock';
-import SearchTable from '../../components/SearchTable/SearchTable';
-import { SMALLBOATS_ADMIN_COLUMNS } from '../../components/SearchTable/TablesColumns';
-import { inputsHeadersSmallBoatsRegistration, setOptionsForInputsATE } from '../../components/SearchBlock/inputsHeaders';
+import SearchBlock from '../../../components/SearchBlock/SearchBlock';
+import SearchTable from '../../../components/SearchTable/SearchTable';
+import { SMALLBOATS_ADMIN_COLUMNS } from '../../../components/SearchTable/TablesColumns';
+import { inputsHeadersSmallBoatsRegistration, setOptionsForInputsATE } from '../../../components/SearchBlock/inputsHeaders';
 import { useSelector } from 'react-redux';
 
 

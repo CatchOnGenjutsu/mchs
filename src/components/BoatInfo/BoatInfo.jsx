@@ -60,8 +60,6 @@ export default function BoatInfo(props) {
     } else {
       dispatch(clearBoatCardInfo());
       navigate(-1);
-      console.log()
-
     }
   };
 
@@ -148,19 +146,19 @@ export default function BoatInfo(props) {
   useEffect(() => {
     const pathArray = window.location.pathname.split('/');
     const id = pathArray[pathArray.length - 1];
-    if (
-      window.performance
-      .getEntriesByType('navigation')
-      .map((nav) => nav.type)
-      .includes('reload')
-    ) {
+    // if (
+    //   window.performance
+    //   .getEntriesByType('navigation')
+    //   .map((nav) => nav.type)
+    //   .includes('reload')
+    // ) {
       // dispatch(
       //   getDataCerticatesBySearchParams(
       //   JSON.parse(sessionStorage.getItem('searchParams'))
       //   )
       // );
       dispatch(getBoatCardInfo(id));
-    }
+    // }
   }, []);
 
   return (
