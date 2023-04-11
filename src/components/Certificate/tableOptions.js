@@ -10,14 +10,14 @@ export const tableLossOfControl = {
     },
     {
       id: "lossControl",
-      value: "Орган",
-      key: "confOrg",
+      value: "Номер решения",
+      key: "confDocNum",
       type: ""
     },
     {
       id: "lossControl",
-      value: "Номер решения",
-      key: "confDocNum",
+      value: "Орган",
+      key: "confOrg",
       type: ""
     },
     {

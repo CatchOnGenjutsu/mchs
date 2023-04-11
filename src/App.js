@@ -10,7 +10,7 @@ import Certificate from "./components/Certificate/Certificate";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SmallBoatsRegistration from './containers/AdministrativeProcedures/SmallBoatsRegistration/SmallBoatsRegistration';
-import AppBoatReg from './components/AppBoatReg/AppBoatReg';
+import AppBoatReg from './components/AdministrativeProcedures/AppBoatReg/AppBoatReg';
 import RegistrationInformationChanges from './containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges'
 import FormSearchBoatCard from './containers/FormSearchBoatCard/FormSearchBoatCard'
 import IndividualStatement from './components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement'
@@ -49,6 +49,7 @@ function App() {
         ? <LoginPage /> 
         : <div className='wrapper'>
             <Routes>
+              <Route path="*" element={<Navigate replace to="/login" />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/smallboats" element={<SmallBoats />} />
               <Route path="/smallboats/boatId/:id" element={<BoatInfo/>} />
@@ -57,7 +58,6 @@ function App() {
               <Route path="/basesbuilding" element={<BasesBuildings />} />
               <Route path="/smallboatsreg" element={<SmallBoatsRegistration />} />
               <Route path="/smallboatsreg/app/:id" element={<AppBoatReg />} />
-              <Route path="*" element={<Navigate replace to="/login" />} />
               <Route path="/reginformationchanges" element={<RegistrationInformationChanges/>}/>
               <Route path="/reginformationchanges/searchboatcard" element={<FormSearchBoatCard/>}/>
               <Route path="/reginformationchanges/individual/add" element={<IndividualStatement/>}/>

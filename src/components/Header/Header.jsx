@@ -3,7 +3,11 @@ import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 
 function Header(props) {
-  const [isLogin, setIsLogin]= useState("")
+  const [isLogin, setIsLogin]= useState("");
+  const handleExit = (e) => {
+    e.preventDefault();
+    
+  }
   useEffect(() => {
     window.location.href.includes("login") ? setIsLogin("login") : setIsLogin("")
   }, [window.location.href]);

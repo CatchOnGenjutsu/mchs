@@ -1,5 +1,6 @@
 import store from "./store";
 import {
+  GET_LOGIN_TOKEN,
   GET_DATA_BY_SEARCH_PARAMS_LICENSE,
   GET_DATA_BY_SEARCH_PARAMS_BOAT,
   GET_DATA_BY_SEARCH_PARAMS_BASES_BUILDING,
@@ -22,6 +23,7 @@ import {
 import {
   MAIN_URL,
   PORT,
+  API_LOGIN,
   API_GET_BOATS_LIST_SEARCH,
   API_GET_LICENSE_LIST_SEARCH,
   API_GET_BASES_BUILDING_LIST_SEARCH,
@@ -33,10 +35,36 @@ import {
   API_GET_BOATS_REG_LIST_SEARCH,
   API_REG_INFORM_CHANGE
 } from "../constants/constants";
+
+export function getLoginToken(data) {
+  return async dispatch => {
+    const request = await fetch("http://192.168.70.81:8081/api/v1/auth/authenticate", {
+      method: "POST",
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify(data)
+    })
+    const token = await request.json();
+    console.log(token);
+    if (!!token) {
+      document.cookie = `token=${token.token}`
+      sessionStorage.setItem("token", JSON.stringify(token.token));
+      dispatch({
+        type: GET_LOGIN_TOKEN,
+        data: token
+      })
+    } 
+    // else {
+
+    // }
+  }
+}
+
 export function setSortState(data){
-  return{
+  return {
     type:SET_SORT_STATE_TABLE,
-    data:data
+    data: data
   }
 }
 export function setSearchParams(id, value, url) {

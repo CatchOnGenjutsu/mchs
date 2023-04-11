@@ -25,6 +25,8 @@ export default function Certificate(props) {
   const [dataForEdit, setDataForEdit] = useState(null);
   const [type, setType] = useState(null);
 
+  const currentDate = new Date().getMilliseconds()
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -310,10 +312,10 @@ export default function Certificate(props) {
                   <tr>
                     {tableLossOfControl.nameColumn.map((item) => {
                       if (item.key !== 'confDate' && item.key !== 'confDateEnd') {
-                        return <td>{elem[`${item.key}`]}</td>;
+                        return <td className={elem.confDateEnd > currentDate ? styles.red_text : ""}>{elem[`${item.key}`]}</td>;
                       } else {
                         return (
-                          <td>
+                          <td className={elem.confDateEnd > currentDate ? styles.red_text : ""}>
                             {new Date(elem[`${item.key}`]).toLocaleDateString()}
                           </td>
                         );

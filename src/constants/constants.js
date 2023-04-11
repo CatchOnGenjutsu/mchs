@@ -3,6 +3,8 @@ export const MAIN_URL = 'http://10.0.1.30'
 //http://192.168.70.81
 export const PORT = ':8080/'
 
+export const API_LOGIN = ""
+
 export const API_GET_BOATS_LIST_SEARCH = 'boats/search'
 export const API_GET_BOAT_INFO_CARD = 'boats/getBoatCard/'
 export const API_GET_BOAT_INFO_SPEC_MARKS = "boats/getBoatCardSpecmarks/"
@@ -29,7 +31,7 @@ export const API_ADD_NEW_CONF_MARK = "boats/license/addBoatDrivingLicenseConf/"
 
 
 export const API_GET_USERS_LIBRARY = "static/info/gimsUsers"
-export const API_GET_ATE_LIBRARY = "static/info/ateDistrict"
+export const API_GET_ATE_LIBRARY = "static/info/gimsSections"
 export const API_GET_APP_REG_STATUS_LIBRARY = "static/info/boatCardStatus"
 export const API_LICENSE_CANCELLATION = "boats/license/changeLicenseDateEnd/"
 

@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { loginReducer } from "./globalReducers/loginReducer";
 import { smallBoatsReducer } from "./smallBoatsReducer/smallBoatsReducer"
 import { certificateReducer } from "./certificateReducer/certificateReducer";
 import { basesBuildingReducer } from "./baseBuildingReducer/basesBuildingReducer";
@@ -9,11 +10,12 @@ import {tableReducer} from"./globalReducers/tableReducer";
 
 
 export const rootReducer = combineReducers({
+  loginReducer,
   smallBoatsReducer,
   certificateReducer,
   dictionaryReducer,
   basesBuildingReducer,
   smallBoatsRegReducer,
   tableReducer,
-  registrationInformationChangesReducer
+  registrationInformationChangesReducer,
 })
