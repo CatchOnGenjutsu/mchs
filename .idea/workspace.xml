@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/CertificatesRegistration/CertificatesRegistration.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/SmallBoatsRegistration/SmallBoatsRegistration.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/ToolBlock/ToolBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/ToolBlock/ToolBlock.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BoatInfo/BoatInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BoatInfo/BoatInfo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/CertificatesRegistration/CertificatesRegistration.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/CertificatesRegistration/CertificatesRegistration.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/CertificatesRegistration/CertificatesRegistration.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/FormSearchBoatCard/FormSearchBoatCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/FormSearchBoatCard/FormSearchBoatCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/RegistrationInformationChanges/RegistrationInformationChanges.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/RegistrationInformationChanges/RegistrationInformationChanges.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/SmallBoatsRegistration/SmallBoatsRegistration.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/SmallBoatsRegistration/SmallBoatsRegistration.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/SmallBoatsRegistration/SmallBoatsRegistration.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +15,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="CSS File" />
         <option value="JSX File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -91,7 +78,7 @@
       <workItem from="1679468459366" duration="1184000" />
       <workItem from="1679552898828" duration="594000" />
       <workItem from="1679645780167" duration="38978000" />
-      <workItem from="1680244928590" duration="99645000" />
+      <workItem from="1680244928590" duration="109266000" />
     </task>
     <servers />
   </component>

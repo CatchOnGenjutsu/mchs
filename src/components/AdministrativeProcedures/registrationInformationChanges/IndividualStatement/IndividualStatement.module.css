@@ -1,0 +1,14 @@
+.form-container{
+    width: 100%;
+}
+.reg-number{
+    display: flex;
+    grid-gap: 40px;
+    align-items: center;
+}
+.reg-number input{
+    flex-basis: 300px;
+}
+.reg-number label{
+    flex-basis: 400px;
+}
