@@ -270,20 +270,20 @@ export const inputsFindBoatToChange ={
 }
 
 export const setOptionsForInputs = (nsiCheckStatusOptions)=>{
-  if(inputsHeadersBasesBuildings.checkStatus.selectOption.length===1) {
+  if(inputsHeadersBasesBuildings.checkStatus.selectOption.length === 1) {
     inputsHeadersBasesBuildings.checkStatus.selectOption.push(...nsiCheckStatusOptions)
   }
 }
 
-export const setOptionsForInputsATE = (inputsOptions,path)=>{
+export const setOptionsForInputsATE = (inputsOptions, path)=>{
   switch (path) {
     case "smallboatsreg":
-      if(inputsHeadersSmallBoatsRegistration.rayonId.selectOption.length===1) {
+      if(inputsHeadersSmallBoatsRegistration.rayonId.selectOption.length === 1) {
         inputsHeadersSmallBoatsRegistration.rayonId.selectOption.push(...inputsOptions)
       }
       break;
     case "reginformationchanges":
-      if(inputsRegInformChange.rayonId.selectOption.length===1) {
+      if(inputsRegInformChange.rayonId.selectOption.length === 1) {
         inputsRegInformChange.rayonId.selectOption.push(...inputsOptions)
       }
       break;

@@ -2,6 +2,7 @@ import {
   GET_LICENSE_BY_ID,
   ADD_NEW_SPEC_MARK,
   ADD_NEW_CONF_MARK,
+  REVOKE_LICENSE
 } from '../types';
 import {
   MAIN_URL,
@@ -13,6 +14,7 @@ import {
   API_GET_LICENSE_INFO_FROM_LIBS_GOROD,
   API_ADD_NEW_SPECIAL_MARK,
   API_ADD_NEW_CONF_MARK,
+  API_LICENSE_CANCELLATION
 } from "../../constants/constants";
 
 export function getLicenseById(id) {
@@ -57,8 +59,8 @@ export function addNewSpecialMark(newMark) {
   newMark.id = await response.json()
   if (response.status === 200) {
     dispatch({
-    type: ADD_NEW_SPEC_MARK,
-    data: newMark,
+      type: ADD_NEW_SPEC_MARK,
+      data: newMark,
     })
   }
   }
@@ -80,5 +82,20 @@ export function addNewConfMark(newMark, licenseId) {
     data: newMark,
     })
   }
+  }
+}
+
+export function revokeLicense(id) {
+  return async dispatch => {
+    const response = await fetch(MAIN_URL + PORT + API_LICENSE_CANCELLATION + id, {
+      method: "POST",
+    });
+    const data = await response.json();
+    if (!!data){
+      dispatch({
+        type: REVOKE_LICENSE,
+        data: data,
+      })
+    }
   }
 }

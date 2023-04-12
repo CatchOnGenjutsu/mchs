@@ -26,7 +26,7 @@ const initialState = {
 }
 
 export const smallBoatsReducer = (state = initialState, action) => {
-  console.log("smallBoatsReducer", action.data)
+  console.log("Reducer data", action.data)
   switch (action.type) {
   case GET_BOATS_CARDS_LIST:
     return (() => ({

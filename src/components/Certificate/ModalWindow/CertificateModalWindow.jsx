@@ -36,16 +36,22 @@ export default function CertificateModalWindow({
   const handleChange = (e) => {
     switch (modalWindowInputs.keyTable) {
       case 'lossControl':
-        // if (e.target.dataset.id === "confDateEnd") {
-        //   newData[e.currentTarget.dataset.id] = 
-        // } else {
+        if (e.target.dataset.id === "confDuration") {
+          newData[e.currentTarget.dataset.id] = Number(e.currentTarget.value);
+        } else {
           newData[e.currentTarget.dataset.id] = e.currentTarget.value;
-        // }
+        }
         newData.recdate = Date.now();
         newData.confiscation = {};
         newData.confiscation.code = 1;
         newData.confiscation.name = 'Лишение';
         newData.confiscation.note = '';
+        if (newData.confDuration && newData.confDate) {
+          let newEndDate = new Date(newData.confDate);
+          newEndDate.setFullYear(newEndDate.getFullYear() + Number(newData.confDuration));
+          newEndDate.setDate(newEndDate.getDate() - 1);
+          newData.confDateEnd = newEndDate.toLocaleDateString().split(".").reverse().join("-");
+        }
         setNewData(newData);
         if(saveKey) handleErrors();
         break;
@@ -156,98 +162,96 @@ export default function CertificateModalWindow({
       <Modal.Body>
       <Form>
         {modalWindowInputs.nameColumn.map((item) => {
-        if (item.key === 'name') {
-          return (
-          <Form.Group className="mb-3">
-            <Form.Label>{item.value}</Form.Label>
-            <Form.Select
-            data-id={item.key}
-            type="select"
-            onChange={(e) => {
-              handleChange(e);
-            }}>
-            {usersLib.map((elem) => (
-              <option
-              data-id={item.key}
-              value={elem.userid}>
-              {elem.name}
-              </option>
-            ))}
-            </Form.Select>
-          </Form.Group>
-          );
-        }
-        if (
-          item.key !== 'markDate' &&
-          item.key !== 'userPositions' &&
-          (item.key === 'confDateEnd' || item.key === 'confDate')
-        ) {
-          if (item.key === 'confDateEnd') {
-            return (
-              <Form.Group className="mb-3">
-              <Form.Label>{item.value}</Form.Label>
-              <Form.Control
-              data-id={item.key}
-              type="number"
-              isInvalid={!!errors[item.key]}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              />
-              <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
-            </Form.Group>
-            );
-          } else {
-            return (
-              <Form.Group className="mb-3">
-                <Form.Label>{item.value}</Form.Label>
-                <Form.Control
-                  isInvalid={!!errors[item.key]}
+          switch (item.key) {
+            case "name":
+              return (
+                <Form.Group className="mb-3">
+                  <Form.Label>{item.value}</Form.Label>
+                  <Form.Select
                   data-id={item.key}
-                  type="date"
+                  type="select"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}>
+                  {usersLib.map((elem) => (
+                    <option
+                    data-id={item.key}
+                    value={elem.userid}>
+                    {elem.name}
+                    </option>
+                  ))}
+                  </Form.Select>
+                </Form.Group>
+              );
+            case "mark":
+              return (
+                <Form.Group className="mb-3">
+                  <Form.Label>{item.value}</Form.Label>
+                  <Form.Control
+                  data-id={item.key}
+                  type="text"
+                  isInvalid={!!errors[item.key]}
+                  value={!!newData.mark ? newData.mark  : ""}
                   onChange={(e) => {
                     handleChange(e);
                   }}
-                />
-                <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
-              </Form.Group>
-            );
-          }
+                  />
+                  <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
+                </Form.Group>
+              );
+            case "confDate":
+              return (
+                <Form.Group className="mb-3">
+                  <Form.Label>{item.value}</Form.Label>
+                  <Form.Control
+                    isInvalid={!!errors[item.key]}
+                    data-id={item.key}
+                    type="date"
+                    onChange={(e) => {
+                      handleChange(e);
+                    }}
+                  />
+                  <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
+                </Form.Group>
+              );
+            case "confDuration":
+              return (
+                <Form.Group className="mb-3">
+                  <Form.Label>{item.value}</Form.Label>
+                  <Form.Control
+                  data-id={item.key}
+                  type="number"
+                  isInvalid={!!errors[item.key]}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                  />
+                  <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
+                </Form.Group>
+              );
 
-        }
-        if (item.key === 'mark') {
-          return (
-          <Form.Group className="mb-3">
-            <Form.Label>{item.value}</Form.Label>
-            <Form.Control
-            data-id={item.key}
-            type="text"
-            isInvalid={!!errors[item.key]}
-            value={!!newData.mark ? newData.mark  : ""}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            />
-            <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
-          </Form.Group>
-          );
-        }
-        if (item.key !== 'markDate' && item.key !== 'userPositions') {
-          return (
-          <Form.Group className="mb-3">
-            <Form.Label>{item.value}</Form.Label>
-            <Form.Control
-            data-id={item.key}
-            type="text"
-            isInvalid={!!errors[item.key]}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            />
-            <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
-          </Form.Group>
-          );
-        }
+            case "userPositions":
+              break;
+            case "markDate":
+              break;
+            case "confDateEnd":
+              break;
+            default:
+              return (
+                <Form.Group className="mb-3">
+                  <Form.Label>{item.value}</Form.Label>
+                  <Form.Control
+                  data-id={item.key}
+                  type="text"
+                  isInvalid={!!errors[item.key]}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                  />
+                  <Form.Control.Feedback type={'invalid'}>{errors[item.key]}</Form.Control.Feedback>
+                </Form.Group>
+              );
+          }
         })}
       </Form>
       </Modal.Body>

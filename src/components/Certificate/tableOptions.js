@@ -10,26 +10,28 @@ export const tableLossOfControl = {
     },
     {
       id: "lossControl",
-      value: "Орган",
-      key: "confOrg",
-      type: ""
-    },
-    {
-      id: "lossControl",
       value: "Номер решения",
       key: "confDocNum",
       type: ""
     },
     {
       id: "lossControl",
-      value: "Cрок лишения",
+      value: "Орган",
+      key: "confOrg",
+      type: ""
+    },
+    {
+      id: "lossControl",
+      value: "Срок лишения, лет",
+      key: "confDuration",
+      type: ""
+    },
+    {
+      id: "lossControl",
+      value: "Лишение до",
       key: "confDateEnd",
       type: ""
     },
-    // ["confDateEnd", 'Cрок лишения'],
-    // ["confOrg", 'Орган'],
-    // ["confDocNum", 'Номер решения'],
-    // ["confDate", 'Дата решения']
   ]
 }
 

@@ -18,12 +18,20 @@ function IndividualStatement(props) {
                             <Form.Label>Субъект хозяйствования:</Form.Label>
                             <Form.Control type="text" readOnly={true} disabled={true} />
                         </Form.Group>
+                    {/*<Form.Select*/}
+                    {/*    className={`mb-2`}*/}
+                    {/*    data-id={item.key}*/}
+                    {/*    onChange={(e) => handleValue(e)}>*/}
+                    {/*    {item.selectOption.map((el) => (*/}
+                    {/*        <option value={el.id}>{el.value}</option>*/}
+                    {/*    ))}*/}
+                    {/*</Form.Select>*/}
                     <Form.Group controlId="regNum" className={styles['reg-number']}>
                         <Form.Label>Номер судового билета:</Form.Label>
                         <Form.Control type="text" readOnly={true} disabled={true} />
                     </Form.Group>
                     <Form.Group controlId="regNum" className={styles['reg-number']}>
-                        <Form.Label>Дата выдачи судового билета:g</Form.Label>
+                        <Form.Label>Дата выдачи судового билета:</Form.Label>
                         <Form.Control type="text" readOnly={true} disabled={true} />
                     </Form.Group>
                 </Form>
