@@ -19,7 +19,7 @@ function ToolBlock({ data, id, setShow, addBtnDisIn }) {
 						break;
 					}
 					case "add": {
-						setShow(true)``;
+						setShow(true);
 						break;
 					}
 				}
@@ -31,7 +31,8 @@ function ToolBlock({ data, id, setShow, addBtnDisIn }) {
 				break;
 			}
 			case pathName.includes("smallboatsreg"): {
-				navigate(`/smallboatsreg/app/${id}`);
+				setShow(true);
+				// navigate(`/smallboatsreg/app/${id}`);
 				break;
 			}
 		}
