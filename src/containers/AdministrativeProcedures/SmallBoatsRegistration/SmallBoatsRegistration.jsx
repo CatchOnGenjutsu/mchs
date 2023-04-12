@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import SearchBlock from "../../../components/SearchBlock/SearchBlock";
 import SearchTable from "../../../components/SearchTable/SearchTable";
 import { SMALLBOATS_ADMIN_COLUMNS } from "../../../components/SearchTable/TablesColumns";
+import ModalWindow from "../../../components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow";
 import {
 	inputsHeadersSmallBoatsRegistration,
 	setOptionsForInputsATE,
 } from "../../../components/SearchBlock/inputsHeaders";
-import { useSelector } from "react-redux";
 import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
 
 export default function SmallBoatsRegistration() {
+	const [show, setShow] = useState(false);
 	const dataOptionsForSelectATE = useSelector((state) => {
 		const { dictionaryReducer } = state;
 		return dictionaryReducer.ateLibrary;
@@ -37,11 +39,20 @@ export default function SmallBoatsRegistration() {
 			<SearchBlock
 				inputsHeaders={Object.values(inputsHeadersSmallBoatsRegistration)}
 			/>
-			<ToolBlock />
+			<ToolBlock
+				show={show}
+				setShow={setShow}
+			/>
 			<SearchTable
 				headerColumns={SMALLBOATS_ADMIN_COLUMNS}
 				dataFromState={dataFromStateBoatsReg}
 			/>
+			{show && (
+				<ModalWindow
+					show={show}
+					setShow={setShow}
+				/>
+			)}
 		</div>
 	);
 }
