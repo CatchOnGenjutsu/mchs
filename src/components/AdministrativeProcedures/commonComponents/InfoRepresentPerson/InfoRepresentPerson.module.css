@@ -1,0 +1,59 @@
+.container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 15px;
+  grid-template-areas:
+  "SN SN SN SN"
+  "N N N N"
+  "MN MN MN MN"
+  "DT DT SE SE"
+  "NU NU DV DV"
+  /* "LB LB PB1 PB2"
+  "RF RF RP RP"
+  "RDN RDN RDD RDD"
+  "Note Note Note Note" */
+;
+  row-gap:15px;
+}
+.box-agentSurname{
+  grid-area: SN;
+}
+.box-agentName{
+  grid-area: N;
+}
+.box-agentMidname{
+  grid-area: MN;
+}
+.box-agentDocType{
+  grid-area: DT;
+}
+.box-agentSerialOfPassport{
+   grid-area: SE;
+}
+.box-agentNumberOfPassport {
+  grid-area: NU;
+}
+.box-agentDocDate {
+  grid-area: DV;
+}
+
+
+.text_secondary {
+  align-self: flex-start;
+  color: #808080;
+  font-weight: bold;
+  font-size: 19px;
+}
+.form_group_flex {
+  display: flex;
+  justify-content: space-between;
+}
+.grids_container {
+  display: flex;
+}
+.wide_controls{
+  width: 85%;
+}
+.half_controls{
+  width: 55%;
+}
