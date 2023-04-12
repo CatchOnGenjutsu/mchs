@@ -1,0 +1,53 @@
+.container-information{
+    display: flex;
+    width: 100%;
+}
+.passport-information{
+    background-color: #e5e4e2;
+    padding: 11px;
+    width:50%;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:15px;
+    grid-template-areas:
+    "SN SN"
+    "N N"
+    "MN MN"
+    "DT SP"
+    "NP DI"
+    "D D"
+    "PN PN";
+    row-gap:15px;
+}
+.common{
+    display: flex;
+}
+
+.box-surname{
+    grid-area: SN;
+}
+.box-name{
+    grid-area: N;
+}
+.box-midname{
+    grid-area: MN;
+}
+
+.box-docType{
+    grid-area: DT;
+}
+.box-serialOfPassport{
+    grid-area: SP;
+}
+.box-numberOfPassport{
+    grid-area: NP;
+}
+.box-docDateIssue{
+    grid-area: DI;
+}
+.box-docDepartment{
+    grid-area: D;
+}
+.box-persNum{
+    grid-area: PN;
+}

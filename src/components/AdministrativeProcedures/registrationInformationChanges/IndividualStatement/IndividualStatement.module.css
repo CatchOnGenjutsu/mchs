@@ -1,14 +1,17 @@
 .form-container{
     width: 100%;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    padding: 20px;
 }
-.reg-number{
+.header{
     display: flex;
     grid-gap: 40px;
     align-items: center;
+    margin-bottom: 10px;
 }
-.reg-number input{
+.header input,select{
     flex-basis: 300px;
 }
-.reg-number label{
+.header label{
     flex-basis: 400px;
 }
