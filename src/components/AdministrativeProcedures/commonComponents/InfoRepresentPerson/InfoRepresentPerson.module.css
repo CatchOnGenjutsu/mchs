@@ -1,4 +1,6 @@
 .container_left{
+  border-right: 6px solid white;
+  padding: 6px;
   width: 50%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -44,6 +46,7 @@
 
 .container_right {
   width: 50%;
+  padding:6px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 15px;
@@ -51,11 +54,9 @@
   grid-template-areas:
   "AC AC AO AO"
   "AR AR AG AG"
-  "AU AU AD AK"
-  "KV KV TL TL"
-  ". . . ."
-  ". . . ."
-  ". . . .";
+  "AU AU AD AD"
+  "AK AK KV KV"
+  "TL TL . .";
 }
 
 .box-agentCountry {
@@ -87,6 +88,12 @@
 }
 
 
+.grids_container {
+  background-color: #e5e4e2;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
 .text_secondary {
   align-self: flex-start;
   color: #808080;
@@ -98,13 +105,18 @@
   align-items: center;
   justify-content: space-between;
 }
-.grids_container {
-  display: flex;
-  align-items: flex-start;
-}
-.wide_controls{
+/* .wide_controls{
   width: 85%;
-}
+} */
 .half_controls{
-  width: 65%;
+  width: 70%;
+}
+.form_label {
+  margin: 0;
+}
+.half_label {
+  width: 40%;
+}
+.wide_label{
+  width: 20%;
 }

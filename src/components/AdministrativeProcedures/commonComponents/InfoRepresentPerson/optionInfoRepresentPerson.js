@@ -40,7 +40,7 @@ export const optionInfoRepresentPersonLeft = {
   },
   agentDocDate:{
     key: "agentDocDate",
-    value: "Дата выд.",
+    value: "Дата выдачи:",
     type:'date'
   },
   agentDocDepartment:{

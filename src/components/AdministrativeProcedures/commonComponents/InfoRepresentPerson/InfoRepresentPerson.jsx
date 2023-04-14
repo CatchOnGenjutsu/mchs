@@ -16,7 +16,7 @@ export function InfoRepresentPerson() {
   const [rayonDisabled, setRayonDisabled] = useState(true);
   const [gorodDisabled, setGorodDisabled] = useState(true);
   const halfControls =
-    "agentDocType agentSerialOfPassport agentNumberOfPassport agentDocDate agentCountry agentOblId";
+    "agentSurname agentName agentMidname agentDocDepartment agentPersNum";
 
   const handleValue = (e) => {
     console.log("e.target", !!e.target);
@@ -55,13 +55,20 @@ export function InfoRepresentPerson() {
                     className={`${styles[`box-${item.key}`]} ${
                       styles.form_group_flex
                     }`}>
-                    <Form.Label>{item.value}</Form.Label>
+                    <Form.Label
+                      className={`${styles.form_label} ${
+                        !halfControls.includes(item.key)
+                          ? styles.half_label
+                          : styles.wide_label
+                      }`}>
+                      {item.value}
+                    </Form.Label>
                     <Form.Control
-                      className={
-                        halfControls.includes(item.key)
-                          ? styles.half_controls
-                          : styles.wide_controls
-                      }
+                      // className={
+                      //   !halfControls.includes(item.key)
+                      //     ? styles.half_controls
+                      //     : styles.wide_controls
+                      // }
                       id={item.key}
                       // isInvalid={!!errors[el.key]}
                       type={item.type}
@@ -82,13 +89,20 @@ export function InfoRepresentPerson() {
                     className={`${styles[`box-${item.key}`]} ${
                       styles.form_group_flex
                     }`}>
-                    <Form.Label>{item.value}</Form.Label>
+                    <Form.Label
+                      className={`${styles.form_label} ${
+                        !halfControls.includes(item.key)
+                          ? styles.half_label
+                          : styles.wide_label
+                      }`}>
+                      {item.value}
+                    </Form.Label>
                     <Form.Select
-                      className={
-                        halfControls.includes(item.key)
-                          ? styles.half_controls
-                          : styles.wide_controls
-                      }
+                      // className={
+                      //   !halfControls.includes(item.key)
+                      //     ? styles.half_controls
+                      //     : styles.wide_controls
+                      // }
                       data-id={item.key}
                       // onChange={(e) => handleValue(e)}
                     >
@@ -104,13 +118,20 @@ export function InfoRepresentPerson() {
                     className={`${styles[`box-${item.key}`]} ${
                       styles.form_group_flex
                     }`}>
-                    <Form.Label>{item.value}</Form.Label>
+                    <Form.Label
+                      className={`${styles.form_label} ${
+                        !halfControls.includes(item.key)
+                          ? styles.half_label
+                          : styles.wide_label
+                      }`}>
+                      {item.value}
+                    </Form.Label>
                     <Form.Control
-                      className={
-                        halfControls.includes(item.key)
-                          ? styles.half_controls
-                          : styles.wide_controls
-                      }
+                      // className={
+                      //   !halfControls.includes(item.key)
+                      //     ? styles.half_controls
+                      //     : styles.wide_controls
+                      // }
                       id={item.key}
                       // isInvalid={!!errors[el.key]}
                       type={item.type}
@@ -139,14 +160,21 @@ export function InfoRepresentPerson() {
                     className={`${styles[`box-${item.key}`]} ${
                       styles.form_group_flex
                     }`}>
-                    <Form.Label>{item.value}</Form.Label>
+                    <Form.Label
+                      className={`${styles.form_label} ${
+                        !halfControls.includes(item.key)
+                          ? styles.half_label
+                          : styles.wide_label
+                      }`}>
+                      {item.value}
+                    </Form.Label>
                     {item.key === "agentCountry" ? (
                       <Form.Control
-                        className={
-                          halfControls.includes(item.key)
-                            ? styles.half_controls
-                            : styles.wide_controls
-                        }
+                        // className={
+                        //   !halfControls.includes(item.key)
+                        //     ? styles.half_controls
+                        //     : styles.wide_controls
+                        // }
                         id={item.key}
                         value="Республика Беларусь"
                         readOnly
@@ -160,11 +188,11 @@ export function InfoRepresentPerson() {
                       />
                     ) : (
                       <Form.Control
-                        className={
-                          halfControls.includes(item.key)
-                            ? styles.half_controls
-                            : styles.wide_controls
-                        }
+                        // className={
+                        //   !halfControls.includes(item.key)
+                        //     ? styles.half_controls
+                        //     : styles.wide_controls
+                        // }
                         id={item.key}
                         // isInvalid={!!errors[el.key]}
                         type={item.type}
@@ -186,13 +214,20 @@ export function InfoRepresentPerson() {
                     className={`${styles[`box-${item.key}`]} ${
                       styles.form_group_flex
                     }`}>
-                    <Form.Label>{item.value}</Form.Label>
+                    <Form.Label
+                      className={`${styles.form_label} ${
+                        !halfControls.includes(item.key)
+                          ? styles.half_label
+                          : styles.wide_label
+                      }`}>
+                      {item.value}
+                    </Form.Label>
                     <Form.Select
-                      className={
-                        halfControls.includes(item.key)
-                          ? styles.half_controls
-                          : styles.wide_controls
-                      }
+                      // className={
+                      //   !halfControls.includes(item.key)
+                      //     ? styles.half_controls
+                      //     : styles.wide_controls
+                      // }
                       data-id={item.key}
                       onChange={(e) => handleValue(e)}>
                       {item.selectOption.map((el) => (
@@ -221,9 +256,15 @@ export function InfoRepresentPerson() {
                     className={`${styles[`box-${item.key}`]} ${
                       styles.form_group_flex
                     }`}>
-                    <Form.Label>{item.value}</Form.Label>
+                    <Form.Label className={styles.form_label}>
+                      {item.value}
+                    </Form.Label>
                     <Select
-                      className={`basic-single`}
+                      className={`${
+                        !halfControls.includes(item.key)
+                          ? styles.half_controls
+                          : styles.wide_controls
+                      }`}
                       // ${styles.search_select}
                       classNamePrefix="select"
                       data-id={item.key}
@@ -242,10 +283,12 @@ export function InfoRepresentPerson() {
                     className={`${styles[`box-${item.key}`]} ${
                       styles.form_group_flex
                     }`}>
-                    <Form.Label>{item.value}</Form.Label>
+                    <Form.Label className={styles.form_label}>
+                      {item.value}
+                    </Form.Label>
                     <Form.Control
                       className={
-                        halfControls.includes(item.key)
+                        !halfControls.includes(item.key)
                           ? styles.half_controls
                           : styles.wide_controls
                       }
