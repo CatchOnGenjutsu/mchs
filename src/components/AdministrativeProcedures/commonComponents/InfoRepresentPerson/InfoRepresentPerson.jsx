@@ -1,19 +1,53 @@
-import { optionInfoRepresentPerson } from "./optionInfoRepresentPerson";
+import { useState } from "react";
+import {
+  optionInfoRepresentPersonLeft,
+  optionInfoRepresentPersonRight,
+} from "./optionInfoRepresentPerson";
+import {
+  setOptionsRayonForOblast,
+  setOptionsGorodForRayon,
+} from "./optionInfoRepresentPerson";
 import { Form, Button, Modal } from "react-bootstrap";
+import Select from "react-select";
 
 import styles from "./InfoRepresentPerson.module.css";
 
 export function InfoRepresentPerson() {
+  const [rayonDisabled, setRayonDisabled] = useState(true);
+  const [gorodDisabled, setGorodDisabled] = useState(true);
   const halfControls =
-    "agentDocType agentSerialOfPassport agentNumberOfPassport agentDocDate";
+    "agentDocType agentSerialOfPassport agentNumberOfPassport agentDocDate agentCountry agentOblId";
+
+  const handleValue = (e) => {
+    console.log("e.target", !!e.target);
+    console.log("e.key", e.key);
+    if (!!e.target) {
+      if (e.target.dataset.id === "agentOblId") {
+        console.log(e.target.value);
+        setOptionsRayonForOblast(document.location.pathname, e.target.value);
+        setRayonDisabled(false);
+      }
+    }
+    if (!!e.key) {
+      switch (e.key) {
+        case "rayon":
+          setOptionsGorodForRayon(document.location.pathname, e.value);
+          setGorodDisabled(false);
+          break;
+
+        default:
+          break;
+      }
+    }
+  };
   return (
     <>
       <h3 className={styles.text_secondary}>
         Сведения о представителе заинтересованного лица
       </h3>
       <div className={styles.grids_container}>
-        <div className={styles.container}>
-          {Object.values(optionInfoRepresentPerson).map((item) => {
+        <div className={styles.container_left}>
+          {Object.values(optionInfoRepresentPersonLeft).map((item) => {
             switch (item.type) {
               case "text":
                 return (
@@ -96,8 +130,8 @@ export function InfoRepresentPerson() {
             }
           })}
         </div>
-        <div className={styles.container}>
-          {Object.values(optionInfoRepresentPerson).map((item) => {
+        <div className={styles.container_right}>
+          {Object.values(optionInfoRepresentPersonRight).map((item) => {
             switch (item.type) {
               case "text":
                 return (
@@ -106,21 +140,41 @@ export function InfoRepresentPerson() {
                       styles.form_group_flex
                     }`}>
                     <Form.Label>{item.value}</Form.Label>
-                    <Form.Control
-                      className={
-                        halfControls.includes(item.key)
-                          ? styles.half_controls
-                          : styles.wide_controls
-                      }
-                      id={item.key}
-                      // isInvalid={!!errors[el.key]}
-                      type={item.type}
-                      // value={(form)&&form[el.key]||''}
-                      // onChange={(e)=>{
-                      //     form[e.currentTarget.id]=e.currentTarget.value
-                      //     setForm(structuredClone(form))
-                      // }}
-                    />
+                    {item.key === "agentCountry" ? (
+                      <Form.Control
+                        className={
+                          halfControls.includes(item.key)
+                            ? styles.half_controls
+                            : styles.wide_controls
+                        }
+                        id={item.key}
+                        value="Республика Беларусь"
+                        readOnly
+                        // isInvalid={!!errors[el.key]}
+                        type={item.type}
+                        // value={(form)&&form[el.key]||''}
+                        // onChange={(e)=>{
+                        //     form[e.currentTarget.id]=e.currentTarget.value
+                        //     setForm(structuredClone(form))
+                        // }}
+                      />
+                    ) : (
+                      <Form.Control
+                        className={
+                          halfControls.includes(item.key)
+                            ? styles.half_controls
+                            : styles.wide_controls
+                        }
+                        id={item.key}
+                        // isInvalid={!!errors[el.key]}
+                        type={item.type}
+                        // value={(form)&&form[el.key]||''}
+                        // onChange={(e)=>{
+                        //     form[e.currentTarget.id]=e.currentTarget.value
+                        //     setForm(structuredClone(form))
+                        // }}
+                      />
+                    )}
                     {/* <Form.Control.Feedback type={"invalid"}>
                     {errors[el.key]}
                   </Form.Control.Feedback> */}
@@ -140,12 +194,46 @@ export function InfoRepresentPerson() {
                           : styles.wide_controls
                       }
                       data-id={item.key}
-                      // onChange={(e) => handleValue(e)}
-                    >
+                      onChange={(e) => handleValue(e)}>
                       {item.selectOption.map((el) => (
                         <option value={el.id}>{el.value}</option>
                       ))}
                     </Form.Select>
+                  </Form.Group>
+                );
+              case "customSelect":
+                let isDisabled;
+                let name;
+                switch (item.key) {
+                  case "agentRayonId":
+                    isDisabled = rayonDisabled;
+                    name = "rayon";
+                    break;
+                  case "agentGorodId":
+                    isDisabled = gorodDisabled;
+                    name = "gorod";
+                    break;
+                  default:
+                    break;
+                }
+                return (
+                  <Form.Group
+                    className={`${styles[`box-${item.key}`]} ${
+                      styles.form_group_flex
+                    }`}>
+                    <Form.Label>{item.value}</Form.Label>
+                    <Select
+                      className={`basic-single mb-2`}
+                      // ${styles.search_select}
+                      classNamePrefix="select"
+                      data-id={item.key}
+                      onChange={(e) => handleValue(e)}
+                      // defaultValue={item.selectOption[0]}
+                      isDisabled={isDisabled}
+                      isSearchable={true}
+                      name={name}
+                      options={item.selectOption}
+                    />
                   </Form.Group>
                 );
               case "date":

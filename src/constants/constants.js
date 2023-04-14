@@ -33,6 +33,8 @@ export const API_ADD_NEW_CONF_MARK = "boats/license/addBoatDrivingLicenseConf/"
 export const API_GET_USERS_LIBRARY = "static/info/gimsUsers"
 export const API_GET_ATE_LIBRARY = "static/info/gimsSections"
 export const API_GET_APP_REG_STATUS_LIBRARY = "static/info/boatCardStatus"
+export const API_GET_DICTIONARY_RAYON_FOR_OBL = "directory/getRayonByOblast/"
+export const API_GET_DICTIONARY_GOROD_FOR_RAYON = "directory/getGorodByRayon/"
 export const API_LICENSE_CANCELLATION = "boats/license/changeLicenseDateEnd/"
 
 export const API_ADD_NEW_BOAT_DEAL = "boats/saveBoatDeals/"

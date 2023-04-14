@@ -1,19 +1,16 @@
-.container{
+.container_left{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 15px;
+  row-gap:15px;
   grid-template-areas:
   "SN SN SN SN"
   "N N N N"
   "MN MN MN MN"
   "DT DT SE SE"
   "NU NU DV DV"
-  /* "LB LB PB1 PB2"
-  "RF RF RP RP"
-  "RDN RDN RDD RDD"
-  "Note Note Note Note" */
-;
-  row-gap:15px;
+  "DD DD DD DD"
+  "APN APN APN APN";
 }
 .box-agentSurname{
   grid-area: SN;
@@ -36,6 +33,56 @@
 .box-agentDocDate {
   grid-area: DV;
 }
+.box-agentDocDepartment {
+  grid-area: DD;
+}
+.box-agentPersNum {
+  grid-area: APN;
+}
+
+
+.container_right {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 15px;
+  row-gap:15px;
+  grid-template-areas:
+  "AC AC AO AO"
+  "AR AR AG AG"
+  "AU AU AD AK"
+  "KV KV TL TL"
+  ". . . ."
+  ". . . ."
+  ". . . .";
+}
+
+.box-agentCountry {
+  grid-area: AC;
+}
+.box-agentOblId {
+  grid-area: AO;
+}
+.box-agentRayonId {
+  grid-area: AR;
+}
+.box-agentGorodId {
+  grid-area: AG;
+}
+.box-agentUlica {
+  grid-area: AU;
+}
+.box-agentDom {
+  grid-area: AD;
+}
+.box-agentKorpus {
+  grid-area: AK;
+}
+.box-agentKv {
+  grid-area: KV;
+}
+.box-agentPhone {
+  grid-area: TL;
+}
 
 
 .text_secondary {
@@ -46,6 +93,7 @@
 }
 .form_group_flex {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 .grids_container {
@@ -55,5 +103,5 @@
   width: 85%;
 }
 .half_controls{
-  width: 55%;
+  width: 65%;
 }
