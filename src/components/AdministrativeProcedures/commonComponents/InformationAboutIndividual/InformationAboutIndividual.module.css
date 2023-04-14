@@ -1,6 +1,7 @@
 .container-information{
     display: flex;
     width: 100%;
+    grid-gap:10px;
 }
 .passport-information{
     background-color: #e5e4e2;
@@ -26,9 +27,17 @@
     justify-content: space-between;
     grid-gap:10px;
 }
-.common input {
-    max-width:70%
+.common label {
+    margin:0;
+
 }
+.common input {
+    margin:0;
+    width:85%;
+}
+
+
+
 
 .box-surname{
     grid-area: SN;
@@ -57,4 +66,23 @@
 }
 .box-persNum{
     grid-area: PN;
+}
+
+.address-information{
+    background-color: #e5e4e2;
+    padding: 11px;
+    width:50%;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows: 0fr 0fr 0fr 0fr;
+    gap:15px;
+    align-items: start;
+}
+
+.address-information .common input {
+    margin:0;
+    width:70%;
+}
+.address-information .common .selectSearch{
+    width: 70%;
 }

@@ -42,7 +42,7 @@ export const fieldPassportOptions= {
     docDateIssue: {
         key: "docDateIssue",
         value: "Дата выдачи",
-        type: 'text'
+        type: 'date'
     },
     docDepartment: {
         key: "docDepartment",
@@ -79,7 +79,7 @@ export const fieldAddressOptions = {
     },
     ulica: {
         key: "ulica",
-        value: "Город",
+        value: "Улица",
         type: 'text'
     },
     korpus: {
