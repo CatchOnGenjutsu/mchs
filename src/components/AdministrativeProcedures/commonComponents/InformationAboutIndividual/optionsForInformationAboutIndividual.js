@@ -1,4 +1,4 @@
-export const fieldOptions= {
+export const fieldPassportOptions= {
     surname: {
         key: "surname",
         value: "Фамилия",
@@ -41,7 +41,7 @@ export const fieldOptions= {
     },
     docDateIssue: {
         key: "docDateIssue",
-        value: "Дата выд.",
+        value: "Дата выдачи",
         type: 'text'
     },
     docDepartment: {
@@ -54,4 +54,53 @@ export const fieldOptions= {
         value: "Идентификационный номер",
         type: 'text'
     },
+}
+
+export const fieldAddressOptions = {
+    stranId: {
+        key: "stranId",
+        value: "Страна",
+        type: 'text'
+    },
+    oblId: {
+        key: "oblId",
+        value: "Область",
+        type: 'selectSearch'
+    },
+    rayonId: {
+        key: "rayonId",
+        value: "Район",
+        type: 'selectSearch'
+    },
+    gorod_id: {
+        key: "gorod_id",
+        value: "Город",
+        type: 'selectSearch'
+    },
+    ulica: {
+        key: "ulica",
+        value: "Город",
+        type: 'text'
+    },
+    korpus: {
+        key: "korpus",
+        value: "Корпус",
+        type: 'text'
+    },
+    dom: {
+        key: "dom",
+        value: "Дом",
+        type: 'text'
+    },
+    kv: {
+        key: "kv",
+        value: "Квартира",
+        type: 'text'
+    },
+    phone: {
+        key: "phone",
+        value: "Телефон",
+        type: 'text'
+    },
+
 }
