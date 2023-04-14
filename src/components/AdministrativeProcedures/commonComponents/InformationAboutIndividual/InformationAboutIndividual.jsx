@@ -6,7 +6,7 @@ import {fieldOptions} from './optionsForInformationAboutIndividual'
 function InformationAboutIndividual(props) {
     return (
         <>
-            <h2>Сведения о заинтересованном лице</h2>
+            <h3>Сведения о заинтересованном лице</h3>
             <div className={styles['container-information']} >
                 <div className={styles['passport-information']}>
                     {Object.values(fieldOptions).map(option=>{
