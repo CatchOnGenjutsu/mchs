@@ -1,7 +1,8 @@
 import { useState } from "react";
 import {
-  optionInfoRepresentPersonLeft,
-  optionInfoRepresentPersonRight,
+  optionInfoRepresentPersonSummary,
+  optionInfoRepresentPersonAddress,
+  powerOfAttorney,
 } from "./optionInfoRepresentPerson";
 import {
   setOptionsRayonForOblast,
@@ -16,7 +17,7 @@ export function InfoRepresentPerson() {
   const [rayonDisabled, setRayonDisabled] = useState(true);
   const [gorodDisabled, setGorodDisabled] = useState(true);
   const halfControls =
-    "agentSurname agentName agentMidname agentDocDepartment agentPersNum";
+    "agentSurname agentName agentMidname agentDocDepartment agentPersNum powerOfAttorney";
 
   const handleValue = (e) => {
     console.log("e.target", !!e.target);
@@ -46,8 +47,8 @@ export function InfoRepresentPerson() {
         Сведения о представителе заинтересованного лица
       </h3>
       <div className={styles.grids_container}>
-        <div className={styles.container_left}>
-          {Object.values(optionInfoRepresentPersonLeft).map((item) => {
+        <div className={styles.container_summary}>
+          {Object.values(optionInfoRepresentPersonSummary).map((item) => {
             switch (item.type) {
               case "text":
                 return (
@@ -151,8 +152,8 @@ export function InfoRepresentPerson() {
             }
           })}
         </div>
-        <div className={styles.container_right}>
-          {Object.values(optionInfoRepresentPersonRight).map((item) => {
+        <div className={styles.container_address}>
+          {Object.values(optionInfoRepresentPersonAddress).map((item) => {
             switch (item.type) {
               case "text":
                 return (
@@ -312,6 +313,37 @@ export function InfoRepresentPerson() {
           })}
         </div>
       </div>
+      <Form.Group
+        className={`${styles[`box-${powerOfAttorney.key}`]} ${
+          styles.powerOfAttorney_group_flex
+        }`}>
+        <Form.Label
+          className={`${styles.form_label} ${
+            !halfControls.includes(powerOfAttorney.key)
+              ? styles.half_label
+              : styles.wide_label
+          }`}>
+          {powerOfAttorney.value}
+        </Form.Label>
+        <Form.Control
+          // className={
+          //   !halfControls.includes(item.key)
+          //     ? styles.half_controls
+          //     : styles.wide_controls
+          // }
+          id={powerOfAttorney.key}
+          // isInvalid={!!errors[el.key]}
+          type={powerOfAttorney.type}
+          // value={(form)&&form[el.key]||''}
+          // onChange={(e)=>{
+          //     form[e.currentTarget.id]=e.currentTarget.value
+          //     setForm(structuredClone(form))
+          // }}
+        />
+        {/* <Form.Control.Feedback type={"invalid"}>
+                    {errors[el.key]}
+                  </Form.Control.Feedback> */}
+      </Form.Group>
     </>
   );
 }

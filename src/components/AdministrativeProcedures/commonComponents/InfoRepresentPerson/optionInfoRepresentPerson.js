@@ -6,7 +6,7 @@ import {
 } from "../../../../constants/constants"
 
 
-export const optionInfoRepresentPersonLeft = {
+export const optionInfoRepresentPersonSummary = {
   agentSurname:{
     key: "agentSurname",
     value: "Фамилия",
@@ -55,7 +55,7 @@ export const optionInfoRepresentPersonLeft = {
   },
 }
 
-export const optionInfoRepresentPersonRight = {
+export const optionInfoRepresentPersonAddress = {
   agentCountry:{
     key: "agentCountry",
     value: "Страна",
@@ -114,14 +114,20 @@ export const optionInfoRepresentPersonRight = {
   },
 }
 
+export const powerOfAttorney = {
+  key: "powerOfAttorney",
+  value: "Сведения о доверенности",
+  type:'text'
+}
+
 export const setOptionsRayonForOblast = async (path, id) => {
   switch (true) {
     case path.includes("smallboatsreg"):
       const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_RAYON_FOR_OBL + id);
       const result = await response.json();
-      optionInfoRepresentPersonRight.agentRayonId.selectOption.length = 0
+      optionInfoRepresentPersonAddress.agentRayonId.selectOption.length = 0
       result.forEach(item => {
-        optionInfoRepresentPersonRight.agentRayonId.selectOption.push({value: item.id, label: item.name, key: "rayon"})
+        optionInfoRepresentPersonAddress.agentRayonId.selectOption.push({value: item.id, label: item.name, key: "rayon"})
       });
       console.log("result", result)
       break;
@@ -136,9 +142,9 @@ export const setOptionsGorodForRayon = async (path, id) => {
     case path.includes("smallboatsreg"):
       const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_GOROD_FOR_RAYON + id);
       const result = await response.json();
-      optionInfoRepresentPersonRight.agentGorodId.selectOption.length = 0
+      optionInfoRepresentPersonAddress.agentGorodId.selectOption.length = 0
       result.forEach(item => {
-        optionInfoRepresentPersonRight.agentGorodId.selectOption.push({value: item.id, label: item.name2, key: "gorod"})
+        optionInfoRepresentPersonAddress.agentGorodId.selectOption.push({value: item.id, label: item.name2, key: "gorod"})
       });
       console.log("result", result)
       break;
