@@ -9,6 +9,7 @@
     display: grid;
     grid-template-columns:1fr 1fr;
     column-gap:15px;
+    row-gap:15px;
     grid-template-areas:
     "SN SN"
     "N N"
@@ -16,11 +17,17 @@
     "DT SP"
     "NP DI"
     "D D"
-    "PN PN";
-    row-gap:15px;
+    "PN PN"
+    ;
 }
 .common{
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap:10px;
+}
+.common input {
+    max-width:70%
 }
 
 .box-surname{
