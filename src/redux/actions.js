@@ -18,7 +18,8 @@ import {
   GET_APP_REG_STATUS_LIBRARY,
   SET_SORT_STATE_TABLE,
   GET_DATA_BY_SEARCH_PARAMS_BOATS_REG,
-  GET_REG_INFORM_CHANGES
+  GET_REG_INFORM_CHANGES,
+  GET_DICTIONARY_RAYON_FOR_OBL
 } from "./types";
 import {
   MAIN_URL,
@@ -33,7 +34,8 @@ import {
   API_GET_ATE_LIBRARY,
   API_GET_APP_REG_STATUS_LIBRARY,
   API_GET_BOATS_REG_LIST_SEARCH,
-  API_REG_INFORM_CHANGE
+  API_REG_INFORM_CHANGE,
+  API_GET_DICTIONARY_RAYON_FOR_OBL
 } from "../constants/constants";
 
 export function getLoginToken(data) {
@@ -307,5 +309,11 @@ export function getApplicationRegLibrary() {
   })
   }
 }
+
+// export function getDictionaryRayonForObl() {
+//   return async dispatch => {
+//     const response = awa
+//   }
+// }
 
 

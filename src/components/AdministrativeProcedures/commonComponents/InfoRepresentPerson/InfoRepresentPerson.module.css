@@ -1,19 +1,19 @@
-.container{
+.container_summary{
+  border-right: 6px solid white;
+  padding: 6px;
+  width: 50%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 15px;
+  row-gap:15px;
   grid-template-areas:
   "SN SN SN SN"
   "N N N N"
   "MN MN MN MN"
   "DT DT SE SE"
   "NU NU DV DV"
-  /* "LB LB PB1 PB2"
-  "RF RF RP RP"
-  "RDN RDN RDD RDD"
-  "Note Note Note Note" */
-;
-  row-gap:15px;
+  "DD DD DD DD"
+  "APN APN APN APN";
 }
 .box-agentSurname{
   grid-area: SN;
@@ -36,8 +36,64 @@
 .box-agentDocDate {
   grid-area: DV;
 }
+.box-agentDocDepartment {
+  grid-area: DD;
+}
+.box-agentPersNum {
+  grid-area: APN;
+}
 
 
+.container_address {
+  width: 50%;
+  padding:6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 15px;
+  row-gap:15px;
+  grid-template-areas:
+  "AC AC AO AO"
+  "AR AR AG AG"
+  "AU AU AD AD"
+  "AK AK KV KV"
+  "TL TL . .";
+}
+
+.box-agentCountry {
+  grid-area: AC;
+}
+.box-agentOblId {
+  grid-area: AO;
+}
+.box-agentRayonId {
+  grid-area: AR;
+}
+.box-agentGorodId {
+  grid-area: AG;
+}
+.box-agentUlica {
+  grid-area: AU;
+}
+.box-agentDom {
+  grid-area: AD;
+}
+.box-agentKorpus {
+  grid-area: AK;
+}
+.box-agentKv {
+  grid-area: KV;
+}
+.box-agentPhone {
+  grid-area: TL;
+}
+
+
+.grids_container {
+  background-color: #e5e4e2;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
 .text_secondary {
   align-self: flex-start;
   color: #808080;
@@ -46,14 +102,28 @@
 }
 .form_group_flex {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
-.grids_container {
+.powerOfAttorney_group_flex {
+  width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e5e4e2;
+  padding: 6px;
+  margin-top: 4px;
 }
-.wide_controls{
-  width: 85%;
-}
+
 .half_controls{
-  width: 55%;
+  width: 70%;
+}
+.form_label {
+  margin: 0;
+}
+.half_label {
+  width: 40%;
+}
+.wide_label{
+  width: 20%;
 }
