@@ -223,7 +223,7 @@ export function InfoRepresentPerson() {
                     }`}>
                     <Form.Label>{item.value}</Form.Label>
                     <Select
-                      className={`basic-single mb-2`}
+                      className={`basic-single`}
                       // ${styles.search_select}
                       classNamePrefix="select"
                       data-id={item.key}
