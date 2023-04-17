@@ -26,7 +26,7 @@ export const optionInfoRepresentPersonSummary = {
     key: "agentDocType",
     value: "Документ",
     type:'select',
-    selectOption: [{id:1, value:'Паспорт'}, {id:2, value:'Вид на жительство'}]
+    selectOption: [{value:1, label:'Паспорт'}, {value:2, label:'Вид на жительство'}]
   },
   agentSerialOfPassport:{
     key: "agentSerialOfPassport",
@@ -66,13 +66,12 @@ export const optionInfoRepresentPersonAddress = {
     value: "Область",
     type:'select',
     selectOption: [
-      {id:1,value:"Брестская"},
-      {id:2,value:"Витебская"},
-      {id:3,value:"Гомельская"},
-      {id:4,value:"Гродненская"},
-      {id:5,value:"Минск"},
-      {id:6,value:"Минская"},
-      {id:7,value:"Могилевская"}
+      {value:1,label:"Брестская", key: "agentObl" },
+      {value:2,label:"Витебская", key: "agentObl"},
+      {value:3,label:"Гомельская", key: "agentObl"},
+      {value:4,label:"Гродненская", key: "agentObl"},
+      {value:6,label:"Минская", key: "agentObl"},
+      {value:7,label:"Могилевская", key: "agentObl"}
     ]
   },
   agentRayonId: {

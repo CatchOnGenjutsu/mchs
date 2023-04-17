@@ -13,7 +13,7 @@ import Select from "react-select";
 
 import styles from "./InfoRepresentPerson.module.css";
 
-export function InfoRepresentPerson() {
+export default function InfoRepresentPerson() {
   const [rayonDisabled, setRayonDisabled] = useState(true);
   const [gorodDisabled, setGorodDisabled] = useState(true);
   const halfControls =
@@ -22,18 +22,15 @@ export function InfoRepresentPerson() {
   const handleValue = (e) => {
     console.log("e.target", !!e.target);
     console.log("e.key", e.key);
-    if (!!e.target) {
-      if (e.target.dataset.id === "agentOblId") {
-        console.log(e.target.value);
-        setOptionsRayonForOblast(document.location.pathname, e.target.value);
-        setRayonDisabled(false);
-      }
-    }
     if (!!e.key) {
       switch (e.key) {
         case "rayon":
           setOptionsGorodForRayon(document.location.pathname, e.value);
           setGorodDisabled(false);
+          break;
+        case "agentObl":
+          setOptionsRayonForOblast(document.location.pathname, e.value);
+          setRayonDisabled(false);
           break;
 
         default:
@@ -98,19 +95,22 @@ export function InfoRepresentPerson() {
                       }`}>
                       {item.value}
                     </Form.Label>
-                    <Form.Select
-                      // className={
-                      //   !halfControls.includes(item.key)
-                      //     ? styles.half_controls
-                      //     : styles.wide_controls
-                      // }
+                    <Select
+                      className={`${
+                        !halfControls.includes(item.key)
+                          ? styles.half_controls
+                          : styles.wide_controls
+                      }`}
+                      // ${styles.search_select}
+                      classNamePrefix="select"
+                      placeholder="Выберите..."
                       data-id={item.key}
-                      // onChange={(e) => handleValue(e)}
-                    >
-                      {item.selectOption.map((el) => (
-                        <option value={el.id}>{el.value}</option>
-                      ))}
-                    </Form.Select>
+                      onChange={(e) => handleValue(e)}
+                      // defaultValue={item.selectOption[0]}
+                      isSearchable={false}
+                      name={item.key}
+                      options={item.selectOption}
+                    />
                   </Form.Group>
                 );
               case "date":
@@ -223,7 +223,23 @@ export function InfoRepresentPerson() {
                       }`}>
                       {item.value}
                     </Form.Label>
-                    <Form.Select
+                    <Select
+                      className={`${
+                        !halfControls.includes(item.key)
+                          ? styles.half_controls
+                          : styles.wide_controls
+                      }`}
+                      // ${styles.search_select}
+                      classNamePrefix="select"
+                      placeholder="Выберите..."
+                      data-id={item.key}
+                      onChange={(e) => handleValue(e)}
+                      // defaultValue={item.selectOption[0]}
+                      isSearchable={false}
+                      name={item.key}
+                      options={item.selectOption}
+                    />
+                    {/* <Form.Select
                       // className={
                       //   !halfControls.includes(item.key)
                       //     ? styles.half_controls
@@ -234,7 +250,7 @@ export function InfoRepresentPerson() {
                       {item.selectOption.map((el) => (
                         <option value={el.id}>{el.value}</option>
                       ))}
-                    </Form.Select>
+                    </Form.Select> */}
                   </Form.Group>
                 );
               case "customSelect":
@@ -268,6 +284,7 @@ export function InfoRepresentPerson() {
                       }`}
                       // ${styles.search_select}
                       classNamePrefix="select"
+                      placeholder="Выберите..."
                       data-id={item.key}
                       onChange={(e) => handleValue(e)}
                       // defaultValue={item.selectOption[0]}

@@ -1,0 +1,18 @@
+.text_secondary {
+  align-self: flex-start;
+  color: #808080;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+.table_content {
+  width: 100%;
+}
+
+.add__buttons {
+  font-size: 1.4em;
+  line-height: 1em;
+  font-weight: 700;
+  padding: 0.2em 0.4em 0.34em;
+  margin: -0.4em 0 0.3em;
+}
