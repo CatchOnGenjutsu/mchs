@@ -1,23 +1,33 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./TableAppBoatReg.module.css";
 import { useState } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
+import { deleteNewNote } from "../../../../redux/boatRegReducer/actionsBoatReg";
 
 export default function TableAppBoatReg({ tableOptions,dataEngines }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
+
+  const dispatch = useDispatch();
 
   let data;
   const boatCardAppEngList = useSelector((state) => {
     const { boatRegReducer } = state;
     return boatRegReducer.boatCardAppEngList;
   });
+  const boatCardAppSpecMarkList = useSelector((state) => {
+    const { boatRegReducer } = state;
+    return boatRegReducer.boatCardAppSpecMarkList;
+  });
+  console.log("data", data);
   switch (tableOptions.keyTable) {
     case "boatCardAppEngDtoList":
       data = boatCardAppEngList;
       console.log(data)
       break;
-
+    case "boatCardAppSmDtoList":
+      data = boatCardAppSpecMarkList;
+      break;
     default:
       break;
   }
@@ -28,20 +38,39 @@ export default function TableAppBoatReg({ tableOptions,dataEngines }) {
     // setType("save");
     setShowModal(true);
   };
+  const handleDeleteNote = (e) => {
+    let noteForDelete;
+    switch (tableOptions.keyTable) {
+      case "boatCardAppEngDtoList":
+        noteForDelete = {
+          id: e.target.id,
+          type: "boatCardAppEngDtoList",
+        };
+        break;
+      case "boatCardAppSmDtoList":
+        noteForDelete = {
+          id: e.target.id,
+          type: "boatCardAppSmDtoList",
+        };
+        break;
+      default:
+        break;
+    }
+    dispatch(deleteNewNote(noteForDelete));
+  };
 
   return (
     <div
       className={styles.table_content}
       key={tableOptions.keytable}>
-      <h3 className={styles.text_secondary}>
-        Сведения о представителе заинтересованного лица
-      </h3>
+      <h3 className={styles.text_secondary}>{tableOptions.caption}</h3>
       <table className={`table table-bordered border-secondary bg-white`}>
         <thead>
           <tr>
             {tableOptions.nameColumn.map((item) => {
               return <th id={item.key}>{item.value}</th>;
             })}
+            <th className={styles.edit__column}></th>
           </tr>
         </thead>
         <tbody>
@@ -49,8 +78,39 @@ export default function TableAppBoatReg({ tableOptions,dataEngines }) {
             return (
               <tr>
                 {tableOptions.nameColumn.map((item) => {
-                  return <td>{elem[`${item.key}`]}</td>;
+                  switch (item.type) {
+                    case "checkbox":
+                      return (
+                        <td>
+                          <input
+                            type="checkbox"
+                            className={styles.checkbox}
+                            checked={elem.asmLock}
+                            disabled
+                          />
+                        </td>
+                      );
+                    case "date":
+                      return (
+                        <td>
+                          {elem[`${item.key}`].split("-").reverse().join(".")}
+                        </td>
+                      );
+                    default:
+                      return <td>{elem[`${item.key}`]}</td>;
+                  }
                 })}
+                <td className={styles.edit__column}>
+                  <button
+                    className={`${styles.delete__buttons} btn btn-danger`}
+                    // data-tabletype={documentsTableColumns.keyTable}
+                    // data-docname={elem.docname}
+                    // data-doctype="file"
+                    id={elem.innerId}
+                    onClick={(e) => handleDeleteNote(e)}>
+                    &#10006;
+                  </button>
+                </td>
               </tr>
             );
           })}
@@ -67,6 +127,7 @@ export default function TableAppBoatReg({ tableOptions,dataEngines }) {
           setShowModal={setShowModal}
           showModal={showModal}
           modalWindowInputs={tableOptions}
+          dataForCheck={data}
         />
       )}
     </div>

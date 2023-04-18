@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import InfoRepresentPerson from "../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
 import InformationAboutIndividual from "../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
-import { boatCardAppEngDtoList } from "./tableOptions";
+import { boatCardAppEngDtoList, boatCardAppSmDtoList } from "./tableOptions";
 import TableAppBoatReg from "../commonComponents/TablesAppBoatReg/TableAppBoatReg";
 
 import styles from "./AppBoatReg.module.css";
@@ -29,6 +29,10 @@ export default function AppBoatReg() {
       <InfoRepresentPerson />
       <TableAppBoatReg
         tableOptions={boatCardAppEngDtoList}
+        // data={boatCardAppEngList}
+      />
+      <TableAppBoatReg
+        tableOptions={boatCardAppSmDtoList}
         // data={boatCardAppEngList}
       />
     </div>
