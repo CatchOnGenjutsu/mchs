@@ -52,6 +52,7 @@ export const API_GET_BOATS_REG_INFO = "boatCardApp/getBoatCardApp/"
 export const  API_REG_INFORM_CHANGE = "boatCardModif/search"
 export const  API_REG_INFORM_CHANGE_BOAT_CARD = "boatCardModif/searchBoatCard"
 
+export const API_ADD_NEW_ENGINE_CHECK = "boatCardApp/checkEngineVin/"
 
 
 

@@ -10,8 +10,8 @@ function InformationAboutIndividual(props) {
     const [options,setoptions]=useState({passport:fieldPassportOptions,address:fieldAddressOptions})
 
     async function handleChangeSelectSearch(event) {
-                setoptions({passport:fieldPassportOptions,address: await setOptions(event.value,event.key)})
-        console.log(event)
+        setoptions({passport:fieldPassportOptions,address: await setOptions(event.value,event.key)})
+
         switch (event.key) {
             case "rayon":  {
                 selectGorodRef.current.clearValue()
@@ -19,6 +19,7 @@ function InformationAboutIndividual(props) {
             }
             case "obl":{
                 selectRayonRef.current.clearValue()
+                selectGorodRef.current.clearValue()
                 break;
             }
             default:;
