@@ -4,7 +4,7 @@ import { useState } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
 import { deleteNewNote } from "../../../../redux/boatRegReducer/actionsBoatReg";
 
-export default function TableAppBoatReg({ tableOptions }) {
+export default function TableAppBoatReg({ tableOptions,dataEngines }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
 
@@ -23,6 +23,7 @@ export default function TableAppBoatReg({ tableOptions }) {
   switch (tableOptions.keyTable) {
     case "boatCardAppEngDtoList":
       data = boatCardAppEngList;
+      console.log(data)
       break;
     case "boatCardAppSmDtoList":
       data = boatCardAppSpecMarkList;
@@ -32,6 +33,7 @@ export default function TableAppBoatReg({ tableOptions }) {
   }
 
   const handleAddNotes = (e) => {
+    e.preventDefault()
     setModalWindowInputs(tableOptions);
     // setType("save");
     setShowModal(true);

@@ -11,18 +11,6 @@ function ModalWindow({ setShow, show }) {
 
   const handleLinkClick = (e) => {
     switch (true) {
-      case pathName.includes("reginformationchanges"):
-        switch (e.target.dataset.key) {
-          case "individual":
-            navigate("/reginformationchanges/individual/add");
-            break;
-          case "entity":
-            navigate("/reginformationchanges/entity/add");
-            break;
-          default:
-            break;
-        }
-        break;
       case pathName.includes("smallboatsreg"):
         switch (e.target.dataset.key) {
           case "individual":

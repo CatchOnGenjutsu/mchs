@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import BoatInfoModalWindow from "./ModalWindow/BoatInfoModalWindow";
-import {
-  getBoatCardInfo,
-  clearBoatCardInfo,
-  deleteBoatInfo,
-} from "../../redux//smallBoatsReducer/actionsSmallBoats";
-import { v4 as uuidv4 } from "uuid";
+
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate} from 'react-router-dom';
+import BoatInfoModalWindow from './ModalWindow/BoatInfoModalWindow';
+import { getBoatCardInfo, clearBoatCardInfo, deleteBoatInfo } from '../../redux/smallBoatsReducer/actionsSmallBoats';
+import { v4 as uuidv4 } from 'uuid';
+
 
 import {
   primaryTableLines,
