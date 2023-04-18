@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
-import { addNewEngineCheck } from "../../../../redux/boatRegReducer/actionsBoatReg";
+import {
+  addNewEngineCheck,
+  addNewSpecMarkApp,
+} from "../../../../redux/boatRegReducer/actionsBoatReg";
 
 export default function AppBoatRegModal({
   setShowModal,
   showModal,
   modalWindowInputs,
+  dataForCheck,
 }) {
   const [newData, setNewData] = useState({});
   const [errors, setErrors] = useState({});
@@ -18,7 +22,6 @@ export default function AppBoatRegModal({
   const errorsFields = modalWindowInputs.nameColumn
     .map((item) => Object.values(item))
     .map((elem) => elem[1]);
-  console.log(errorsFields);
 
   const handleChange = (e) => {
     // if (!!e.target) {
@@ -51,7 +54,9 @@ export default function AppBoatRegModal({
     // }
     errorsFields.forEach((elem) => {
       if (!newData[elem] || newData[elem] === "") {
-        newErrors[elem] = "Заполните поле";
+        if (elem !== "asmLock") {
+          newErrors[elem] = "Заполните поле";
+        }
       }
     });
     if (Object.keys(newErrors).length > 0) {
@@ -62,21 +67,19 @@ export default function AppBoatRegModal({
       return false;
     }
   };
-  useEffect(() => {
-    switch (modalWindowInputs.keyTable) {
-      case "boatCardAppEngDtoList":
-        setNewData({ engtype: 1 });
-        break;
-      default:
-        break;
-    }
-  }, []);
 
   const handleSave = () => {
     if (!handleErrors()) {
       switch (modalWindowInputs.keyTable) {
         case "boatCardAppEngDtoList":
-          dispatch(addNewEngineCheck(newData.engvin, newData));
+          if (
+            dataForCheck.findIndex((item) => item.engvin === newData.engvin) < 0
+          ) {
+            dispatch(addNewEngineCheck(newData.engvin, newData));
+          }
+          break;
+        case "boatCardAppSmDtoList":
+          dispatch(addNewSpecMarkApp(newData));
           break;
         default:
           setShowModal(false);
@@ -89,6 +92,21 @@ export default function AppBoatRegModal({
       setSaveKey(true);
     }
   };
+
+  useEffect(() => {
+    switch (modalWindowInputs.keyTable) {
+      case "boatCardAppEngDtoList":
+        setNewData({ engtype: 1 });
+        break;
+      case "boatCardAppSmDtoList":
+        setNewData({ asmLock: true });
+        const input = document.querySelector("#locked");
+        input.toggleAttribute("checked");
+      default:
+        break;
+    }
+  }, []);
+
   return (
     <Modal
       show={showModal}
@@ -139,6 +157,52 @@ export default function AppBoatRegModal({
                       name={item.key}
                       options={item.selectOptions}
                     /> */}
+                  </Form.Group>
+                );
+              case "date":
+                return (
+                  <Form.Group className="mb-3">
+                    <Form.Label>{item.value}</Form.Label>
+                    <Form.Control
+                      data-id={item.key}
+                      type="date"
+                      isInvalid={!!errors[item.key]}
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                    />
+                    <Form.Control.Feedback type={"invalid"}>
+                      {errors[item.key]}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                );
+              case "checkbox":
+                return (
+                  <Form.Group className="mb-3">
+                    <Form.Label>{item.value}</Form.Label>
+                    <Form.Check
+                      name={item.value}
+                      data-id={item.key}
+                      id="locked"
+                      type="radio"
+                      label="Да"
+                      // checked={newData.bsmLock === undefined ? true : false}
+                      value={1}
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                    />
+                    <Form.Check
+                      name={item.value}
+                      data-id={item.key}
+                      id="unlocked"
+                      type="radio"
+                      label="Нет"
+                      value={""}
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                    />
                   </Form.Group>
                 );
               default:
