@@ -88,6 +88,12 @@ export default function TableAppBoatReg({ tableOptions }) {
                           />
                         </td>
                       );
+                    case "date":
+                      return (
+                        <td>
+                          {elem[`${item.key}`].split("-").reverse().join(".")}
+                        </td>
+                      );
                     default:
                       return <td>{elem[`${item.key}`]}</td>;
                   }

@@ -25,11 +25,11 @@ export default function InfoRepresentPerson() {
     if (!!e.key) {
       switch (e.key) {
         case "rayon":
-          setOptionsGorodForRayon(document.location.pathname, e.value);
+          setOptionsGorodForRayon(e.value);
           setGorodDisabled(false);
           break;
         case "agentObl":
-          setOptionsRayonForOblast(document.location.pathname, e.value);
+          setOptionsRayonForOblast(e.value);
           setRayonDisabled(false);
           break;
 
