@@ -1,10 +1,16 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 import { Form } from "react-bootstrap";
 import styles from "./IndividualStatement.module.css";
-import { optionSelectChangeType } from "./optionsForIndividualStatement";
+import { optionSelectChangeType, boatCardAppEngDtoList} from "./optionsForIndividualStatement";
 import InformationAboutIndividual from "../../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
+import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson"
+import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg"
 
-function IndividualStatement(props) {
+function IndividualStatement() {
+  const location = useLocation();
+  const { data } = location.state || {};
+  console.log(data)
   return (
     <div className="d-flex flex-column align-items-center">
       <h2>Заявление для физ.лиц</h2>
@@ -18,6 +24,7 @@ function IndividualStatement(props) {
           <Form.Group className={styles["header"]}>
             <Form.Label>Регистрационный номер маломерного судна:</Form.Label>
             <Form.Control
+              value={data.regNum}
               type="text"
               readOnly={true}
               disabled={true}
@@ -26,13 +33,14 @@ function IndividualStatement(props) {
           <Form.Group className={styles["header"]}>
             <Form.Label>Субъект хозяйствования:</Form.Label>
             <Form.Control
+              value={data.ownerType.ptName}
               type="text"
               readOnly={true}
               disabled={true}
             />
           </Form.Group>
           <Form.Group className={styles["header"]}>
-            <Form.Label>Субъект хозяйствования:</Form.Label>
+            <Form.Label>Какие изменения вносятся:</Form.Label>
             <Form.Select>
               {optionSelectChangeType.map((el) => (
                 <option value={el.id}>{el.value}</option>
@@ -42,6 +50,7 @@ function IndividualStatement(props) {
           <Form.Group className={styles["header"]}>
             <Form.Label>Номер судового билета:</Form.Label>
             <Form.Control
+              value={data.tiketNum}
               type="text"
               readOnly={true}
               disabled={true}
@@ -50,12 +59,20 @@ function IndividualStatement(props) {
           <Form.Group className={styles["header"]}>
             <Form.Label>Дата выдачи судового билета:</Form.Label>
             <Form.Control
+              value={data.cardDate}
               type="text"
               readOnly={true}
               disabled={true}
             />
           </Form.Group>
-          <InformationAboutIndividual />
+          <InformationAboutIndividual
+            data={data}
+          />
+          <InfoRepresentPerson />
+          <TableAppBoatReg
+              tableOptions={boatCardAppEngDtoList}
+              dataEngines={data.enginesList}
+          />
         </Form>
       </div>
     </div>

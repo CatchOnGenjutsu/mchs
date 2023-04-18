@@ -13,8 +13,6 @@ function FormSearchBoatCard() {
 	const [addBtnDis, setAddBtnDis] = useState(true);
 	const handleBoatCardId = (value) => {
 		setBoatCardId(value);
-		console.log(value);
-		// !!value ? setAddBtnDis(false) : setAddBtnDis(true);
 	};
 
 	const dataBoatCards = useSelector((state) => {
@@ -37,12 +35,12 @@ function FormSearchBoatCard() {
 				dataFromState={dataBoatCards}
 				headerColumns={COLUMNS_FORM_SEARCH_BOAT_CARDS}
 			/>
-			{show && (
-				<ModalWindow
-					show={show}
-					setShow={setShow}
-				/>
-			)}
+			{/*{show && (*/}
+			{/*	<ModalWindow*/}
+			{/*		show={show}*/}
+			{/*		setShow={setShow}*/}
+			{/*	/>*/}
+			{/*)}*/}
 		</>
 	);
 }

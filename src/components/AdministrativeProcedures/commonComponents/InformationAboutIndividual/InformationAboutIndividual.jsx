@@ -4,7 +4,7 @@ import styles from './InformationAboutIndividual.module.css'
 import {fieldPassportOptions,fieldAddressOptions,setOptions} from './optionsForInformationAboutIndividual'
 import Select from 'react-select';
 
-function InformationAboutIndividual(props) {
+function InformationAboutIndividual({data}) {
     const selectGorodRef = useRef()
     const selectRayonRef = useRef()
     const [options,setoptions]=useState({passport:fieldPassportOptions,address:fieldAddressOptions})

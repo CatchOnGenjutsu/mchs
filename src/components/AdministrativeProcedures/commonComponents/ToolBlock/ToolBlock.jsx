@@ -4,13 +4,19 @@ import edit_icon from "../../../../resourсes/edit-icon.svg";
 import add_icon from "../../../../resourсes/add-icon.svg";
 import open_icon from "../../../../resourсes/open-icon.svg";
 import { useNavigate } from "react-router-dom";
+import {
+  MAIN_URL,
+  PORT,
+  API_GET_BOAT_INFO_CARD,
+} from "../../../../constants/constants";
 
 function ToolBlock({ data, id, setShow, addBtnDisIn }) {
   const url = new URL(document.location.href);
   const pathName = url.pathname.slice(1);
   const navigate = useNavigate();
+  // const [boatCard,setBoatCard]=useState(null)
 
-  const handleButtonAdd = (event) => {
+  const handleButtonAdd = async (event) => {
     switch (true) {
       case pathName.includes("reginformationchanges/searchboatcard"): {
         switch (event.currentTarget.id) {
@@ -19,7 +25,15 @@ function ToolBlock({ data, id, setShow, addBtnDisIn }) {
             break;
           }
           case "add": {
-            setShow(true);
+            const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(id));
+            let boatCardData = await response.json();
+            if(boatCardData.ownerType.ptcode === 1){
+              navigate("/reginformationchanges/individual/add",{state:{data:boatCardData}});
+            }else{
+              navigate("/reginformationchanges/entity/add");
+            }
+
+            // setBoatCard(boatCardData)
             break;
           }
         }
@@ -36,7 +50,6 @@ function ToolBlock({ data, id, setShow, addBtnDisIn }) {
       }
     }
   };
-  console.log(pathName);
   return (
     <>
       <div className={`d-flex mb-2`}>

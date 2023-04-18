@@ -104,27 +104,28 @@ export default function AppBoatRegModal({
       <Modal.Body>
         <Form>
           {modalWindowInputs.nameColumn.map((item) => {
-            switch (item.type) {
-              case "select":
-                return (
-                  <Form.Group className="mb-3">
-                    <Form.Label>{item.value}</Form.Label>
-                    <Form.Select
-                      data-id={item.key}
-                      type="select"
-                      isInvalid={!!errors[item.key]}
-                      onChange={(e) => {
-                        handleChange(e);
-                      }}>
-                      {item.selectOptions.map((elem) => (
-                        <option
-                          data-id={item.key}
-                          value={elem.value}>
-                          {elem.label}
-                        </option>
-                      ))}
-                    </Form.Select>
-                    {/* <Select
+            if(item.neededInModal){
+              switch (item.type) {
+                case "select":
+                  return (
+                      <Form.Group className="mb-3">
+                        <Form.Label>{item.value}</Form.Label>
+                        <Form.Select
+                            data-id={item.key}
+                            type="select"
+                            isInvalid={!!errors[item.key]}
+                            onChange={(e) => {
+                              handleChange(e);
+                            }}>
+                          {item.selectOptions.map((elem) => (
+                              <option
+                                  data-id={item.key}
+                                  value={elem.value}>
+                                {elem.label}
+                              </option>
+                          ))}
+                        </Form.Select>
+                        {/* <Select
                       // ${styles.search_select}
                       classNamePrefix="select"
                       placeholder="Выберите..."
@@ -139,25 +140,26 @@ export default function AppBoatRegModal({
                       name={item.key}
                       options={item.selectOptions}
                     /> */}
-                  </Form.Group>
-                );
-              default:
-                return (
-                  <Form.Group className="mb-3">
-                    <Form.Label>{item.value}</Form.Label>
-                    <Form.Control
-                      data-id={item.key}
-                      type="text"
-                      isInvalid={!!errors[item.key]}
-                      onChange={(e) => {
-                        handleChange(e);
-                      }}
-                    />
-                    <Form.Control.Feedback type={"invalid"}>
-                      {errors[item.key]}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                );
+                      </Form.Group>
+                  );
+                default:
+                  return (
+                      <Form.Group className="mb-3">
+                        <Form.Label>{item.value}</Form.Label>
+                        <Form.Control
+                            data-id={item.key}
+                            type="text"
+                            isInvalid={!!errors[item.key]}
+                            onChange={(e) => {
+                              handleChange(e);
+                            }}
+                        />
+                        <Form.Control.Feedback type={"invalid"}>
+                          {errors[item.key]}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                  );
+              }
             }
           })}
         </Form>
