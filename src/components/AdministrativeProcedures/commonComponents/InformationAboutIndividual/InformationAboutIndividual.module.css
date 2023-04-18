@@ -83,6 +83,11 @@
     margin:0;
     width:70%;
 }
-.address-information .common .selectSearch{
+.address-information .common select {
+    margin:0;
+    width:70%;
+}
+
+.selectSearch{
     width: 70%;
 }
