@@ -25,14 +25,14 @@ export function InfoRepresentPerson() {
     if (!!e.target) {
       if (e.target.dataset.id === "agentOblId") {
         console.log(e.target.value);
-        setOptionsRayonForOblast(document.location.pathname, e.target.value);
+        setOptionsRayonForOblast(e.target.value);
         setRayonDisabled(false);
       }
     }
     if (!!e.key) {
       switch (e.key) {
         case "rayon":
-          setOptionsGorodForRayon(document.location.pathname, e.value);
+          setOptionsGorodForRayon( e.value);
           setGorodDisabled(false);
           break;
 
