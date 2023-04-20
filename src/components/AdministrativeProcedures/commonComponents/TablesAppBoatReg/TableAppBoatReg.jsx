@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./TableAppBoatReg.module.css";
 import { useState } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
-import { deleteNewNote } from "../../../../redux/boatRegReducer/actionsBoatReg";
+import { deleteNewNote } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function TableAppBoatReg({ tableOptions,dataEngines }) {
+export default function TableAppBoatReg({ tableOptions, dataEngines }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
 
@@ -12,18 +12,18 @@ export default function TableAppBoatReg({ tableOptions,dataEngines }) {
 
   let data;
   const boatCardAppEngList = useSelector((state) => {
-    const { boatRegReducer } = state;
-    return boatRegReducer.boatCardAppEngList;
+    const { statementReducer } = state;
+    return statementReducer.boatCardAppEngList;
   });
   const boatCardAppSpecMarkList = useSelector((state) => {
-    const { boatRegReducer } = state;
-    return boatRegReducer.boatCardAppSpecMarkList;
+    const { statementReducer } = state;
+    return statementReducer.boatCardAppSpecMarkList;
   });
   console.log("data", data);
   switch (tableOptions.keyTable) {
     case "boatCardAppEngDtoList":
       data = boatCardAppEngList;
-      console.log(data)
+      console.log(data);
       break;
     case "boatCardAppSmDtoList":
       data = boatCardAppSpecMarkList;
@@ -33,7 +33,7 @@ export default function TableAppBoatReg({ tableOptions,dataEngines }) {
   }
 
   const handleAddNotes = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setModalWindowInputs(tableOptions);
     // setType("save");
     setShowModal(true);
