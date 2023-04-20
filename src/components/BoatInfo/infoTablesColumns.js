@@ -47,14 +47,14 @@ export const primaryTableLines = [
   },
   {
     id: "saCategory",
-    value: "Категория сложности района плавания:",
+    value: "Категория и разряд сложности района плавания:",
     key: "sacName"
   },
-  {
-    id: "saCategory",
-    value: "Разряд сложности района плавания:",
-    key: "sacSign"
-  },
+  // {
+  //   id: "saCategory",
+  //   value: "Разряд сложности района плавания:",
+  //   key: "sacSign"
+  // },
   {
     id: "tiketNum",
     value: "№ и дата выдачи судового билета (в том числе дубликата судового билета):",
