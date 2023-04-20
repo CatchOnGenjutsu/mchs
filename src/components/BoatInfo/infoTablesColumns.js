@@ -46,14 +46,15 @@ export const primaryTableLines = [
   },
   {
     id: "saCategory",
-    value: "Категория сложности района плавания:",
-    key: "sacName",
+    value: "Категория и разряд сложности района плавания:",
+    key: "sacName"
   },
-  {
-    id: "saCategory",
-    value: "Разряд сложности района плавания:",
-    key: "sacSign",
-  },
+  // {
+  //   id: "saCategory",
+  //   value: "Разряд сложности района плавания:",
+  //   key: "sacSign"
+  // },
+
   {
     id: "tiketNum",
     value:

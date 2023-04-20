@@ -2,13 +2,12 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import styles from "./IndividualStatement.module.css";
-import {
-  optionSelectChangeType,
-  boatCardAppEngDtoList,
-} from "./optionsForIndividualStatement";
+
+import { optionSelectChangeType, boatCardAppEngDtoList,boatCardAppSmDtoList} from "./optionsForIndividualStatement";
 import InformationAboutIndividual from "../../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
-import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
-import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg";
+import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson"
+import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg"
+import InfromationAboutBoat from "../../commonComponents/InformationAboutBoat/InfromationAboutBoat"
 
 function IndividualStatement() {
   const location = useLocation();
@@ -70,9 +69,18 @@ function IndividualStatement() {
           </Form.Group>
           <InformationAboutIndividual data={data} />
           <InfoRepresentPerson />
+          <InfromationAboutBoat/>
           <TableAppBoatReg
             tableOptions={boatCardAppEngDtoList}
             dataEngines={data.enginesList}
+          />
+          <TableAppBoatReg
+              tableOptions={boatCardAppSmDtoList}
+              // data={boatCardAppEngList}
+          />
+          <TableAppBoatReg
+              tableOptions={boatCardAppSmDtoList}
+              // data={boatCardAppEngList}
           />
         </Form>
       </div>
