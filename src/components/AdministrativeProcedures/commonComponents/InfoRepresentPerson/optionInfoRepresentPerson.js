@@ -26,7 +26,7 @@ export const optionInfoRepresentPersonSummary = {
     key: "agentDocType",
     value: "Документ",
     type:'select',
-    selectOption: [{value:1, label:'Паспорт'}, {value:2, label:'Вид на жительство'}]
+    selectOption: [{value:1, label:'Паспорт', key: "agentDocType"}, {value:2, label:'Вид на жительство',key: "agentDocType"}]
   },
   agentSerialOfPassport:{
     key: "agentSerialOfPassport",
@@ -124,7 +124,7 @@ export const setOptionsRayonForOblast = async (id) => {
       const result = await response.json();
       optionInfoRepresentPersonAddress.agentRayonId.selectOption.length = 0
       result.forEach(item => {
-        optionInfoRepresentPersonAddress.agentRayonId.selectOption.push({value: item.id, label: item.name, key: "rayon"})
+        optionInfoRepresentPersonAddress.agentRayonId.selectOption.push({value: item.id, label: item.name, key: "agentRayonId"})
       });
 }
 
@@ -133,6 +133,6 @@ export const setOptionsGorodForRayon = async (id) => {
       const result = await response.json();
       optionInfoRepresentPersonAddress.agentGorodId.selectOption.length = 0
       result.forEach(item => {
-        optionInfoRepresentPersonAddress.agentGorodId.selectOption.push({value: item.id, label: item.name2, key: "gorod"})
+        optionInfoRepresentPersonAddress.agentGorodId.selectOption.push({value: item.id, label: item.name2, key: "agentGorodId"})
       });
 }

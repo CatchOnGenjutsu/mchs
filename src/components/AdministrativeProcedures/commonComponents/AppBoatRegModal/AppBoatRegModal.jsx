@@ -5,7 +5,7 @@ import Select from "react-select";
 import {
   addNewEngineCheck,
   addNewSpecMarkApp,
-} from "../../../../redux/boatRegReducer/actionsBoatReg";
+} from "../../../../redux/statementReducer/actionsStatement";
 
 export default function AppBoatRegModal({
   setShowModal,

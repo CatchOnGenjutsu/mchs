@@ -2,10 +2,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  padding: 20px;
 }
 /* box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); */
 .sub_text {
   text-align: center;
   font-size: large;
   font-weight: 500;
+}
+
+.header{
+  display: flex;
+  grid-gap: 40px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.header input,select{
+  flex-basis: 300px;
+}
+.header label{
+  flex-basis: 400px;
+}
+.buttons_container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
 }
