@@ -13,8 +13,8 @@ export default function AppBoatReg() {
     return smallBoatsRegReducer.appRegData;
   });
   const boatCardAppEngList = useSelector((state) => {
-    const { boatRegReducer } = state;
-    return boatRegReducer.boatCardAppEngList;
+    const { boatStatementReducer } = state;
+    return boatStatementReducer.boatCardAppEngList;
   });
   console.log("appRegData", appRegData);
   return (

@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TableAppBoatReg.module.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
-import { deleteNewNote } from "../../../../redux/boatRegReducer/actionsBoatReg";
+import { deleteNewNote,setDataForTable } from "../../../../redux/boatStatementReducerForTable/actionsBoatReg";
 
-export default function TableAppBoatReg({ tableOptions,dataEngines }) {
+export default function TableAppBoatReg({ tableOptions,dataForTable }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
 
@@ -12,21 +12,28 @@ export default function TableAppBoatReg({ tableOptions,dataEngines }) {
 
   let data;
   const boatCardAppEngList = useSelector((state) => {
-    const { boatRegReducer } = state;
-    return boatRegReducer.boatCardAppEngList;
+    const { boatStatementReducer } = state;
+    return boatStatementReducer.boatCardAppEngList;
   });
   const boatCardAppSpecMarkList = useSelector((state) => {
-    const { boatRegReducer } = state;
-    return boatRegReducer.boatCardAppSpecMarkList;
+    const { boatStatementReducer } = state;
+    return boatStatementReducer.boatCardAppSpecMarkList;
   });
-  console.log("data", data);
+
+  const boatCardAppDealsList = useSelector((state) => {
+    const { boatStatementReducer } = state;
+    return boatStatementReducer.boatCardAppDealsList;
+  });
+
   switch (tableOptions.keyTable) {
     case "boatCardAppEngDtoList":
       data = boatCardAppEngList;
-      console.log(data)
       break;
     case "boatCardAppSmDtoList":
       data = boatCardAppSpecMarkList;
+      break;
+    case "boatCardAppDealsDtoList":
+      data = boatCardAppDealsList;
       break;
     default:
       break;
@@ -39,6 +46,7 @@ export default function TableAppBoatReg({ tableOptions,dataEngines }) {
     setShowModal(true);
   };
   const handleDeleteNote = (e) => {
+    e.preventDefault()
     let noteForDelete;
     switch (tableOptions.keyTable) {
       case "boatCardAppEngDtoList":
@@ -53,11 +61,24 @@ export default function TableAppBoatReg({ tableOptions,dataEngines }) {
           type: "boatCardAppSmDtoList",
         };
         break;
+      case "boatCardAppDealsList":
+        noteForDelete = {
+          id: e.target.id,
+          type: "boatCardAppDealsList",
+        };
+        break;
       default:
         break;
     }
     dispatch(deleteNewNote(noteForDelete));
   };
+
+  useEffect(()=>{
+    console.log(!!dataForTable)
+    if(!!dataForTable){
+      dispatch(setDataForTable({key:tableOptions.keyTable,data:dataForTable}))
+    }
+  },[])
 
   return (
     <div
