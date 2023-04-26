@@ -1,17 +1,16 @@
-import { ADD_NEW_ENGINE_CHECK, ADD_NEW_SPEC_MARK_APP,ADD_NEW_DEAL, DELETE_NEW_NOTE_APP,SET_DATA_FOR_STATEMENT_TABLES } from "../types";
+import { ADD_NEW_ENGINE_CHECK,ADD_NEW_DEAL, ADD_NEW_SPEC_MARK_APP, DELETE_NEW_NOTE_APP,ADD_NEW_STATEMENT_DATA ,SET_DATA_FOR_STATEMENT_TABLES} from "../types";
 import { v4 as uuidv4 } from 'uuid';
 
 
 const initialState = {
-  boatCardAppEngList: [
-  ],
-  boatCardAppSpecMarkList: [
-  ],
-  boatCardAppDealsList: [
-  ],
+  boatCardAppEngList: [],
+  boatCardAppSpecMarkList: [],
+  boatCardAppDealsList: [],
+  newStatement: {}
 };
 
-export const boatStatementReducer = (state = initialState, action) => {
+export const statementReducer = (state = initialState, action) => {
+  console.log(action)
   switch (action.type) {
     case ADD_NEW_ENGINE_CHECK:
       action.data["innerId"] = uuidv4();
@@ -51,6 +50,24 @@ export const boatStatementReducer = (state = initialState, action) => {
         default:
           return state;
       }
+    case ADD_NEW_STATEMENT_DATA: 
+      const newKey = Object.keys(action.data)[0];
+      const value = Object.values(action.data)[0]
+      return (() => ({
+        ...state,
+        newStatement: {...state.newStatement, [newKey]: value},
+      }))()
+      // if (Object.keys(state.newStatement).includes(key)) {
+      //   return (() => ({
+      //     ...state,
+      //     newStatement: [...state.newStatement.filter(item => Object.keys(item)[0] === key ? action.data : item)],
+      //   }))()
+      // } else {
+      //   return (() => ({
+      //     ...state,
+      //     newStatement: [...state.newStatement, action.data],
+      //   }))()
+      // }
     case SET_DATA_FOR_STATEMENT_TABLES:
       switch (action.data.type) {
         case "boatCardAppEngDtoList":

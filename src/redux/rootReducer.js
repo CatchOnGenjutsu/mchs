@@ -7,7 +7,7 @@ import { dictionaryReducer } from "./globalReducers/dictionaryReducer";
 import { smallBoatsRegReducer } from "./SmallBoatsRegReducer/SmallBoatsRegReducer";
 import {registrationInformationChangesReducer} from "./RegistrationInformationChangesReducer/RegistrationInformationChangesReducer"
 import {tableReducer} from"./globalReducers/tableReducer";
-import { boatStatementReducer } from "./boatStatementReducerForTable/boatRegReducer";
+import { statementReducer } from "./statementReducer/statementReducer";
 
 
 export const rootReducer = combineReducers({
@@ -19,5 +19,5 @@ export const rootReducer = combineReducers({
   smallBoatsRegReducer,
   tableReducer,
   registrationInformationChangesReducer,
-  boatStatementReducer
+  statementReducer
 })

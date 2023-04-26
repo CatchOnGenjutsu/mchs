@@ -7,11 +7,10 @@
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppBoatRegModal/AppBoatRegModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppBoatRegModal/AppBoatRegModal.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/TablesAppBoatReg/TableAppBoatReg.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/TablesAppBoatReg/TableAppBoatReg.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/optionsForIndividualStatement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/optionsForIndividualStatement.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BoatInfo/infoTablesColumns.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BoatInfo/infoTablesColumns.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/boatRegReducer/actionsBoatReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/boatStatementReducerForTable/actionsBoatReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/boatRegReducer/boatRegReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/boatStatementReducerForTable/boatRegReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/boatStatementReducerForTable/actionsBoatReg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/boatStatementReducerForTable/boatRegReducer.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/rootReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/statementReducer/actionsStatement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/statementReducer/actionsStatement.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

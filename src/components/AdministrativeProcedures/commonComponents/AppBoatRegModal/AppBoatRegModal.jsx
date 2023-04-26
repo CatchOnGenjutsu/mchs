@@ -6,7 +6,7 @@ import {
   addNewEngineCheck,
   addNewSpecMarkApp,
   addNewDealApp
-} from "../../../../redux/boatStatementReducerForTable/actionsBoatReg";
+} from "../../../../redux/statementReducer/actionsStatement";
 
 export default function AppBoatRegModal({
   setShowModal,

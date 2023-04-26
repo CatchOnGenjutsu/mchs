@@ -8,6 +8,7 @@ import InformationAboutIndividual from "../../commonComponents/InformationAboutI
 import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson"
 import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg"
 import InfromationAboutBoat from "../../commonComponents/InformationAboutBoat/InfromationAboutBoat"
+import AppFooter from "../../commonComponents/AppFooter/AppFooter"
 
 function IndividualStatement() {
   const location = useLocation();
@@ -81,6 +82,7 @@ function IndividualStatement() {
               tableOptions={boatCardAppDealsDtoList}
               // data={boatCardAppEngList}
           />
+          <AppFooter/>
         </Form>
       </div>
     </div>

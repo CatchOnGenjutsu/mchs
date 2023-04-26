@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./TableAppBoatReg.module.css";
 import { useState,useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
-import { deleteNewNote,setDataForTable } from "../../../../redux/boatStatementReducerForTable/actionsBoatReg";
+import { deleteNewNote,setDataForTable } from "../../../../redux/statementReducer/actionsStatement";
 
 export default function TableAppBoatReg({ tableOptions,dataForTable }) {
   const [showModal, setShowModal] = useState(false);
@@ -12,17 +12,17 @@ export default function TableAppBoatReg({ tableOptions,dataForTable }) {
 
   let data;
   const boatCardAppEngList = useSelector((state) => {
-    const { boatStatementReducer } = state;
-    return boatStatementReducer.boatCardAppEngList;
+    const { statementReducer } = state;
+    return statementReducer.boatCardAppEngList;
   });
   const boatCardAppSpecMarkList = useSelector((state) => {
-    const { boatStatementReducer } = state;
-    return boatStatementReducer.boatCardAppSpecMarkList;
+    const { statementReducer } = state;
+    return statementReducer.boatCardAppSpecMarkList;
   });
 
   const boatCardAppDealsList = useSelector((state) => {
-    const { boatStatementReducer } = state;
-    return boatStatementReducer.boatCardAppDealsList;
+    const { statementReducer } = state;
+    return statementReducer.boatCardAppDealsList;
   });
 
   switch (tableOptions.keyTable) {
@@ -61,10 +61,10 @@ export default function TableAppBoatReg({ tableOptions,dataForTable }) {
           type: "boatCardAppSmDtoList",
         };
         break;
-      case "boatCardAppDealsList":
+      case "boatCardAppDealsDtoList":
         noteForDelete = {
           id: e.target.id,
-          type: "boatCardAppDealsList",
+          type: "boatCardAppDealsDtoList",
         };
         break;
       default:
@@ -74,7 +74,6 @@ export default function TableAppBoatReg({ tableOptions,dataForTable }) {
   };
 
   useEffect(()=>{
-    console.log(!!dataForTable)
     if(!!dataForTable){
       dispatch(setDataForTable({key:tableOptions.keyTable,data:dataForTable}))
     }
