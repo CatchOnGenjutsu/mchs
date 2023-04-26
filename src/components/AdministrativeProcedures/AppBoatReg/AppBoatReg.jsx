@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 export default function AppBoatReg() {
   const location = useLocation();
   const { type } = location.state;
+  // console.log()
 
   const [newApp, setNewApp] = useState({
     operDate: new Date().toLocaleDateString().split(".").reverse().join("-"),
