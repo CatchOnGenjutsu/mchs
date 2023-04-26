@@ -223,12 +223,12 @@ export const dealsHistoryTableColumns = {
   keyTable: "dealsHistoryTableColumns",
   caption: "Сведения о правах собственности:",
   nameColumn: [
-    {
-      id: "boatDeals",
-      value: "Дата сделки",
-      key: "dealDate",
-      type: "date",
-    },
+    // {
+    //   id: "boatDeals",
+    //   value: "Дата сделки",
+    //   key: "dealDate",
+    //   type: "date",
+    // },
     {
       id: "boatDeals",
       value: "Документ подтверждающий право собственности",

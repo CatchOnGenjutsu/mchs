@@ -3,16 +3,16 @@ import { useLocation } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import styles from "./IndividualStatement.module.css";
 
-import { optionSelectChangeType, boatCardAppEngDtoList,boatCardAppSmDtoList} from "./optionsForIndividualStatement";
+import { optionSelectChangeType, boatCardAppEngDtoList,boatCardAppSmDtoList,boatCardAppDealsDtoList} from "./optionsForIndividualStatement";
 import InformationAboutIndividual from "../../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
 import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson"
 import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg"
 import InfromationAboutBoat from "../../commonComponents/InformationAboutBoat/InfromationAboutBoat"
+import AppFooter from "../../commonComponents/AppFooter/AppFooter"
 
 function IndividualStatement() {
   const location = useLocation();
   const { data } = location.state || {};
-  console.log(data);
   return (
     <div className="d-flex flex-column align-items-center">
       <h2>Заявление для физ.лиц</h2>
@@ -79,9 +79,10 @@ function IndividualStatement() {
               // data={boatCardAppEngList}
           />
           <TableAppBoatReg
-              tableOptions={boatCardAppSmDtoList}
+              tableOptions={boatCardAppDealsDtoList}
               // data={boatCardAppEngList}
           />
+          <AppFooter/>
         </Form>
       </div>
     </div>

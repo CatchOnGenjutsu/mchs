@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import {
   optionInfoRepresentPersonSummary,
   optionInfoRepresentPersonAddress,
   powerOfAttorney,
+} from "./optionInfoRepresentPerson";
+import {
   setOptionsRayonForOblast,
   setOptionsGorodForRayon,
 } from "./optionInfoRepresentPerson";
-import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
-import { Form } from "react-bootstrap";
+import { Form, Button, Modal } from "react-bootstrap";
 import Select from "react-select";
 
 import styles from "./InfoRepresentPerson.module.css";
@@ -16,20 +16,15 @@ import styles from "./InfoRepresentPerson.module.css";
 export default function InfoRepresentPerson() {
   const [rayonDisabled, setRayonDisabled] = useState(true);
   const [gorodDisabled, setGorodDisabled] = useState(true);
-  const dispatch = useDispatch();
-
   const halfControls =
     "agentSurname agentName agentMidname agentDocDepartment agentPersNum powerOfAttorney";
 
   const handleValue = (e) => {
-    // console.log("e.target", e.target.value);
-    // console.log("e.key", e.key);
-    if (!!e.target) {
-      dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
-    }
+    console.log("e.target", !!e.target);
+    console.log("e.key", e.key);
     if (!!e.key) {
       switch (e.key) {
-        case "agentRayonId":
+        case "rayon":
           setOptionsGorodForRayon(e.value);
           setGorodDisabled(false);
           break;
@@ -41,7 +36,6 @@ export default function InfoRepresentPerson() {
         default:
           break;
       }
-      dispatch(addNewStatementData({ [`${e.key}`]: e.value }));
     }
   };
   return (
@@ -77,9 +71,10 @@ export default function InfoRepresentPerson() {
                       // isInvalid={!!errors[el.key]}
                       type={item.type}
                       // value={(form)&&form[el.key]||''}
-                      onBlur={(e) => {
-                        handleValue(e);
-                      }}
+                      // onChange={(e)=>{
+                      //     form[e.currentTarget.id]=e.currentTarget.value
+                      //     setForm(structuredClone(form))
+                      // }}
                     />
                     {/* <Form.Control.Feedback type={"invalid"}>
                     {errors[el.key]}
@@ -110,9 +105,6 @@ export default function InfoRepresentPerson() {
                       classNamePrefix="select"
                       placeholder="Выберите..."
                       data-id={item.key}
-                      // onBlur={(e) => {
-                      //   handleValue(e);
-                      // }}
                       onChange={(e) => handleValue(e)}
                       // defaultValue={item.selectOption[0]}
                       isSearchable={false}
@@ -145,9 +137,10 @@ export default function InfoRepresentPerson() {
                       // isInvalid={!!errors[el.key]}
                       type={item.type}
                       // value={(form)&&form[el.key]||''}
-                      onChange={(e) => {
-                        handleValue(e);
-                      }}
+                      // onChange={(e)=>{
+                      //     form[e.currentTarget.id]=e.currentTarget.value
+                      //     setForm(structuredClone(form))
+                      // }}
                     />
                     {/* <Form.Control.Feedback type={"invalid"}>
                     {errors[el.key]}
@@ -189,6 +182,10 @@ export default function InfoRepresentPerson() {
                         // isInvalid={!!errors[el.key]}
                         type={item.type}
                         // value={(form)&&form[el.key]||''}
+                        // onChange={(e)=>{
+                        //     form[e.currentTarget.id]=e.currentTarget.value
+                        //     setForm(structuredClone(form))
+                        // }}
                       />
                     ) : (
                       <Form.Control
@@ -201,9 +198,10 @@ export default function InfoRepresentPerson() {
                         // isInvalid={!!errors[el.key]}
                         type={item.type}
                         // value={(form)&&form[el.key]||''}
-                        onBlur={(e) => {
-                          handleValue(e);
-                        }}
+                        // onChange={(e)=>{
+                        //     form[e.currentTarget.id]=e.currentTarget.value
+                        //     setForm(structuredClone(form))
+                        // }}
                       />
                     )}
                     {/* <Form.Control.Feedback type={"invalid"}>
@@ -235,14 +233,24 @@ export default function InfoRepresentPerson() {
                       classNamePrefix="select"
                       placeholder="Выберите..."
                       data-id={item.key}
-                      onChange={(e) => {
-                        handleValue(e);
-                      }}
+                      onChange={(e) => handleValue(e)}
                       // defaultValue={item.selectOption[0]}
                       isSearchable={false}
                       name={item.key}
                       options={item.selectOption}
                     />
+                    {/* <Form.Select
+                      // className={
+                      //   !halfControls.includes(item.key)
+                      //     ? styles.half_controls
+                      //     : styles.wide_controls
+                      // }
+                      data-id={item.key}
+                      onChange={(e) => handleValue(e)}>
+                      {item.selectOption.map((el) => (
+                        <option value={el.id}>{el.value}</option>
+                      ))}
+                    </Form.Select> */}
                   </Form.Group>
                 );
               case "customSelect":
@@ -278,9 +286,7 @@ export default function InfoRepresentPerson() {
                       classNamePrefix="select"
                       placeholder="Выберите..."
                       data-id={item.key}
-                      onChange={(e) => {
-                        handleValue(e);
-                      }}
+                      onChange={(e) => handleValue(e)}
                       // defaultValue={item.selectOption[0]}
                       isDisabled={isDisabled}
                       isSearchable={true}
@@ -308,9 +314,10 @@ export default function InfoRepresentPerson() {
                       // isInvalid={!!errors[el.key]}
                       type={item.type}
                       // value={(form)&&form[el.key]||''}
-                      onChange={(e) => {
-                        handleValue(e);
-                      }}
+                      // onChange={(e)=>{
+                      //     form[e.currentTarget.id]=e.currentTarget.value
+                      //     setForm(structuredClone(form))
+                      // }}
                     />
                     {/* <Form.Control.Feedback type={"invalid"}>
                     {errors[el.key]}
@@ -345,9 +352,10 @@ export default function InfoRepresentPerson() {
           // isInvalid={!!errors[el.key]}
           type={powerOfAttorney.type}
           // value={(form)&&form[el.key]||''}
-          onBlur={(e) => {
-            handleValue(e);
-          }}
+          // onChange={(e)=>{
+          //     form[e.currentTarget.id]=e.currentTarget.value
+          //     setForm(structuredClone(form))
+          // }}
         />
         {/* <Form.Control.Feedback type={"invalid"}>
                     {errors[el.key]}

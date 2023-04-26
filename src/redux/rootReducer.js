@@ -5,8 +5,8 @@ import { certificateReducer } from "./certificateReducer/certificateReducer";
 import { basesBuildingReducer } from "./baseBuildingReducer/basesBuildingReducer";
 import { dictionaryReducer } from "./globalReducers/dictionaryReducer";
 import { smallBoatsRegReducer } from "./SmallBoatsRegReducer/SmallBoatsRegReducer";
-import { registrationInformationChangesReducer } from "./RegistrationInformationChangesReducer/RegistrationInformationChangesReducer"
-import { tableReducer } from"./globalReducers/tableReducer";
+import {registrationInformationChangesReducer} from "./RegistrationInformationChangesReducer/RegistrationInformationChangesReducer"
+import {tableReducer} from"./globalReducers/tableReducer";
 import { statementReducer } from "./statementReducer/statementReducer";
 
 

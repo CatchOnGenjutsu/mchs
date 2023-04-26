@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TableAppBoatReg.module.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
-import { deleteNewNote } from "../../../../redux/statementReducer/actionsStatement";
+import { deleteNewNote,setDataForTable } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function TableAppBoatReg({ tableOptions, dataEngines }) {
+export default function TableAppBoatReg({ tableOptions,dataForTable }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
 
@@ -19,26 +19,34 @@ export default function TableAppBoatReg({ tableOptions, dataEngines }) {
     const { statementReducer } = state;
     return statementReducer.boatCardAppSpecMarkList;
   });
-  console.log("data", data);
+
+  const boatCardAppDealsList = useSelector((state) => {
+    const { statementReducer } = state;
+    return statementReducer.boatCardAppDealsList;
+  });
+
   switch (tableOptions.keyTable) {
     case "boatCardAppEngDtoList":
       data = boatCardAppEngList;
-      console.log(data);
       break;
     case "boatCardAppSmDtoList":
       data = boatCardAppSpecMarkList;
+      break;
+    case "boatCardAppDealsDtoList":
+      data = boatCardAppDealsList;
       break;
     default:
       break;
   }
 
   const handleAddNotes = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setModalWindowInputs(tableOptions);
     // setType("save");
     setShowModal(true);
   };
   const handleDeleteNote = (e) => {
+    e.preventDefault()
     let noteForDelete;
     switch (tableOptions.keyTable) {
       case "boatCardAppEngDtoList":
@@ -53,11 +61,23 @@ export default function TableAppBoatReg({ tableOptions, dataEngines }) {
           type: "boatCardAppSmDtoList",
         };
         break;
+      case "boatCardAppDealsDtoList":
+        noteForDelete = {
+          id: e.target.id,
+          type: "boatCardAppDealsDtoList",
+        };
+        break;
       default:
         break;
     }
     dispatch(deleteNewNote(noteForDelete));
   };
+
+  useEffect(()=>{
+    if(!!dataForTable){
+      dispatch(setDataForTable({key:tableOptions.keyTable,data:dataForTable}))
+    }
+  },[])
 
   return (
     <div

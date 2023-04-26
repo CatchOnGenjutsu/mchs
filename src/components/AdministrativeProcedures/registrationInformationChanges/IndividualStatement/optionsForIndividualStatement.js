@@ -88,12 +88,7 @@ export const boatCardAppDealsDtoList = {
     keyTable: "boatCardAppDealsDtoList",
     caption: "Информация о совершаемых в отношении судна сделок",
     nameColumn: [
-        {
-            value: "Ограничение на рег. действия",
-            key: "asmLock",
-            type: "checkbox",
-            neededInModal: true,
-        },
+
         {
             value: "Дата сделки",
             key: "asmDate",

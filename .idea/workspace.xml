@@ -2,15 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/InfromationAboutBoat.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/informationAboutBoat.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/optionsForInformationAboutBoat.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/utilities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/utilities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/AppBoatReg/AppBoatReg.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/AppBoatReg/AppBoatReg.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppBoatRegModal/AppBoatRegModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppBoatRegModal/AppBoatRegModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/TablesAppBoatReg/TableAppBoatReg.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/TablesAppBoatReg/TableAppBoatReg.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/optionsForIndividualStatement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/optionsForIndividualStatement.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BoatInfo/infoTablesColumns.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BoatInfo/infoTablesColumns.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/boatStatementReducerForTable/actionsBoatReg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/boatStatementReducerForTable/boatRegReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/rootReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/statementReducer/actionsStatement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/statementReducer/actionsStatement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +51,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/containers/AdministrativeProcedures" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -118,18 +120,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppBoatRegModal/AppBoatRegModal.jsx</url>
-          <line>125</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

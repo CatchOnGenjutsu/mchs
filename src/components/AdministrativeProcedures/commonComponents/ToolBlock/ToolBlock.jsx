@@ -25,15 +25,11 @@ function ToolBlock({ data, id, setShow, addBtnDisIn }) {
             break;
           }
           case "add": {
-            const response = await fetch(
-              MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(id),
-            );
+            const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(id));
             let boatCardData = await response.json();
-            if (boatCardData.ownerType.ptcode === 1) {
-              navigate("/reginformationchanges/individual/add", {
-                state: { data: boatCardData },
-              });
-            } else {
+            if(boatCardData.ownerType.ptcode === 1){
+              navigate("/reginformationchanges/individual/add",{state:{data:boatCardData}});
+            }else{
               navigate("/reginformationchanges/entity/add");
             }
 

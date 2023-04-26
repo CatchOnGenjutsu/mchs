@@ -14,9 +14,7 @@ function ModalWindow({ setShow, show }) {
       case pathName.includes("smallboatsreg"):
         switch (e.target.dataset.key) {
           case "individual":
-            navigate("/smallboatsreg/app/individual", {
-              state: { type: "individual" },
-            });
+            navigate("/smallboatsreg/app/individual");
             break;
           case "entity":
             navigate("/smallboatsreg/app/entity");
