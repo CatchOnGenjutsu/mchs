@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import InfoRepresentPerson from "../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
 import InformationAboutIndividual from "../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
 import { boatCardAppEngDtoList, boatCardAppSmDtoList } from "./tableOptions";
@@ -8,6 +9,15 @@ import TableAppBoatReg from "../commonComponents/TablesAppBoatReg/TableAppBoatRe
 import styles from "./AppBoatReg.module.css";
 
 export default function AppBoatReg() {
+  const location = useLocation();
+  const { type } = location.state;
+  // console.log()
+
+  const [newApp, setNewApp] = useState({
+    operDate: new Date().toLocaleDateString().split(".").reverse().join("-"),
+    personType: type === "individual" ? 1 : 2,
+  });
+
   const appRegData = useSelector((state) => {
     const { smallBoatsRegReducer } = state;
     return smallBoatsRegReducer.appRegData;

@@ -30,7 +30,7 @@ export const statementReducer = (state = initialState, action) => {
         ...state,
         boatCardAppDealsList: [action.data, ...state.boatCardAppDealsList],
       }))();
-    case DELETE_NEW_NOTE_APP: 
+    case DELETE_NEW_NOTE_APP:
       switch (action.data.type) {
         case "boatCardAppEngDtoList":
           return (() => ({
@@ -50,7 +50,7 @@ export const statementReducer = (state = initialState, action) => {
         default:
           return state;
       }
-    case ADD_NEW_STATEMENT_DATA: 
+    case ADD_NEW_STATEMENT_DATA:
       const newKey = Object.keys(action.data)[0];
       const value = Object.values(action.data)[0]
       return (() => ({
@@ -84,7 +84,7 @@ export const statementReducer = (state = initialState, action) => {
           return (() => ({
             ...state,
             boatCardAppDealsList: [...action.data.data],
-          }))();
+      }))();
         default:
           return state;
       }
