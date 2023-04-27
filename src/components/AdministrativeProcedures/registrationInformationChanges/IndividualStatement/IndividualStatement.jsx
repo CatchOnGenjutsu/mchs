@@ -3,12 +3,17 @@ import { useLocation } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import styles from "./IndividualStatement.module.css";
 
-import { optionSelectChangeType, boatCardAppEngDtoList,boatCardAppSmDtoList,boatCardAppDealsDtoList} from "./optionsForIndividualStatement";
+import {
+  optionSelectChangeType,
+  boatCardAppEngDtoList,
+  boatCardAppSmDtoList,
+  boatCardAppDealsDtoList,
+} from "./optionsForIndividualStatement";
 import InformationAboutIndividual from "../../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
-import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson"
-import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg"
-import InfromationAboutBoat from "../../commonComponents/InformationAboutBoat/InfromationAboutBoat"
-import AppFooter from "../../commonComponents/AppFooter/AppFooter"
+import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
+import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg";
+import InformationAboutBoat from "../../commonComponents/InformationAboutBoat/InformationAboutBoat";
+import AppFooter from "../../commonComponents/AppFooter/AppFooter";
 
 function IndividualStatement() {
   const location = useLocation();
@@ -69,20 +74,20 @@ function IndividualStatement() {
           </Form.Group>
           <InformationAboutIndividual data={data} />
           <InfoRepresentPerson />
-          <InfromationAboutBoat/>
+          <InformationAboutBoat />
           <TableAppBoatReg
             tableOptions={boatCardAppEngDtoList}
             dataEngines={data.enginesList}
           />
           <TableAppBoatReg
-              tableOptions={boatCardAppSmDtoList}
-              // data={boatCardAppEngList}
+            tableOptions={boatCardAppSmDtoList}
+            // data={boatCardAppEngList}
           />
           <TableAppBoatReg
-              tableOptions={boatCardAppDealsDtoList}
-              // data={boatCardAppEngList}
+            tableOptions={boatCardAppDealsDtoList}
+            // data={boatCardAppEngList}
           />
-          <AppFooter/>
+          <AppFooter />
         </Form>
       </div>
     </div>

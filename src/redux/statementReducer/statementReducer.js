@@ -52,7 +52,7 @@ export const statementReducer = (state = initialState, action) => {
       }
     case ADD_NEW_STATEMENT_DATA:
       const newKey = Object.keys(action.data)[0];
-      const value = Object.values(action.data)[0]
+      const value = Object.values(action.data)[0];
       return (() => ({
         ...state,
         newStatement: {...state.newStatement, [newKey]: value},

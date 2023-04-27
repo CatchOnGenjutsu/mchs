@@ -11,13 +11,13 @@ import {
 export async function setRayon(id){
     const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_RAYON_FOR_OBL + id);
     const result = await response.json();
-    return  result.map(item => {return {value: item.id, label: item.name, key: "rayon"}})
+    return  result.map(item => {return {value: item.id, label: item.name, key: "rayonId"}})
 }
 
-export async function setGorod(id){
+export async function setGorod(id, key){
     const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_GOROD_FOR_RAYON + id);
     const result = await response.json();
-    return  result.map(item => {return {value: item.id, label: item.name, key: "gorod"}})
+    return  result.map(item => {return {value: item.id, label: item.name, key: "gorod_id"}})
 }
 
 export async function setOptionsTypesBoat(){
