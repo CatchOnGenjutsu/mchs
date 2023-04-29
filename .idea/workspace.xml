@@ -2,8 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/InformationAboutEntity.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/optionsInformationAboutEntity.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/EntityStatement.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/EntityStatement.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/optionsForEntityStatement.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppFooter/AppFooter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppFooter/AppFooter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/InformationAboutBoat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/InformationAboutBoat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/InfromationAboutBoat.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/informationAboutBoat.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/informationAboutBoat.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/optionsForInformationAboutBoat.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/optionsForInformationAboutBoat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/InformationAboutEntity.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/InformationAboutEntity.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/informationAboutEntity.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/informationAboutEntity.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/utilities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/utilities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/optionsForIndividualStatement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/optionsForIndividualStatement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/RegistrationInformationChangesReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/RegistrationInformationChangesReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,9 +31,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JSX File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
-        <option value="JSX File" />
       </list>
     </option>
   </component>

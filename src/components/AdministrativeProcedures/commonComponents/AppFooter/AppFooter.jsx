@@ -29,6 +29,14 @@ export default function AppFooter() {
             {errors[item.key]}
           </Form.Control.Feedback> */}
       </Form.Group>
+       <Form.Group className={styles.header}>
+            <Form.Label>Количество листов:</Form.Label>
+            <Form.Control
+                id="appSheetCnt"
+                defaultValue={''}
+                type="text"
+            />
+       </Form.Group>
       <Form.Group className={styles.header}>
         <Form.Label>Должностное лицо:</Form.Label>
         <Form.Control

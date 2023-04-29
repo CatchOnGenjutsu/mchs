@@ -14,6 +14,7 @@ import AppBoatReg from './components/AdministrativeProcedures/AppBoatReg/AppBoat
 import RegistrationInformationChanges from './containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges'
 import FormSearchBoatCard from './containers/FormSearchBoatCard/FormSearchBoatCard'
 import IndividualStatement from './components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement'
+import EntityStatement from './components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/EntityStatement'
 import {
   getDictionaryGimsSections,
   getDictionaryNsiCheckStatus,
@@ -62,6 +63,7 @@ function App() {
               <Route path="/reginformationchanges" element={<RegistrationInformationChanges/>}/>
               <Route path="/reginformationchanges/searchboatcard" element={<FormSearchBoatCard/>}/>
               <Route path="/reginformationchanges/individual/add" element={<IndividualStatement/>}/>
+              <Route path="/reginformationchanges/entity/add" element={<EntityStatement/>}/>
             </Routes>
           </div>
       } 

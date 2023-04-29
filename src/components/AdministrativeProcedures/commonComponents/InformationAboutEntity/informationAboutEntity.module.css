@@ -1,0 +1,93 @@
+.container-information{
+    display: flex;
+    width: 100%;
+    grid-gap:10px;
+}
+.infoEntity-information{
+    background-color: #e5e4e2;
+    padding: 11px;
+    width:50%;
+    display: grid;
+    /*grid-template-columns:1fr 1fr;*/
+    column-gap:15px;
+    row-gap:15px;
+/*    grid-template-areas:*/
+/*    "SN SN"*/
+/*    "N N"*/
+/*    "MN MN"*/
+/*    "DT SP"*/
+/*    "NP DI"*/
+/*    "D D"*/
+/*    "PN PN"*/
+/*;*/
+}
+.common{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap:10px;
+}
+.common label {
+    margin:0;
+
+}
+.common input {
+    margin:0;
+    width:85%;
+}
+
+
+
+
+.box-surname{
+    grid-area: SN;
+}
+.box-name{
+    grid-area: N;
+}
+.box-midname{
+    grid-area: MN;
+}
+
+.box-docType{
+    grid-area: DT;
+}
+.box-serialOfPassport{
+    grid-area: SP;
+}
+.box-numberOfPassport{
+    grid-area: NP;
+}
+.box-docDateIssue{
+    grid-area: DI;
+}
+.box-docDepartment{
+    grid-area: D;
+}
+.box-persNum{
+    grid-area: PN;
+}
+
+.address-information{
+    background-color: #e5e4e2;
+    padding: 11px;
+    width:50%;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows: 0fr 0fr 0fr 0fr;
+    gap:15px;
+    align-items: start;
+}
+
+.address-information .common input {
+    margin:0;
+    width:70%;
+}
+.address-information .common select {
+    margin:0;
+    width:70%;
+}
+
+.selectSearch{
+    width: 70%;
+}

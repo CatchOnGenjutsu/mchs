@@ -1,13 +1,13 @@
-import React from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import styles from "./IndividualStatement.module.css";
-
 import {
   optionSelectChangeType,
   boatCardAppEngDtoList,
   boatCardAppSmDtoList,
   boatCardAppDealsDtoList,
+  readStatusForInputField
 } from "./optionsForIndividualStatement";
 import InformationAboutIndividual from "../../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
 import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
@@ -18,8 +18,9 @@ import AppFooter from "../../commonComponents/AppFooter/AppFooter";
 function IndividualStatement() {
   const location = useLocation();
   const { data } = location.state || {};
+  const [idTypeStatement,setIdTypeStatement] = useState(1)
   return (
-    <div className="d-flex flex-column align-items-center">
+    <div className={`d-flex flex-column align-items-center `}>
       <h2>Заявление для физ.лиц</h2>
       <p>
         о государственной регистрации изменений сведений, подлежащих внесению в
@@ -28,6 +29,14 @@ function IndividualStatement() {
       </p>
       <div className={styles["form-container"]}>
         <Form>
+          <Form.Group className={styles["header"]}>
+            <Form.Label>Какие изменения вносятся:</Form.Label>
+            <Form.Select>
+              {optionSelectChangeType.map((el) => (
+                  <option value={el.id}>{el.value}</option>
+              ))}
+            </Form.Select>
+          </Form.Group>
           <Form.Group className={styles["header"]}>
             <Form.Label>Регистрационный номер маломерного судна:</Form.Label>
             <Form.Control
@@ -46,14 +55,7 @@ function IndividualStatement() {
               disabled={true}
             />
           </Form.Group>
-          <Form.Group className={styles["header"]}>
-            <Form.Label>Какие изменения вносятся:</Form.Label>
-            <Form.Select>
-              {optionSelectChangeType.map((el) => (
-                <option value={el.id}>{el.value}</option>
-              ))}
-            </Form.Select>
-          </Form.Group>
+
           <Form.Group className={styles["header"]}>
             <Form.Label>Номер судового билета:</Form.Label>
             <Form.Control
@@ -74,7 +76,18 @@ function IndividualStatement() {
           </Form.Group>
           <InformationAboutIndividual data={data} />
           <InfoRepresentPerson />
-          <InformationAboutBoat />
+          <InformationAboutBoat
+              fieldStatus={readStatusForInputField}
+              hide={true}
+          />
+          <Form.Group >
+            <Form.Label>Основание для внесения изменений</Form.Label>
+            <Form.Control
+                id="appReason"
+                type="text"
+            />
+          </Form.Group>
+
           <TableAppBoatReg
             tableOptions={boatCardAppEngDtoList}
             dataEngines={data.enginesList}

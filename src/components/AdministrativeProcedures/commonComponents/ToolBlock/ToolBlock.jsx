@@ -30,7 +30,7 @@ function ToolBlock({ data, id, setShow, addBtnDisIn }) {
             if(boatCardData.ownerType.ptcode === 1){
               navigate("/reginformationchanges/individual/add",{state:{data:boatCardData}});
             }else{
-              navigate("/reginformationchanges/entity/add");
+              navigate("/reginformationchanges/entity/add",{state:{data:boatCardData}});
             }
 
             // setBoatCard(boatCardData)

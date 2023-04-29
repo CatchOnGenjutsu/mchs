@@ -8,6 +8,7 @@ import {
   setOptionsTypesBoat,
   setOptionsVidBoat,
   setOptionsBodyBoat,
+  setReadOptionForInputs
 } from "../utilities";
 
 import styles from "./informationAboutBoat.module.css";
@@ -16,7 +17,7 @@ import {
   setOptionsForBoat,
 } from "./optionsForInformationAboutBoat";
 
-function InformationAboutBoat() {
+function InformationAboutBoat({fieldStatus,hide}) {
   const [options, setOptions] = useState(fieldBoatOptions);
   const dispatch = useDispatch();
 
@@ -37,6 +38,7 @@ function InformationAboutBoat() {
 
   useEffect(() => {
     (async () => {
+      setReadOptionForInputs(fieldBoatOptions,fieldStatus)
       const typesBoat = await setOptionsTypesBoat();
       const kindsBoat = await setOptionsVidBoat();
       const materialsBodyBoat = await setOptionsBodyBoat();
@@ -46,9 +48,9 @@ function InformationAboutBoat() {
     })();
   }, []);
   return (
-    <>
+    <div className={styles[hide?'hide':'un-hide']}>
       <h3>Сведения о маломерном судне</h3>
-      <div className={styles["container-information"]}>
+      <div className={styles["container-information"] }>
         <div className={styles["boat-information"]}>
           {Object.values(options).map((option) => {
             if (option.type === "text" || option.type === "date") {
@@ -61,6 +63,7 @@ function InformationAboutBoat() {
                   <Form.Label>{option.value}</Form.Label>
                   <Form.Control
                     onBlur={(e) => handleValue(e)}
+                    disabled = {option.disabled}
                     type={option.type}
                     defaultValue={option.defaultValue}
                     readOnly={option.readOnly}
@@ -76,6 +79,7 @@ function InformationAboutBoat() {
                   <Form.Label>{option.value}</Form.Label>
                   <Select
                     onChange={(e) => handleValue(e)}
+                    isDisabled={option.disabled}
                     defaultValue={option.defaultValue}
                     className={`${styles["selectSearch"]}`}
                     classNamePrefix="select"
@@ -91,7 +95,7 @@ function InformationAboutBoat() {
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

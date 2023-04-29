@@ -35,3 +35,11 @@ export async function setOptionsBodyBoat(){
     const result = await response.json();
     return result.map(item=>{ return {value:item.matcode,label:item.matname}})
 }
+
+export function setReadOptionForInputs(options,readFields) {
+    readFields.forEach(field=>{
+        options[field].readOnly = true
+        options[field].disabled = true
+
+    })
+}

@@ -115,5 +115,3 @@ export const boatCardAppDealsDtoList = {
         },
     ],
 };
-
-export const readStatusForInputField = ["boatVin","boatYear","boatType","boatVid","bodyMaterial"]
