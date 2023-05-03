@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   optionInfoRepresentPersonSummary,
   optionInfoRepresentPersonAddress,
-  powerOfAttorney,
+  agentDoverennost,
   setOptionsRayonForOblast,
   setOptionsGorodForRayon,
 } from "./optionInfoRepresentPerson";
@@ -19,7 +19,7 @@ export default function InfoRepresentPerson() {
   const dispatch = useDispatch();
 
   const halfControls =
-    "agentSurname agentName agentMidname agentDocDepartment agentPersNum powerOfAttorney";
+    "agentSurname agentName agentMidname agentDocDepartment agentPersNum agentDoverennost";
 
   const handleValue = async (e) => {
     if (e) {
@@ -71,9 +71,7 @@ export default function InfoRepresentPerson() {
               case "select":
                 return (
                   <Form.Group
-                    className={`${styles[`box-${item.key}`]} ${
-                      styles.form_group_flex
-                    }`}>
+                    className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
                     <Form.Label
                       className={`${styles.form_label} ${
                         !halfControls.includes(item.key)
@@ -103,9 +101,7 @@ export default function InfoRepresentPerson() {
               default:
                 return (
                   <Form.Group
-                    className={`${styles[`box-${item.key}`]} ${
-                      styles.form_group_flex
-                    }`}>
+                    className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
                     <Form.Label
                       className={`${styles.form_label} ${
                         !halfControls.includes(item.key)
@@ -140,12 +136,8 @@ export default function InfoRepresentPerson() {
               case "select":
                 return (
                   <Form.Group
-                    className={`${styles[`box-${item.key}`]} ${
-                      styles.form_group_flex
-                    }`}>
-                    <Form.Label className={styles.form_label}>
-                      {item.value}
-                    </Form.Label>
+                    className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
+                    <Form.Label className={styles.form_label}>{item.value}</Form.Label>
                     <Select
                       ref={setRef(item)}
                       isDisabled={item.disabled}
@@ -168,9 +160,7 @@ export default function InfoRepresentPerson() {
               default:
                 return (
                   <Form.Group
-                    className={`${styles[`box-${item.key}`]} ${
-                      styles.form_group_flex
-                    }`}>
+                    className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
                     <Form.Label
                       className={`${styles.form_label} ${
                         !halfControls.includes(item.key)
@@ -203,16 +193,16 @@ export default function InfoRepresentPerson() {
         </div>
       </div>
       <Form.Group
-        className={`${styles[`box-${powerOfAttorney.key}`]} ${
+        className={`${styles[`box-${agentDoverennost.key}`]} ${
           styles.powerOfAttorney_group_flex
         }`}>
         <Form.Label
           className={`${styles.form_label} ${
-            !halfControls.includes(powerOfAttorney.key)
+            !halfControls.includes(agentDoverennost.key)
               ? styles.half_label
               : styles.wide_label
           }`}>
-          {powerOfAttorney.value}
+          {agentDoverennost.value}
         </Form.Label>
         <Form.Control
           // className={
@@ -220,9 +210,9 @@ export default function InfoRepresentPerson() {
           //     ? styles.half_controls
           //     : styles.wide_controls
           // }
-          id={powerOfAttorney.key}
+          id={agentDoverennost.key}
           // isInvalid={!!errors[el.key]}
-          type={powerOfAttorney.type}
+          type={agentDoverennost.type}
           // value={(form)&&form[el.key]||''}
           onBlur={(e) => handleValue(e)}
         />

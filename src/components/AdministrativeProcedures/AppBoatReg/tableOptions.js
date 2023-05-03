@@ -63,3 +63,34 @@ export const boatCardAppSmDtoList = {
     },
   ],
 };
+
+export const boatCardAppDealsDtoList = {
+  keyTable: "boatCardAppDealsDtoList",
+  caption: "Сведения о правах собственности",
+  nameColumn: [
+    {
+      value: "Номер документа",
+      key: "docNum",
+      type: "text",
+      neededInModal: true,
+    },
+    {
+      value: "Дата документа",
+      key: "docDate",
+      type: "date",
+      neededInModal: true,
+    },
+    {
+      value: "Наименование документа",
+      key: "docName",
+      type: "text",
+      neededInModal: true,
+    },
+    {
+      value: "Примечание",
+      key: "note",
+      type: "text",
+      neededInModal: true,
+    },
+  ],
+};

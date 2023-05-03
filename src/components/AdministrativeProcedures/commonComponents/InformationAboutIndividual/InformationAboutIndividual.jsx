@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import styles from "./InformationAboutIndividual.module.css";
 import {
@@ -10,7 +10,7 @@ import {
 import Select from "react-select";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 
-function InformationAboutIndividual({ data }) {
+function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors, errors }) {
   const selectGorodRef = useRef();
   const selectRayonRef = useRef();
   const dispatch = useDispatch();
@@ -23,16 +23,14 @@ function InformationAboutIndividual({ data }) {
     if (event) {
       switch (true) {
         case Object.keys(event).includes("target"):
-          dispatch(
-            addNewStatementData({ [`${event.target.id}`]: event.target.value }),
-          );
+          updateNewData(event.target.id, event.currentTarget.value);
+          dispatch(addNewStatementData({ [`${event.target.id}`]: event.target.value }));
           break;
         case Object.keys(event).includes("key"):
           setoptions({
             passport: fieldPassportOptions,
             address: await setOptions(event.value, event.key),
           });
-
           switch (event.key) {
             case "rayonId": {
               selectGorodRef.current.clearValue();
@@ -46,11 +44,13 @@ function InformationAboutIndividual({ data }) {
             default:
               break;
           }
+          updateNewData(event.key, event.value);
           dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
           break;
         default:
           break;
       }
+      if (saveKey) handleErrors();
     }
   }
 
@@ -75,26 +75,31 @@ function InformationAboutIndividual({ data }) {
               return (
                 <Form.Group
                   controlId={`${option.key}`}
-                  className={`${styles["common"]} ${
-                    styles[`box-${option.key}`]
-                  }`}>
-                  <Form.Label>{option.value}</Form.Label>
+                  className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Form.Control
                     onBlur={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
                     readOnly={option.readOnly}
+                    isInvalid={!!errors[option.key]}
                   />
                 </Form.Group>
               );
             } else if (option.type === "selectSearch") {
               return (
                 <Form.Group className={`${styles["common"]} box-${option.key}`}>
-                  <Form.Label>{option.value}</Form.Label>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Select
                     onChange={(e) => handleChangeSelectSearch(e)}
                     defaultValue={option.defaultValue}
-                    className={`${styles["selectSearch"]}`}
+                    className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     classNamePrefix="select"
                     placeholder="Выберите"
                     id={option.key}
@@ -113,25 +118,30 @@ function InformationAboutIndividual({ data }) {
               return (
                 <Form.Group
                   controlId={`${option.key}`}
-                  className={`${styles["common"]} ${
-                    styles[`box-${option.key}`]
-                  }`}>
-                  <Form.Label>{option.value}</Form.Label>
+                  className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Form.Control
                     onBlur={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
                     readOnly={option.readOnly}
+                    isInvalid={!!errors[option.key]}
                   />
                 </Form.Group>
               );
             } else if (option.type === "selectSearch") {
               return (
                 <div className={`d-flex ${styles["common"]}`}>
-                  <Form.Label>{option.value}</Form.Label>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Select
                     ref={setRef(option)}
-                    className={`${styles["selectSearch"]}`}
+                    className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     isDisabled={option.disabled}
                     onChange={(e) => handleChangeSelectSearch(e)}
                     classNamePrefix="select"

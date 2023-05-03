@@ -6,6 +6,7 @@ export const fieldPassportOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   name: {
     key: "name",
@@ -13,6 +14,7 @@ export const fieldPassportOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   midname: {
     key: "midname",
@@ -20,6 +22,7 @@ export const fieldPassportOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   docType: {
     key: "docType",
@@ -28,6 +31,7 @@ export const fieldPassportOptions = {
     defaultValue: null,
     readOnly: false,
     isSearchable: false,
+    required: true,
     options: [
       {
         value: 1,
@@ -47,6 +51,7 @@ export const fieldPassportOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   numberOfPassport: {
     key: "numberOfPassport",
@@ -54,6 +59,7 @@ export const fieldPassportOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   docDateIssue: {
     key: "docDateIssue",
@@ -61,6 +67,7 @@ export const fieldPassportOptions = {
     type: "date",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   docDepartment: {
     key: "docDepartment",
@@ -68,6 +75,7 @@ export const fieldPassportOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   persNum: {
     key: "persNum",
@@ -75,6 +83,7 @@ export const fieldPassportOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
 };
 
@@ -85,6 +94,7 @@ export const fieldAddressOptions = {
     type: "text",
     defaultValue: "Республика Беларусь",
     readOnly: true,
+    
   },
   oblId: {
     key: "oblId",
@@ -94,6 +104,7 @@ export const fieldAddressOptions = {
     disabled: false,
     readOnly: false,
     isSearchable: false,
+    required: true,
     options: [
       { value: 1, label: "Брестская", key: "oblId" },
       { value: 2, label: "Витебская", key: "oblId" },
@@ -111,6 +122,7 @@ export const fieldAddressOptions = {
     disabled: true,
     readOnly: false,
     isSearchable: true,
+    required: true,
     options: [],
   },
   gorod_id: {
@@ -121,6 +133,7 @@ export const fieldAddressOptions = {
     disabled: true,
     readOnly: false,
     isSearchable: true,
+    required: true,
     options: [],
   },
   ulica: {
@@ -143,6 +156,7 @@ export const fieldAddressOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   kv: {
     key: "kv",
@@ -157,6 +171,7 @@ export const fieldAddressOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
 };
 

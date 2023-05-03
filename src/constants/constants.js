@@ -57,5 +57,7 @@ export const API_GET_BOAT_TYPES = "static/info/boatTypes"
 export const API_GET_BOAT_VID = "static/info/boatVid"
 export const API_GET_BOAT_BODY = "static/info/boatBody"
 
+export const API_ADD_NEW_STATEMENT = "boatCardApp/addStatement"
+
 
 

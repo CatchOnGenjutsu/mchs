@@ -130,8 +130,8 @@ export const optionInfoRepresentPersonAddress = {
   },
 };
 
-export const powerOfAttorney = {
-  key: "powerOfAttorney",
+export const agentDoverennost = {
+  key: "agentDoverennost",
   value: "Сведения о доверенности",
   type: "text",
   readOnly: false

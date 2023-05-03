@@ -5,6 +5,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   parkingPlace: {
     key: "parkingPlace",
@@ -12,6 +13,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   boatType: {
     key: "boatType",
@@ -20,6 +22,7 @@ export const fieldBoatOptions = {
     defaultValue: null,
     readOnly: false,
     options: [],
+    required: true,
   },
   boatVid: {
     key: "boatVid",
@@ -28,6 +31,7 @@ export const fieldBoatOptions = {
     defaultValue: null,
     readOnly: false,
     options: [],
+    required: true,
   },
   bodyMaterial: {
     key: "bodyMaterial",
@@ -36,6 +40,7 @@ export const fieldBoatOptions = {
     defaultValue: null,
     readOnly: false,
     options: [],
+    required: true,
   },
   boatPayload: {
     key: "boatPayload",
@@ -43,6 +48,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   engpwr: {
     key: "engpwr",
@@ -57,6 +63,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   engineNum: {
     key: "engineNum",
@@ -78,6 +85,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   boatWidth: {
     key: "boatWidth",
@@ -85,6 +93,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   boatHeight: {
     key: "boatHeight",
@@ -92,6 +101,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   passengersNum: {
     key: "passengersNum",
@@ -99,6 +109,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
   saCategory: {
     key: "saCategory",
@@ -106,6 +117,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
+    required: true,
   },
 };
 
