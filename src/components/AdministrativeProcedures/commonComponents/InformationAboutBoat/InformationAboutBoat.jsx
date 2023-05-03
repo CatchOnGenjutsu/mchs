@@ -17,7 +17,7 @@ import {
   setOptionsForBoat,
 } from "./optionsForInformationAboutBoat";
 
-function InformationAboutBoat({fieldStatus,hide}) {
+function InformationAboutBoat({fieldStatus}) {
   const [options, setOptions] = useState(fieldBoatOptions);
   const dispatch = useDispatch();
 
@@ -48,7 +48,7 @@ function InformationAboutBoat({fieldStatus,hide}) {
     })();
   }, []);
   return (
-    <div className={styles[hide?'hide':'un-hide']}>
+    <div >
       <h3>Сведения о маломерном судне</h3>
       <div className={styles["container-information"] }>
         <div className={styles["boat-information"]}>

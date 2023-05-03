@@ -1,26 +1,63 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Form } from "react-bootstrap";
+import { ProgressBar } from  'react-loader-spinner'
 import styles from "./IndividualStatement.module.css";
-import {
-  optionSelectChangeType,
-  boatCardAppEngDtoList,
-  boatCardAppSmDtoList,
-  boatCardAppDealsDtoList,
-  readStatusForInputField
-} from "./optionsForIndividualStatement";
 import InformationAboutIndividual from "../../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
 import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
 import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg";
 import InformationAboutBoat from "../../commonComponents/InformationAboutBoat/InformationAboutBoat";
 import AppFooter from "../../commonComponents/AppFooter/AppFooter";
+import OtherInformation from "../../commonComponents/OtherInformation/OtherInformation"
+import {
+    optionSelectChangeType,
+    boatCardAppEngDtoList,
+    boatCardAppSmDtoList,
+    boatCardAppDealsDtoList,
+    readStatusForInputField
+} from "./optionsForIndividualStatement";
+import {
+    MAIN_URL,
+    PORT,
+    API_GET_BOAT_INFO_CARD,
+} from "../../../../constants/constants";
+
 
 function IndividualStatement() {
   const location = useLocation();
-  const { data } = location.state || {};
-  const [idTypeStatement,setIdTypeStatement] = useState(1)
+  const { idBoadCard } = location.state || {};
+  const [idTypeStatement,setIdTypeStatement] = useState('1')
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+      async function fetchData() {
+      const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(idBoadCard));
+      const data = await response.json();
+      setData(data);
+      setIsLoading(false);
+    }
+    fetchData();
+  }, []);
+  console.log(data)
+   if(isLoading){
+       return (
+           <div className={`d-flex flex-column align-items-center `}>
+           <ProgressBar
+               height="80"
+               width="80"
+               ariaLabel="progress-bar-loading"
+               wrapperStyle={{}}
+               wrapperClass="progress-bar-wrapper"
+               borderColor = '#F4442E'
+               barColor = '#51E5FF'
+           />
+           </div>
+       )
+   }
+
   return (
-    <div className={`d-flex flex-column align-items-center `}>
+    <div className={`d-flex flex-column align-items-center justify-content-center`}>
       <h2>Заявление для физ.лиц</h2>
       <p>
         о государственной регистрации изменений сведений, подлежащих внесению в
@@ -31,7 +68,9 @@ function IndividualStatement() {
         <Form>
           <Form.Group className={styles["header"]}>
             <Form.Label>Какие изменения вносятся:</Form.Label>
-            <Form.Select>
+            <Form.Select
+            onChange={(e)=>setIdTypeStatement(e.currentTarget.value)}
+            >
               {optionSelectChangeType.map((el) => (
                   <option value={el.id}>{el.value}</option>
               ))}
@@ -76,29 +115,36 @@ function IndividualStatement() {
           </Form.Group>
           <InformationAboutIndividual data={data} />
           <InfoRepresentPerson />
-          <InformationAboutBoat
-              fieldStatus={readStatusForInputField}
-              hide={true}
-          />
+          {!(idTypeStatement==='1')?(
+              <InformationAboutBoat
+                  fieldStatus={readStatusForInputField}
+              />
+          ):''}
+          {idTypeStatement==='4'?<OtherInformation/>:''}
+
           <Form.Group >
-            <Form.Label>Основание для внесения изменений</Form.Label>
+            <Form.Label><h3>Основание для внесения изменений</h3></Form.Label>
             <Form.Control
                 id="appReason"
                 type="text"
             />
           </Form.Group>
+          {(idTypeStatement==='2'||idTypeStatement==='3')?(
+              <TableAppBoatReg
+                  tableOptions={boatCardAppEngDtoList}
+                  dataEngines={data.enginesList}
+              />
+          ):''}
 
+          {idTypeStatement==='1'?(
+              <TableAppBoatReg
+                  tableOptions={boatCardAppDealsDtoList}
+                  // data={boatCardAppEngList}
+              />
+          ):''}
           <TableAppBoatReg
-            tableOptions={boatCardAppEngDtoList}
-            dataEngines={data.enginesList}
-          />
-          <TableAppBoatReg
-            tableOptions={boatCardAppSmDtoList}
-            // data={boatCardAppEngList}
-          />
-          <TableAppBoatReg
-            tableOptions={boatCardAppDealsDtoList}
-            // data={boatCardAppEngList}
+              tableOptions={boatCardAppSmDtoList}
+              // data={boatCardAppEngList}
           />
           <AppFooter />
         </Form>

@@ -1,24 +1,20 @@
 export const optionSelectChangeType = [
     {
         id:1,
-        value:'Смена судовладельца'
-    },
-    {
-        id:2,
         value:'Смена данных о судовладельце'
     },
     {
-        id:3,
+        id:2,
         value:'Снятие с учета'
     },
     {
-        id:4,
+        id:3,
         value:'Смена данных о судне'
     },
     {
-        id:5,
+        id:4,
         value:'Аренда, лизинг'
-    },
+    }
 ]
 export const boatCardAppEngDtoList = {
     keyTable: 'boatCardAppEngDtoList',
@@ -100,19 +96,30 @@ export const boatCardAppDealsDtoList = {
     keyTable: "boatCardAppDealsDtoList",
     caption: "Информация о совершаемых в отношении судна сделок",
     nameColumn: [
-
         {
-            value: "Дата сделки",
-            key: "asmDate",
+            value: "Наименование документа",
+            key: "docNum",
+            type: "text",
+            neededInModal: true,
+        },
+        {
+            value: "Дата документа",
+            key: "docDate",
             type: "date",
             neededInModal: true,
         },
         {
-            value: "Отметка",
-            key: "asmNote",
+            value: "Номер документа",
+            key: "docNum",
             type: "text",
             neededInModal: true,
         },
+        {
+            value: "Примечание",
+            key: "note",
+            type: "text",
+            neededInModal: true,
+        }
     ],
 };
 

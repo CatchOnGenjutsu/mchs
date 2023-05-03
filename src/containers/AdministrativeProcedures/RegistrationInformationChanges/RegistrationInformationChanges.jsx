@@ -27,10 +27,7 @@ function RegistrationInformationChanges() {
 			label: item.sctName,
 		});
 	});
-	console.log(
-		"dataOptionsForSelectATEValidated",
-		dataOptionsForSelectATEValidated,
-	);
+
 	setOptionsForInputsATE(
 		dataOptionsForSelectATEValidated,
 		document.location.pathname.slice(1),

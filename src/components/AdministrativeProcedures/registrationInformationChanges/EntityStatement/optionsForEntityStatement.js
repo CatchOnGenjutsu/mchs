@@ -1,24 +1,20 @@
 export const optionSelectChangeType = [
     {
         id:1,
-        value:'Смена судовладельца'
-    },
-    {
-        id:2,
         value:'Смена данных о судовладельце'
     },
     {
-        id:3,
+        id:2,
         value:'Снятие с учета'
     },
     {
-        id:4,
+        id:3,
         value:'Смена данных о судне'
     },
     {
-        id:5,
+        id:4,
         value:'Аренда, лизинг'
-    },
+    }
 ]
 export const boatCardAppEngDtoList = {
     keyTable: 'boatCardAppEngDtoList',
@@ -115,3 +111,4 @@ export const boatCardAppDealsDtoList = {
         },
     ],
 };
+export const readStatusForInputField = ["boatVin","boatYear","boatType","boatVid","bodyMaterial"]

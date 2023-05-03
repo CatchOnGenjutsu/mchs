@@ -82,10 +82,3 @@
 .box-saCategory{
     grid-area: saCat;
 }
-
-.hide {
-    display: none;
-}
-.un-hide{
-    display: flex;
-}
