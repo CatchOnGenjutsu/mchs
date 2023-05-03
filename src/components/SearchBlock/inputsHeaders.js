@@ -219,18 +219,18 @@ export const inputsRegInformChange ={
   }
 }
 export const inputsFindBoatToChange ={
-  surname:{
-    key: "surname",
+  ownerSurname:{
+    key: "ownerSurname",
     value: "Фамилия",
     type:'text'
   },
-  name:{
-    key: "name",
+  ownerName:{
+    key: "ownerName",
     value: "Имя",
     type:'text'
   },
-  midname: {
-    key: "midname",
+  ownerMidname: {
+    key: "ownerMidname",
     value: "Отчество",
     type:'text'
   },
@@ -246,8 +246,8 @@ export const inputsFindBoatToChange ={
     description: "Цифры и латиница",
     type:'text'
   },
-  persNum:{
-    key: "persNum",
+  ownerPersNum:{
+    key: "ownerPersNum",
     value: "Ид. номер собств.",
     description: "Цифры и латиница",
     type:'text'
@@ -257,8 +257,8 @@ export const inputsFindBoatToChange ={
     value: "Номер суд. билета",
     type:'text'
   },
-  name_le: {
-    key: "name_le",
+  leName: {
+    key: "leName",
     value: "Наим. организации",
     type:'text'
   },

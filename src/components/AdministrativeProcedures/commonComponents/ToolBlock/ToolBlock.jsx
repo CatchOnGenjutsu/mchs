@@ -14,7 +14,6 @@ function ToolBlock({ data, id, setShow, addBtnDisIn }) {
   const url = new URL(document.location.href);
   const pathName = url.pathname.slice(1);
   const navigate = useNavigate();
-  // const [boatCard,setBoatCard]=useState(null)
 
   const handleButtonAdd = async (event) => {
     switch (true) {
@@ -25,15 +24,7 @@ function ToolBlock({ data, id, setShow, addBtnDisIn }) {
             break;
           }
           case "add": {
-            const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(id));
-            let boatCardData = await response.json();
-            if(boatCardData.ownerType.ptcode === 1){
-              navigate("/reginformationchanges/individual/add",{state:{data:boatCardData}});
-            }else{
-              navigate("/reginformationchanges/entity/add");
-            }
-
-            // setBoatCard(boatCardData)
+            setShow(true);
             break;
           }
         }
@@ -45,7 +36,6 @@ function ToolBlock({ data, id, setShow, addBtnDisIn }) {
       }
       case pathName.includes("smallboatsreg"): {
         setShow(true);
-        // navigate(`/smallboatsreg/app/${id}`);
         break;
       }
     }

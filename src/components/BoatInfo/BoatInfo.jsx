@@ -445,8 +445,8 @@ export default function BoatInfo(props) {
           <thead>
             <tr>
               {dealsHistoryTableColumns.nameColumn.map((item) => {
-                if (item.key !== "docNum" && item.key !== "docDate")
-                  if (item.key !== "docName") {
+                if (item.key !== "docNum" )
+                  if (item.key === "docName"||item.key === "note") {
                     return (
                       <th
                         className={styles.deals_history_table_th}
@@ -459,7 +459,7 @@ export default function BoatInfo(props) {
                       <th
                         className={styles.deals_history_table_th}
                         id={item.key}>
-                        Наименование, номер и дата документа
+                        Номер и дата документа
                       </th>
                     );
                   }

@@ -1,13 +1,13 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./ModalWindow.module.css";
 
-function ModalWindow({ setShow, show }) {
-  console.log("MODAL");
+function ModalWindow({ setShow, show,idBoadCard }) {
   const navigate = useNavigate();
   const pathName = window.location.pathname;
-  console.log("pathName", pathName);
+
+
 
   const handleLinkClick = (e) => {
     switch (true) {
@@ -20,6 +20,18 @@ function ModalWindow({ setShow, show }) {
             break;
           case "entity":
             navigate("/smallboatsreg/app/entity");
+            break;
+          default:
+            break;
+        }
+        break;
+      case pathName.includes("reginformationchanges"):
+        switch (e.target.dataset.key) {
+          case "individual":
+            navigate("/reginformationchanges/individual/add",{state:{idBoadCard}});
+            break;
+          case "entity":
+            navigate("/reginformationchanges/entity/add",{state:{idBoadCard}});
             break;
           default:
             break;

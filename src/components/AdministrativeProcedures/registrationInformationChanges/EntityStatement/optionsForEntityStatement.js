@@ -96,31 +96,19 @@ export const boatCardAppDealsDtoList = {
     keyTable: "boatCardAppDealsDtoList",
     caption: "Информация о совершаемых в отношении судна сделок",
     nameColumn: [
+
         {
-            value: "Наименование документа",
-            key: "docNum",
-            type: "text",
-            neededInModal: true,
-        },
-        {
-            value: "Дата документа",
-            key: "docDate",
+            value: "Дата сделки",
+            key: "asmDate",
             type: "date",
             neededInModal: true,
         },
         {
-            value: "Номер документа",
-            key: "docNum",
+            value: "Отметка",
+            key: "asmNote",
             type: "text",
             neededInModal: true,
         },
-        {
-            value: "Примечание",
-            key: "note",
-            type: "text",
-            neededInModal: true,
-        }
     ],
 };
-
 export const readStatusForInputField = ["boatVin","boatYear","boatType","boatVid","bodyMaterial"]

@@ -31,6 +31,7 @@ export async function setOptionsTypesBoat() {
     return { value: item.btcode, label: item.btname, key: "boatType" };
   });
 }
+
 export async function setOptionsVidBoat() {
   const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_VID);
   const result = await response.json();
@@ -38,10 +39,25 @@ export async function setOptionsVidBoat() {
     return { value: item.id, label: item.name, key: "boatVid" };
   });
 }
+
 export async function setOptionsBodyBoat() {
   const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_BODY);
   const result = await response.json();
   return result.map((item) => {
     return { value: item.matcode, label: item.matname, key: "bodyMaterial" };
   });
+}
+
+export async function setOptionsBodyBoat(){
+    const response = await fetch(MAIN_URL + PORT+API_GET_BOAT_BODY)
+    const result = await response.json();
+    return result.map(item=>{ return {value:item.matcode,label:item.matname}})
+}
+
+export function setReadOptionForInputs(options,readFields) {
+    readFields.forEach(field=>{
+        options[field].readOnly = true
+        options[field].disabled = true
+
+    })
 }

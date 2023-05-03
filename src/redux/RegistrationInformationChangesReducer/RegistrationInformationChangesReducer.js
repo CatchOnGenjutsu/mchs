@@ -18,13 +18,13 @@ const initialState = {
         status: 0
     },
     searchParamsBoatCards:{
-        surname: '',
-        name: '',
-        midname: '',
-        name_le:'',
-        reg_num: '',
+        ownerSurname: '',
+        ownerName: '',
+        ownerMidname: '',
+        leName:'',
+        regNum: '',
         boatVin:'',
-        persNum:'',
+        ownerPersNum:'',
         tiketNum:'',
         leUnp:''
     },
@@ -39,9 +39,10 @@ export const registrationInformationChangesReducer = (state=initialState,action)
                 searchParams: Object.assign(state.searchParams, action.data)
             }))()
         case SET_SEARCH_PARAMS_BOATS_ADMIN_PROC:
+            console.log(state)
             return(()=>({
                 ...state,
-                searchParamsBoatCards: Object.assign(state.searchParamsBoatCard, action.data)
+                searchParamsBoatCards: Object.assign(state.searchParamsBoatCards, action.data)
             }))()
         case GET_REG_INFORM_CHANGES:
             return (()=>({

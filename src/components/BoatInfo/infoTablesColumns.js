@@ -229,18 +229,8 @@ export const dealsHistoryTableColumns = {
     //   key: "dealDate",
     //   type: "date",
     // },
-    {
-      id: "boatDeals",
-      value: "Документ подтверждающий право собственности",
-      key: "note",
-      type: "",
-    },
-    {
-      id: "boatDeals",
-      value: "Наименование документа",
-      key: "docName",
-      type: "",
-    },
+
+
     {
       id: "boatDeals",
       value: "Номер документа",
@@ -253,6 +243,18 @@ export const dealsHistoryTableColumns = {
       key: "docDate",
       type: "date",
     },
+    {
+      id: "boatDeals",
+      value: "Наименование документа",
+      key: "docName",
+      type: "",
+    },
+    {
+      id: "boatDeals",
+      value: "Примечание",
+      key: "note",
+      type: "",
+    }
   ],
 };
 

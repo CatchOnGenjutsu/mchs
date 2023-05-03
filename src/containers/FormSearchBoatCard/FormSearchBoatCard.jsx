@@ -35,12 +35,13 @@ function FormSearchBoatCard() {
 				dataFromState={dataBoatCards}
 				headerColumns={COLUMNS_FORM_SEARCH_BOAT_CARDS}
 			/>
-			{/*{show && (*/}
-			{/*	<ModalWindow*/}
-			{/*		show={show}*/}
-			{/*		setShow={setShow}*/}
-			{/*	/>*/}
-			{/*)}*/}
+			{show && (
+				<ModalWindow
+					show={show}
+					setShow={setShow}
+					idBoadCard={boatCardId}
+				/>
+			)}
 		</>
 	);
 }

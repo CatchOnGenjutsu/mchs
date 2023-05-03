@@ -4,12 +4,21 @@ import { Form } from "react-bootstrap";
 import Select from "react-select";
 
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
-import { setOptionsTypesBoat, setOptionsVidBoat, setOptionsBodyBoat } from "../utilities";
+
+import {
+  setOptionsTypesBoat,
+  setOptionsVidBoat,
+  setOptionsBodyBoat,
+  setReadOptionForInputs
+} from "../utilities";
+
 
 import styles from "./informationAboutBoat.module.css";
 import { fieldBoatOptions, setOptionsForBoat } from "./optionsForInformationAboutBoat";
 
-function InformationAboutBoat({ updateNewData, saveKey, handleErrors, errors }) {
+
+function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors, errors }) {
+
   const [options, setOptions] = useState(fieldBoatOptions);
   const dispatch = useDispatch();
 
@@ -33,6 +42,7 @@ function InformationAboutBoat({ updateNewData, saveKey, handleErrors, errors }) 
 
   useEffect(() => {
     (async () => {
+      setReadOptionForInputs(fieldBoatOptions,fieldStatus)
       const typesBoat = await setOptionsTypesBoat();
       const kindsBoat = await setOptionsVidBoat();
       const materialsBodyBoat = await setOptionsBodyBoat();
@@ -42,9 +52,9 @@ function InformationAboutBoat({ updateNewData, saveKey, handleErrors, errors }) 
     })();
   }, []);
   return (
-    <>
+    <div >
       <h3>Сведения о маломерном судне</h3>
-      <div className={styles["container-information"]}>
+      <div className={styles["container-information"] }>
         <div className={styles["boat-information"]}>
           {Object.values(options).map((option) => {
             if (option.type === "text" || option.type === "date") {
@@ -58,6 +68,7 @@ function InformationAboutBoat({ updateNewData, saveKey, handleErrors, errors }) 
                   </Form.Label>
                   <Form.Control
                     onBlur={(e) => handleValue(e)}
+                    disabled = {option.disabled}
                     type={option.type}
                     defaultValue={option.defaultValue}
                     readOnly={option.readOnly}
@@ -74,6 +85,7 @@ function InformationAboutBoat({ updateNewData, saveKey, handleErrors, errors }) 
                   </Form.Label>
                   <Select
                     onChange={(e) => handleValue(e)}
+                    isDisabled={option.disabled}
                     defaultValue={option.defaultValue}
                     className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     classNamePrefix="select"
@@ -89,7 +101,7 @@ function InformationAboutBoat({ updateNewData, saveKey, handleErrors, errors }) 
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
