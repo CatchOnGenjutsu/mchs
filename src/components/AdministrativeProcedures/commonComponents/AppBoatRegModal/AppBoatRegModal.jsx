@@ -5,15 +5,10 @@ import Select from "react-select";
 import {
   addNewEngineCheck,
   addNewSpecMarkApp,
-  addNewDealApp
+  addNewDealApp,
 } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function AppBoatRegModal({
-  setShowModal,
-  showModal,
-  modalWindowInputs,
-  dataForCheck,
-}) {
+export default function AppBoatRegModal({ setShowModal, showModal, modalWindowInputs, dataForCheck }) {
   const [newData, setNewData] = useState({});
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
@@ -21,10 +16,11 @@ export default function AppBoatRegModal({
   const dispatch = useDispatch();
 
   const errorsFields = modalWindowInputs.nameColumn
-      .filter((item)=>item.neededInModal)
+    .filter((item) => item.neededInModal)
     .map((item) => Object.values(item))
     .map((elem) => elem[1]);
-console.log(errorsFields)
+  console.log(errorsFields);
+
   const handleChange = (e) => {
     // if (!!e.target) {
     newData[e.target.dataset.id] = e.currentTarget.value;
@@ -74,9 +70,7 @@ console.log(errorsFields)
     if (!handleErrors()) {
       switch (modalWindowInputs.keyTable) {
         case "boatCardAppEngDtoList":
-          if (
-            dataForCheck.findIndex((item) => item.engvin === newData.engvin) < 0
-          ) {
+          if (dataForCheck.findIndex((item) => item.engvin === newData.engvin) < 0) {
             dispatch(addNewEngineCheck(newData.engvin, newData));
           }
           break;
@@ -84,7 +78,7 @@ console.log(errorsFields)
           dispatch(addNewSpecMarkApp(newData));
           break;
         case "boatCardAppDealsDtoList":
-          dispatch( addNewDealApp(newData));
+          dispatch(addNewDealApp(newData));
           break;
         default:
           setShowModal(false);
@@ -177,9 +171,7 @@ console.log(errorsFields)
                           handleChange(e);
                         }}
                       />
-                      <Form.Control.Feedback type={"invalid"}>
-                        {errors[item.key]}
-                      </Form.Control.Feedback>
+                      <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
                     </Form.Group>
                   );
                 case "checkbox":
@@ -223,9 +215,7 @@ console.log(errorsFields)
                           handleChange(e);
                         }}
                       />
-                      <Form.Control.Feedback type={"invalid"}>
-                        {errors[item.key]}
-                      </Form.Control.Feedback>
+                      <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
                     </Form.Group>
                   );
               }

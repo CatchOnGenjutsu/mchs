@@ -4,6 +4,7 @@ import { Form } from "react-bootstrap";
 import Select from "react-select";
 
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
+
 import {
   setOptionsTypesBoat,
   setOptionsVidBoat,
@@ -11,13 +12,13 @@ import {
   setReadOptionForInputs
 } from "../utilities";
 
-import styles from "./informationAboutBoat.module.css";
-import {
-  fieldBoatOptions,
-  setOptionsForBoat,
-} from "./optionsForInformationAboutBoat";
 
-function InformationAboutBoat({fieldStatus}) {
+import styles from "./informationAboutBoat.module.css";
+import { fieldBoatOptions, setOptionsForBoat } from "./optionsForInformationAboutBoat";
+
+
+function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors, errors }) {
+
   const [options, setOptions] = useState(fieldBoatOptions);
   const dispatch = useDispatch();
 
@@ -25,14 +26,17 @@ function InformationAboutBoat({fieldStatus}) {
     if (e) {
       switch (true) {
         case Object.keys(e).includes("target"):
+          updateNewData(e.target.id, e.currentTarget.value);
           dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
           break;
         case Object.keys(e).includes("key"):
+          updateNewData(e.key, e.value);
           dispatch(addNewStatementData({ [`${e.key}`]: e.value }));
           break;
         default:
           break;
       }
+      if (saveKey) handleErrors();
     }
   };
 
@@ -57,31 +61,33 @@ function InformationAboutBoat({fieldStatus}) {
               return (
                 <Form.Group
                   controlId={`${option.key}`}
-                  className={`${styles["common"]} ${
-                    styles[`box-${option.key}`]
-                  }`}>
-                  <Form.Label>{option.value}</Form.Label>
+                  className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Form.Control
                     onBlur={(e) => handleValue(e)}
                     disabled = {option.disabled}
                     type={option.type}
                     defaultValue={option.defaultValue}
                     readOnly={option.readOnly}
+                    isInvalid={!!errors[option.key]}
                   />
                 </Form.Group>
               );
             } else if (option.type === "selectSearch") {
               return (
-                <Form.Group
-                  className={`${styles["common"]} ${
-                    styles[`box-${option.key}`]
-                  }`}>
-                  <Form.Label>{option.value}</Form.Label>
+                <Form.Group className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Select
                     onChange={(e) => handleValue(e)}
                     isDisabled={option.disabled}
                     defaultValue={option.defaultValue}
-                    className={`${styles["selectSearch"]}`}
+                    className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     classNamePrefix="select"
                     placeholder="Выберите"
                     id={option.key}

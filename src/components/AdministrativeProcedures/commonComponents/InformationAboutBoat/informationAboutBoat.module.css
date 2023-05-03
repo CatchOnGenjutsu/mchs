@@ -1,35 +1,34 @@
-.container-information{
-    display: flex;
-    width: 100%;
-    grid-gap:10px;
+.container-information {
+  display: flex;
+  width: 100%;
+  grid-gap: 10px;
 }
-.common{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    grid-gap:10px;
+.common {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-gap: 10px;
 }
 .common label {
-    margin:0;
-
+  margin: 0;
 }
 .common input {
-    margin:0;
-    width:85%;
+  margin: 0;
+  width: 85%;
 }
-.selectSearch{
-    width: 70%;
+.selectSearch {
+  width: 70%;
 }
 
-.boat-information{
-    background-color: #e5e4e2;
-    padding: 11px;
-    width: 100%;
-    display: grid;
-    grid-template-columns:1fr 1fr 1fr 1fr;
-    column-gap:15px;
-    row-gap:15px;
-    grid-template-areas:
+.boat-information {
+  background-color: #e5e4e2;
+  padding: 11px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+  grid-template-areas:
     "BV BV BY EN"
     "PP PP BN BN"
     "BT BVid BL BW"
@@ -37,48 +36,54 @@
     "BP BP saCat saCat"
     "EP EP . .";
 }
-.box-boatVin{
-    grid-area: BV;
+.box-boatVin {
+  grid-area: BV;
 }
-.box-parkingPlace{
-    grid-area: PP;
+.box-parkingPlace {
+  grid-area: PP;
 }
-.box-boatType{
-    grid-area: BT;
+.box-boatType {
+  grid-area: BT;
 }
-.box-boatVid{
-    grid-area: BVid;
+.box-boatVid {
+  grid-area: BVid;
 }
-.box-bodyMaterial{
-    grid-area: BM;
+.box-bodyMaterial {
+  grid-area: BM;
 }
-.box-boatPayload{
-    grid-area: BP;
+.box-boatPayload {
+  grid-area: BP;
 }
-.box-engpwr{
-    grid-area: EP;
+.box-engpwr {
+  grid-area: EP;
 }
-.box-boatYear{
-    grid-area: BY;
+.box-boatYear {
+  grid-area: BY;
 }
-.box-engineNum{
-    grid-area: EN;
+.box-engineNum {
+  grid-area: EN;
 }
-.box-boatName{
-    grid-area: BN;
+.box-boatName {
+  grid-area: BN;
 }
-.box-boatLength{
-    grid-area: BL;
+.box-boatLength {
+  grid-area: BL;
 }
-.box-boatWidth{
-    grid-area: BW;
+.box-boatWidth {
+  grid-area: BW;
 }
-.box-boatHeight{
-    grid-area: BH;
+.box-boatHeight {
+  grid-area: BH;
 }
-.box-passengersNum{
-    grid-area: PasNum;
+.box-passengersNum {
+  grid-area: PasNum;
 }
-.box-saCategory{
-    grid-area: saCat;
+.box-saCategory {
+  grid-area: saCat;
+}
+.red_dot {
+  color: red;
+}
+.red_border {
+  border: 1px solid red;
 }

@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./TableAppBoatReg.module.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
-import { deleteNewNote,setDataForTable } from "../../../../redux/statementReducer/actionsStatement";
+import { deleteNewNote, setDataForTable } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function TableAppBoatReg({ tableOptions,dataForTable }) {
+export default function TableAppBoatReg({ tableOptions, dataForTable }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
 
@@ -40,13 +40,14 @@ export default function TableAppBoatReg({ tableOptions,dataForTable }) {
   }
 
   const handleAddNotes = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setModalWindowInputs(tableOptions);
     // setType("save");
     setShowModal(true);
   };
+
   const handleDeleteNote = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let noteForDelete;
     switch (tableOptions.keyTable) {
       case "boatCardAppEngDtoList":
@@ -73,11 +74,11 @@ export default function TableAppBoatReg({ tableOptions,dataForTable }) {
     dispatch(deleteNewNote(noteForDelete));
   };
 
-  useEffect(()=>{
-    if(!!dataForTable){
-      dispatch(setDataForTable({key:tableOptions.keyTable,data:dataForTable}))
+  useEffect(() => {
+    if (!!dataForTable) {
+      dispatch(setDataForTable({ key: tableOptions.keyTable, data: dataForTable }));
     }
-  },[])
+  }, []);
 
   return (
     <div
@@ -90,7 +91,7 @@ export default function TableAppBoatReg({ tableOptions,dataForTable }) {
             {tableOptions.nameColumn.map((item) => {
               return <th id={item.key}>{item.value}</th>;
             })}
-            <th className={styles.edit__column}></th>
+            {data.length > 0 && <th className={styles.edit__column}></th>}
           </tr>
         </thead>
         <tbody>
@@ -111,26 +112,24 @@ export default function TableAppBoatReg({ tableOptions,dataForTable }) {
                         </td>
                       );
                     case "date":
-                      return (
-                        <td>
-                          {elem[`${item.key}`].split("-").reverse().join(".")}
-                        </td>
-                      );
+                      return <td>{elem[`${item.key}`].split("-").reverse().join(".")}</td>;
                     default:
                       return <td>{elem[`${item.key}`]}</td>;
                   }
                 })}
-                <td className={styles.edit__column}>
-                  <button
-                    className={`${styles.delete__buttons} btn btn-danger`}
-                    // data-tabletype={documentsTableColumns.keyTable}
-                    // data-docname={elem.docname}
-                    // data-doctype="file"
-                    id={elem.innerId}
-                    onClick={(e) => handleDeleteNote(e)}>
-                    &#10006;
-                  </button>
-                </td>
+                {data.length > 0 && (
+                  <td className={styles.edit__column}>
+                    <button
+                      className={`${styles.delete__buttons} btn btn-danger`}
+                      // data-tabletype={documentsTableColumns.keyTable}
+                      // data-docname={elem.docname}
+                      // data-doctype="file"
+                      id={elem.innerId}
+                      onClick={(e) => handleDeleteNote(e)}>
+                      &#10006;
+                    </button>
+                  </td>
+                )}
               </tr>
             );
           })}

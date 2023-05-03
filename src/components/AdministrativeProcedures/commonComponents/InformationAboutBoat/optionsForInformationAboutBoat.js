@@ -5,7 +5,8 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
+    required: true,
   },
   parkingPlace: {
     key: "parkingPlace",
@@ -13,7 +14,8 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
+    required: true,
   },
   boatType: {
     key: "boatType",
@@ -22,7 +24,8 @@ export const fieldBoatOptions = {
     defaultValue: null,
     readOnly: false,
     options: [],
-    disabled: false
+    disabled: false,
+    required: true,
   },
   boatVid: {
     key: "boatVid",
@@ -31,7 +34,8 @@ export const fieldBoatOptions = {
     defaultValue: null,
     readOnly: false,
     options: [],
-    disabled: false
+    disabled: false,
+    required: true,
   },
   bodyMaterial: {
     key: "bodyMaterial",
@@ -40,7 +44,8 @@ export const fieldBoatOptions = {
     defaultValue: null,
     readOnly: false,
     options: [],
-    disabled: false
+    disabled: false,
+    required: true,
   },
   boatPayload: {
     key: "boatPayload",
@@ -48,7 +53,8 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
+    required: true,
   },
   engpwr: {
     key: "engpwr",
@@ -64,7 +70,8 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
+    required: true,
   },
   engineNum: {
     key: "engineNum",
@@ -88,7 +95,8 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
+    required: true,
   },
   boatWidth: {
     key: "boatWidth",
@@ -96,7 +104,8 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
+    required: true,
   },
   boatHeight: {
     key: "boatHeight",
@@ -104,7 +113,8 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
+    required: true,
   },
   passengersNum: {
     key: "passengersNum",
@@ -112,7 +122,8 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
+    required: true,
   },
   saCategory: {
     key: "saCategory",
@@ -120,7 +131,8 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
+    required: true,
   },
 };
 
