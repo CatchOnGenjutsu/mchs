@@ -148,7 +148,17 @@ function IndividualStatement() {
             errors={errors}
           />
           <InfoRepresentPerson />
-          {!(idTypeStatement === "1") ? <InformationAboutBoat fieldStatus={readStatusForInputField} /> : ""}
+          {!(idTypeStatement === "1") ? (
+            <InformationAboutBoat
+              fieldStatus={readStatusForInputField}
+              updateNewData={updateNewData}
+              saveKey={saveKey}
+              handleErrors={handleErrors}
+              errors={errors}
+            />
+          ) : (
+            ""
+          )}
           {idTypeStatement === "4" ? <OtherInformation /> : ""}
 
           <Form.Group>
