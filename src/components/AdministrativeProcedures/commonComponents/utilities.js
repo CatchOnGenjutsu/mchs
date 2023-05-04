@@ -48,11 +48,11 @@ export async function setOptionsBodyBoat() {
   });
 }
 
-export async function setOptionsBodyBoat(){
-    const response = await fetch(MAIN_URL + PORT+API_GET_BOAT_BODY)
-    const result = await response.json();
-    return result.map(item=>{ return {value:item.matcode,label:item.matname}})
-}
+// export async function setOptionsBodyBoat(){
+//     const response = await fetch(MAIN_URL + PORT+API_GET_BOAT_BODY)
+//     const result = await response.json();
+//     return result.map(item=>{ return {value:item.matcode,label:item.matname}})
+// }
 
 export function setReadOptionForInputs(options,readFields) {
     readFields.forEach(field=>{
