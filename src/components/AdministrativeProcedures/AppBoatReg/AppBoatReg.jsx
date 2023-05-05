@@ -21,7 +21,7 @@ import styles from "./AppBoatReg.module.css";
 
 export default function AppBoatReg() {
   const location = useLocation();
-  const { type } = location.state;
+  const { type, mode } = location.state;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -57,7 +57,7 @@ export default function AppBoatReg() {
   Object.entries(fieldBoatOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
   console.log("errorsFields", errorsFields);
 
-  const handleValue = (key, value) => {
+  const handleFile = (value) => {
     setFile(value);
   };
 
@@ -113,11 +113,17 @@ export default function AppBoatReg() {
       Object.entries(newStatement).forEach((item) => {
         formData.append(`${item[0]}`, `${item[1]}`);
       });
+      if (file !== undefined) {
+        formData.append(`file`, file);
+      }
       dispatch(addNewStatement(formData));
-      navigate(-1);
+      // navigate(-1);
     } else {
       setSaveKey(true);
     }
+  };
+  const handleCloseApp = () => {
+    navigate(-1);
   };
   useEffect(() => {
     type === "individual"
@@ -173,13 +179,16 @@ export default function AppBoatReg() {
           saveKey={saveKey}
           handleErrors={handleErrors}
           errors={errors}
+          mode={mode}
         />
-        <InfoRepresentPerson />
+        <InfoRepresentPerson mode={mode} />
         <InformationAboutBoat
+          fieldStatus={[]}
           updateNewData={updateNewData}
           saveKey={saveKey}
           handleErrors={handleErrors}
           errors={errors}
+          mode={mode}
         />
         <TableAppBoatReg
           tableOptions={boatCardAppEngDtoList}
@@ -193,7 +202,7 @@ export default function AppBoatReg() {
           tableOptions={boatCardAppSmDtoList}
           // data={boatCardAppEngList}
         />
-        <AppFooter />
+        <AppFooter handleFile={handleFile} />
       </div>
       <div className={styles.buttons_container}>
         <Button
@@ -202,7 +211,11 @@ export default function AppBoatReg() {
           onClick={(e) => handleSave(e)}>
           Зарегистрировать
         </Button>
-        <Button variant="danger">Отказать</Button>
+        <Button
+          variant="danger"
+          onClick={handleCloseApp}>
+          Закрыть
+        </Button>
       </div>
     </>
   );

@@ -56,8 +56,8 @@ export const fieldBoatOptions = {
     disabled: false,
     required: true,
   },
-  engpwr: {
-    key: "engpwr",
+  engpwrmax: {
+    key: "engpwrmax",
     value: "Предельная мощность двигателей, л.с.",
     type: "text",
     defaultValue: null,
@@ -128,17 +128,19 @@ export const fieldBoatOptions = {
   saCategory: {
     key: "saCategory",
     value: "Категория сложности района плавания",
-    type: "text",
+    type: "selectSearch",
     defaultValue: null,
+    options: [],
     readOnly: false,
     disabled: false,
     required: true,
   },
 };
 
-export function setOptionsForBoat(types, kinds, materials) {
+export function setOptionsForBoat(types, kinds, materials, saCategory) {
   fieldBoatOptions.boatType.options = types;
   fieldBoatOptions.boatVid.options = kinds;
   fieldBoatOptions.bodyMaterial.options = materials;
+  fieldBoatOptions.saCategory.options = saCategory
   return fieldBoatOptions;
 }

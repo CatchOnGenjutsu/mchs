@@ -54,7 +54,7 @@
 .box-boatPayload {
   grid-area: BP;
 }
-.box-engpwr {
+.box-engpwrmax {
   grid-area: EP;
 }
 .box-boatYear {

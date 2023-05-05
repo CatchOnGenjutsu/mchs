@@ -1,13 +1,11 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./ModalWindow.module.css";
 
-function ModalWindow({ setShow, show,idBoadCard }) {
+function ModalWindow({ setShow, show, idBoadCard }) {
   const navigate = useNavigate();
   const pathName = window.location.pathname;
-
-
 
   const handleLinkClick = (e) => {
     switch (true) {
@@ -15,7 +13,7 @@ function ModalWindow({ setShow, show,idBoadCard }) {
         switch (e.target.dataset.key) {
           case "individual":
             navigate("/smallboatsreg/app/individual", {
-              state: { type: "individual" },
+              state: { type: "individual", mode: "create" },
             });
             break;
           case "entity":
@@ -28,10 +26,10 @@ function ModalWindow({ setShow, show,idBoadCard }) {
       case pathName.includes("reginformationchanges"):
         switch (e.target.dataset.key) {
           case "individual":
-            navigate("/reginformationchanges/individual/add",{state:{idBoadCard}});
+            navigate("/reginformationchanges/individual/add", { state: { idBoadCard } });
             break;
           case "entity":
-            navigate("/reginformationchanges/entity/add",{state:{idBoadCard}});
+            navigate("/reginformationchanges/entity/add", { state: { idBoadCard } });
             break;
           default:
             break;
@@ -50,9 +48,7 @@ function ModalWindow({ setShow, show,idBoadCard }) {
       aria-labelledby="contained-modal-title-vcenter"
       centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Выбор формы собственности
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Выбор формы собственности</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <nav className={`d-flex`}>
