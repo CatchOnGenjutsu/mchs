@@ -74,19 +74,19 @@ export const boatCardAppSmDtoList = {
     nameColumn: [
         {
             value: "Ограничение на рег. действия",
-            key: "asmLock",
+            key: "msmLock",
             type: "checkbox",
             neededInModal: true,
         },
         {
             value: "Дата",
-            key: "asmDate",
+            key: "msmDate",
             type: "date",
             neededInModal: true,
         },
         {
             value: "Отметка",
-            key: "asmNote",
+            key: "msmNote",
             type: "text",
             neededInModal: true,
         },

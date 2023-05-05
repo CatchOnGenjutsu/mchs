@@ -16,7 +16,9 @@ import {
 import styles from "./informationAboutBoat.module.css";
 import { fieldBoatOptions, setOptionsForBoat } from "./optionsForInformationAboutBoat";
 
-function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleErrors, errors, mode }) {
+
+function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleErrors, errors, dataBoat, mode }) {
+
   const [options, setOptions] = useState(fieldBoatOptions);
   const dispatch = useDispatch();
   const newStatement = useSelector((state) => {
@@ -70,11 +72,12 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                     {option.required && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Form.Control
+                    //value = {dataBoat[option.key]}
                     onChange={(e) => handleValue(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
                     readOnly={option.readOnly}
-                    disabled={mode === "view" ? true : false}
+                    disabled={option.disabled || mode === "view" ? true : false}
                     value={newStatement[option.key]}
                     isInvalid={!!errors[option.key]}
                   />

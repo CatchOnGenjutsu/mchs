@@ -2,42 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./TableAppBoatReg.module.css";
 import { useState, useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
-import { deleteNewNote, setDataForTable } from "../../../../redux/statementReducer/actionsStatement";
+import { deleteNewNote } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function TableAppBoatReg({ tableOptions, dataForTable }) {
+export default function TableAppBoatReg({ tableOptions, dataForTable,typeTable }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
-
   const dispatch = useDispatch();
-
-  let data;
-  const boatCardAppEngList = useSelector((state) => {
+  let data = useSelector((state) => {
     const { statementReducer } = state;
-    return statementReducer.boatCardAppEngList;
+    return statementReducer[typeTable];
   });
-  const boatCardAppSpecMarkList = useSelector((state) => {
-    const { statementReducer } = state;
-    return statementReducer.boatCardAppSpecMarkList;
-  });
-
-  const boatCardAppDealsList = useSelector((state) => {
-    const { statementReducer } = state;
-    return statementReducer.boatCardAppDealsList;
-  });
-
-  switch (tableOptions.keyTable) {
-    case "boatCardAppEngDtoList":
-      data = boatCardAppEngList;
-      break;
-    case "boatCardAppSmDtoList":
-      data = boatCardAppSpecMarkList;
-      break;
-    case "boatCardAppDealsDtoList":
-      data = boatCardAppDealsList;
-      break;
-    default:
-      break;
-  }
 
   const handleAddNotes = (e) => {
     e.preventDefault();
@@ -73,12 +47,6 @@ export default function TableAppBoatReg({ tableOptions, dataForTable }) {
     }
     dispatch(deleteNewNote(noteForDelete));
   };
-
-  useEffect(() => {
-    if (!!dataForTable) {
-      dispatch(setDataForTable({ key: tableOptions.keyTable, data: dataForTable }));
-    }
-  }, []);
 
   return (
     <div

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { ProgressBar } from "react-loader-spinner";
 import styles from "./IndividualStatement.module.css";
 import InformationAboutIndividual from "../../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
@@ -21,10 +22,12 @@ import {
   fieldPassportOptions,
 } from "../../commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
 import { fieldBoatOptions } from "../../commonComponents/InformationAboutBoat/optionsForInformationAboutBoat";
-import { MAIN_URL, PORT, API_GET_BOAT_INFO_CARD } from "../../../../constants/constants";
+import { setDataForTable } from "../../../../redux/statementReducer/actionsStatement";
+import { MAIN_URL, PORT, API_GET_BOAT_CARD_FOR_MODIF } from "../../../../constants/constants";
 
 function IndividualStatement() {
   const location = useLocation();
+  const dispatch = useDispatch();
   const { idBoadCard } = location.state || {};
   const [idTypeStatement, setIdTypeStatement] = useState("1");
   const [data, setData] = useState({});
@@ -58,18 +61,42 @@ function IndividualStatement() {
   const updateNewData = (key, value) => {
     newData[key] = value;
   };
-
+  console.log(idTypeStatement)
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(MAIN_URL + PORT + API_GET_BOAT_INFO_CARD + String(idBoadCard));
-      const data = await response.json();
-      setData(data);
+      const responseBoatCard = await fetch(MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_MODIF + String(idBoadCard));
+      const dataBoatCard = await responseBoatCard.json();
+      console.log(dataBoatCard)
+      // const responseSpecialMarks = await fetch(MAIN_URL + PORT+API_GET_BOAT_INFO_SPEC_MARKS+ String(idBoadCard))
+      // const dataSpecialMarks =await responseSpecialMarks.json()
+      // const editedDataBoadCard ={}
+      // editedDataBoadCard.regNum = dataBoatCard.regNum
+      // editedDataBoadCard.ptName = dataBoatCard.ownerType.ptName
+      // editedDataBoadCard.tiketNum = dataBoatCard.tiketNum
+      // editedDataBoadCard.cardDate = dataBoatCard.cardDate
+      // editedDataBoadCard.enginesList = dataBoatCard.enginesList
+      // editedDataBoadCard.boatVin = dataBoatCard.boatVin
+      // editedDataBoadCard.parkingPlace = dataBoatCard.parkingPlace
+      // editedDataBoadCard.boatType = dataBoatCard.boatType.btname
+      //
+      // editedDataBoadCard.specMarks = dataSpecialMarks.map(el=>{
+      //   return{
+      //     asmDate:el.bsmDate,
+      //     asmLock:el.bsmLock,
+      //     asmNote:el.bsmNote,
+      //   }
+      // })
       setIsLoading(false);
+      dispatch(setDataForTable({ key: boatCardAppSmDtoList.keyTable, data: dataBoatCard.boatCardSpecmarksList }));
+      dispatch(setDataForTable({ key: boatCardAppEngDtoList.keyTable, data: dataBoatCard.enginesList }));
+      setData(dataBoatCard);
+
+
     }
     fetchData();
   }, []);
 
-  console.log(data);
+
   if (isLoading) {
     return (
       <div className={`d-flex flex-column align-items-center `}>
@@ -115,7 +142,7 @@ function IndividualStatement() {
           <Form.Group className={styles["header"]}>
             <Form.Label>Субъект хозяйствования:</Form.Label>
             <Form.Control
-              value={data.ownerType.ptName}
+              value={data.personType}
               type="text"
               readOnly={true}
               disabled={true}
@@ -148,8 +175,9 @@ function IndividualStatement() {
             errors={errors}
           />
           <InfoRepresentPerson />
-          {!(idTypeStatement === "1") ? (
+          {(idTypeStatement !== "1" && idTypeStatement !== "4") ? (
             <InformationAboutBoat
+              dataBoat = {data}
               fieldStatus={readStatusForInputField}
               updateNewData={updateNewData}
               saveKey={saveKey}
@@ -173,7 +201,8 @@ function IndividualStatement() {
           {idTypeStatement === "2" || idTypeStatement === "3" ? (
             <TableAppBoatReg
               tableOptions={boatCardAppEngDtoList}
-              dataEngines={data.enginesList}
+              dataForTable={data.enginesList}
+              typeTable='boatCardAppEngList'
             />
           ) : (
             ""
@@ -182,17 +211,29 @@ function IndividualStatement() {
           {idTypeStatement === "1" ? (
             <TableAppBoatReg
               tableOptions={boatCardAppDealsDtoList}
-              // data={boatCardAppEngList}
+              typeTable='boatCardAppDealsList'
+              dataForTable={[]}
             />
           ) : (
             ""
           )}
           <TableAppBoatReg
             tableOptions={boatCardAppSmDtoList}
-            // data={boatCardAppEngList}
+            dataForTable={data.boatCardSpecmarksList}
+            typeTable='boatCardAppSpecMarkList'
           />
           <AppFooter />
         </Form>
+      </div>
+      <div className={styles.buttons_container}>
+        <Button
+            variant="primary"
+            className=""
+            // onClick={(e) => handleSave(e)}
+        >
+          Зарегистрировать
+        </Button>
+        <Button variant="danger">Отказать</Button>
       </div>
     </div>
   );

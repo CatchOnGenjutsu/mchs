@@ -75,6 +75,7 @@ export default function AppBoatRegModal({ setShowModal, showModal, modalWindowIn
           }
           break;
         case "boatCardAppSmDtoList":
+          console.log(newData)
           dispatch(addNewSpecMarkApp(newData));
           break;
         case "boatCardAppDealsDtoList":
