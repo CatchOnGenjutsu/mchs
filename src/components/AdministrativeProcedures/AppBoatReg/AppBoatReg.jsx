@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
@@ -191,15 +191,21 @@ export default function AppBoatReg() {
           mode={mode}
         />
         <TableAppBoatReg
+          typeTable={"boatCardAppEngList"}
           tableOptions={boatCardAppEngDtoList}
+          mode={mode}
           // data={boatCardAppEngList}
         />
         <TableAppBoatReg
+          typeTable={"boatCardAppDealsList"}
           tableOptions={boatCardAppDealsDtoList}
+          mode={mode}
           // data={boatCardAppEngList}
         />
         <TableAppBoatReg
+          typeTable={"boatCardAppSpecMarkList"}
           tableOptions={boatCardAppSmDtoList}
+          mode={mode}
           // data={boatCardAppEngList}
         />
         <AppFooter handleFile={handleFile} />

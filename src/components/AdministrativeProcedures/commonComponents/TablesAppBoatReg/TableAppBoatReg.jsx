@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
 import { deleteNewNote } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function TableAppBoatReg({ tableOptions, dataForTable,typeTable }) {
+export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable, mode }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
   const dispatch = useDispatch();
@@ -85,7 +85,7 @@ export default function TableAppBoatReg({ tableOptions, dataForTable,typeTable }
                       return <td>{elem[`${item.key}`]}</td>;
                   }
                 })}
-                {data.length > 0 && (
+                {data.length && mode !== "view" > 0 && (
                   <td className={styles.edit__column}>
                     <button
                       className={`${styles.delete__buttons} btn btn-danger`}
