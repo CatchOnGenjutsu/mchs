@@ -69,7 +69,8 @@ export const statementReducer = (state = initialState, action) => {
       //   }))()
       // }
     case SET_DATA_FOR_STATEMENT_TABLES:
-      switch (action.data.type) {
+      console.log(action)
+      switch (action.data.key) {
         case "boatCardAppEngDtoList":
           return (() => ({
             ...state,

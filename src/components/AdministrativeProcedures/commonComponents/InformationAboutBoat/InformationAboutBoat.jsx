@@ -17,7 +17,7 @@ import styles from "./informationAboutBoat.module.css";
 import { fieldBoatOptions, setOptionsForBoat } from "./optionsForInformationAboutBoat";
 
 
-function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors, errors }) {
+function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors, errors ,dataBoat}) {
 
   const [options, setOptions] = useState(fieldBoatOptions);
   const dispatch = useDispatch();
@@ -67,6 +67,7 @@ function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors
                     {option.required && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Form.Control
+                    value = {dataBoat[option.key]}
                     onBlur={(e) => handleValue(e)}
                     disabled = {option.disabled}
                     type={option.type}
@@ -86,7 +87,8 @@ function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors
                   <Select
                     onChange={(e) => handleValue(e)}
                     isDisabled={option.disabled}
-                    defaultValue={option.defaultValue}
+                    // defaultValue={option.defaultValue}
+                    value = {option.options.find(el=>el.label===dataBoat[option.key])}
                     className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     classNamePrefix="select"
                     placeholder="Выберите"
