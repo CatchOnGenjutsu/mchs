@@ -125,8 +125,8 @@ export const fieldAddressOptions = {
     required: true,
     options: [],
   },
-  gorod_id: {
-    key: "gorod_id",
+  gorodId: {
+    key: "gorodId",
     value: "Город",
     type: "selectSearch",
     defaultValue: null,
@@ -180,13 +180,13 @@ export async function setOptions(id, key) {
     case "oblId": {
       fieldAddressOptions.rayonId.options = await setRayon(id);
       fieldAddressOptions.rayonId.disabled = false;
-      fieldAddressOptions.gorod_id.options = [];
-      fieldAddressOptions.gorod_id.disabled = true;
+      fieldAddressOptions.gorodId.options = [];
+      fieldAddressOptions.gorodId.disabled = true;
       return fieldAddressOptions;
     }
     case "rayonId": {
-      fieldAddressOptions.gorod_id.options = await setGorod(id);
-      fieldAddressOptions.gorod_id.disabled = false;
+      fieldAddressOptions.gorodId.options = await setGorod(id);
+      fieldAddressOptions.gorodId.disabled = false;
       return fieldAddressOptions;
     }
     default:

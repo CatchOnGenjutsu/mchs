@@ -49,6 +49,9 @@ export const API_DELETE_BOAT_INFO_DOCS = "boats/file/delete/"
 export const API_GET_BOATS_REG_LIST_SEARCH = "boatCardApp/search"
 
 export const API_GET_BOATS_REG_INFO = "boatCardApp/getBoatCardApp/"
+export const API_GET_BOATS_REG_ENG = "boatCardApp/getEngines/"
+export const API_GET_BOATS_REG_DEALS = "boatCardApp/getDeals/"
+export const API_GET_BOATS_REG_SPEC_MARKS = "boatCardApp/getSpecMarks/"
 
 export const  API_REG_INFORM_CHANGE = "boatCardModif/search"
 export const  API_REG_INFORM_CHANGE_BOAT_CARD = "boatCardModif/searchBoatCard"
@@ -57,6 +60,7 @@ export const API_ADD_NEW_ENGINE_CHECK = "boatCardApp/checkEngineVin/"
 export const API_GET_BOAT_TYPES = "static/info/boatTypes"
 export const API_GET_BOAT_VID = "static/info/boatVid"
 export const API_GET_BOAT_BODY = "static/info/boatBody"
+export const API_GET_SA_CATEGORY = "static/info/saCategory"
 
 export const API_ADD_NEW_STATEMENT = "boatCardApp/addStatement"
 

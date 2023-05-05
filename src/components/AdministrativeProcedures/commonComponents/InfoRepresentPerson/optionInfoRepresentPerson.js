@@ -163,13 +163,13 @@ export const setOptionsRayonForOblast = async (id) => {
 //       case "oblId":{
 //           fieldAddressOptions.rayonId.options = await setRayon(id, "optionsForInformationAboutIndividual")
 //           fieldAddressOptions.rayonId.disabled=false
-//           fieldAddressOptions.gorod_id.options = []
-//           fieldAddressOptions.gorod_id.disabled = true
+//           fieldAddressOptions.gorodId.options = []
+//           fieldAddressOptions.gorodId.disabled = true
 //           return fieldAddressOptions
 //       }
 //       case "rayonId":{
-//           fieldAddressOptions.gorod_id.options = await  setGorod(id, "optionsForInformationAboutIndividuals")
-//           fieldAddressOptions.gorod_id.disabled = false
+//           fieldAddressOptions.gorodId.options = await  setGorod(id, "optionsForInformationAboutIndividuals")
+//           fieldAddressOptions.gorodId.disabled = false
 //           return fieldAddressOptions
 //       }
 //       default: return fieldAddressOptions

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import Select from "react-select";
 
@@ -9,18 +9,22 @@ import {
   setOptionsTypesBoat,
   setOptionsVidBoat,
   setOptionsBodyBoat,
-  setReadOptionForInputs
+  setReadOptionForInputs,
+  setOptionsSaCategory,
 } from "../utilities";
-
 
 import styles from "./informationAboutBoat.module.css";
 import { fieldBoatOptions, setOptionsForBoat } from "./optionsForInformationAboutBoat";
 
 
-function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors, errors ,dataBoat}) {
+function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleErrors, errors, dataBoat, mode }) {
 
   const [options, setOptions] = useState(fieldBoatOptions);
   const dispatch = useDispatch();
+  const newStatement = useSelector((state) => {
+    const { statementReducer } = state;
+    return statementReducer.newStatement;
+  });
 
   const handleValue = async (e) => {
     if (e) {
@@ -42,19 +46,20 @@ function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors
 
   useEffect(() => {
     (async () => {
-      setReadOptionForInputs(fieldBoatOptions,fieldStatus)
+      setReadOptionForInputs(fieldBoatOptions, fieldStatus);
       const typesBoat = await setOptionsTypesBoat();
       const kindsBoat = await setOptionsVidBoat();
       const materialsBodyBoat = await setOptionsBodyBoat();
+      const saCategory = await setOptionsSaCategory();
       setOptions({
-        ...setOptionsForBoat(typesBoat, kindsBoat, materialsBodyBoat),
+        ...setOptionsForBoat(typesBoat, kindsBoat, materialsBodyBoat, saCategory),
       });
     })();
   }, []);
   return (
-    <div >
+    <div>
       <h3>Сведения о маломерном судне</h3>
-      <div className={styles["container-information"] }>
+      <div className={styles["container-information"]}>
         <div className={styles["boat-information"]}>
           {Object.values(options).map((option) => {
             if (option.type === "text" || option.type === "date") {
@@ -67,12 +72,13 @@ function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors
                     {option.required && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Form.Control
-                    value = {dataBoat[option.key]}
-                    onBlur={(e) => handleValue(e)}
-                    disabled = {option.disabled}
+                    //value = {dataBoat[option.key]}
+                    onChange={(e) => handleValue(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
                     readOnly={option.readOnly}
+                    disabled={option.disabled || mode === "view" ? true : false}
+                    value={newStatement[option.key]}
                     isInvalid={!!errors[option.key]}
                   />
                 </Form.Group>
@@ -86,13 +92,13 @@ function InformationAboutBoat({fieldStatus, updateNewData, saveKey, handleErrors
                   </Form.Label>
                   <Select
                     onChange={(e) => handleValue(e)}
-                    isDisabled={option.disabled}
-                    // defaultValue={option.defaultValue}
-                    value = {option.options.find(el=>el.label===dataBoat[option.key])}
+                    defaultValue={option.defaultValue}
                     className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     classNamePrefix="select"
                     placeholder="Выберите"
                     id={option.key}
+                    value={option.options.find((item) => item.value === newStatement[option.key])}
+                    isDisabled={option.disabled || mode === "view" ? true : false}
                     isSearchable={false}
                     name={option.key}
                     options={option.options}

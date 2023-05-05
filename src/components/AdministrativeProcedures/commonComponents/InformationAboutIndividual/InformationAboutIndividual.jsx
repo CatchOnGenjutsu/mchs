@@ -10,13 +10,18 @@ import {
 import Select from "react-select";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 
-function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors, errors }) {
+function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors, errors, mode }) {
   const selectGorodRef = useRef();
   const selectRayonRef = useRef();
   const dispatch = useDispatch();
   const [options, setoptions] = useState({
     passport: fieldPassportOptions,
     address: fieldAddressOptions,
+  });
+
+  const newStatement = useSelector((state) => {
+    const { statementReducer } = state;
+    return statementReducer.newStatement;
   });
 
   async function handleChangeSelectSearch(event) {
@@ -56,7 +61,7 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
 
   function setRef(option) {
     switch (option.key) {
-      case "gorod_id":
+      case "gorodId":
         return selectGorodRef;
       case "rayonId":
         return selectRayonRef;
@@ -64,7 +69,6 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
         return null;
     }
   }
-
   return (
     <>
       <h3>Сведения о заинтересованном лице</h3>
@@ -81,10 +85,12 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                     {option.required && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Form.Control
-                    onBlur={(e) => handleChangeSelectSearch(e)}
+                    onChange={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
-                    readOnly={option.readOnly}
+                    value={newStatement[option.key]}
+                    readOnly={option.readOnly || mode === "view"}
+                    disabled={mode === "view" ? true : false}
                     isInvalid={!!errors[option.key]}
                   />
                 </Form.Group>
@@ -98,11 +104,13 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                   </Form.Label>
                   <Select
                     onChange={(e) => handleChangeSelectSearch(e)}
-                    defaultValue={option.defaultValue}
+                    defaultValue={newStatement[option.key]}
+                    value={option.options.find((item) => item.value === newStatement[option.key])}
                     className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     classNamePrefix="select"
                     placeholder="Выберите"
                     id={option.key}
+                    isDisabled={mode === "view" ? true : false}
                     isSearchable={option.isSearchable}
                     name={option.key}
                     options={option.options}
@@ -124,10 +132,12 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                     {option.required && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Form.Control
-                    onBlur={(e) => handleChangeSelectSearch(e)}
+                    onChange={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
-                    readOnly={option.readOnly}
+                    value={newStatement[option.key]}
+                    readOnly={option.readOnly || mode === "view"}
+                    disabled={mode === "view" ? true : false}
                     isInvalid={!!errors[option.key]}
                   />
                 </Form.Group>
@@ -142,12 +152,13 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                   <Select
                     ref={setRef(option)}
                     className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
-                    isDisabled={option.disabled}
                     onChange={(e) => handleChangeSelectSearch(e)}
                     classNamePrefix="select"
                     id={option.key}
-                    defaultValue={option.defaultValue}
+                    // defaultValue={newStatement[option.key]}
+                    value={option.options.find((item) => item.value === newStatement[option.key])}
                     placeholder="Выберите"
+                    isDisabled={option.disabled || mode === "view" ? true : false}
                     isSearchable={option.isSearchable}
                     name={option.key}
                     options={option.options}

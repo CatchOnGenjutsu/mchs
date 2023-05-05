@@ -1,4 +1,5 @@
 import {
+  GET_BOATS_REG_INFO,
   ADD_NEW_ENGINE_CHECK,
   ADD_NEW_SPEC_MARK_APP,
   DELETE_NEW_NOTE_APP,
@@ -13,7 +14,62 @@ import {
   PORT,
   API_ADD_NEW_ENGINE_CHECK,
   API_ADD_NEW_STATEMENT,
+  API_GET_BOATS_REG_INFO,
+  API_GET_BOATS_REG_ENG,
+  API_GET_BOATS_REG_DEALS,
+  API_GET_BOATS_REG_SPEC_MARKS,
 } from "../../constants/constants";
+
+import { setOptionsRayonForOblast, setOptionsGorodForRayon } from "../../components/AdministrativeProcedures/commonComponents/InfoRepresentPerson/optionInfoRepresentPerson";
+
+import { setOptions } from "../../components/AdministrativeProcedures/commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
+
+export function getBoatRegInfo(id) {
+  return async (dispatch) => {
+    const requestData = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_INFO + id);
+    const requestEngines = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_ENG + id);
+    const requestDeals = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_DEALS + id);
+    const requestSpecMarks = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_SPEC_MARKS + id);
+    const dataApp = await requestData.json();
+    const dataAppEng = await requestEngines.json();
+    const dataAppDeals = await requestDeals.json();
+    const dataAppSpecMarks = await requestSpecMarks.json();
+    dataApp.docDateIssue = dataApp.docDateIssue.slice(0,10);
+    dataApp.docType = dataApp.docType.dtcode
+    dataApp.kv === 0 ? dataApp.kv = null : dataApp.kv = dataApp.kv
+    if (dataApp.oblId && dataApp.rayonId) {
+      await setOptions(dataApp.oblId, "oblId")
+      await setOptions(dataApp.rayonId, "rayonId")
+    }
+
+    dataApp.agentDocDate = dataApp.agentDocDate.slice(0,10); 
+    dataApp.agentDocType = dataApp.agentDocType.dtcode
+    dataApp.agentKv === 0 ? dataApp.agentKv = null : dataApp.agentKv = dataApp.agentKv
+    if (dataApp.agentOblId && dataApp.agentRayonId) {
+      await setOptionsRayonForOblast(dataApp.agentOblId)
+      await setOptionsGorodForRayon(dataApp.agentRayonId)
+    }
+    dataApp.boatType = dataApp.boatType.btcode
+    dataApp.bodyMaterial = dataApp.bodyMaterial.matcode
+    dataApp.boatVid = dataApp.boatVid.id
+    dataApp.saCategory = dataApp.saCategory.sacCode
+
+    dataAppEng.map(item => {item.engtype = item.engTypeName
+    return item})
+    if (requestData.ok) {
+      const jsonData = {
+        dataApp: dataApp,
+        dataAppEng: dataAppEng,
+        dataAppDeals: dataAppDeals,
+        dataAppSpecMarks: dataAppSpecMarks,
+      };
+      dispatch({
+        type: GET_BOATS_REG_INFO,
+        data: jsonData,
+      });
+    }
+  };
+}
 
 export function addNewEngineCheck(engineVin, newEngine) {
   return async (dispatch) => {
