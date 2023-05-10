@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
+
+import { MAIN_URL, PORT, API_ADD_STATEMENT_FILE_DOWNLOAD } from "../../../../constants/constants";
 
 import styles from "./AppFooter.module.css";
 
@@ -10,7 +12,10 @@ export default function AppFooter({ handleFile }) {
     appDate: new Date().toLocaleDateString().split(".").reverse().join("-"),
   });
   const dispatch = useDispatch();
-
+  const newStatement = useSelector((state) => {
+    const { statementReducer } = state;
+    return statementReducer.newStatement;
+  });
   const handleChange = (e) => {
     switch (true) {
       case e.target.id === "file":
@@ -26,6 +31,7 @@ export default function AppFooter({ handleFile }) {
     newInfo[`${e.target.id}`] = e.target.value;
     setNewInfo(structuredClone(newInfo));
   };
+
   return (
     <>
       <Form.Group className={styles.header}>
@@ -44,6 +50,14 @@ export default function AppFooter({ handleFile }) {
             {errors[item.key]}
           </Form.Control.Feedback> */}
       </Form.Group>
+      {newStatement.fileType && (
+        <a
+          href={`${MAIN_URL}${PORT}${API_ADD_STATEMENT_FILE_DOWNLOAD}${
+            newStatement[newStatement.fileType].docname
+          }`}>
+          {newStatement[newStatement.fileType].docname}
+        </a>
+      )}
       <Form.Group className={styles.header}>
         <Form.Label>Количество листов:</Form.Label>
         <Form.Control

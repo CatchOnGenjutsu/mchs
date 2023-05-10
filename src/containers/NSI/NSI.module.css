@@ -1,0 +1,64 @@
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+  font-weight: 500;
+  grid-template-areas:
+    "CB T1 T2"
+    "T3 T4 T5"
+    "T6 . .";
+}
+
+.box-classificationBoats {
+  grid-area: CB;
+}
+.box-test1 {
+  grid-area: T1;
+}
+.box-test2 {
+  grid-area: T2;
+}
+.box-test3 {
+  grid-area: T3;
+}
+.box-test4 {
+  grid-area: T4;
+}
+.box-test5 {
+  grid-area: T5;
+}
+.box-test6 {
+  grid-area: T6;
+}
+
+.link_container {
+  background-color: #d0e8ff;
+  width: 300px;
+  height: 95px;
+  border-radius: 12px;
+  margin: 2em 3em;
+}
+
+.link_container:hover {
+  cursor: pointer;
+}
+
+.link {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+}
+
+.link:hover {
+  color: black;
+  text-decoration: none;
+}

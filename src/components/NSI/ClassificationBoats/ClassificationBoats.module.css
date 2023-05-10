@@ -1,0 +1,45 @@
+.primary_table {
+  width: 100%;
+  margin: 1em auto 0;
+  border-collapse: collapse;
+  caption-side: top;
+  border: 1px solid rgb(221, 221, 221);
+}
+
+.primary_caption {
+  font-size: 1em;
+  color: black;
+  font-weight: 700;
+  background: #d0e8ff;
+  padding: 0.2em 1.5em;
+  border-top-left-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+}
+
+.line_name {
+  width: 24%;
+  padding: 0.3em 0.8em;
+  text-align: left;
+  border: 1px solid rgb(221, 221, 221);
+}
+.line_value {
+  width: 76%;
+  padding: 0.3em 0.8em;
+  text-align: left;
+  border: 1px solid rgb(221, 221, 221);
+}
+.back_button {
+  margin-top: 15px;
+  width: 150px;
+  height: 40px;
+  background: #2eabff;
+  box-shadow: 7px 7px 10px rgba(9, 9, 9, 0.18), -2px -2px 5px rgba(251, 252, 255, 0.05);
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.back_button:hover {
+  cursor: pointer;
+}

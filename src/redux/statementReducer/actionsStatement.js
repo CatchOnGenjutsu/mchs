@@ -54,6 +54,8 @@ export function getBoatRegInfo(id) {
     dataApp.boatVid = dataApp.boatVid.id
     dataApp.saCategory = dataApp.saCategory.sacCode
 
+    dataApp.fileType = dataApp.fileDoc ? "fileDoc" : dataApp.filePdf ? "filePdf" : ""
+
     dataAppEng.map(item => {item.engtype = item.engTypeName
     return item})
     if (requestData.ok) {

@@ -59,7 +59,7 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
             {tableOptions.nameColumn.map((item) => {
               return <th id={item.key}>{item.value}</th>;
             })}
-            {data.length > 0 && <th className={styles.edit__column}></th>}
+            {data.length > 0 && mode !== "view" && <th className={styles.edit__column}></th>}
           </tr>
         </thead>
         <tbody>
@@ -85,7 +85,7 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
                       return <td>{elem[`${item.key}`]}</td>;
                   }
                 })}
-                {data.length && mode !== "view" > 0 && (
+                {data.length > 0 && mode !== "view" && (
                   <td className={styles.edit__column}>
                     <button
                       className={`${styles.delete__buttons} btn btn-danger`}
@@ -103,12 +103,14 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
           })}
         </tbody>
       </table>
-      <button
-        className={`${styles.add__buttons} btn btn-primary`}
-        id={tableOptions.keyTable}
-        onClick={(e) => handleAddNotes(e)}>
-        +
-      </button>
+      {mode !== "view" && (
+        <button
+          className={`${styles.add__buttons} btn btn-primary`}
+          id={tableOptions.keyTable}
+          onClick={(e) => handleAddNotes(e)}>
+          +
+        </button>
+      )}
       {showModal && (
         <AppBoatRegModal
           setShowModal={setShowModal}
