@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import styles from "./InformationAboutIndividual.module.css";
@@ -82,7 +82,7 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                   className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
                   <Form.Label>
                     {option.value}
-                    {option.required && <span className={styles.red_dot}>*</span>}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Form.Control
                     onChange={(e) => handleChangeSelectSearch(e)}
@@ -100,7 +100,7 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                 <Form.Group className={`${styles["common"]} box-${option.key}`}>
                   <Form.Label>
                     {option.value}
-                    {option.required && <span className={styles.red_dot}>*</span>}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Select
                     onChange={(e) => handleChangeSelectSearch(e)}
@@ -147,7 +147,7 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                 <div className={`d-flex ${styles["common"]}`}>
                   <Form.Label>
                     {option.value}
-                    {option.required && <span className={styles.red_dot}>*</span>}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Select
                     ref={setRef(option)}
@@ -156,7 +156,11 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                     classNamePrefix="select"
                     id={option.key}
                     // defaultValue={newStatement[option.key]}
-                    value={option.options.find((item) => item.value === newStatement[option.key])}
+                    value={option.options.find((item) => {
+                      console.log("item", item);
+                      console.log("newStatement[option.key]", newStatement[option.key]);
+                      return item.value === newStatement[option.key];
+                    })}
                     placeholder="Выберите"
                     isDisabled={option.disabled || mode === "view" ? true : false}
                     isSearchable={option.isSearchable}

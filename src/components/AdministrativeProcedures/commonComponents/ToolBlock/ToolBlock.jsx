@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import { getBoatRegInfo } from "../../../../redux/statementReducer/actionsStatement";
+import { useSelector } from "react-redux";
 
 import { MAIN_URL, PORT, API_GET_BOAT_INFO_CARD } from "../../../../constants/constants";
 
@@ -16,12 +14,6 @@ function ToolBlock({ data, id, setShow, addBtnDisIn, viewBtnDisIn }) {
   const url = new URL(document.location.href);
   const pathName = url.pathname.slice(1);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const personType = useSelector((state) => {
-    const { smallBoatsRegReducer } = state;
-    return smallBoatsRegReducer.personType;
-  });
 
   const handleButtonAdd = async (event) => {
     switch (true) {
@@ -68,9 +60,8 @@ function ToolBlock({ data, id, setShow, addBtnDisIn, viewBtnDisIn }) {
         break;
       }
       case pathName.includes("smallboatsreg"): {
-        dispatch(getBoatRegInfo(id));
         navigate(`./app/${id}`, {
-          state: { type: personType === 1 ? "individual" : "entity", mode: "view" },
+          state: { mode: "view" },
         });
         break;
       }
