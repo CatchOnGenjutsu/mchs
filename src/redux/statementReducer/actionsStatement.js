@@ -8,6 +8,8 @@ import {
   SET_DATA_FOR_STATEMENT_TABLES,
   ADD_NEW_STATEMENT,
   CLEAR_NEW_STATEMENT,
+  GET_BOATS_DECISION_INFO,
+  CLEAR_DECISION_DATA
 } from "../types";
 
 import {
@@ -19,6 +21,7 @@ import {
   API_GET_BOATS_REG_ENG,
   API_GET_BOATS_REG_DEALS,
   API_GET_BOATS_REG_SPEC_MARKS,
+  API_GET_BOATS_DECISION_INFO
 } from "../../constants/constants";
 
 import {
@@ -27,7 +30,11 @@ import {
 } from "../../components/AdministrativeProcedures/commonComponents/InfoRepresentPerson/optionInfoRepresentPerson";
 
 import { setOptions as setOptionsIndividual } from "../../components/AdministrativeProcedures/commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
-import { setOptions as setOptionsEntity} from "../../components/AdministrativeProcedures/commonComponents/InformationAboutEntity/optionsInformationAboutEntity";
+import { setOptions as setOptionsEntity } from "../../components/AdministrativeProcedures/commonComponents/InformationAboutEntity/optionsInformationAboutEntity";
+
+import { fieldAddressOptions } from "../../components/AdministrativeProcedures/commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
+import { fieldAddressOptions as fieldLEAddressOptions } from "../../components/AdministrativeProcedures/commonComponents/InformationAboutEntity/optionsInformationAboutEntity";
+
 export function getBoatRegInfo(id) {
   return async (dispatch) => {
     const requestData = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_INFO + id);
@@ -42,7 +49,7 @@ export function getBoatRegInfo(id) {
     dataApp.docType = !!dataApp.docType ? dataApp.docType.dtcode : null;
     dataApp.kv === 0 ? (dataApp.kv = null) : (dataApp.kv = dataApp.kv);
     if (dataApp.oblId && dataApp.rayonId) {
-      if(dataApp.personType.ptcode === 1){
+      if (dataApp.personType.ptcode === 1) {
         await setOptionsIndividual(dataApp.oblId, "oblId");
         await setOptionsIndividual(dataApp.rayonId, "rayonId");
       } else {
@@ -62,11 +69,32 @@ export function getBoatRegInfo(id) {
     dataApp.boatVid = !!dataApp.boatVid ? dataApp.boatVid.id : null;
     dataApp.saCategory = !!dataApp.saCategory ? dataApp.saCategory.sacCode : null;
     dataApp.fileType = dataApp.fileDoc ? "fileDoc" : dataApp.filePdf ? "filePdf" : "";
-    
+
     dataAppEng.map((item) => {
       item.engtype = item.engTypeName;
       return item;
     });
+    // let fullName = "";
+    // let fullAddress = "";
+    // if (dataApp.personType.ptcode === 1) {
+    //   fullName = `${dataApp.surname} ${dataApp.name} ${dataApp.midname}`;
+    //   fullAddress = `Республика Беларусь, ${
+    //     fieldAddressOptions.oblId.options.find((item) => item.value === dataApp.oblId).label
+    //   } область, ${
+    //     fieldAddressOptions.rayonId.options.find((item) => item.value === dataApp.rayonId).label
+    //   } район, ${
+    //     fieldAddressOptions.gorodId.options.find((item) => item.value === dataApp.gorodId).label
+    //   } район,`;
+    // } else {
+    //   fullName = dataApp.nameLe;
+    //   fullAddress = `Республика Беларусь, ${
+    //     fieldLEAddressOptions.oblId.options.find((item) => item.value === dataApp.oblId).label
+    //   } область, ${
+    //     fieldLEAddressOptions.rayonId.options.find((item) => item.value === dataApp.rayonId).label
+    //   } район, ${
+    //     fieldLEAddressOptions.gorodId.options.find((item) => item.value === dataApp.gorodId).label
+    //   },`;
+    // }
     if (requestData.ok) {
       const jsonData = {
         dataApp: dataApp,
@@ -80,6 +108,36 @@ export function getBoatRegInfo(id) {
       });
     }
   };
+}
+
+export function getDecisionCardInfo(id) {
+  return async (dispatch) => {
+    const request = await fetch(MAIN_URL + PORT + API_GET_BOATS_DECISION_INFO + id)
+    const requestEngines = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_ENG + id);
+    const requestDeals = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_DEALS + id);
+    const requestSpecMarks = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_SPEC_MARKS + id);
+    
+    if (request.status === 200) {
+      const response = await request.json()
+      const dataAppEng = await requestEngines.json();
+      const dataAppDeals = await requestDeals.json();
+      const dataAppSpecMarks = await requestSpecMarks.json();
+      dataAppEng.map((item) => {
+        item.engtype = item.engTypeName;
+        return item;
+      });
+      const jsonData = {
+        data: response,
+        dataAppEng: dataAppEng,
+        dataAppDeals: dataAppDeals,
+        dataAppSpecMarks: dataAppSpecMarks,
+      };
+      dispatch({
+        type: GET_BOATS_DECISION_INFO,
+        data: jsonData,
+      });
+    }
+  }
 }
 
 export function addNewEngineCheck(engineVin, newEngine) {
@@ -148,6 +206,13 @@ export function addNewStatement(data) {
 export function clearNewStatement() {
   return {
     type: CLEAR_NEW_STATEMENT,
+    data: {},
+  };
+}
+
+export function clearDecisionData() {
+  return {
+    type: CLEAR_DECISION_DATA,
     data: {},
   };
 }

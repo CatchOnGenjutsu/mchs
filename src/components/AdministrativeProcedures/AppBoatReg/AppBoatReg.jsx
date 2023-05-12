@@ -73,7 +73,6 @@ export default function AppBoatReg() {
   const [file, setFile] = useState();
 
   const errorsFields = [];
-  const path = window.location.pathname;
   if (type === 1) {
     Object.entries(fieldAddressOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
     Object.entries(fieldPassportOptions).map((item) =>

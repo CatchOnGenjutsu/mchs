@@ -7,6 +7,8 @@ import {
   SET_DATA_FOR_STATEMENT_TABLES,
   GET_BOATS_REG_INFO,
   CLEAR_NEW_STATEMENT,
+  GET_BOATS_DECISION_INFO,
+  CLEAR_DECISION_DATA,
 } from "../types";
 import { v4 as uuidv4 } from "uuid";
 
@@ -16,6 +18,7 @@ const initialState = {
   boatCardAppSpecMarkList: [],
   boatCardAppDealsList: [],
   appRegData: {},
+  appDecisionData: {},
   newStatement: {},
 };
 
@@ -31,6 +34,15 @@ export const statementReducer = (state = initialState, action) => {
         boatCardAppDealsList: [...action.data.dataAppDeals],
         boatCardAppSpecMarkList: [...action.data.dataAppSpecMarks],
       }))();
+    case GET_BOATS_DECISION_INFO:
+      return (() => ({
+        ...state,
+        appDecisionData: action.data.data,
+        boatCardAppEngList: [...action.data.dataAppEng],
+        boatCardAppDealsList: [...action.data.dataAppDeals],
+        boatCardAppSpecMarkList: [...action.data.dataAppSpecMarks],
+      }))();
+
     case ADD_NEW_ENGINE_CHECK:
       action.data["innerId"] = uuidv4();
       return (() => ({
@@ -87,6 +99,15 @@ export const statementReducer = (state = initialState, action) => {
       return (() => ({
         ...state,
         newStatement: action.data,
+        personType: null,
+        boatCardAppEngList: [],
+        boatCardAppSpecMarkList: [],
+        boatCardAppDealsList: [],
+      }))();
+    case CLEAR_DECISION_DATA:
+      return (() => ({
+        ...state,
+        appDecisionData: action.data,
         personType: null,
         boatCardAppEngList: [],
         boatCardAppSpecMarkList: [],

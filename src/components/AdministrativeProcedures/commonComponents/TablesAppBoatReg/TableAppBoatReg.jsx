@@ -8,11 +8,14 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
   const dispatch = useDispatch();
-  let data = dataForTable
-      // useSelector((state) => {
-      //   const { statementReducer } = state;
-      //   return statementReducer[typeTable];
-      // });
+  // const dataChange = dataForTable;
+
+  const dataReg = useSelector((state) => {
+    const { statementReducer } = state;
+    return statementReducer[typeTable];
+  });
+
+  const data = !!dataForTable ? dataForTable : dataReg;
 
   const handleAddNotes = (e) => {
     e.preventDefault();
@@ -87,17 +90,19 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
                 })}
                 {data.length > 0 && mode !== "view" && (
                   <td className={styles.edit__column}>
-                    {elem.hasOwnProperty('innerId')?(
-                        <button
-                            className={`${styles.delete__buttons} btn btn-danger`}
-                            // data-tabletype={documentsTableColumns.keyTable}
-                            // data-docname={elem.docname}
-                            // data-doctype="file"
-                            id={elem.innerId}
-                            onClick={(e) => handleDeleteNote(e)}>
-                          &#10006;
-                        </button>
-                    ):''}
+                    {elem.hasOwnProperty("innerId") ? (
+                      <button
+                        className={`${styles.delete__buttons} btn btn-danger`}
+                        // data-tabletype={documentsTableColumns.keyTable}
+                        // data-docname={elem.docname}
+                        // data-doctype="file"
+                        id={elem.innerId}
+                        onClick={(e) => handleDeleteNote(e)}>
+                        &#10006;
+                      </button>
+                    ) : (
+                      ""
+                    )}
                   </td>
                 )}
               </tr>

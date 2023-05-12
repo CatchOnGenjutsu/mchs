@@ -15,6 +15,7 @@ import RegistrationInformationChanges from './containers/AdministrativeProcedure
 import FormSearchBoatCard from './containers/FormSearchBoatCard/FormSearchBoatCard'
 import IndividualStatement from './components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement'
 import EntityStatement from './components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/EntityStatement'
+import DecisionCard from './components/AdministrativeProcedures/commonComponents/DecisionCard/DecisionCard';
 import NSI from './containers/NSI/NSI';
 import ClassificationBoats from './components/NSI/ClassificationBoats/ClassificationBoats';
 import {
@@ -63,6 +64,7 @@ function App() {
               <Route path="/smallboatsreg/app/individual" element={<AppBoatReg />} />
               <Route path="/smallboatsreg/app/entity" element={<AppBoatReg />} />
               <Route path="/smallboatsreg/app/:id" element={<AppBoatReg />} />
+              <Route path="/smallboatsreg/decisioncard/:id" element={<DecisionCard />} />
               <Route path="/reginformationchanges" element={<RegistrationInformationChanges/>}/>
               <Route path="/reginformationchanges/searchboatcard" element={<FormSearchBoatCard/>}/>
               <Route path="/reginformationchanges/individual/add" element={<IndividualStatement/>}/>
