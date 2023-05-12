@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./ModalWindow.module.css";
+
 
 function ModalWindow({ setShow, show, idBoadCard }) {
   const navigate = useNavigate();
   const pathName = window.location.pathname;
+  const dispatch = useDispatch();
+
+
 
   const handleLinkClick = (e) => {
     switch (true) {
@@ -40,6 +45,8 @@ function ModalWindow({ setShow, show, idBoadCard }) {
     }
   };
 
+
+
   return (
     <Modal
       show={show}
@@ -55,14 +62,12 @@ function ModalWindow({ setShow, show, idBoadCard }) {
           <div
             onClick={(e) => handleLinkClick(e)}
             data-key="individual"
-            // to="/reginformationchanges/individual/add"
           >
             Физическое лицо
           </div>
           <a
             onClick={(e) => handleLinkClick(e)}
             data-key="entity"
-            // to="/reginformationchanges/entity/add"
           >
             Юридическое лицо
           </a>
