@@ -99,6 +99,10 @@ export const BUILDING_COLUMNS = [
 ]
 export const SMALLBOATS_ADMIN_COLUMNS = [
   {
+    Header: "Рег. номер заявления",
+    accessor: "appNum",
+  },
+  {
     Header: "Дата регистрации заявления",
     accessor: "operDate",
   },
@@ -118,10 +122,10 @@ export const SMALLBOATS_ADMIN_COLUMNS = [
     Header: "УНП",
     accessor: "unp",
   },
-  {
-    Header: "Рег. номер судна",
-    accessor: "regNum",
-  },
+  // {
+  //   Header: "Рег. номер судна",
+  //   accessor: "regNum",
+  // },
   {
     Header: "Участок",
     accessor: "rayonName",

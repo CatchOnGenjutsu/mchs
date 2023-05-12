@@ -1,0 +1,7 @@
+.buttons_text {
+  display: flex;
+  user-select: none;
+  align-items: center;
+  text-decoration: underline;
+  margin: 0 8px 0 4px;
+}

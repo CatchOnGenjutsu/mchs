@@ -63,6 +63,10 @@ export const API_GET_BOAT_BODY = "static/info/boatBody"
 export const API_GET_SA_CATEGORY = "static/info/saCategory"
 
 export const API_ADD_NEW_STATEMENT = "boatCardApp/addStatement"
+export const API_ADD_STATEMENT_FILE_DOWNLOAD = "boatCardApp/download/"
+
+//NSI
+export const API_GET_CLASSIFICATION_BOATS = "nsi/classificationBoats"
 
 
 

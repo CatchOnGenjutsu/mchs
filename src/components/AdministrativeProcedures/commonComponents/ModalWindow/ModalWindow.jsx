@@ -22,7 +22,9 @@ function ModalWindow({ setShow, show, idBoadCard }) {
             });
             break;
           case "entity":
-            navigate("/smallboatsreg/app/entity");
+            navigate("/smallboatsreg/app/entity", {
+              state: { type: "entity", mode: "create" },
+            });
             break;
           default:
             break;

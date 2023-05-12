@@ -30,5 +30,5 @@ export const sidebarSettings = [
   ["Администрирование", "administration", { listModal: [], isHidden: true }],
   ["Обучение и проверка знаний", "training", { listModal: [], isHidden: true }],
   ["Проверки и ревизии", "revisions", { listModal: [], isHidden: true }],
-  ["Справочная информация", "information", { listModal: [], isHidden: true }]
+  ["Нормативно-справочная информация", "nsi", { listModal: [], isHidden: true }]
 ]

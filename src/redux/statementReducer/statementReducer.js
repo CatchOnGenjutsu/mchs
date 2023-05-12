@@ -6,6 +6,7 @@ import {
   ADD_NEW_STATEMENT_DATA,
   SET_DATA_FOR_STATEMENT_TABLES,
   GET_BOATS_REG_INFO,
+  CLEAR_NEW_STATEMENT,
 } from "../types";
 import { v4 as uuidv4 } from "uuid";
 
@@ -19,7 +20,7 @@ const initialState = {
 };
 
 export const statementReducer = (state = initialState, action) => {
-  console.log(action);
+  // console.log(action.data)
   switch (action.type) {
     case GET_BOATS_REG_INFO:
       return (() => ({
@@ -81,6 +82,16 @@ export const statementReducer = (state = initialState, action) => {
         ...state,
         newStatement: { ...state.newStatement, ...action.data },
       }))();
+
+    case CLEAR_NEW_STATEMENT:
+      return (() => ({
+        ...state,
+        newStatement: action.data,
+        personType: null,
+        boatCardAppEngList: [],
+        boatCardAppSpecMarkList: [],
+        boatCardAppDealsList: [],
+      }))();
     // if (Object.keys(state.newStatement).includes(key)) {
     //   return (() => ({
     //     ...state,
@@ -93,7 +104,7 @@ export const statementReducer = (state = initialState, action) => {
     //   }))()
     // }
     case SET_DATA_FOR_STATEMENT_TABLES:
-      console.log(action)
+      console.log(action);
       switch (action.data.key) {
         case "boatCardAppEngDtoList":
           return (() => ({

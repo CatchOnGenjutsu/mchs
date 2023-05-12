@@ -5,10 +5,18 @@ import { Button, Form } from "react-bootstrap";
 import InfoRepresentPerson from "../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
 import InformationAboutIndividual from "../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
 import InformationAboutBoat from "../commonComponents/InformationAboutBoat/InformationAboutBoat";
+import OtherInformation from "../commonComponents/OtherInformation/OtherInformation";
+import InformationAboutEntity from "../commonComponents/InformationAboutEntity/InformationAboutEntity";
 import TableAppBoatReg from "../commonComponents/TablesAppBoatReg/TableAppBoatReg";
 import AppFooter from "../commonComponents/AppFooter/AppFooter";
+import { ProgressBar } from "react-loader-spinner";
 
-import { addNewStatementData, addNewStatement } from "../../../redux/statementReducer/actionsStatement";
+import {
+  addNewStatementData,
+  addNewStatement,
+  clearNewStatement,
+  getBoatRegInfo,
+} from "../../../redux/statementReducer/actionsStatement";
 import { boatCardAppEngDtoList, boatCardAppSmDtoList, boatCardAppDealsDtoList } from "./tableOptions";
 
 import {
@@ -16,19 +24,28 @@ import {
   fieldPassportOptions,
 } from "../commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
 import { fieldBoatOptions } from "../commonComponents/InformationAboutBoat/optionsForInformationAboutBoat";
+import {
+  fieldLEInformOptions,
+  fieldAddressOptions as fieldLEAddressOptions,
+} from "../commonComponents/InformationAboutEntity/optionsInformationAboutEntity";
 
 import styles from "./AppBoatReg.module.css";
+import { API_ADD_NEW_STATEMENT, MAIN_URL, PORT } from "../../../constants/constants";
+import ResultModalWindow from "../commonComponents/ResultModalWindow/ResultModalWindow";
 
 export default function AppBoatReg() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [registrationResult, setRegistrationResult] = useState("");
+  const [appId, setAppId] = useState(null);
+
   const location = useLocation();
-  const { type, mode } = location.state;
+  const { mode } = location.state;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const appRegData = useSelector((state) => {
-    const { smallBoatsRegReducer } = state;
-    return smallBoatsRegReducer.appRegData;
-  });
+  const type = window.location.pathname.includes("individual") ? 1 : 2;
+
   const boatCardAppEngList = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.boatCardAppEngList;
@@ -45,6 +62,10 @@ export default function AppBoatReg() {
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
+  const personType = useSelector((state) => {
+    const { statementReducer } = state;
+    return statementReducer.personType;
+  });
 
   const [newData, setNewData] = useState({});
   const [errors, setErrors] = useState({});
@@ -52,10 +73,21 @@ export default function AppBoatReg() {
   const [file, setFile] = useState();
 
   const errorsFields = [];
-  Object.entries(fieldAddressOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
-  Object.entries(fieldPassportOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
+  const path = window.location.pathname;
+  if (type === 1) {
+    Object.entries(fieldAddressOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
+    Object.entries(fieldPassportOptions).map((item) =>
+      item[1].required ? errorsFields.push(item[0]) : null,
+    );
+  } else {
+    Object.entries(fieldLEInformOptions).map((item) =>
+      item[1].required ? errorsFields.push(item[0]) : null,
+    );
+    Object.entries(fieldLEAddressOptions).map((item) =>
+      item[1].required ? errorsFields.push(item[0]) : null,
+    );
+  }
   Object.entries(fieldBoatOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
-  console.log("errorsFields", errorsFields);
 
   const handleFile = (value) => {
     setFile(value);
@@ -68,6 +100,7 @@ export default function AppBoatReg() {
         newErrors[elem] = "Заполните поле";
       }
     });
+    console.log("newErrors", newErrors);
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return true;
@@ -81,7 +114,7 @@ export default function AppBoatReg() {
     newData[key] = value;
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     if (!handleErrors()) {
       const formData = new FormData();
       boatCardAppDealsList.map((item, index) => {
@@ -116,113 +149,145 @@ export default function AppBoatReg() {
       if (file !== undefined) {
         formData.append(`file`, file);
       }
-      dispatch(addNewStatement(formData));
+      const request = await fetch(MAIN_URL + PORT + API_ADD_NEW_STATEMENT, {
+        method: "POST",
+        body: formData,
+      });
+      if (request.status !== 200) {
+        setShowResultModal(!showResultModal);
+        setRegistrationResult("error");
+      } else {
+        const response = await request.text();
+        console.log("response", response);
+        setAppId(response);
+        setShowResultModal(!showResultModal);
+        setRegistrationResult("success");
+      }
+      // dispatch(addNewStatement(formData));
       // navigate(-1);
     } else {
       setSaveKey(true);
     }
   };
   const handleCloseApp = () => {
+    dispatch(clearNewStatement());
     navigate(-1);
   };
   useEffect(() => {
-    type === "individual"
-      ? dispatch(addNewStatementData({ ["personType"]: 1 }))
-      : dispatch(addNewStatementData({ ["personType"]: 2 }));
+    if (mode === "view") {
+      const pathArray = window.location.pathname.split("/");
+      const id = pathArray[pathArray.length - 1];
+      dispatch(getBoatRegInfo(id));
+    }
     // ЗАГЛУШКИ
     dispatch(addNewStatementData({ [`inspector`]: 1 }));
     dispatch(addNewStatementData({ [`section`]: 1 }));
     dispatch(addNewStatementData({ [`tiketNum`]: 10000 }));
-    // dispatch(addNewStatementData({ [`status`]: 1 }));
+    dispatch(addNewStatementData({ [`personType`]: type }));
+    dispatch(
+      addNewStatementData({ [`appDate`]: new Date().toLocaleDateString().split(".").reverse().join("-") }),
+    );
     dispatch(addNewStatementData({ [`appSheetCnt`]: 2 }));
     // ЗАГЛУШКИ
+    setIsLoading(false);
   }, []);
   return (
     <>
-      <h2>Заявление</h2>
-      <p className={styles.sub_text}>
-        о государственной регистрации и классификации маломерных судов, за исключением гребных лодок, байдарок
-        и надувных судов грузоподъемностью менее 225 килограммов
-      </p>
-      <div className={styles.content}>
-        {/* <Form.Group className={styles.header}>
-          <Form.Label>Субъект хозяйствования:</Form.Label>
-          <Form.Control
-            value={
-              type === "individual" ? "Физическое лицо" : "Юридическое лицо"
-            }
-            type="text"
-            readOnly={true}
-            disabled={true}
+      {isLoading ? (
+        <div className={`d-flex flex-column align-items-center `}>
+          <ProgressBar
+            height="80"
+            width="80"
+            ariaLabel="progress-bar-loading"
+            wrapperStyle={{}}
+            wrapperClass="progress-bar-wrapper"
+            borderColor="#F4442E"
+            barColor="#51E5FF"
           />
-        </Form.Group>
-        <Form.Group className={styles.header}>
-          <Form.Label>Номер судового билета:</Form.Label>
-          <Form.Control
-            id="tiketNum"
-            value={newApp.tiketNum}
-            type="text"
-            onChange={(e) => handleChange(e)}
-          />
-        </Form.Group>
-        <Form.Group className={styles.header}>
-          <Form.Label>Дата выдачи судового билета:</Form.Label>
-          <Form.Control
-            id="operDate"
-            value={newApp.operDate}
-            type="date"
-            onChange={(e) => handleChange(e)}
-          />
-        </Form.Group> */}
-        <InformationAboutIndividual
-          updateNewData={updateNewData}
-          saveKey={saveKey}
-          handleErrors={handleErrors}
-          errors={errors}
-          mode={mode}
-        />
-        <InfoRepresentPerson mode={mode} />
-        <InformationAboutBoat
-          fieldStatus={[]}
-          updateNewData={updateNewData}
-          saveKey={saveKey}
-          handleErrors={handleErrors}
-          errors={errors}
-          mode={mode}
-        />
-        <TableAppBoatReg
-          typeTable={"boatCardAppEngList"}
-          tableOptions={boatCardAppEngDtoList}
-          mode={mode}
-          // data={boatCardAppEngList}
-        />
-        <TableAppBoatReg
-          typeTable={"boatCardAppDealsList"}
-          tableOptions={boatCardAppDealsDtoList}
-          mode={mode}
-          // data={boatCardAppEngList}
-        />
-        <TableAppBoatReg
-          typeTable={"boatCardAppSpecMarkList"}
-          tableOptions={boatCardAppSmDtoList}
-          mode={mode}
-          // data={boatCardAppEngList}
-        />
-        <AppFooter handleFile={handleFile} />
-      </div>
-      <div className={styles.buttons_container}>
-        <Button
-          variant="primary"
-          className=""
-          onClick={(e) => handleSave(e)}>
-          Зарегистрировать
-        </Button>
-        <Button
-          variant="danger"
-          onClick={handleCloseApp}>
-          Закрыть
-        </Button>
-      </div>
+        </div>
+      ) : (
+        <>
+          <h2>Заявление</h2>
+          <p className={styles.sub_text}>
+            о государственной регистрации и классификации маломерных судов, за исключением гребных лодок,
+            байдарок и надувных судов грузоподъемностью менее 225 килограммов
+          </p>
+          <div className={styles.content}>
+            {(type === 1 || personType === 1) && (
+              <InformationAboutIndividual
+                updateNewData={updateNewData}
+                saveKey={saveKey}
+                handleErrors={handleErrors}
+                errors={errors}
+                mode={mode}
+              />
+            )}
+            {(type === 2 || personType === 2) && (
+              <InformationAboutEntity
+                updateNewData={updateNewData}
+                saveKey={saveKey}
+                handleErrors={handleErrors}
+                errors={errors}
+                mode={mode}
+              />
+            )}
+            <InfoRepresentPerson mode={mode} />
+            <InformationAboutBoat
+              fieldStatus={[]}
+              updateNewData={updateNewData}
+              saveKey={saveKey}
+              handleErrors={handleErrors}
+              errors={errors}
+              mode={mode}
+            />
+            <OtherInformation mode={mode} />
+            <TableAppBoatReg
+              typeTable={"boatCardAppEngList"}
+              tableOptions={boatCardAppEngDtoList}
+              mode={mode}
+              // data={boatCardAppEngList}
+            />
+            <TableAppBoatReg
+              typeTable={"boatCardAppDealsList"}
+              tableOptions={boatCardAppDealsDtoList}
+              mode={mode}
+              // data={boatCardAppEngList}
+            />
+            <TableAppBoatReg
+              typeTable={"boatCardAppSpecMarkList"}
+              tableOptions={boatCardAppSmDtoList}
+              mode={mode}
+              // data={boatCardAppEngList}
+            />
+            <AppFooter
+              mode={mode}
+              handleFile={handleFile}
+            />
+          </div>
+          <div className={styles.buttons_container}>
+            <Button
+              variant="primary"
+              className=""
+              onClick={(e) => handleSave(e)}>
+              Зарегистрировать
+            </Button>
+            <Button
+              variant="danger"
+              onClick={handleCloseApp}>
+              Закрыть
+            </Button>
+          </div>
+          {showResultModal && (
+            <ResultModalWindow
+              appId={appId}
+              show={showResultModal}
+              setShow={setShowResultModal}
+              result={registrationResult}
+              handleCloseApp={handleCloseApp}
+            />
+          )}
+        </>
+      )}
     </>
   );
 }

@@ -8,7 +8,7 @@ import { getBoatRegInfo } from "../../redux/SmallBoatsRegReducer/actionsSmallBoa
 import styles from "./SearchTable.module.css";
 import { useNavigate } from "react-router-dom";
 
-export default function SearchTable({ setId, headerColumns, dataFromState }) {
+export default function SearchTable({ setId, setStatusId, headerColumns, dataFromState }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const sortState = useSelector((state) => {
@@ -56,6 +56,7 @@ export default function SearchTable({ setId, headerColumns, dataFromState }) {
     const id = e.currentTarget.dataset.id;
     switch (true) {
       case e.target.baseURI.includes("smallboatsreg"): {
+        setStatusId(e.currentTarget.dataset.status);
         setId(id);
         break;
       }
@@ -106,6 +107,9 @@ export default function SearchTable({ setId, headerColumns, dataFromState }) {
               return (
                 <tr
                   data-id={row.original.id}
+                  data-status={
+                    window.location.pathname.includes("smallboatsreg") ? row.original.statusId : null
+                  }
                   onClick={(e) => {
                     setSelectedRow(row.id);
                     handleTableClick(e);

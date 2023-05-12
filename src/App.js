@@ -15,6 +15,8 @@ import RegistrationInformationChanges from './containers/AdministrativeProcedure
 import FormSearchBoatCard from './containers/FormSearchBoatCard/FormSearchBoatCard'
 import IndividualStatement from './components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement'
 import EntityStatement from './components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/EntityStatement'
+import NSI from './containers/NSI/NSI';
+import ClassificationBoats from './components/NSI/ClassificationBoats/ClassificationBoats';
 import {
   getDictionaryGimsSections,
   getDictionaryNsiCheckStatus,
@@ -59,12 +61,14 @@ function App() {
               <Route path="/basesbuilding" element={<BasesBuildings />} />
               <Route path="/smallboatsreg" element={<SmallBoatsRegistration />} />
               <Route path="/smallboatsreg/app/individual" element={<AppBoatReg />} />
-              <Route path="/smallboatsreg/app/:id" element={<AppBoatReg />} />
               <Route path="/smallboatsreg/app/entity" element={<AppBoatReg />} />
+              <Route path="/smallboatsreg/app/:id" element={<AppBoatReg />} />
               <Route path="/reginformationchanges" element={<RegistrationInformationChanges/>}/>
               <Route path="/reginformationchanges/searchboatcard" element={<FormSearchBoatCard/>}/>
               <Route path="/reginformationchanges/individual/add" element={<IndividualStatement/>}/>
               <Route path="/reginformationchanges/entity/add" element={<EntityStatement/>}/>
+              <Route path="/nsi" element={<NSI/>}/>
+              <Route path="/nsi/classificationBoats" element={<ClassificationBoats/>}/>
             </Routes>
           </div>
       } 

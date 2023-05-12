@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import styles from "./informationAboutEntity.module.css";
 import { fieldLEInformOptions, fieldAddressOptions, setOptions } from "./optionsInformationAboutEntity";
 import Select from "react-select";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
-function InformationAboutEntity({ data }) {
+
+function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, errors, mode }) {
   const selectGorodRef = useRef();
   const selectRayonRef = useRef();
   const dispatch = useDispatch();
@@ -14,10 +15,16 @@ function InformationAboutEntity({ data }) {
     address: fieldAddressOptions,
   });
 
+  const newStatement = useSelector((state) => {
+    const { statementReducer } = state;
+    return statementReducer.newStatement;
+  });
+
   async function handleChangeSelectSearch(event) {
     if (event) {
       switch (true) {
         case Object.keys(event).includes("target"):
+          updateNewData(event.target.id, event.currentTarget.value);
           dispatch(addNewStatementData({ [`${event.target.id}`]: event.target.value }));
           break;
         case Object.keys(event).includes("key"):
@@ -25,7 +32,6 @@ function InformationAboutEntity({ data }) {
             infoEntity: fieldLEInformOptions,
             address: await setOptions(event.value, event.key),
           });
-
           switch (event.key) {
             case "rayonId": {
               selectGorodRef.current.clearValue();
@@ -39,11 +45,13 @@ function InformationAboutEntity({ data }) {
             default:
               break;
           }
+          updateNewData(event.key, event.value);
           dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
           break;
         default:
           break;
       }
+      if (saveKey) handleErrors();
     }
   }
 
@@ -68,26 +76,37 @@ function InformationAboutEntity({ data }) {
                 <Form.Group
                   controlId={`${option.key}`}
                   className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
-                  <Form.Label>{option.value}</Form.Label>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Form.Control
-                    onBlur={(e) => handleChangeSelectSearch(e)}
+                    onChange={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
-                    readOnly={option.readOnly}
+                    value={newStatement[option.key]}
+                    readOnly={option.readOnly || mode === "view"}
+                    disabled={mode === "view" ? true : false}
+                    isInvalid={!!errors[option.key]}
                   />
                 </Form.Group>
               );
             } else if (option.type === "selectSearch") {
               return (
                 <Form.Group className={`${styles["common"]} box-${option.key}`}>
-                  <Form.Label>{option.value}</Form.Label>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Select
                     onChange={(e) => handleChangeSelectSearch(e)}
-                    defaultValue={option.defaultValue}
-                    className={`${styles["selectSearch"]}`}
+                    defaultValue={newStatement[option.key]}
+                    value={option.options.find((item) => item.value === newStatement[option.key])}
+                    className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     classNamePrefix="select"
                     placeholder="Выберите"
                     id={option.key}
+                    isDisabled={mode === "view" ? true : false}
                     isSearchable={option.isSearchable}
                     name={option.key}
                     options={option.options}
@@ -104,28 +123,38 @@ function InformationAboutEntity({ data }) {
                 <Form.Group
                   controlId={`${option.key}`}
                   className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
-                  <Form.Label>{option.value}</Form.Label>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Form.Control
-                    onBlur={(e) => handleChangeSelectSearch(e)}
+                    onChange={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
-                    readOnly={option.readOnly}
+                    value={newStatement[option.key]}
+                    readOnly={option.readOnly || mode === "view"}
+                    disabled={mode === "view" ? true : false}
+                    isInvalid={!!errors[option.key]}
                   />
                 </Form.Group>
               );
             } else if (option.type === "selectSearch") {
               return (
                 <div className={`d-flex ${styles["common"]}`}>
-                  <Form.Label>{option.value}</Form.Label>
+                  <Form.Label>
+                    {option.value}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
+                  </Form.Label>
                   <Select
                     ref={setRef(option)}
-                    className={`${styles["selectSearch"]}`}
-                    isDisabled={option.disabled}
+                    className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     onChange={(e) => handleChangeSelectSearch(e)}
                     classNamePrefix="select"
                     id={option.key}
-                    defaultValue={option.defaultValue}
+                    // defaultValue={newStatement[option.key]}
+                    value={option.options.find((item) => item.value === newStatement[option.key])}
                     placeholder="Выберите"
+                    isDisabled={option.disabled || mode === "view" ? true : false}
                     isSearchable={option.isSearchable}
                     name={option.key}
                     options={option.options}

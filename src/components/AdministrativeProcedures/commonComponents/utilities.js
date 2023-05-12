@@ -17,7 +17,7 @@ export async function setRayon(id) {
   });
 }
 
-export async function setGorod(id, key) {
+export async function setGorod(id) {
   const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_GOROD_FOR_RAYON + id);
   const result = await response.json();
   return result.map((item) => {
