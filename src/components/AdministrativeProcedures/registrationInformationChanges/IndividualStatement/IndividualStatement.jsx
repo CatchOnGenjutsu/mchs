@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { ProgressBar } from "react-loader-spinner";
@@ -10,6 +10,10 @@ import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoa
 import InformationAboutBoat from "../../commonComponents/InformationAboutBoat/InformationAboutBoat";
 import AppFooter from "../../commonComponents/AppFooter/AppFooter";
 import OtherInformation from "../../commonComponents/OtherInformation/OtherInformation";
+import { fieldBoatOptions } from "../../commonComponents/InformationAboutBoat/optionsForInformationAboutBoat";
+import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
+import { MAIN_URL, PORT, API_GET_BOAT_CARD_FOR_MODIF } from "../../../../constants/constants";
+
 import {
   optionSelectChangeType,
   boatCardAppEngDtoList,
@@ -21,18 +25,16 @@ import {
   fieldAddressOptions,
   fieldPassportOptions,
 } from "../../commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
-import { fieldBoatOptions } from "../../commonComponents/InformationAboutBoat/optionsForInformationAboutBoat";
-import { setDataForTable } from "../../../../redux/statementReducer/actionsStatement";
-import { MAIN_URL, PORT, API_GET_BOAT_CARD_FOR_MODIF } from "../../../../constants/constants";
+
+
 
 function IndividualStatement() {
   const location = useLocation();
   const dispatch = useDispatch();
   const { idBoadCard } = location.state || {};
   const [idTypeStatement, setIdTypeStatement] = useState("1");
-  const [data, setData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [newData, setNewData] = useState({});
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
@@ -41,6 +43,11 @@ function IndividualStatement() {
   Object.entries(fieldAddressOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
   Object.entries(fieldPassportOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
   Object.entries(fieldBoatOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
+
+  const data = useSelector((state) => {
+    const { statementReducer } = state;
+    return statementReducer.newStatement;
+  });
 
   const handleErrors = () => {
     let newErrors = {};
@@ -61,56 +68,29 @@ function IndividualStatement() {
   const updateNewData = (key, value) => {
     newData[key] = value;
   };
-  console.log(idTypeStatement)
-  useEffect(() => {
+  useEffect(()=>{
     async function fetchData() {
       const responseBoatCard = await fetch(MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_MODIF + String(idBoadCard));
       const dataBoatCard = await responseBoatCard.json();
-      console.log(dataBoatCard)
-      // const responseSpecialMarks = await fetch(MAIN_URL + PORT+API_GET_BOAT_INFO_SPEC_MARKS+ String(idBoadCard))
-      // const dataSpecialMarks =await responseSpecialMarks.json()
-      // const editedDataBoadCard ={}
-      // editedDataBoadCard.regNum = dataBoatCard.regNum
-      // editedDataBoadCard.ptName = dataBoatCard.ownerType.ptName
-      // editedDataBoadCard.tiketNum = dataBoatCard.tiketNum
-      // editedDataBoadCard.cardDate = dataBoatCard.cardDate
-      // editedDataBoadCard.enginesList = dataBoatCard.enginesList
-      // editedDataBoadCard.boatVin = dataBoatCard.boatVin
-      // editedDataBoadCard.parkingPlace = dataBoatCard.parkingPlace
-      // editedDataBoadCard.boatType = dataBoatCard.boatType.btname
-      //
-      // editedDataBoadCard.specMarks = dataSpecialMarks.map(el=>{
-      //   return{
-      //     asmDate:el.bsmDate,
-      //     asmLock:el.bsmLock,
-      //     asmNote:el.bsmNote,
-      //   }
-      // })
+      dispatch(addNewStatementData(dataBoatCard))
       setIsLoading(false);
-      dispatch(setDataForTable({ key: boatCardAppSmDtoList.keyTable, data: dataBoatCard.boatCardSpecmarksList }));
-      dispatch(setDataForTable({ key: boatCardAppEngDtoList.keyTable, data: dataBoatCard.enginesList }));
-      setData(dataBoatCard);
-
-
     }
-    fetchData();
-  }, []);
-
-
-  if (isLoading) {
+    fetchData()
+  },[])
+  if(isLoading){
     return (
-      <div className={`d-flex flex-column align-items-center `}>
-        <ProgressBar
-          height="80"
-          width="80"
-          ariaLabel="progress-bar-loading"
-          wrapperStyle={{}}
-          wrapperClass="progress-bar-wrapper"
-          borderColor="#F4442E"
-          barColor="#51E5FF"
-        />
-      </div>
-    );
+        <div className={'d-flex flex-column align-items-center'}>
+          <ProgressBar
+              height="80"
+              width="80"
+              ariaLabel="progress-bar-loading"
+              wrapperStyle={{}}
+              wrapperClass="progress-bar-wrapper"
+              borderColor="#F4442E"
+              barColor="#51E5FF"
+          />
+        </div>
+    )
   }
 
   return (
@@ -229,7 +209,19 @@ function IndividualStatement() {
         <Button
             variant="primary"
             className=""
-            // onClick={(e) => handleSave(e)}
+            onClick={(e) => {
+              const formData = new FormData();
+              formData.append('data', JSON.stringify(data));
+
+              const requestOptions = {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                },
+                body: formData
+              };
+              fetch(`http://10.0.1.30:8080/boatCardModif/addStatement/7`,requestOptions)
+            }}
         >
           Зарегистрировать
         </Button>

@@ -8,10 +8,11 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
   const dispatch = useDispatch();
-  let data = useSelector((state) => {
-    const { statementReducer } = state;
-    return statementReducer[typeTable];
-  });
+  let data = dataForTable
+      // useSelector((state) => {
+      //   const { statementReducer } = state;
+      //   return statementReducer[typeTable];
+      // });
 
   const handleAddNotes = (e) => {
     e.preventDefault();
@@ -19,7 +20,6 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
     // setType("save");
     setShowModal(true);
   };
-
   const handleDeleteNote = (e) => {
     e.preventDefault();
     let noteForDelete;
@@ -87,15 +87,17 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
                 })}
                 {data.length > 0 && mode !== "view" && (
                   <td className={styles.edit__column}>
-                    <button
-                      className={`${styles.delete__buttons} btn btn-danger`}
-                      // data-tabletype={documentsTableColumns.keyTable}
-                      // data-docname={elem.docname}
-                      // data-doctype="file"
-                      id={elem.innerId}
-                      onClick={(e) => handleDeleteNote(e)}>
-                      &#10006;
-                    </button>
+                    {elem.hasOwnProperty('innerId')?(
+                        <button
+                            className={`${styles.delete__buttons} btn btn-danger`}
+                            // data-tabletype={documentsTableColumns.keyTable}
+                            // data-docname={elem.docname}
+                            // data-doctype="file"
+                            id={elem.innerId}
+                            onClick={(e) => handleDeleteNote(e)}>
+                          &#10006;
+                        </button>
+                    ):''}
                   </td>
                 )}
               </tr>
