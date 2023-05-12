@@ -30,18 +30,22 @@ import {
 } from "../commonComponents/InformationAboutEntity/optionsInformationAboutEntity";
 
 import styles from "./AppBoatReg.module.css";
+import { API_ADD_NEW_STATEMENT, MAIN_URL, PORT } from "../../../constants/constants";
+import ResultModalWindow from "../commonComponents/ResultModalWindow/ResultModalWindow";
 
 export default function AppBoatReg() {
   const [isLoading, setIsLoading] = useState(true);
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [registrationResult, setRegistrationResult] = useState("");
+  const [appId, setAppId] = useState(null);
+
   const location = useLocation();
   const { mode } = location.state;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const appRegData = useSelector((state) => {
-  //   const { smallBoatsRegReducer } = state;
-  //   return smallBoatsRegReducer.appRegData;
-  // });
+  const type = window.location.pathname.includes("individual") ? 1 : 2;
+
   const boatCardAppEngList = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.boatCardAppEngList;
@@ -69,7 +73,8 @@ export default function AppBoatReg() {
   const [file, setFile] = useState();
 
   const errorsFields = [];
-  if (personType === 1) {
+  const path = window.location.pathname;
+  if (type === 1) {
     Object.entries(fieldAddressOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
     Object.entries(fieldPassportOptions).map((item) =>
       item[1].required ? errorsFields.push(item[0]) : null,
@@ -109,7 +114,7 @@ export default function AppBoatReg() {
     newData[key] = value;
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     if (!handleErrors()) {
       const formData = new FormData();
       boatCardAppDealsList.map((item, index) => {
@@ -144,7 +149,21 @@ export default function AppBoatReg() {
       if (file !== undefined) {
         formData.append(`file`, file);
       }
-      dispatch(addNewStatement(formData));
+      const request = await fetch(MAIN_URL + PORT + API_ADD_NEW_STATEMENT, {
+        method: "POST",
+        body: formData,
+      });
+      if (request.status !== 200) {
+        setShowResultModal(!showResultModal);
+        setRegistrationResult("error");
+      } else {
+        const response = await request.text();
+        console.log("response", response);
+        setAppId(response);
+        setShowResultModal(!showResultModal);
+        setRegistrationResult("success");
+      }
+      // dispatch(addNewStatement(formData));
       // navigate(-1);
     } else {
       setSaveKey(true);
@@ -160,14 +179,11 @@ export default function AppBoatReg() {
       const id = pathArray[pathArray.length - 1];
       dispatch(getBoatRegInfo(id));
     }
-    // console.log("type", type);
-    // type === "individual"
-    //   ? dispatch(addNewStatementData({ ["personType"]: 1 }))
-    //   : dispatch(addNewStatementData({ ["personType"]: 2 }));
     // ЗАГЛУШКИ
     dispatch(addNewStatementData({ [`inspector`]: 1 }));
     dispatch(addNewStatementData({ [`section`]: 1 }));
     dispatch(addNewStatementData({ [`tiketNum`]: 10000 }));
+    dispatch(addNewStatementData({ [`personType`]: type }));
     dispatch(
       addNewStatementData({ [`appDate`]: new Date().toLocaleDateString().split(".").reverse().join("-") }),
     );
@@ -197,36 +213,7 @@ export default function AppBoatReg() {
             байдарок и надувных судов грузоподъемностью менее 225 килограммов
           </p>
           <div className={styles.content}>
-            {/* <Form.Group className={styles.header}>
-          <Form.Label>Субъект хозяйствования:</Form.Label>
-          <Form.Control
-            value={
-              type === "individual" ? "Физическое лицо" : "Юридическое лицо"
-            }
-            type="text"
-            readOnly={true}
-            disabled={true}
-          />
-        </Form.Group>
-        <Form.Group className={styles.header}>
-          <Form.Label>Номер судового билета:</Form.Label>
-          <Form.Control
-            id="tiketNum"
-            value={newApp.tiketNum}
-            type="text"
-            onChange={(e) => handleChange(e)}
-          />
-        </Form.Group>
-        <Form.Group className={styles.header}>
-          <Form.Label>Дата выдачи судового билета:</Form.Label>
-          <Form.Control
-            id="operDate"
-            value={newApp.operDate}
-            type="date"
-            onChange={(e) => handleChange(e)}
-          />
-        </Form.Group> */}
-            {personType === 1 && (
+            {(type === 1 || personType === 1) && (
               <InformationAboutIndividual
                 updateNewData={updateNewData}
                 saveKey={saveKey}
@@ -235,7 +222,7 @@ export default function AppBoatReg() {
                 mode={mode}
               />
             )}
-            {personType === 2 && (
+            {(type === 2 || personType === 2) && (
               <InformationAboutEntity
                 updateNewData={updateNewData}
                 saveKey={saveKey}
@@ -290,6 +277,15 @@ export default function AppBoatReg() {
               Закрыть
             </Button>
           </div>
+          {showResultModal && (
+            <ResultModalWindow
+              appId={appId}
+              show={showResultModal}
+              setShow={setShowResultModal}
+              result={registrationResult}
+              handleCloseApp={handleCloseApp}
+            />
+          )}
         </>
       )}
     </>

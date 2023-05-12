@@ -16,9 +16,7 @@ import {
 import styles from "./informationAboutBoat.module.css";
 import { fieldBoatOptions, setOptionsForBoat } from "./optionsForInformationAboutBoat";
 
-
 function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleErrors, errors, dataBoat, mode }) {
-
   const [options, setOptions] = useState(fieldBoatOptions);
   const dispatch = useDispatch();
   const newStatement = useSelector((state) => {
@@ -69,7 +67,7 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                   className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
                   <Form.Label>
                     {option.value}
-                    {option.required && <span className={styles.red_dot}>*</span>}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Form.Control
                     //value = {dataBoat[option.key]}
@@ -88,7 +86,7 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                 <Form.Group className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
                   <Form.Label>
                     {option.value}
-                    {option.required && <span className={styles.red_dot}>*</span>}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Select
                     onChange={(e) => handleValue(e)}

@@ -152,11 +152,7 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
                     classNamePrefix="select"
                     id={option.key}
                     // defaultValue={newStatement[option.key]}
-                    value={option.options.find((item) => {
-                      console.log("item", item);
-                      console.log("newStatement[option.key]", newStatement[option.key]);
-                      return item.value === newStatement[option.key];
-                    })}
+                    value={option.options.find((item) => item.value === newStatement[option.key])}
                     placeholder="Выберите"
                     isDisabled={option.disabled || mode === "view" ? true : false}
                     isSearchable={option.isSearchable}

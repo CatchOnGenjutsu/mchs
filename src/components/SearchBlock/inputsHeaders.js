@@ -144,10 +144,9 @@ export const inputsHeadersSmallBoatsRegistration = {
     value: "Отчество",
     type:'text'
   },
-  regNum:{
-    key: "regNum",
-    value: "Рег. номер судна",
-    description: "В формате XX 1111",
+  appNum:{
+    key: "appNum",
+    value: "Рег. номер заявления",
     type:'text'
   },
   unp:{

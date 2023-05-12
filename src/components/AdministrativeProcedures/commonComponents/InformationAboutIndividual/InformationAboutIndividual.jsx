@@ -129,7 +129,7 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                   className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
                   <Form.Label>
                     {option.value}
-                    {option.required && <span className={styles.red_dot}>*</span>}
+                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Form.Control
                     onChange={(e) => handleChangeSelectSearch(e)}

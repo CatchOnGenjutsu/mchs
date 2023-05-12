@@ -20,7 +20,7 @@ const initialState = {
 };
 
 export const statementReducer = (state = initialState, action) => {
-  console.log(action.data)
+  // console.log(action.data)
   switch (action.type) {
     case GET_BOATS_REG_INFO:
       return (() => ({

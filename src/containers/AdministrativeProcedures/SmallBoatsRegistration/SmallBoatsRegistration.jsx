@@ -13,10 +13,14 @@ import ToolBlock from "../../../components/AdministrativeProcedures/commonCompon
 export default function SmallBoatsRegistration() {
   const [show, setShow] = useState(false);
   const [appId, setAppId] = useState(null);
+  const [appStatusId, setAppStatusId] = useState(null);
 
   const handleAppId = (value) => {
     // appId === value ? setAppId(null) : setAppId(value);
     setAppId(value);
+  };
+  const handleAppStatusId = (value) => {
+    setAppStatusId(value);
   };
   const handleSearchButton = () => {
     // appId === value ? setAppId(null) : setAppId(value);
@@ -49,12 +53,14 @@ export default function SmallBoatsRegistration() {
       />
       <ToolBlock
         id={appId}
+        appStatusId={appStatusId}
         show={show}
         setShow={setShow}
-        viewBtnDisIn={!Boolean(appId)}
+        // viewBtnDisIn={!Boolean(appId)}
       />
       <MemoSearchTable
         setId={handleAppId}
+        setStatusId={handleAppStatusId}
         headerColumns={SMALLBOATS_ADMIN_COLUMNS}
         dataFromState={dataFromStateBoatsReg}
       />
