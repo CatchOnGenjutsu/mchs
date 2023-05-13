@@ -128,7 +128,7 @@ export const SMALLBOATS_ADMIN_COLUMNS = [
   // },
   {
     Header: "Участок",
-    accessor: "rayonName",
+    accessor: "sctName",
   },
   {
     Header: "Статус заявления",

@@ -2,4 +2,10 @@
   font-size: 24px;
   font-weight: 700;
   color: red;
+  text-align: center;
+}
+
+.modal_title {
+  flex-grow: 1;
+  text-align: center;
 }

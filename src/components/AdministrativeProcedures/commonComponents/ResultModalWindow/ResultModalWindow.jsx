@@ -51,12 +51,16 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
       aria-labelledby="contained-modal-title-vcenter"
       centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">{headerText}</Modal.Title>
+        <Modal.Title
+          className={styles.modal_title}
+          id="contained-modal-title-vcenter">
+          {headerText}
+        </Modal.Title>
       </Modal.Header>
 
       {!!messageText && (
         <Modal.Body>
-          <div>{messageText}</div>
+          <div className="text-center">{messageText}</div>
           <div className={styles.app_id}>{appId}</div>
         </Modal.Body>
       )}
