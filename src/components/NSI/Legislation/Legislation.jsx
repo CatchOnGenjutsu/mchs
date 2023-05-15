@@ -156,6 +156,11 @@ export default function Legislation() {
               setCurrentId={setCurrentId}
             />
           )}
+          <div
+            className={styles.add_button}
+            onClick={() => navigate(-1)}>
+            Назад
+          </div>
         </>
       )}
     </>
