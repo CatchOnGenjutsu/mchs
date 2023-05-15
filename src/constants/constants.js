@@ -70,6 +70,11 @@ export const API_ADD_STATEMENT_FILE_DOWNLOAD = "boatCardApp/download/"
 
 //NSI
 export const API_GET_CLASSIFICATION_BOATS = "nsi/classificationBoats"
+export const API_GET_LEGISLATION_INFO = "static/info/infLegislation"
+export const API_ADD_LEGISLATION_INFO = "nsi/addInfLegislation"
+export const API_EDIT_LEGISLATION_INFO = "nsi/changeInfLegislation/"
+export const API_DELETE_LEGISLATION_INFO = "nsi/deleteInfLegislation/"
+export const API_DOWNLOAD_LEGISLATION_FILE = "nsi/downloadFile/"
 
 
 

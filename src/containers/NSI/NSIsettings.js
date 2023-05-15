@@ -8,7 +8,7 @@ export const NSIsettings = [
     title: "Административные процедуры",
   },
   {
-    id: "test2",
+    id: "legislation",
     title: "Законодательство",
   },
   {

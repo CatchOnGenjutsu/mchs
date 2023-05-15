@@ -18,6 +18,7 @@ import EntityStatement from './components/AdministrativeProcedures/registrationI
 import DecisionCard from './components/AdministrativeProcedures/commonComponents/DecisionCard/DecisionCard';
 import NSI from './containers/NSI/NSI';
 import ClassificationBoats from './components/NSI/ClassificationBoats/ClassificationBoats';
+import Legislation from './components/NSI/Legislation/Legislation';
 import {
   getDictionaryGimsSections,
   getDictionaryNsiCheckStatus,
@@ -71,6 +72,7 @@ function App() {
               <Route path="/reginformationchanges/entity/add" element={<EntityStatement/>}/>
               <Route path="/nsi" element={<NSI/>}/>
               <Route path="/nsi/classificationBoats" element={<ClassificationBoats/>}/>
+              <Route path="/nsi/legislation" element={<Legislation/>}/>
             </Routes>
           </div>
       } 
