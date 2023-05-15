@@ -12,7 +12,7 @@ export const NSIsettings = [
     title: "Законодательство",
   },
   {
-    id: "test3",
+    id: "forms",
     title: "Бланки и заявления",
   },
   {

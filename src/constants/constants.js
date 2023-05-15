@@ -75,6 +75,11 @@ export const API_ADD_LEGISLATION_INFO = "nsi/addInfLegislation"
 export const API_EDIT_LEGISLATION_INFO = "nsi/changeInfLegislation/"
 export const API_DELETE_LEGISLATION_INFO = "nsi/deleteInfLegislation/"
 export const API_DOWNLOAD_LEGISLATION_FILE = "nsi/downloadFile/"
+export const API_GET_FORMS_INFO = "static/info/insForms"
+export const API_ADD_FORMS_INFO = "nsi/addInfForms"
+export const API_EDIT_FORMS_INFO = "nsi/changeInfForms/"
+export const API_DELETE_FORMS_INFO = "nsi/deleteInfForms/"
+
 
 
 

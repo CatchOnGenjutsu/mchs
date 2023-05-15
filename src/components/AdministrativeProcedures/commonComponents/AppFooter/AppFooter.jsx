@@ -56,7 +56,7 @@ export default function AppFooter({ mode, handleFile }) {
           <p className="me-2">Файл заявления:</p>
           <a
             href={`${MAIN_URL}${PORT}${API_ADD_STATEMENT_FILE_DOWNLOAD}${
-              newStatement[newStatement.fileType].docname
+              newStatement[newStatement.fileType].docid
             }`}>
             {newStatement[newStatement.fileType].docname}
           </a>

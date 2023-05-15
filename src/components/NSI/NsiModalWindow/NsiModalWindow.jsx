@@ -6,6 +6,8 @@ import {
   PORT,
   API_ADD_LEGISLATION_INFO,
   API_EDIT_LEGISLATION_INFO,
+  API_ADD_FORMS_INFO,
+  API_EDIT_FORMS_INFO,
 } from "../../../constants/constants";
 // import {
 //   addNewEngineCheck,
@@ -77,14 +79,29 @@ export default function NsiModalWindow({
       switch (mode) {
         case "add":
           {
-            console.log("tut 2");
             const formData = new FormData();
+            let request;
             formData.append("file", file);
-            formData.append("infLegislation", JSON.stringify(newData));
-            const request = await fetch(MAIN_URL + PORT + API_ADD_LEGISLATION_INFO, {
-              method: "POST",
-              body: formData,
-            });
+            switch (true) {
+              case window.location.pathname.includes("legislation"):
+                console.log("tut1");
+                formData.append("infLegislation", JSON.stringify(newData));
+                request = await fetch(MAIN_URL + PORT + API_ADD_LEGISLATION_INFO, {
+                  method: "POST",
+                  body: formData,
+                });
+                break;
+              case window.location.pathname.includes("forms"):
+                console.log("tut2");
+                formData.append("infForms", JSON.stringify(newData));
+                request = await fetch(MAIN_URL + PORT + API_ADD_FORMS_INFO, {
+                  method: "POST",
+                  body: formData,
+                });
+                break;
+              default:
+                break;
+            }
             if (request.status === 200) {
               const response = await request.text();
               setShowModal(false);
@@ -97,14 +114,27 @@ export default function NsiModalWindow({
           break;
         case "edit":
           {
-            console.log("tut 1");
             const formData = new FormData();
             formData.append("file", file);
-            formData.append("infLegislation", JSON.stringify(newData));
-            const request = await fetch(MAIN_URL + PORT + API_EDIT_LEGISLATION_INFO + id, {
-              method: "POST",
-              body: formData,
-            });
+            let request;
+            switch (true) {
+              case window.location.pathname.includes("legislation"):
+                formData.append("infLegislation", JSON.stringify(newData));
+                request = await fetch(MAIN_URL + PORT + API_EDIT_LEGISLATION_INFO + id, {
+                  method: "POST",
+                  body: formData,
+                });
+                break;
+              case window.location.pathname.includes("forms"):
+                formData.append("infForms", JSON.stringify(newData));
+                request = await fetch(MAIN_URL + PORT + API_EDIT_FORMS_INFO + id, {
+                  method: "POST",
+                  body: formData,
+                });
+                break;
+              default:
+                break;
+            }
             if (request.status === 200) {
               const response = await request.text();
               setShowModal(false);
@@ -118,24 +148,6 @@ export default function NsiModalWindow({
         default:
           break;
       }
-
-      // switch (modalWindowInputs.keyTable) {
-      //   case "boatCardAppEngDtoList":
-      //     break;
-      //   case "boatCardAppSmDtoList":
-      //     console.log(newData);
-      //     dispatch(addNewSpecMarkApp(newData));
-      //     break;
-      //   case "boatCardAppDealsDtoList":
-      //     dispatch(addNewDealApp(newData));
-      //     break;
-      //   default:
-      //     setShowModal(false);
-      //     setNewData({});
-      //     break;
-      // }
-      // setShowModal(false);
-      // setNewData({});
     } else {
       setSaveKey(true);
     }
@@ -148,17 +160,7 @@ export default function NsiModalWindow({
         .map((item) => Object.values(item))
         .map((elem) => elem[1]),
     );
-    // switch (modalWindowInputs.keyTable) {
-    //   case "boatCardAppEngDtoList":
-    //     setNewData({ engtype: 1 });
-    //     break;
-    //   case "boatCardAppSmDtoList":
-    //     setNewData({ asmLock: true });
-    //     const input = document.querySelector("#locked");
-    //     input.toggleAttribute("checked");
-    //   default:
-    //     break;
-    // }
+    console.log(window.location.pathname);
   }, []);
 
   return (

@@ -19,6 +19,8 @@ import DecisionCard from './components/AdministrativeProcedures/commonComponents
 import NSI from './containers/NSI/NSI';
 import ClassificationBoats from './components/NSI/ClassificationBoats/ClassificationBoats';
 import Legislation from './components/NSI/Legislation/Legislation';
+import Forms from './components/NSI/Forms/Forms';
+
 import {
   getDictionaryGimsSections,
   getDictionaryNsiCheckStatus,
@@ -73,6 +75,7 @@ function App() {
               <Route path="/nsi" element={<NSI/>}/>
               <Route path="/nsi/classificationBoats" element={<ClassificationBoats/>}/>
               <Route path="/nsi/legislation" element={<Legislation/>}/>
+              <Route path="/nsi/forms" element={<Forms/>}/>
             </Routes>
           </div>
       } 
