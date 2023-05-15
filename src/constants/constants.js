@@ -79,6 +79,10 @@ export const API_GET_FORMS_INFO = "static/info/insForms"
 export const API_ADD_FORMS_INFO = "nsi/addInfForms"
 export const API_EDIT_FORMS_INFO = "nsi/changeInfForms/"
 export const API_DELETE_FORMS_INFO = "nsi/deleteInfForms/"
+export const API_GET_PAID_PROC_INFO = "nsi/infPaidProceduresView"
+export const API_ADD_PAID_PROC_INFO = "nsi/addInfPaidProcedures"
+export const API_EDIT_PAID_PROC_INFO = "nsi/changeInfPaidProcedures/"
+export const API_DELETE_PAID_PROC_INFO = "nsi/deleteInfPaidProcedures/"
 
 
 

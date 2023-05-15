@@ -5,6 +5,7 @@ import {
   PORT,
   API_DELETE_LEGISLATION_INFO,
   API_DELETE_FORMS_INFO,
+  API_DELETE_PAID_PROC_INFO,
 } from "../../../constants/constants";
 
 import styles from "./ConfirmModalWindow.module.css";
@@ -22,6 +23,9 @@ export default function ConfirmModalWindow({ setShowModal, showModal, fetchData,
         break;
       case window.location.pathname.includes("forms"):
         request = await fetch(MAIN_URL + PORT + API_DELETE_FORMS_INFO + id, { method: "POST" });
+        break;
+      case window.location.pathname.includes("paidproc"):
+        request = await fetch(MAIN_URL + PORT + API_DELETE_PAID_PROC_INFO + id, { method: "POST" });
         break;
       default:
         break;

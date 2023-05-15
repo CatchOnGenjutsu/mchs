@@ -8,6 +8,8 @@ import {
   API_EDIT_LEGISLATION_INFO,
   API_ADD_FORMS_INFO,
   API_EDIT_FORMS_INFO,
+  API_ADD_PAID_PROC_INFO,
+  API_EDIT_PAID_PROC_INFO,
 } from "../../../constants/constants";
 // import {
 //   addNewEngineCheck,
@@ -84,7 +86,6 @@ export default function NsiModalWindow({
             formData.append("file", file);
             switch (true) {
               case window.location.pathname.includes("legislation"):
-                console.log("tut1");
                 formData.append("infLegislation", JSON.stringify(newData));
                 request = await fetch(MAIN_URL + PORT + API_ADD_LEGISLATION_INFO, {
                   method: "POST",
@@ -92,11 +93,19 @@ export default function NsiModalWindow({
                 });
                 break;
               case window.location.pathname.includes("forms"):
-                console.log("tut2");
                 formData.append("infForms", JSON.stringify(newData));
                 request = await fetch(MAIN_URL + PORT + API_ADD_FORMS_INFO, {
                   method: "POST",
                   body: formData,
+                });
+                break;
+              case window.location.pathname.includes("paidproc"):
+                request = await fetch(MAIN_URL + PORT + API_ADD_PAID_PROC_INFO, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(newData),
                 });
                 break;
               default:
@@ -130,6 +139,14 @@ export default function NsiModalWindow({
                 request = await fetch(MAIN_URL + PORT + API_EDIT_FORMS_INFO + id, {
                   method: "POST",
                   body: formData,
+                });
+              case window.location.pathname.includes("paidproc"):
+                request = await fetch(MAIN_URL + PORT + API_EDIT_PAID_PROC_INFO + id, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(newData),
                 });
                 break;
               default:
@@ -190,6 +207,23 @@ export default function NsiModalWindow({
                         type="file"
                         isInvalid={!!errors[item.key]}
                         accept=".doc, .docx, .pdf"
+                        onChange={(e) => {
+                          handleChange(e);
+                        }}
+                      />
+                      <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
+                    </Form.Group>
+                  );
+                case "textarea":
+                  return (
+                    <Form.Group className="mb-3">
+                      <Form.Label>{item.value}</Form.Label>
+                      <Form.Control
+                        id={item.key}
+                        type="text"
+                        as="textarea"
+                        isInvalid={!!errors[item.key]}
+                        value={newData[item.key]}
                         onChange={(e) => {
                           handleChange(e);
                         }}

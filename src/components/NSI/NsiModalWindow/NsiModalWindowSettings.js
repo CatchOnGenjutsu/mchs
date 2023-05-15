@@ -13,3 +13,25 @@ export const optionsLegislation = [
     }
    
   ]
+
+  export const optionsPaidProc = [
+    {
+      value: "Наименование услуги",
+      key: "name",
+      type: "textarea",
+      neededInModal: true,
+    },
+    {
+      value: "Номер кода",
+      key: "codeNumber",
+      type: "text",
+      neededInModal: true,
+    },
+    {
+      value: "Стоимость",
+      key: "sum",
+      type: "text",
+      neededInModal: true,
+    }
+   
+  ]

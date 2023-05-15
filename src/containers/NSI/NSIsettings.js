@@ -20,7 +20,7 @@ export const NSIsettings = [
     title: "Контакты",
   },
   {
-    id: "test5",
+    id: "paidproc",
     title: "Платные процедуры",
   },
   {
