@@ -10,6 +10,10 @@ import {
   API_EDIT_FORMS_INFO,
   API_ADD_PAID_PROC_INFO,
   API_EDIT_PAID_PROC_INFO,
+  API_ADD_REQUISITES_CHAPTER,
+  API_EDIT_REQUISITES_CHAPTER,
+  API_ADD_REQUISITES_LINE,
+  API_EDIT_REQUISITES_LINE,
 } from "../../../constants/constants";
 // import {
 //   addNewEngineCheck,
@@ -27,6 +31,7 @@ export default function NsiModalWindow({
   dataForEdit,
   id,
   setCurrentId,
+  type,
 }) {
   const [newData, setNewData] = useState(Object.entries(dataForEdit).length > 0 ? dataForEdit : {});
   const [errors, setErrors] = useState({});
@@ -34,6 +39,8 @@ export default function NsiModalWindow({
   const [saveKey, setSaveKey] = useState(false);
   const [file, setFile] = useState(null);
   const [errorsFields, setErrorsFields] = useState([]);
+  const [mainText, setMainText] = useState("");
+  // mode === "add" && type === "chapter" ? "Добавить раздел" : "Добавить строку"
 
   const errorText = "Произошла ошибка, пожалуйста, повторите попытку";
 
@@ -108,6 +115,26 @@ export default function NsiModalWindow({
                   body: JSON.stringify(newData),
                 });
                 break;
+              case window.location.pathname.includes("requisites"):
+                if (type === "chapter") {
+                  request = await fetch(MAIN_URL + PORT + API_ADD_REQUISITES_CHAPTER, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newData),
+                  });
+                  break;
+                } else {
+                  request = await fetch(MAIN_URL + PORT + API_ADD_REQUISITES_LINE + id, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newData),
+                  });
+                  break;
+                }
               default:
                 break;
             }
@@ -149,6 +176,27 @@ export default function NsiModalWindow({
                   body: JSON.stringify(newData),
                 });
                 break;
+              case window.location.pathname.includes("requisites"):
+                if (type === "chapter") {
+                  request = await fetch(MAIN_URL + PORT + API_EDIT_REQUISITES_CHAPTER + id, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newData),
+                  });
+                  break;
+                } else {
+                  // delete newData[id];
+                  request = await fetch(MAIN_URL + PORT + API_EDIT_REQUISITES_LINE + id, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newData),
+                  });
+                  break;
+                }
               default:
                 break;
             }
@@ -177,7 +225,19 @@ export default function NsiModalWindow({
         .map((item) => Object.values(item))
         .map((elem) => elem[1]),
     );
-    console.log(window.location.pathname);
+    if (mode === "add") {
+      if (type === "chapter") {
+        setMainText("Добавить раздел");
+      } else {
+        setMainText("Добавить строку");
+      }
+    } else {
+      if (type === "chapter") {
+        setMainText("Редактировать раздел");
+      } else {
+        setMainText("Редактировать строку");
+      }
+    }
   }, []);
 
   return (
@@ -190,7 +250,7 @@ export default function NsiModalWindow({
       }}
       size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>{mode === "add" ? "Добавить строку" : "Редактировать строку"}</Modal.Title>
+        <Modal.Title>{mainText}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {showErrorText && <div className={styles.red}>Произошла ошибка, пожалуйста, повторите попытку</div>}

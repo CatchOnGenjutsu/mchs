@@ -35,3 +35,33 @@ export const optionsLegislation = [
     }
    
   ]
+
+  export const optionsRequisitesChapter = [
+    {
+      value: "Название раздела",
+      key: "apName",
+      type: "text",
+      neededInModal: true,
+    }
+  ]
+  export const optionsRequisitesLine = [
+    {
+      value: "Назначение платежа",
+      key: "detName",
+      type: "text",
+      neededInModal: true,
+    },
+    {
+      value: "Номер кода",
+      key: "codeNumber",
+      type: "text",
+      neededInModal: true,
+    },
+    {
+      value: "Стоимость",
+      key: "sum",
+      type: "text",
+      neededInModal: true,
+    }
+   
+  ]

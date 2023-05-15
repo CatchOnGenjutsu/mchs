@@ -21,6 +21,7 @@ import ClassificationBoats from './components/NSI/ClassificationBoats/Classifica
 import Legislation from './components/NSI/Legislation/Legislation';
 import Forms from './components/NSI/Forms/Forms';
 import PaidProcedures from './components/NSI/PaidProcedures/PaidProcedures';
+import Requisite from './components/NSI/Requisites/Requisites';
 
 import {
   getDictionaryGimsSections,
@@ -78,6 +79,7 @@ function App() {
               <Route path="/nsi/legislation" element={<Legislation/>}/>
               <Route path="/nsi/forms" element={<Forms/>}/>
               <Route path="/nsi/paidproc" element={<PaidProcedures/>}/>
+              <Route path="/nsi/requisites" element={<Requisite/>}/>
             </Routes>
           </div>
       } 

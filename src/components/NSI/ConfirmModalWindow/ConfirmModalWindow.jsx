@@ -6,11 +6,17 @@ import {
   API_DELETE_LEGISLATION_INFO,
   API_DELETE_FORMS_INFO,
   API_DELETE_PAID_PROC_INFO,
+  API_DELETE_REQUISITES_CHAPTER,
+  API_DELETE_REQUISITES_LINE,
 } from "../../../constants/constants";
 
 import styles from "./ConfirmModalWindow.module.css";
 
-export default function ConfirmModalWindow({ setShowModal, showModal, fetchData, id, setCurrentId }) {
+export default function ConfirmModalWindow({ setShowModal, showModal, fetchData, id, setCurrentId, type }) {
+  const mainText =
+    type === "chapter"
+      ? "Вы действительно хотите удалить раздел?"
+      : "Вы действительно хотите удалить строку?";
   const [showErrorText, setShowErrorText] = useState(false);
 
   const errorText = "Произошла ошибка, пожалуйста, повторите попытку";
@@ -26,6 +32,14 @@ export default function ConfirmModalWindow({ setShowModal, showModal, fetchData,
         break;
       case window.location.pathname.includes("paidproc"):
         request = await fetch(MAIN_URL + PORT + API_DELETE_PAID_PROC_INFO + id, { method: "POST" });
+        break;
+      case window.location.pathname.includes("requisites"):
+        if (type === "chapter") {
+          request = await fetch(MAIN_URL + PORT + API_DELETE_REQUISITES_CHAPTER + id, { method: "POST" });
+        } else {
+          request = await fetch(MAIN_URL + PORT + API_DELETE_REQUISITES_LINE + id, { method: "POST" });
+        }
+
         break;
       default:
         break;
@@ -47,7 +61,7 @@ export default function ConfirmModalWindow({ setShowModal, showModal, fetchData,
       }}
       size="sm">
       <Modal.Header closeButton>
-        <Modal.Title>Вы действительно хотите удалить строку?</Modal.Title>
+        <Modal.Title>{mainText}</Modal.Title>
       </Modal.Header>
       {showErrorText && (
         <Modal.Body>

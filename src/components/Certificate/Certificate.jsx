@@ -6,10 +6,7 @@ import CertificateModalWindow from "./ModalWindow/CertificateModalWindow";
 
 import { getDataCertificatesBySearchParams } from "../../redux/actions";
 import { getLicenseById } from "../../redux/certificateReducer/actionsCertificate";
-import {
-  addNewSpecialMark,
-  revokeLicense,
-} from "../../redux/certificateReducer/actionsCertificate";
+import { addNewSpecialMark, revokeLicense } from "../../redux/certificateReducer/actionsCertificate";
 
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -95,9 +92,7 @@ export default function Certificate(props) {
   const handleRevokeButton = () => {
     const newData = {
       mark: "Удостоверение аннулировано",
-      markDate: `${new Date().toISOString().slice(0, 10)} ${new Date()
-        .toISOString()
-        .slice(11, 23)}`,
+      markDate: `${new Date().toISOString().slice(0, 10)} ${new Date().toISOString().slice(11, 23)}`,
       licenseId: licenseInfoFromState.licenseId,
     };
     dispatch(addNewSpecialMark(newData));
@@ -115,11 +110,7 @@ export default function Certificate(props) {
         .map((nav) => nav.type)
         .includes("reload")
     ) {
-      dispatch(
-        getDataCertificatesBySearchParams(
-          JSON.parse(sessionStorage.getItem("searchParams")),
-        ),
-      );
+      dispatch(getDataCertificatesBySearchParams(JSON.parse(sessionStorage.getItem("searchParams"))));
       dispatch(getLicenseById(id));
     }
     // setIsActive(new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)) > new Date() ? true : false)
@@ -154,11 +145,7 @@ export default function Certificate(props) {
             <div className={`${styles.data} flex-wrap`}>
               <div className={styles.data}>
                 <p>Дата рождения</p>
-                <span>
-                  {new Date(
-                    licenseInfoFromState.birthDate,
-                  ).toLocaleDateString() || "-"}
-                </span>
+                <span>{new Date(licenseInfoFromState.birthDate).toLocaleDateString() || "-"}</span>
               </div>
 
               <div className={styles.data}>
@@ -239,11 +226,7 @@ export default function Certificate(props) {
               </div>
               <div className={styles.data__property}>
                 <p>Дата выд.</p>
-                <span>
-                  {new Date(
-                    licenseInfoFromState.docDateIssue,
-                  ).toLocaleDateString() || "-"}
-                </span>
+                <span>{new Date(licenseInfoFromState.docDateIssue).toLocaleDateString() || "-"}</span>
               </div>
             </div>
             <div className={`${styles.data}  flex-wrap`}>
@@ -273,9 +256,7 @@ export default function Certificate(props) {
               <p>Дата выдачи</p>
               <span>
                 {licenseInfoFromState.licenseDate
-                  ? new Date(
-                      licenseInfoFromState.licenseDate.slice(0, 10),
-                    ).toLocaleDateString()
+                  ? new Date(licenseInfoFromState.licenseDate.slice(0, 10)).toLocaleDateString()
                   : "-"}
               </span>
             </div>
@@ -289,9 +270,7 @@ export default function Certificate(props) {
               <p>Действительно до</p>
               <span>
                 {licenseInfoFromState.licenseDateEnd
-                  ? new Date(
-                      licenseInfoFromState.licenseDateEnd.slice(0, 10),
-                    ).toLocaleDateString()
+                  ? new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)).toLocaleDateString()
                   : "-"}
               </span>
             </div>
@@ -314,9 +293,7 @@ export default function Certificate(props) {
                     return (
                       <th
                         className={
-                          "confOrg confDocNum userPositions name mark".includes(
-                            item.key,
-                          )
+                          "confOrg confDocNum userPositions name mark".includes(item.key)
                             ? "col-4 text-center"
                             : "col-2 text-center"
                         }
@@ -333,31 +310,16 @@ export default function Certificate(props) {
                     return (
                       <tr>
                         {tableLossOfControl.nameColumn.map((item) => {
-                          if (
-                            item.key !== "confDate" &&
-                            item.key !== "confDateEnd"
-                          ) {
+                          if (item.key !== "confDate" && item.key !== "confDateEnd") {
                             return (
-                              <td
-                                className={
-                                  elem.confDateEnd > currentDate
-                                    ? styles.red_text
-                                    : ""
-                                }>
+                              <td className={elem.confDateEnd > currentDate ? styles.red_text : ""}>
                                 {elem[`${item.key}`]}
                               </td>
                             );
                           } else {
                             return (
-                              <td
-                                className={
-                                  elem.confDateEnd > currentDate
-                                    ? styles.red_text
-                                    : ""
-                                }>
-                                {new Date(
-                                  elem[`${item.key}`],
-                                ).toLocaleDateString()}
+                              <td className={elem.confDateEnd > currentDate ? styles.red_text : ""}>
+                                {new Date(elem[`${item.key}`]).toLocaleDateString()}
                               </td>
                             );
                           }
@@ -369,18 +331,14 @@ export default function Certificate(props) {
               </tbody>
             </table>
             <button
-              className={`${styles.add__buttons} btn btn-primary ${
-                editMode ? "" : styles.edit__mode
-              }`}
+              className={`${styles.add__buttons} btn btn-primary ${editMode ? "" : styles.edit__mode}`}
               id={tableLossOfControl.keyTable}
               onClick={(e) => handleAddNotes(e)}>
               +
             </button>
           </div>
           <div key={tableCertificateWithdrawal.keyTable}>
-            <h6 className="text-secondary">
-              {tableCertificateWithdrawal.caption}
-            </h6>
+            <h6 className="text-secondary">{tableCertificateWithdrawal.caption}</h6>
             <table className={`table table-bordered border-secondary bg-white`}>
               <thead>
                 <tr>
@@ -388,9 +346,7 @@ export default function Certificate(props) {
                     return (
                       <th
                         className={
-                          "confOrg confDocNum userPositions name mark".includes(
-                            item.key,
-                          )
+                          "confOrg confDocNum userPositions name mark".includes(item.key)
                             ? "col-4 text-center"
                             : "col-2 text-center"
                         }
@@ -409,27 +365,15 @@ export default function Certificate(props) {
                         {tableCertificateWithdrawal.nameColumn.map((item) => {
                           switch (item.key) {
                             case "userPositions":
-                              return (
-                                <td key={uuidv4()}>
-                                  {elem.userid[`${item.key}`]["posName"]}
-                                </td>
-                              );
+                              return <td key={uuidv4()}>{elem.userid[`${item.key}`]["posName"]}</td>;
                             case "name":
-                              return (
-                                <td key={uuidv4()}>{elem.userid["name"]}</td>
-                              );
+                              return <td key={uuidv4()}>{elem.userid["name"]}</td>;
                             case "confDate":
                               return (
-                                <td key={uuidv4()}>
-                                  {new Date(
-                                    elem[`${item.key}`],
-                                  ).toLocaleDateString()}
-                                </td>
+                                <td key={uuidv4()}>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>
                               );
                             default:
-                              return (
-                                <td key={uuidv4()}>{elem[`${item.key}`]}</td>
-                              );
+                              return <td key={uuidv4()}>{elem[`${item.key}`]}</td>;
                           }
                         })}
                       </tr>
@@ -439,18 +383,14 @@ export default function Certificate(props) {
               </tbody>
             </table>
             <button
-              className={`${styles.add__buttons} btn btn-primary ${
-                editMode ? "" : styles.edit__mode
-              }`}
+              className={`${styles.add__buttons} btn btn-primary ${editMode ? "" : styles.edit__mode}`}
               id={tableCertificateWithdrawal.keyTable}
               onClick={(e) => handleAddNotes(e)}>
               +
             </button>
           </div>
           <div key={boatDrivingLicenseSpecmarksList.keyTable}>
-            <h6 className="text-secondary">
-              {boatDrivingLicenseSpecmarksList.caption}
-            </h6>
+            <h6 className="text-secondary">{boatDrivingLicenseSpecmarksList.caption}</h6>
             <table className={`table table-bordered border-secondary bg-white`}>
               <thead>
                 <tr>
@@ -458,9 +398,7 @@ export default function Certificate(props) {
                     return (
                       <th
                         className={
-                          "confOrg confDocNum userPositions name mark".includes(
-                            item.key,
-                          )
+                          "confOrg confDocNum userPositions name mark".includes(item.key)
                             ? "col-4 text-center"
                             : "col-2 text-center"
                         }
@@ -471,48 +409,30 @@ export default function Certificate(props) {
                   })}
                   <th
                     key={uuidv4()}
-                    className={`${editMode ? "" : styles.edit__mode} ${
-                      styles.edit__column
-                    }`}></th>
+                    className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}></th>
                 </tr>
               </thead>
               <tbody>
                 {specMarkFromState.map((elem) => {
                   return (
                     <tr>
-                      {boatDrivingLicenseSpecmarksList.nameColumn.map(
-                        (item) => {
-                          if (item.key !== "markDate") {
-                            return (
-                              <td
-                                className={
-                                  elem.mark === "Удостоверение аннулировано"
-                                    ? styles.red_text
-                                    : ""
-                                }>
-                                {elem[`${item.key}`]}
-                              </td>
-                            );
-                          } else {
-                            return (
-                              <td
-                                className={
-                                  elem.mark === "Удостоверение аннулировано"
-                                    ? styles.red_text
-                                    : ""
-                                }>
-                                {new Date(
-                                  elem[`${item.key}`],
-                                ).toLocaleDateString()}
-                              </td>
-                            );
-                          }
-                        },
-                      )}
+                      {boatDrivingLicenseSpecmarksList.nameColumn.map((item) => {
+                        if (item.key !== "markDate") {
+                          return (
+                            <td className={elem.mark === "Удостоверение аннулировано" ? styles.red_text : ""}>
+                              {elem[`${item.key}`]}
+                            </td>
+                          );
+                        } else {
+                          return (
+                            <td className={elem.mark === "Удостоверение аннулировано" ? styles.red_text : ""}>
+                              {new Date(elem[`${item.key}`]).toLocaleDateString()}
+                            </td>
+                          );
+                        }
+                      })}
                       <td
-                        className={`${editMode ? "" : styles.edit__mode} ${
-                          styles.edit__column
-                        }`}
+                        className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}
                         key={uuidv4()}>
                         <button
                           className={`${styles.edit__buttons} btn btn-primary ${
@@ -530,9 +450,7 @@ export default function Certificate(props) {
             </table>
 
             <button
-              className={`${styles.add__buttons} btn btn-primary ${
-                editMode ? "" : styles.edit__mode
-              }`}
+              className={`${styles.add__buttons} btn btn-primary ${editMode ? "" : styles.edit__mode}`}
               id={boatDrivingLicenseSpecmarksList.keyTable}
               onClick={(e) => handleAddNotes(e)}>
               +
@@ -544,12 +462,10 @@ export default function Certificate(props) {
         {Object.keys(licenseInfoFromState).length > 0
           ? isActive && (
               <button
-                className={`btn btn-primary ${
-                  editMode ? styles.edit__mode : ""
-                } 
+                className={`btn btn-primary ${editMode ? styles.edit__mode : ""} 
             ${
-              new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)) <
-                new Date() || licenseInfoFromState.licenseDateRevoked !== null
+              new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)) < new Date() ||
+              licenseInfoFromState.licenseDateRevoked !== null
                 ? styles.hidden
                 : ""
             }`}
@@ -560,15 +476,8 @@ export default function Certificate(props) {
           : null}
         {Object.keys(licenseInfoFromState).length > 0 ? (
           <button
-            className={`btn btn-outline-danger ${
-              editMode ? "" : styles.edit__mode
-            } 
-        ${
-          new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)) >
-          new Date()
-            ? ""
-            : styles.hidden
-        }`}
+            className={`btn btn-outline-danger ${editMode ? "" : styles.edit__mode} 
+        ${new Date(licenseInfoFromState.licenseDateEnd.slice(0, 10)) > new Date() ? "" : styles.hidden}`}
             onClick={() => handleRevokeButton()}>
             Аннулировать
           </button>

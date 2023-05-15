@@ -1,6 +1,10 @@
 .caption_text {
   font-size: 18px;
 }
+.caption_secondary_text {
+  font-size: 16px;
+  margin-top: 10px;
+}
 .buttons_container {
   display: flex;
   flex-direction: row;
@@ -91,10 +95,6 @@
   padding: 0.3em 0.8em;
   border: 1px solid #767676;
 }
-.primary_table tbody td {
-  padding: 0.3em 0.8em;
-  border: 1px solid #767676;
-}
 
 .col_check_head {
   width: 6%;
@@ -112,15 +112,44 @@
 .col_check_body {
   width: 6%;
 }
+.col_check_body_first {
+  padding: 0.3em 0.8em;
+  width: 6%;
+  border-width: 1px 1px 0px;
+}
+.col_check_body_middle {
+  padding: 0.3em 0.8em;
+  border-width: 0px 1px;
+  width: 6%;
+}
+.col_check_body_last {
+  padding: 0.3em 0.8em;
+  border-top: none;
+  width: 6%;
+}
 .col_name_body {
   width: 50%;
+  padding: 0.3em 0.8em;
+  border: 1px solid #767676;
   text-align: start;
 }
 .col_number_body {
+  padding: 0.3em 0.8em;
+  border: 1px solid #767676;
   width: 22%;
 }
 .col_sum_body {
-  width: 22%;
+  padding: 0.3em 0.8em;
+  border: 1px solid #767676;
+  width: 11%;
+}
+.col_btn_body{
+  padding: 0.3em 0.8em;
+  border: 1px solid #767676;
+  width: 11%;
+}
+.line_btn_container {
+  display: flex;
 }
 
 .custom_checkbox {
@@ -137,4 +166,43 @@
 }
 .custom_checkbox_checked {
   background: url("../../../../public/assets/ok_icons.png"),#1A8EDA;
+}
+
+.add_line_btn_container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.add_line_btn_container:hover {
+  cursor: pointer;
+  background-color: #cfcfcf75;
+  border-radius: 3px;
+}
+.plus_icon {
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+  background: url("../../../../public/assets/plus_icon.png");
+}
+
+.edit_buttons {
+  width: 2.2em;
+  height: 2.2em;
+  font-size: 0.9em;
+  line-height: 1em;
+  font-weight: 700;
+  padding: 0.3em 0.3em 0.24em;
+  display: block;
+  margin: 0.1em auto;
+}
+.delete_buttons {
+  width: 2.2em;
+  height: 2.2em;
+  font-size: 0.9em;
+  line-height: 1em;
+  font-weight: 700;
+  padding: 0.3em 0.3em 0.24em;
+  display: block;
+  margin: 0.1em auto;
+  color: red;
 }

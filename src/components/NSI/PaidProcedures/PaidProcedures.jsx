@@ -83,6 +83,11 @@ export default function PaidProcedures() {
       ) : (
         <>
           <h2>Платные услуги</h2>
+          <div className={styles.caption_text}>
+            Перечень платных услуг, оказываемых ГИМС и перечисляемых на счет BY06AKBB36329524001190000000
+            государственного учреждения "Государственная инспекция по маломерным судам" ЦБУ 524 ОАО "АСБ
+            Беларусбанк", МФО AKBBBY2X, УНП 100048748
+          </div>
           <div className={styles.buttons_container}>
             <div
               className={styles.add_button}

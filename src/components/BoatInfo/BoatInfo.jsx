@@ -1,11 +1,13 @@
-
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate} from 'react-router-dom';
-import BoatInfoModalWindow from './ModalWindow/BoatInfoModalWindow';
-import { getBoatCardInfo, clearBoatCardInfo, deleteBoatInfo } from '../../redux/smallBoatsReducer/actionsSmallBoats';
-import { v4 as uuidv4 } from 'uuid';
-
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import BoatInfoModalWindow from "./ModalWindow/BoatInfoModalWindow";
+import {
+  getBoatCardInfo,
+  clearBoatCardInfo,
+  deleteBoatInfo,
+} from "../../redux/smallBoatsReducer/actionsSmallBoats";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   primaryTableLines,
@@ -23,11 +25,7 @@ import {
   documentsTableColumns,
 } from "./infoTablesColumns";
 
-import {
-  MAIN_URL,
-  PORT,
-  API_ADD_BOAT_INFO_DOCS_DOWNLOAD,
-} from "../../constants/constants";
+import { MAIN_URL, PORT, API_ADD_BOAT_INFO_DOCS_DOWNLOAD } from "../../constants/constants";
 
 import styles from "./BoatInfo.module.css";
 
@@ -76,9 +74,7 @@ export default function BoatInfo(props) {
       case "boatArrestsTableColumns":
         setModalWindowInputs(boatArrestsTableColumns);
         const fields = [
-          ...boatArrestsTableColumns.nameColumn
-            .map((item) => Object.values(item))
-            .map((elem) => elem[2]),
+          ...boatArrestsTableColumns.nameColumn.map((item) => Object.values(item)).map((elem) => elem[2]),
           ...removeBoatArrestsTableColumns.nameColumn
             .map((item) => Object.values(item))
             .map((elem) => elem[2]),
@@ -111,9 +107,7 @@ export default function BoatInfo(props) {
     let data = null;
     switch (e.target.dataset.tabletype) {
       case "dealsHistoryTableColumns":
-        data = boatInfoFromState.boatDeals.find(
-          (item) => item.dealId == e.target.id,
-        );
+        data = boatInfoFromState.boatDeals.find((item) => item.dealId == e.target.id);
         data.docDate = new Date(data.docDate).toISOString().split("T")[0];
         setType("edit");
         setModalWindowInputs(dealsHistoryTableColumns);
@@ -121,18 +115,14 @@ export default function BoatInfo(props) {
         setShowModal(true);
         break;
       case "specialMarksTableColumns":
-        data = boatInfoFromState.specMarks.find(
-          (item) => item.bsmId == e.target.id,
-        );
+        data = boatInfoFromState.specMarks.find((item) => item.bsmId == e.target.id);
         setType("edit");
         setModalWindowInputs(specialMarksTableColumns);
         setDataForEdit(data);
         setShowModal(true);
         break;
       case "boatArrestsTableColumns":
-        data = boatInfoFromState.boatArrests.find(
-          (item) => item.arrId === Number(e.target.id),
-        );
+        data = boatInfoFromState.boatArrests.find((item) => item.arrId === Number(e.target.id));
         setModalWindowInputs(removeBoatArrestsTableColumns);
         setType("edit");
         setDataForEdit(data);
@@ -141,14 +131,7 @@ export default function BoatInfo(props) {
       case "documentsTableColumns":
         switch (e.target.dataset.doctype) {
           case "signature":
-            dispatch(
-              deleteBoatInfo(
-                boatInfoFromState.cardid,
-                true,
-                signName,
-                "documentsTableColumns",
-              ),
-            );
+            dispatch(deleteBoatInfo(boatInfoFromState.cardid, true, signName, "documentsTableColumns"));
             break;
           case "file":
             dispatch(
@@ -189,9 +172,7 @@ export default function BoatInfo(props) {
   return (
     <div className={styles.info__container}>
       <table className={styles["primary-table"]}>
-        <caption className={styles["primary-caption"]}>
-          Информация об объекте:
-        </caption>
+        <caption className={styles["primary-caption"]}>Информация об объекте:</caption>
         <tbody>
           {primaryTableLines.map((item) => {
             return (
@@ -213,9 +194,7 @@ export default function BoatInfo(props) {
         </tbody>
       </table>
       <table className={`${styles["secondary-table"]}`}>
-        <caption className={styles["secondary-caption"]}>
-          Сведения о собственнике:
-        </caption>
+        <caption className={styles["secondary-caption"]}>Сведения о собственнике:</caption>
         <thead>
           <tr>
             {userTableColumns.map((item) => {
@@ -240,9 +219,7 @@ export default function BoatInfo(props) {
                       ? item.key === "fio"
                         ? `${boatInfoFromState["ownerSurname"]} ${boatInfoFromState["ownerName"]} ${boatInfoFromState["ownerMidname"]}`
                         : item.id === "ownerDocType"
-                        ? `${boatInfoFromState[`ownerDocType`]["dtname"]} ${
-                            boatInfoFromState[`ownerDocNum`]
-                          }`
+                        ? `${boatInfoFromState[`ownerDocType`]["dtname"]} ${boatInfoFromState[`ownerDocNum`]}`
                         : item.key === ""
                         ? boatInfoFromState[`${item.id}`]
                         : boatInfoFromState[`${item.id}`][`${item.key}`]
@@ -255,9 +232,7 @@ export default function BoatInfo(props) {
         </tbody>
       </table>
       <table className={styles["secondary-table"]}>
-        <caption className={styles["secondary-caption"]}>
-          Размерения судна:
-        </caption>
+        <caption className={styles["secondary-caption"]}>Размерения судна:</caption>
         <thead>
           <tr>
             {sizeTableColumns.map((item) => {
@@ -322,14 +297,10 @@ export default function BoatInfo(props) {
                       ) : !!elem[`${item.id}`] ? (
                         item.id === "toDate" ? (
                           <td className={styles["to-th"]}>
-                            {new Date(
-                              elem[`${item.id}`].slice(0, 10),
-                            ).toLocaleDateString()}
+                            {new Date(elem[`${item.id}`].slice(0, 10)).toLocaleDateString()}
                           </td>
                         ) : (
-                          <td className={styles["to-th"]}>
-                            {elem[`${item.id}`]}
-                          </td>
+                          <td className={styles["to-th"]}>{elem[`${item.id}`]}</td>
                         )
                       ) : (
                         <td className={styles["to-th"]}>—</td>
@@ -365,29 +336,17 @@ export default function BoatInfo(props) {
                     {engineTableColumns.map((item) => {
                       if (item.id === "engpwrmax") {
                         return (
-                          <td className={styles["engine-table-th"]}>
-                            {boatInfoFromState["engpwrmax"]}
-                          </td>
+                          <td className={styles["engine-table-th"]}>{boatInfoFromState["engpwrmax"]}</td>
                         );
                       } else {
-                        if (
-                          (item.key === "dateReg" ||
-                            item.key === "dateRegEnd") &&
-                          !!elem[`${item.key}`]
-                        ) {
+                        if ((item.key === "dateReg" || item.key === "dateRegEnd") && !!elem[`${item.key}`]) {
                           return (
                             <td className={styles["engine-table-th"]}>
-                              {new Date(
-                                elem[`${item.key}`],
-                              ).toLocaleDateString()}
+                              {new Date(elem[`${item.key}`]).toLocaleDateString()}
                             </td>
                           );
                         } else {
-                          return (
-                            <td className={styles["engine-table-th"]}>
-                              {elem[`${item.key}`]}
-                            </td>
-                          );
+                          return <td className={styles["engine-table-th"]}>{elem[`${item.key}`]}</td>;
                         }
                       }
                     })}
@@ -398,9 +357,7 @@ export default function BoatInfo(props) {
         </tbody>
       </table>
       <table className={`${styles["secondary-table"]}`}>
-        <caption className={styles["secondary-caption"]}>
-          Хронология владельцев судна:
-        </caption>
+        <caption className={styles["secondary-caption"]}>Хронология владельцев судна:</caption>
         <thead>
           <tr>
             {ownersHistoryTableColumns.map((item) => {
@@ -423,11 +380,9 @@ export default function BoatInfo(props) {
                     ? boatInfoFromState[`${item.id}`] !== undefined &&
                       boatInfoFromState[`${item.id}`] !== null
                       ? item.key === "fio"
-                        ? `${
-                            boatInfoFromState[`${item.id}`]["personSurname"]
-                          } ${boatInfoFromState[`${item.id}`]["personName"]} ${
-                            boatInfoFromState[`${item.id}`]["personMidname"]
-                          }`
+                        ? `${boatInfoFromState[`${item.id}`]["personSurname"]} ${
+                            boatInfoFromState[`${item.id}`]["personName"]
+                          } ${boatInfoFromState[`${item.id}`]["personMidname"]}`
                         : boatInfoFromState[`${item.id}`][`${item.key}`]
                       : "—"
                     : null}
@@ -439,14 +394,12 @@ export default function BoatInfo(props) {
       </table>
       <div>
         <table className={`${styles["secondary-table"]}`}>
-          <caption className={styles["secondary-caption"]}>
-            {dealsHistoryTableColumns.caption}
-          </caption>
+          <caption className={styles["secondary-caption"]}>{dealsHistoryTableColumns.caption}</caption>
           <thead>
             <tr>
               {dealsHistoryTableColumns.nameColumn.map((item) => {
-                if (item.key !== "docNum" )
-                  if (item.key === "docName"||item.key === "note") {
+                if (item.key !== "docNum")
+                  if (item.key === "docName" || item.key === "note") {
                     return (
                       <th
                         className={styles.deals_history_table_th}
@@ -466,9 +419,7 @@ export default function BoatInfo(props) {
               })}
               <th
                 key={uuidv4()}
-                className={`${editMode ? "" : styles.edit__mode} ${
-                  styles.edit__column
-                }`}></th>
+                className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}></th>
             </tr>
           </thead>
           <tbody>
@@ -479,17 +430,8 @@ export default function BoatInfo(props) {
                       {dealsHistoryTableColumns.nameColumn.map((item) => {
                         if (item.key !== "docNum" && item.key !== "docDate")
                           if (item.key !== "docName") {
-                            if (
-                              item.key === "dealDate" &&
-                              !!elem[`${item.key}`]
-                            ) {
-                              return (
-                                <td>
-                                  {new Date(
-                                    elem[`${item.key}`],
-                                  ).toLocaleDateString()}
-                                </td>
-                              );
+                            if (item.key === "dealDate" && !!elem[`${item.key}`]) {
+                              return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
                             } else return <td>{elem[`${item.key}`]}</td>;
                           } else {
                             return (
@@ -501,9 +443,7 @@ export default function BoatInfo(props) {
                           }
                       })}
                       <td
-                        className={`${editMode ? "" : styles.edit__mode} ${
-                          styles.edit__column
-                        }`}
+                        className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}
                         key={uuidv4()}>
                         <button
                           className={`${styles.edit__buttons} btn btn-primary ${
@@ -523,9 +463,7 @@ export default function BoatInfo(props) {
         </table>
 
         <button
-          className={`${styles.add__buttons} btn btn-primary ${
-            editMode ? "" : styles.edit__mode
-          }`}
+          className={`${styles.add__buttons} btn btn-primary ${editMode ? "" : styles.edit__mode}`}
           id={dealsHistoryTableColumns.keyTable}
           onClick={(e) => handleAddNewData(e)}>
           +
@@ -534,9 +472,7 @@ export default function BoatInfo(props) {
 
       <div>
         <table className={`${styles["secondary-table"]}`}>
-          <caption className={styles["secondary-caption"]}>
-            {boatArrestsTableColumns.caption}
-          </caption>
+          <caption className={styles["secondary-caption"]}>{boatArrestsTableColumns.caption}</caption>
           <thead>
             <tr>
               {boatArrestsTableColumns.nameColumn.map((item) => {
@@ -563,9 +499,7 @@ export default function BoatInfo(props) {
               })}
               <th
                 key={uuidv4()}
-                className={`${editMode ? "" : styles.edit__mode} ${
-                  styles.edit__column
-                }`}></th>
+                className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}></th>
             </tr>
           </thead>
           <tbody>
@@ -576,43 +510,31 @@ export default function BoatInfo(props) {
                       {!elem.isActiv ? (
                         <>
                           <tr>
-                            {removeBoatArrestsTableColumns.nameColumn.map(
-                              (item) => {
-                                switch (item.key) {
-                                  case "offDocName":
-                                    return (
-                                      <td>
-                                        {elem[`offDocName`]} от{" "}
-                                        {new Date(
-                                          elem[`offDocDate`],
-                                        ).toLocaleDateString()}
-                                      </td>
-                                    );
-                                  case "offDocDate":
-                                    break;
-                                  case "isActiv":
-                                    if (elem[`isActiv`]) {
-                                      return <td>Наложен</td>;
-                                    } else {
-                                      return <td>Снят</td>;
-                                    }
-                                  case "offDate":
-                                    return (
-                                      <td>
-                                        {new Date(
-                                          elem[`${item.key}`],
-                                        ).toLocaleDateString()}
-                                      </td>
-                                    );
-                                  default:
-                                    return <td>{elem[`${item.key}`]}</td>;
-                                }
-                              },
-                            )}
+                            {removeBoatArrestsTableColumns.nameColumn.map((item) => {
+                              switch (item.key) {
+                                case "offDocName":
+                                  return (
+                                    <td>
+                                      {elem[`offDocName`]} от{" "}
+                                      {new Date(elem[`offDocDate`]).toLocaleDateString()}
+                                    </td>
+                                  );
+                                case "offDocDate":
+                                  break;
+                                case "isActiv":
+                                  if (elem[`isActiv`]) {
+                                    return <td>Наложен</td>;
+                                  } else {
+                                    return <td>Снят</td>;
+                                  }
+                                case "offDate":
+                                  return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
+                                default:
+                                  return <td>{elem[`${item.key}`]}</td>;
+                              }
+                            })}
                             <td
-                              className={`${
-                                editMode ? "" : styles.edit__mode
-                              } ${styles.edit__column}`}
+                              className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}
                               key={uuidv4()}></td>
                           </tr>
                           <tr>
@@ -622,9 +544,7 @@ export default function BoatInfo(props) {
                                   return (
                                     <td>
                                       {elem[`${item.key}`]} от{" "}
-                                      {new Date(
-                                        elem[`onDocDate`],
-                                      ).toLocaleDateString()}
+                                      {new Date(elem[`onDocDate`]).toLocaleDateString()}
                                     </td>
                                   );
                                 case "onDocDate":
@@ -636,21 +556,13 @@ export default function BoatInfo(props) {
                                     return <td>Снят</td>;
                                   }
                                 case "onDate":
-                                  return (
-                                    <td>
-                                      {new Date(
-                                        elem[`${item.key}`],
-                                      ).toLocaleDateString()}
-                                    </td>
-                                  );
+                                  return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
                                 default:
                                   return <td>{elem[`${item.key}`]}</td>;
                               }
                             })}
                             <td
-                              className={`${
-                                editMode ? "" : styles.edit__mode
-                              } ${styles.edit__column}`}
+                              className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}
                               key={uuidv4()}></td>
                           </tr>
                         </>
@@ -662,9 +574,7 @@ export default function BoatInfo(props) {
                                 return (
                                   <td>
                                     {elem[`${item.key}`]} от{" "}
-                                    {new Date(
-                                      elem[`onDocDate`],
-                                    ).toLocaleDateString()}
+                                    {new Date(elem[`onDocDate`]).toLocaleDateString()}
                                   </td>
                                 );
                               case "onDocDate":
@@ -672,26 +582,16 @@ export default function BoatInfo(props) {
                               case "isActiv":
                                 return <td>Наложен</td>;
                               case "onDate":
-                                return (
-                                  <td>
-                                    {new Date(
-                                      elem[`${item.key}`],
-                                    ).toLocaleDateString()}
-                                  </td>
-                                );
+                                return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
                               default:
                                 return <td>{elem[`${item.key}`]}</td>;
                             }
                           })}
                           <td
-                            className={`${editMode ? "" : styles.edit__mode} ${
-                              styles.edit__column
-                            }`}
+                            className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}
                             key={uuidv4()}>
                             <button
-                              className={`${
-                                styles.edit__buttons
-                              } btn btn-primary ${
+                              className={`${styles.edit__buttons} btn btn-primary ${
                                 editMode ? "" : styles.edit__mode
                               }`}
                               data-tabletype={boatArrestsTableColumns.keyTable}
@@ -710,9 +610,7 @@ export default function BoatInfo(props) {
         </table>
 
         <button
-          className={`${styles.add__buttons} btn btn-primary ${
-            editMode ? "" : styles.edit__mode
-          }`}
+          className={`${styles.add__buttons} btn btn-primary ${editMode ? "" : styles.edit__mode}`}
           id={boatArrestsTableColumns.keyTable}
           onClick={(e) => handleAddNewData(e)}>
           +
@@ -754,8 +652,7 @@ export default function BoatInfo(props) {
       </table>
       <table className={`${styles["secondary-table"]}`}>
         <caption className={styles["secondary-caption"]}>
-          Отметки о внесении судна в судовую книгу / исключении судна из судовой
-          книги:
+          Отметки о внесении судна в судовую книгу / исключении судна из судовой книги:
         </caption>
         <thead>
           <tr>
@@ -779,9 +676,7 @@ export default function BoatInfo(props) {
                     ? boatInfoFromState[`${item.id}`] !== undefined &&
                       boatInfoFromState[`${item.id}`] !== null
                       ? item.id === "cardDate"
-                        ? new Date(
-                            boatInfoFromState[`${item.id}`].slice(0, 10),
-                          ).toLocaleDateString()
+                        ? new Date(boatInfoFromState[`${item.id}`].slice(0, 10)).toLocaleDateString()
                         : boatInfoFromState[`${item.id}`]
                       : "—"
                     : null}
@@ -793,9 +688,7 @@ export default function BoatInfo(props) {
       </table>
       <div>
         <table className={`${styles["secondary-table"]}`}>
-          <caption className={styles["secondary-caption"]}>
-            {specialMarksTableColumns.caption}
-          </caption>
+          <caption className={styles["secondary-caption"]}>{specialMarksTableColumns.caption}</caption>
           <thead>
             <tr>
               {specialMarksTableColumns.nameColumn.map((item) => {
@@ -809,9 +702,7 @@ export default function BoatInfo(props) {
               })}
               <th
                 key={uuidv4()}
-                className={`${editMode ? "" : styles.edit__mode} ${
-                  styles.edit__column
-                }`}></th>
+                className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}></th>
             </tr>
           </thead>
           <tbody>
@@ -841,27 +732,15 @@ export default function BoatInfo(props) {
                               if (item.key === "bsmDate") {
                                 return (
                                   <td className={styles.red_text}>
-                                    {new Date(
-                                      elem[`${item.key}`],
-                                    ).toLocaleDateString()}
+                                    {new Date(elem[`${item.key}`]).toLocaleDateString()}
                                   </td>
                                 );
                               } else {
-                                return (
-                                  <td className={styles.red_text}>
-                                    {elem[`${item.key}`]}
-                                  </td>
-                                );
+                                return <td className={styles.red_text}>{elem[`${item.key}`]}</td>;
                               }
                             } else {
                               if (item.key === "bsmDate") {
-                                return (
-                                  <td>
-                                    {new Date(
-                                      elem[`${item.key}`],
-                                    ).toLocaleDateString()}
-                                  </td>
-                                );
+                                return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
                               } else {
                                 return <td>{elem[`${item.key}`]}</td>;
                               }
@@ -869,9 +748,7 @@ export default function BoatInfo(props) {
                         }
                       })}
                       <td
-                        className={`${editMode ? "" : styles.edit__mode} ${
-                          styles.edit__column
-                        }`}
+                        className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}
                         key={uuidv4()}>
                         <button
                           className={`${styles.edit__buttons} btn btn-primary ${
@@ -891,9 +768,7 @@ export default function BoatInfo(props) {
         </table>
 
         <button
-          className={`${styles.add__buttons} btn btn-primary ${
-            editMode ? "" : styles.edit__mode
-          }`}
+          className={`${styles.add__buttons} btn btn-primary ${editMode ? "" : styles.edit__mode}`}
           id={specialMarksTableColumns.keyTable}
           onClick={(e) => handleAddNewData(e)}>
           +
@@ -903,9 +778,7 @@ export default function BoatInfo(props) {
       <div className={styles.documents__container}>
         <div className={styles.doc__table__container}>
           <table className={styles.doc__table}>
-            <caption className={styles["secondary-caption"]}>
-              {documentsTableColumns.caption}
-            </caption>
+            <caption className={styles["secondary-caption"]}>{documentsTableColumns.caption}</caption>
             <thead>
               <tr>
                 {documentsTableColumns.nameColumn.map((item) => {
@@ -931,9 +804,7 @@ export default function BoatInfo(props) {
                 })}
                 <th
                   key={uuidv4()}
-                  className={`${editMode ? "" : styles.edit__mode} ${
-                    styles.edit__column
-                  }`}></th>
+                  className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}></th>
               </tr>
             </thead>
             <tbody>
@@ -950,33 +821,21 @@ export default function BoatInfo(props) {
                                     <a
                                       href={`${MAIN_URL}${PORT}${API_ADD_BOAT_INFO_DOCS_DOWNLOAD}${encodeURI(
                                         elem.docname,
-                                      )}?cardid=${
-                                        boatInfoFromState.cardid
-                                      }&signature=false`}>
+                                      )}?cardid=${boatInfoFromState.cardid}&signature=false`}>
                                       {elem[`${item.key}`]}
                                     </a>
                                   </td>
                                 );
                               } else {
-                                return (
-                                  <td>
-                                    {new Date(
-                                      elem[`${item.key}`],
-                                    ).toLocaleDateString()}
-                                  </td>
-                                );
+                                return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
                               }
                             }
                           })}
                           <td
-                            className={`${editMode ? "" : styles.edit__mode} ${
-                              styles.edit__column
-                            }`}
+                            className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}
                             key={uuidv4()}>
                             <button
-                              className={`${
-                                styles.delete__buttons
-                              } btn btn-danger ${
+                              className={`${styles.delete__buttons} btn btn-danger ${
                                 editMode ? "" : styles.edit__mode
                               }`}
                               data-tabletype={documentsTableColumns.keyTable}
@@ -995,9 +854,7 @@ export default function BoatInfo(props) {
             </tbody>
           </table>
           <button
-            className={`${styles.add__buttons} btn btn-primary ${
-              editMode ? "" : styles.edit__mode
-            }`}
+            className={`${styles.add__buttons} btn btn-primary ${editMode ? "" : styles.edit__mode}`}
             data-doctype="file"
             id={documentsTableColumns.keyTable}
             onClick={(e) => handleAddNewData(e)}>
@@ -1010,8 +867,8 @@ export default function BoatInfo(props) {
           <thead>
             <tr>
               <th>
-                Подпись собственника, арендатора, лизингополучателя (их
-                представителя), подтверждающая получение судового билета
+                Подпись собственника, арендатора, лизингополучателя (их представителя), подтверждающая
+                получение судового билета
               </th>
             </tr>
           </thead>
