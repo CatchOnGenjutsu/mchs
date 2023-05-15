@@ -16,7 +16,7 @@ export const NSIsettings = [
     title: "Бланки и заявления",
   },
   {
-    id: "test4",
+    id: "contacts",
     title: "Контакты",
   },
   {

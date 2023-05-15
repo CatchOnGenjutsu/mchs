@@ -39,7 +39,6 @@ export default function ConfirmModalWindow({ setShowModal, showModal, fetchData,
         } else {
           request = await fetch(MAIN_URL + PORT + API_DELETE_REQUISITES_LINE + id, { method: "POST" });
         }
-
         break;
       default:
         break;

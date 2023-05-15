@@ -98,6 +98,9 @@ export const API_EDIT_REQUISITES_LINE = "nsi/changeLine/"
 export const API_DELETE_REQUISITES_LINE = "nsi/deleteLine/"
 
 
+export const API_GET_CONTACTS_INFO = "static/info/gimsSectionsOrderByName"
+export const API_GET_SECTION_INFO = "nsi/contacts/"
+
 
 
 
