@@ -8,6 +8,7 @@ import {
   API_DELETE_PAID_PROC_INFO,
   API_DELETE_REQUISITES_CHAPTER,
   API_DELETE_REQUISITES_LINE,
+  API_DELETE_ADMIN_PROC,
 } from "../../../constants/constants";
 
 import styles from "./ConfirmModalWindow.module.css";
@@ -39,6 +40,9 @@ export default function ConfirmModalWindow({ setShowModal, showModal, fetchData,
         } else {
           request = await fetch(MAIN_URL + PORT + API_DELETE_REQUISITES_LINE + id, { method: "POST" });
         }
+        break;
+      case window.location.pathname.includes("adminproc"):
+        request = await fetch(MAIN_URL + PORT + API_DELETE_ADMIN_PROC + id, { method: "POST" });
         break;
       default:
         break;

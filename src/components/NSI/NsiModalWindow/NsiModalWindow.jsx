@@ -14,6 +14,8 @@ import {
   API_EDIT_REQUISITES_CHAPTER,
   API_ADD_REQUISITES_LINE,
   API_EDIT_REQUISITES_LINE,
+  API_ADD_ADMIN_PROC,
+  API_EDIT_ADMIN_PROC,
 } from "../../../constants/constants";
 // import {
 //   addNewEngineCheck,
@@ -29,6 +31,7 @@ export default function NsiModalWindow({
   fetchData,
   mode,
   dataForEdit,
+  setDataForEdit,
   id,
   setCurrentId,
   type,
@@ -66,7 +69,7 @@ export default function NsiModalWindow({
   const handleErrors = () => {
     if (mode === "edit") {
       const index = errorsFields.findIndex((item) => item === "file");
-      if (index) errorsFields.splice(index, 1);
+      if (index >= 0) errorsFields.splice(index, 1);
     }
     let newErrors = {};
     errorsFields.forEach((elem) => {
@@ -135,6 +138,15 @@ export default function NsiModalWindow({
                   });
                   break;
                 }
+              case window.location.pathname.includes("adminproc"):
+                request = await fetch(MAIN_URL + PORT + API_ADD_ADMIN_PROC, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(newData),
+                });
+                break;
               default:
                 break;
             }
@@ -197,6 +209,14 @@ export default function NsiModalWindow({
                   });
                   break;
                 }
+              case window.location.pathname.includes("adminproc"):
+                request = await fetch(MAIN_URL + PORT + API_EDIT_ADMIN_PROC + id, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(newData),
+                });
               default:
                 break;
             }
@@ -245,8 +265,8 @@ export default function NsiModalWindow({
       show={showModal}
       onHide={() => {
         setShowModal(false);
+        setDataForEdit({});
         setNewData({});
-        console.log("newData", newData);
       }}
       size="lg">
       <Modal.Header closeButton>
@@ -282,6 +302,7 @@ export default function NsiModalWindow({
                         id={item.key}
                         type="text"
                         as="textarea"
+                        rows={item.key === "name" ? 3 : 8}
                         isInvalid={!!errors[item.key]}
                         value={newData[item.key]}
                         onChange={(e) => {
@@ -316,11 +337,9 @@ export default function NsiModalWindow({
         <Button
           variant="secondary"
           onClick={() => {
-            console.log("newData", newData);
-            // setType(null);
+            setDataForEdit({});
             setShowModal(false);
-            // setDataForEdit(null);
-            // setNewData({});
+            setNewData({});
           }}>
           Закрыть
         </Button>

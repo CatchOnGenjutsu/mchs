@@ -4,13 +4,13 @@ import NsiModalWindow from "../NsiModalWindow/NsiModalWindow";
 import ConfirmModalWindow from "../ConfirmModalWindow/ConfirmModalWindow";
 
 import { ProgressBar } from "react-loader-spinner";
-import { optionsPaidProc } from "../NsiModalWindow/NsiModalWindowSettings";
+import { optionsAdministrativeProcedures } from "../NsiModalWindow/NsiModalWindowSettings";
 
-import { MAIN_URL, PORT, API_GET_PAID_PROC_INFO } from "../../../constants/constants";
+import { MAIN_URL, PORT, API_GET_ADMIN_PROC } from "../../../constants/constants";
 
-import styles from "./PaidProcedures.module.css";
+import styles from "./AdministrativeProcedures.module.css";
 
-export default function PaidProcedures() {
+export default function AdministrativeProcedures() {
   const [data, setData] = useState([]);
   const [currentId, setCurrentId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,18 +33,7 @@ export default function PaidProcedures() {
         break;
       case "edit":
         setMode(e.target.id);
-        switch (true) {
-          case window.location.pathname.includes("legislation") || window.location.pathname.includes("forms"):
-            setDataForEdit({
-              ["docName"]: data.find((item) => Number(item.id) === Number(currentId)).docName,
-            });
-            break;
-          case window.location.pathname.includes("paidproc"):
-            setDataForEdit(data.find((item) => Number(item.id) === Number(currentId)));
-            break;
-          default:
-            break;
-        }
+        setDataForEdit(data.find((item) => Number(item.code) === Number(currentId)));
         setShowModal(true);
         break;
       case "delete":
@@ -56,7 +45,7 @@ export default function PaidProcedures() {
   };
 
   const fetchData = async () => {
-    const request = await fetch(MAIN_URL + PORT + API_GET_PAID_PROC_INFO);
+    const request = await fetch(MAIN_URL + PORT + API_GET_ADMIN_PROC);
     const response = await request.json();
     console.log(response);
     setData(response);
@@ -82,12 +71,7 @@ export default function PaidProcedures() {
         </div>
       ) : (
         <>
-          <h2>Платные услуги</h2>
-          <div className={styles.caption_text}>
-            Перечень платных услуг, оказываемых ГИМС и перечисляемых на счет BY06AKBB36329524001190000000
-            государственного учреждения "Государственная инспекция по маломерным судам" ЦБУ 524 ОАО "АСБ
-            Беларусбанк", МФО AKBBBY2X, УНП 100048748
-          </div>
+          <h2>Административные процедуры</h2>
           <div className={styles.buttons_container}>
             <div
               className={styles.add_button}
@@ -111,27 +95,37 @@ export default function PaidProcedures() {
           <table className={styles.primary_table}>
             <thead>
               <tr>
-                <th className={styles.col_check_head}></th>
-                <th className={styles.col_name_head}>Наименование услуги</th>
-                <th className={styles.col_number_head}>Номер кода</th>
-                <th className={styles.col_sum_head}>Стоимость</th>
+                <th className={styles.col_num_head}></th>
+                <th className={styles.col_main_head}>Наименование административной процедуры</th>
+                <th className={styles.col_main_head}>
+                  Документы и (или) сведения, представляемые заинтресованным лицом для осуществления АП
+                </th>
+                <th className={styles.col_main_head}>
+                  Вид и размер платы, взимаемой при осуществлении административной процедуры
+                </th>
+                <th className={styles.col_main_head}>Максимальный срок осуществления процедуры</th>
+                <th className={styles.col_main_head}>
+                  Срок действия справки или другого документа, выдаваемого при осуществлении АП
+                </th>
               </tr>
             </thead>
             <tbody>
               {data.map((item, index) => {
                 return (
                   <tr>
-                    <td className={styles.col_check_body}>
+                    <td className={styles.col_num_body}>
                       <div
                         className={`${styles.custom_checkbox} ${
-                          Number(currentId) === Number(item.id) ? styles.custom_checkbox_checked : ""
+                          Number(currentId) === Number(item.code) ? styles.custom_checkbox_checked : ""
                         }`}
-                        id={item.id}
+                        id={item.code}
                         onClick={(e) => handleCheckboxClick(e)}></div>
                     </td>
-                    <td className={styles.col_name_body}>{item.name}</td>
-                    <td className={styles.col_number_body}>{item.codeNumber}</td>
-                    <td className={styles.col_sum_body}>{item.sum}</td>
+                    <td className={styles.col_main_body}>{item.name}</td>
+                    <td className={styles.col_main_body}>{item.docs}</td>
+                    <td className={styles.col_main_body}>{item.sum}</td>
+                    <td className={styles.col_main_body}>{item.time1}</td>
+                    <td className={styles.col_main_body}>{item.time2}</td>
                   </tr>
                 );
               })}
@@ -141,7 +135,7 @@ export default function PaidProcedures() {
             <NsiModalWindow
               setShowModal={setShowModal}
               showModal={showModal}
-              modalWindowInputs={optionsPaidProc}
+              modalWindowInputs={optionsAdministrativeProcedures}
               fetchData={fetchData}
               mode={mode}
               dataForEdit={dataForEdit}

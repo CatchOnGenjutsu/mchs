@@ -4,7 +4,7 @@ export const NSIsettings = [
     title: "Классификатор маломерных судов",
   },
   {
-    id: "test1",
+    id: "adminproc",
     title: "Административные процедуры",
   },
   {

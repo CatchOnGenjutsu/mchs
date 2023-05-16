@@ -101,6 +101,8 @@ export const API_DELETE_REQUISITES_LINE = "nsi/deleteLine/"
 export const API_GET_CONTACTS_INFO = "static/info/gimsSectionsOrderByName"
 export const API_GET_SECTION_INFO = "nsi/contacts/"
 
-
-
+export const API_GET_ADMIN_PROC = "static/info/nsiAp" 
+export const API_ADD_ADMIN_PROC = "nsi/addNsiAp"
+export const API_EDIT_ADMIN_PROC = "nsi/changeNsiAp/"
+export const API_DELETE_ADMIN_PROC = "nsi/deleteNsiAp/"
 

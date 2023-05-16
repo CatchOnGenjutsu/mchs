@@ -143,6 +143,7 @@ export default function Legislation() {
               fetchData={fetchData}
               mode={mode}
               dataForEdit={dataForEdit}
+              setDataForEdit={setDataForEdit}
               id={currentId}
               setCurrentId={setCurrentId}
             />

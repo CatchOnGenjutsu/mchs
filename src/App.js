@@ -24,6 +24,7 @@ import PaidProcedures from './components/NSI/PaidProcedures/PaidProcedures';
 import Requisite from './components/NSI/Requisites/Requisites';
 import Contacts from './components/NSI/Contacts/Contacts';
 import SectionInfo from './components/NSI/Contacts/SectionInfo/SectionInfo';
+import AdministrativeProcedures from './components/NSI/AdministrativeProcedures/AdministrativeProcedures';
 
 import {
   getDictionaryGimsSections,
@@ -84,6 +85,7 @@ function App() {
               <Route path="/nsi/requisites" element={<Requisite/>}/>
               <Route path="/nsi/contacts" element={<Contacts/>}/>
               <Route path="/nsi/contacts/:id" element={<SectionInfo/>}/>
+              <Route path="/nsi/adminproc" element={<AdministrativeProcedures/>}/>
             </Routes>
           </div>
       } 
