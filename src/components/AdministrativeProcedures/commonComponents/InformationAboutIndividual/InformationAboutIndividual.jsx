@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef ,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import styles from "./InformationAboutIndividual.module.css";
@@ -6,30 +6,36 @@ import {
   fieldPassportOptions,
   fieldAddressOptions,
   setOptions,
+  getOptions
 } from "./optionsForInformationAboutIndividual";
 import Select from "react-select";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 
-function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors, errors, mode }) {
+
+function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleErrors, errors, mode }) {
   const selectGorodRef = useRef();
   const selectRayonRef = useRef();
+  const selectOblRef = useRef();
+  const selectDocTypeRef =useRef();
   const dispatch = useDispatch();
   const [options, setoptions] = useState({
     passport: fieldPassportOptions,
     address: fieldAddressOptions,
   });
-
   const newStatement = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
-
-  async function handleChangeSelectSearch(event) {
+ const [rerender,setRerender]=useState(false)
+ const data = !!inputData?{...inputData}:{...newStatement}
+ async function handleChangeSelectSearch(event) {
     if (event) {
       switch (true) {
         case Object.keys(event).includes("target"):
           updateNewData(event.target.id, event.currentTarget.value);
-          dispatch(addNewStatementData({ [`${event.target.id}`]: event.target.value }));
+          if(!window.location.pathname.includes('reginformationchanges')){
+            dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
+          }
           break;
         case Object.keys(event).includes("key"):
           setoptions({
@@ -39,18 +45,23 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
           switch (event.key) {
             case "rayonId": {
               selectGorodRef.current.clearValue();
+              updateNewData('gorodId', null)
               break;
             }
             case "oblId": {
               selectRayonRef.current.clearValue();
               selectGorodRef.current.clearValue();
+              updateNewData('gorodId', null)
+              updateNewData('rayonId', null)
               break;
             }
             default:
               break;
           }
           updateNewData(event.key, event.value);
-          dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
+          if(!window.location.pathname.includes('reginformationchanges')){
+            dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
+          }
           break;
         default:
           break;
@@ -61,14 +72,34 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
 
   function setRef(option) {
     switch (option.key) {
+      case "oblId":
+        return selectOblRef;
       case "gorodId":
         return selectGorodRef;
       case "rayonId":
         return selectRayonRef;
+      case "docType":
+        return selectDocTypeRef;
       default:
         return null;
     }
   }
+
+  useEffect(()=>{
+    setRerender(!rerender)
+    selectOblRef.current.clearValue();
+    selectRayonRef.current.clearValue();
+    selectGorodRef.current.clearValue();
+    selectDocTypeRef.current.clearValue();
+   async function setOptionsForAdress(){
+        await setOptions(data['oblId'],'oblId' )
+        await setOptions(data['rayonId'],'rayonId')
+     setoptions(getOptions)
+   }
+   setOptionsForAdress()
+  },[inputData])
+
+  console.log("OPTIONS",options,'DATA',data)
   return (
     <>
       <h3>Сведения о заинтересованном лице</h3>
@@ -88,7 +119,7 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                     onChange={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
-                    value={newStatement[option.key]}
+                    value={data[option.key]}
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
                     isInvalid={!!errors[option.key]}
@@ -103,9 +134,10 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                     {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
                   </Form.Label>
                   <Select
+                    ref={setRef(option)}
                     onChange={(e) => handleChangeSelectSearch(e)}
-                    defaultValue={newStatement[option.key]}
-                    value={option.options.find((item) => item.value === newStatement[option.key])}
+                    // defaultValue={data[option.key]}
+                    value={option.options.find((item) => item.value === data[option.key])}
                     className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
                     classNamePrefix="select"
                     placeholder="Выберите"
@@ -135,7 +167,7 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                     onChange={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
-                    value={newStatement[option.key]}
+                    value={data[option.key]}
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
                     isInvalid={!!errors[option.key]}
@@ -157,9 +189,7 @@ function InformationAboutIndividual({ data, updateNewData, saveKey, handleErrors
                     id={option.key}
                     // defaultValue={newStatement[option.key]}
                     value={option.options.find((item) => {
-                      console.log("item", item);
-                      console.log("newStatement[option.key]", newStatement[option.key]);
-                      return item.value === newStatement[option.key];
+                      return item.value === data[option.key];
                     })}
                     placeholder="Выберите"
                     isDisabled={option.disabled || mode === "view" ? true : false}

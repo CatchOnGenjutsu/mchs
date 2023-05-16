@@ -8,7 +8,7 @@ import {
   addNewDealApp,
 } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function AppBoatRegModal({ setShowModal, showModal, modalWindowInputs, dataForCheck }) {
+export default function AppBoatRegModal({ updateData,setShowModal, showModal, modalWindowInputs, dataForCheck }) {
   const [newData, setNewData] = useState({});
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
@@ -52,7 +52,7 @@ export default function AppBoatRegModal({ setShowModal, showModal, modalWindowIn
     // }
     errorsFields.forEach((elem) => {
       if (!newData[elem] || newData[elem] === "") {
-        if (elem !== "asmLock") {
+        if (elem !== "asmLock" ||elem !== "msmLock") {
           newErrors[elem] = "Заполните поле";
         }
       }
@@ -68,23 +68,27 @@ export default function AppBoatRegModal({ setShowModal, showModal, modalWindowIn
 
   const handleSave = () => {
     if (!handleErrors()) {
-      switch (modalWindowInputs.keyTable) {
-        case "boatCardAppEngDtoList":
-          if (dataForCheck.findIndex((item) => item.engvin === newData.engvin) < 0) {
-            dispatch(addNewEngineCheck(newData.engvin, newData));
-          }
-          break;
-        case "boatCardAppSmDtoList":
-          console.log(newData);
-          dispatch(addNewSpecMarkApp(newData));
-          break;
-        case "boatCardAppDealsDtoList":
-          dispatch(addNewDealApp(newData));
-          break;
-        default:
-          setShowModal(false);
-          setNewData({});
-          break;
+      if(!window.location.pathname.includes('reginformationchanges')){
+        switch (modalWindowInputs.keyTable) {
+          case "boatCardAppEngDtoList":
+            if (dataForCheck.findIndex((item) => item.engvin === newData.engvin) < 0) {
+              dispatch(addNewEngineCheck(newData.engvin, newData));
+            }
+            break;
+          case "boatCardAppSmDtoList":
+            console.log(newData);
+            dispatch(addNewSpecMarkApp(newData));
+            break;
+          case "boatCardAppDealsDtoList":
+            dispatch(addNewDealApp(newData));
+            break;
+          default:
+            setShowModal(false);
+            setNewData({});
+            break;
+        }
+      }else {
+        updateData(modalWindowInputs.keyTable,newData)
       }
       setShowModal(false);
       setNewData({});
@@ -94,14 +98,24 @@ export default function AppBoatRegModal({ setShowModal, showModal, modalWindowIn
   };
 
   useEffect(() => {
+    let input=null
     switch (modalWindowInputs.keyTable) {
       case "boatCardAppEngDtoList":
         setNewData({ engtype: 1 });
         break;
       case "boatCardAppSmDtoList":
         setNewData({ asmLock: true });
-        const input = document.querySelector("#locked");
+        input = document.querySelector("#locked");
         input.toggleAttribute("checked");
+        break;
+      case "enginesList":
+        setNewData({ engtype: 1 });
+        break;
+      case "boatCardSpecmarksList":
+        setNewData({ msmLock: true });
+        input = document.querySelector("#locked");
+        input.toggleAttribute("checked");
+        break;
       default:
         break;
     }

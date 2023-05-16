@@ -31,12 +31,15 @@ function ModalWindow({ setShow, show, idBoadCard }) {
         }
         break;
       case pathName.includes("reginformationchanges"):
+        let idTypeStatement=null
         switch (e.target.dataset.key) {
           case "individual":
-            navigate("/reginformationchanges/individual/add", { state: { idBoadCard } });
+            idTypeStatement=1
+            navigate("/reginformationchanges/individual/add", { state: { idBoadCard,idTypeStatement} });
             break;
           case "entity":
-            navigate("/reginformationchanges/entity/add", { state: { idBoadCard } });
+            idTypeStatement=2
+            navigate("/reginformationchanges/entity/add", { state: { idBoadCard , idTypeStatement} });
             break;
           default:
             break;

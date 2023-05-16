@@ -5,6 +5,7 @@ import { Form, Button } from "react-bootstrap";
 import { ProgressBar } from "react-loader-spinner";
 import styles from "./IndividualStatement.module.css";
 import InformationAboutIndividual from "../../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
+import InformationAboutEntity from "../../commonComponents/InformationAboutEntity/InformationAboutEntity"
 import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
 import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg";
 import InformationAboutBoat from "../../commonComponents/InformationAboutBoat/InformationAboutBoat";
@@ -13,12 +14,12 @@ import OtherInformation from "../../commonComponents/OtherInformation/OtherInfor
 import { fieldBoatOptions } from "../../commonComponents/InformationAboutBoat/optionsForInformationAboutBoat";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 import { MAIN_URL, PORT, API_GET_BOAT_CARD_FOR_MODIF } from "../../../../constants/constants";
-
+import { v4 as uuidv4 } from "uuid";
 import {
   optionSelectChangeType,
-  boatCardAppEngDtoList,
-  boatCardAppSmDtoList,
-  boatCardAppDealsDtoList,
+  enginesList,
+  boatCardSpecmarksList,
+  boatCardModifDealsDtoList,
   readStatusForInputField,
 } from "./optionsForIndividualStatement";
 import {
@@ -31,23 +32,53 @@ import {
 function IndividualStatement() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { idBoadCard } = location.state || {};
-  const [idTypeStatement, setIdTypeStatement] = useState("1");
+  const { idBoadCard,idTypeStatement } = location.state || {};
+  const [idTypeChangeStatement, setIdTypeChangeStatement] = useState("1");
 
   const [isLoading, setIsLoading] = useState(true);
+  const [showResultModal, setShowResultModal] = useState(false);
   const [newData, setNewData] = useState({});
   const [errors, setErrors] = useState({});
+  const [registrationResult, setRegistrationResult] = useState("");
+  const [appId, setAppId] = useState(null);
   const [saveKey, setSaveKey] = useState(false);
+  const [file, setFile] = useState();
 
   const errorsFields = [];
   Object.entries(fieldAddressOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
   Object.entries(fieldPassportOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
   Object.entries(fieldBoatOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
 
-  const data = useSelector((state) => {
+  const reduxData = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
+  const handleSave = async (e) => {
+    debugger
+    if (!handleErrors()) {
+      const formData = new FormData();
+      if (file !== undefined) {
+        formData.append(`file`, file);
+      }
+      formData.append('data',newData)
+      const request = await fetch(MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_MODIF+String(idBoadCard), {
+        method: "POST",
+        body: formData,
+      });
+      if (request.status !== 200) {
+        setShowResultModal(!showResultModal);
+        setRegistrationResult("error");
+      } else {
+        const response = await request.text();
+        console.log("response", response);
+        setAppId(response);
+        setShowResultModal(!showResultModal);
+        setRegistrationResult("success");
+      }
+    }else {
+      setSaveKey(true);
+    }
+  }
 
   const handleErrors = () => {
     let newErrors = {};
@@ -56,6 +87,8 @@ function IndividualStatement() {
         newErrors[elem] = "Заполните поле";
       }
     });
+    console.log(newData)
+    console.log( newErrors)
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return true;
@@ -64,19 +97,261 @@ function IndividualStatement() {
       return false;
     }
   };
-
-  const updateNewData = (key, value) => {
-    newData[key] = value;
+  const handleFile = (value) => {
+    setFile(value);
   };
+  const updateNewData = (key, value,updateType) => {
+    if(updateType==='delete'){
+      debugger
+      const index = newData[key].findIndex(el => el.innerId === value);
+      if (index !== -1) {
+        newData[key].splice(index, 1);
+        setNewData({...newData})
+        return
+      }
+    }
+
+    if (Array.isArray(newData[key])&&updateType!=='delete'){
+      value.innerId= uuidv4()
+      newData[key].push(value)
+      setNewData({...newData})
+    }else{
+      newData[key] = value;
+      setNewData({...newData})
+    }
+
+  };
+  console.log(newData,'DATA!!!')
+  const handleTypeChangeStatement = (e)=>{
+    setIdTypeChangeStatement(e.currentTarget.value)
+    let initialData = {}
+      switch (e.currentTarget.value) {
+        case '1':
+          initialData={
+            changeType: e.currentTarget.value,
+            regNum:reduxData.regNum,
+            personType:reduxData.personType,
+            tiketNum:reduxData.tiketNum,
+            cardDate:reduxData.cardDate,
+            boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
+            boatCardModifDealsDtoList:[],
+
+            agentDocDate:'',
+            agentDocDepartment:'',
+            agentDocType:null,
+            agentDom:'',
+            agentDoverennost:'',
+            agentGorodId:null,
+            agentKorpus:'',
+            agentKv:'',
+            agentMidname:'',
+            agentName:'',
+            agentNumberOfPassport:'',
+            agentOblId:null,
+            agentPersNum:'',
+            agentPhone:'',
+            agentRayonId:null,
+            agentSerialOfPassport:'',
+            agentSurname:'',
+            agentUlica:'',
+            section:1,
+            boatVin:'',
+            boatYear:'',
+            engineNum:'',
+            parkingPlace:'',
+            boatPayload:'',
+            engpwrmax:'',
+            boatLength:'',
+            boatWidth:'',
+            boatHeight:'',
+            passengersNum:'',
+            saCategory:null,
+            boatName:'',
+            boatType:null,
+            boatVid:null,
+            bodyMaterial:null,
+            surname:'',
+            name:'',
+            midname:'',
+            docType:null,
+            serialOfPassport:'',
+            numberOfPassport:'',
+            persNum:'',
+            docDepartment:'',
+            docDateIssue:'',
+            oblId:null,
+            rayonId:null,
+            gorodId:null,
+            ulica:'',
+            korpus:'',
+            dom:'',
+            kv:'',
+            phone:'',
+            enginesList:[],
+            appReason:'',
+            note:'',
+            note2:'',
+            section:1
+          }
+          break
+        case '2':
+        case '3':
+          initialData={
+            changeType: e.currentTarget.value,
+            regNum:reduxData.regNum,
+            personType:reduxData.personType,
+            tiketNum:reduxData.tiketNum,
+            cardDate:reduxData.cardDate,
+            boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
+            boatVin:reduxData.boatVin,
+            boatYear:reduxData.boatYear,
+            engineNum:reduxData.engineNum,
+            parkingPlace:reduxData.parkingPlace,
+            boatPayload:reduxData.boatPayload,
+            engpwrmax:reduxData.engpwrmax,
+            boatLength:reduxData.boatLength,
+            boatWidth:reduxData.boatWidth,
+            boatHeight:reduxData.boatHeight,
+            passengersNum:reduxData.passengersNum,
+            saCategory:reduxData.saCategory,
+            boatName:reduxData.boatName,
+            boatType:reduxData.boatType,
+            boatVid:reduxData.boatVid,
+            bodyMaterial:reduxData.bodyMaterial,
+            surname:reduxData.surname,
+            name:reduxData.name,
+            midname:reduxData.midname,
+            docType:reduxData.docType,
+            serialOfPassport:reduxData.serialOfPassport,
+            numberOfPassport:reduxData.numberOfPassport,
+            persNum:reduxData.persNum,
+            docDepartment:reduxData.docDepartment,
+            docDateIssue:reduxData.docDateIssue,
+            oblId:reduxData.oblId,
+            rayonId:reduxData.rayonId,
+            gorodId:reduxData.gorodId,
+            ulica:reduxData.ulica,
+            korpus:reduxData.korpus,
+            dom:reduxData.dom,
+            kv:reduxData.kv,
+            phone:reduxData.phone,
+            enginesList:reduxData.enginesList,
+            appReason:'',
+            note:'',
+            note2:'',
+            agentDocDate:'',
+            agentDocDepartment:'',
+            agentDocType:null,
+            agentDom:'',
+            agentDoverennost:'',
+            agentGorodId:null,
+            agentKorpus:'',
+            agentKv:'',
+            agentMidname:'',
+            agentName:'',
+            agentNumberOfPassport:'',
+            agentOblId:null,
+            agentPersNum:'',
+            agentPhone:'',
+            agentRayonId:null,
+            agentSerialOfPassport:'',
+            agentSurname:'',
+            agentUlica:'',
+            section:1
+          }
+          break
+        case '4':
+          initialData={
+            changeType: e.currentTarget.value,
+            regNum:reduxData.regNum,
+            personType:reduxData.personType,
+            tiketNum:reduxData.tiketNum,
+            cardDate:reduxData.cardDate,
+            boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
+            boatVin:'',
+            boatYear:'',
+            engineNum:'',
+            parkingPlace:'',
+            boatPayload:'',
+            engpwrmax:'',
+            boatLength:'',
+            boatWidth:'',
+            boatHeight:'',
+            passengersNum:'',
+            saCategory:'',
+            boatName:'',
+            boatType:'',
+            boatVid:'',
+            bodyMaterial:'',
+            surname:reduxData.surname,
+            name:reduxData.name,
+            midname:reduxData.midname,
+            docType:reduxData.docType,
+            serialOfPassport:reduxData.serialOfPassport,
+            numberOfPassport:reduxData.numberOfPassport,
+            persNum:reduxData.persNum,
+            docDepartment:reduxData.docDepartment,
+            docDateIssue:reduxData.docDateIssue,
+            oblId:reduxData.oblId,
+            rayonId:reduxData.rayonId,
+            gorodId:reduxData.gorodId,
+            ulica:reduxData.ulica,
+            korpus:reduxData.korpus,
+            dom:reduxData.dom,
+            kv:reduxData.kv,
+            phone:reduxData.phone,
+            enginesList:[],
+            appReason:'',
+            note:'',
+            note2:'',
+            agentDocDate:'',
+            agentDocDepartment:'',
+            agentDocType:null,
+            agentDom:'',
+            agentDoverennost:'',
+            agentGorodId:null,
+            agentKorpus:'',
+            agentKv:'',
+            agentMidname:'',
+            agentName:'',
+            agentNumberOfPassport:'',
+            agentOblId:null,
+            agentPersNum:'',
+            agentPhone:'',
+            agentRayonId:null,
+            agentSerialOfPassport:'',
+            agentSurname:'',
+            agentUlica:'',
+            section:1
+          }
+          break
+        default:
+            initialData={}
+            break
+      }
+    setNewData(initialData)
+
+  }
   useEffect(()=>{
     async function fetchData() {
       const responseBoatCard = await fetch(MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_MODIF + String(idBoadCard));
       const dataBoatCard = await responseBoatCard.json();
       dispatch(addNewStatementData(dataBoatCard))
+      setNewData({
+        regNum:dataBoatCard.regNum,
+        personType:dataBoatCard.personType,
+        tiketNum:dataBoatCard.tiketNum,
+        cardDate:dataBoatCard.cardDate,
+        boatCardSpecmarksList:dataBoatCard.boatCardSpecmarksList,
+        appReason:'',
+        boatCardModifDealsDtoList:[],
+        section:1
+      })
       setIsLoading(false);
     }
     fetchData()
   },[])
+  console.log(newData)
   if(isLoading){
     return (
         <div className={'d-flex flex-column align-items-center'}>
@@ -104,7 +379,7 @@ function IndividualStatement() {
         <Form>
           <Form.Group className={styles["header"]}>
             <Form.Label>Какие изменения вносятся:</Form.Label>
-            <Form.Select onChange={(e) => setIdTypeStatement(e.currentTarget.value)}>
+            <Form.Select onChange={(e) => handleTypeChangeStatement(e)}>
               {optionSelectChangeType.map((el) => (
                 <option value={el.id}>{el.value}</option>
               ))}
@@ -113,7 +388,7 @@ function IndividualStatement() {
           <Form.Group className={styles["header"]}>
             <Form.Label>Регистрационный номер маломерного судна:</Form.Label>
             <Form.Control
-              value={data.regNum}
+              value={newData.regNum}
               type="text"
               readOnly={true}
               disabled={true}
@@ -122,7 +397,7 @@ function IndividualStatement() {
           <Form.Group className={styles["header"]}>
             <Form.Label>Субъект хозяйствования:</Form.Label>
             <Form.Control
-              value={data.personType}
+              value={newData.personType}
               type="text"
               readOnly={true}
               disabled={true}
@@ -132,7 +407,7 @@ function IndividualStatement() {
           <Form.Group className={styles["header"]}>
             <Form.Label>Номер судового билета:</Form.Label>
             <Form.Control
-              value={data.tiketNum}
+              value={newData.tiketNum}
               type="text"
               readOnly={true}
               disabled={true}
@@ -141,33 +416,49 @@ function IndividualStatement() {
           <Form.Group className={styles["header"]}>
             <Form.Label>Дата выдачи судового билета:</Form.Label>
             <Form.Control
-              value={data.cardDate}
+              value={newData.cardDate}
               type="text"
               readOnly={true}
               disabled={true}
             />
           </Form.Group>
-          <InformationAboutIndividual
-            data={data}
-            updateNewData={updateNewData}
-            saveKey={saveKey}
-            handleErrors={handleErrors}
-            errors={errors}
-          />
-          <InfoRepresentPerson />
-          {(idTypeStatement !== "1" && idTypeStatement !== "4") ? (
+          {idTypeStatement===1?(
+              <InformationAboutIndividual
+                  inputData={newData}
+                  updateNewData={updateNewData}
+                  saveKey={saveKey}
+                  handleErrors={handleErrors}
+                  errors={errors}
+                  mode={(idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':''}
+              />
+          ):(
+              <InformationAboutEntity
+                  data={newData}
+                  updateNewData={updateNewData}
+              />
+          )
+          }
+
+          <InfoRepresentPerson
+              inputData={newData}
+              updateNewData={updateNewData}/>
+          {(idTypeChangeStatement !== "1" && idTypeChangeStatement !== "4") ? (
             <InformationAboutBoat
-              dataBoat = {data}
+              dataBoat = {newData}
               fieldStatus={readStatusForInputField}
               updateNewData={updateNewData}
               saveKey={saveKey}
               handleErrors={handleErrors}
               errors={errors}
+              mode={'view'}
             />
           ) : (
             ""
           )}
-          {idTypeStatement === "4" ? <OtherInformation /> : ""}
+          {idTypeChangeStatement === "4" ? <OtherInformation
+              inputData={newData}
+              updateNewData={updateNewData}
+          /> : ""}
 
           <Form.Group>
             <Form.Label>
@@ -176,52 +467,51 @@ function IndividualStatement() {
             <Form.Control
               id="appReason"
               type="text"
+              value={newData.appReason}
+              onChange={(e) => updateNewData(e.target.id, e.currentTarget.value)}
             />
           </Form.Group>
-          {idTypeStatement === "2" || idTypeStatement === "3" ? (
+          {idTypeChangeStatement === "2" || idTypeChangeStatement === "3" ? (
             <TableAppBoatReg
-              tableOptions={boatCardAppEngDtoList}
-              dataForTable={data.enginesList}
+              tableOptions={enginesList}
+              dataForTable={newData.enginesList}
               typeTable='boatCardAppEngList'
+              updateData={updateNewData}
+              mode={(idTypeChangeStatement==='2')?'view':''}
             />
           ) : (
             ""
           )}
 
-          {idTypeStatement === "1" ? (
+          {idTypeChangeStatement === "1" ? (
             <TableAppBoatReg
-              tableOptions={boatCardAppDealsDtoList}
+              tableOptions={boatCardModifDealsDtoList}
               typeTable='boatCardAppDealsList'
-              dataForTable={[]}
+              dataForTable={newData.boatCardModifDealsDtoList}
+              updateData={updateNewData}
             />
           ) : (
             ""
           )}
           <TableAppBoatReg
-            tableOptions={boatCardAppSmDtoList}
-            dataForTable={data.boatCardSpecmarksList}
+            tableOptions={boatCardSpecmarksList}
+            dataForTable={newData.boatCardSpecmarksList}
             typeTable='boatCardAppSpecMarkList'
+            updateData={updateNewData}
+            mode={(idTypeChangeStatement==='2')?'view':''}
           />
-          <AppFooter />
+          <AppFooter
+              inputData={newData}
+              updateNewData={updateNewData}
+              handleFile={handleFile}
+          />
         </Form>
       </div>
       <div className={styles.buttons_container}>
         <Button
             variant="primary"
             className=""
-            onClick={(e) => {
-              const formData = new FormData();
-              formData.append('data', JSON.stringify(data));
-
-              const requestOptions = {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                },
-                body: formData
-              };
-              fetch(`http://10.0.1.30:8080/boatCardModif/addStatement/7`,requestOptions)
-            }}
+            onClick={(e) => handleSave(e)}
         >
           Зарегистрировать
         </Button>

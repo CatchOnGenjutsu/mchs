@@ -9,20 +9,27 @@ import {
   API_GET_SA_CATEGORY
 } from "../../../constants/constants";
 
-export async function setRayon(id) {
+export async function getRayon(id) {
+
   const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_RAYON_FOR_OBL + id);
-  const result = await response.json();
-  return result.map((item) => {
-    return { value: item.id, label: item.name, key: "rayonId" };
-  });
+  if(response.ok){
+    const result = await response.json();
+    return result.map((item) => {
+      return { value: item.id, label: item.name, key: "rayonId" };
+    });
+  }else return []
+
 }
 
-export async function setGorod(id) {
+export async function getGorod(id) {
   const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_GOROD_FOR_RAYON + id);
-  const result = await response.json();
-  return result.map((item) => {
-    return { value: item.id, label: item.name, key: "gorodId" };
-  });
+  if(response.ok){
+    const result = await response.json();
+    return result.map((item) => {
+      return { value: item.id, label: item.name, key: "gorodId" };
+    });
+  }else return []
+
 }
 
 export async function setOptionsTypesBoat() {
