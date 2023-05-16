@@ -84,6 +84,7 @@ export const fieldPassportOptions = {
     defaultValue: null,
     readOnly: false,
     required: true,
+    maxlength: 15,
   },
 };
 

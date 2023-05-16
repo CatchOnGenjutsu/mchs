@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Sidebar.module.css";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+
 import { sidebarSettings } from "./sidebarSettings";
+import { clearNewStatement } from "../../redux/statementReducer/actionsStatement";
+
 import { v4 as uuidv4 } from "uuid";
+
+import styles from "./Sidebar.module.css";
 
 export default function Sidebar() {
   const [sidebarListArray, setSidebarListArray] = useState(sidebarSettings);
   const [isLogin, setIsLogin] = useState("");
+  const dispatch = useDispatch();
 
   const showDropdownMenu = (e) => {
     setSidebarListArray(
@@ -53,11 +59,11 @@ export default function Sidebar() {
                   </li>
                   <ul
                     className={styles["sidebar-list-modal"]}
-                    // onClick={handleColorChange}
                     hidden={item[2].isHidden}>
                     {item[2] !== undefined
                       ? item[2].listModal.map((elem) => (
                           <NavLink
+                            onClick={() => dispatch(clearNewStatement())}
                             className={({ isActive }) =>
                               isActive
                                 ? `${styles["sidebar-list-item-modal"]} ${styles["colored"]}`

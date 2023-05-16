@@ -186,11 +186,6 @@ export default function InfoRepresentPerson({ mode }) {
           {agentDoverennost.value}
         </Form.Label>
         <Form.Control
-          // className={
-          //   !halfControls.includes(item.key)
-          //     ? styles.half_controls
-          //     : styles.wide_controls
-          // }
           id={agentDoverennost.key}
           // isInvalid={!!errors[el.key]}
           type={agentDoverennost.type}
@@ -198,11 +193,8 @@ export default function InfoRepresentPerson({ mode }) {
           disabled={mode === "view" ? true : false}
           // isInvalid={!!errors[el.key]}
           value={newStatement[agentDoverennost.key]}
-          onBlur={(e) => handleValue(e)}
+          onChange={(e) => handleValue(e)}
         />
-        {/* <Form.Control.Feedback type={"invalid"}>
-                    {errors[el.key]}
-                  </Form.Control.Feedback> */}
       </Form.Group>
     </>
   );

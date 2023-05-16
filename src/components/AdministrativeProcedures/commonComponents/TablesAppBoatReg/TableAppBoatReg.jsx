@@ -85,7 +85,11 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
                     case "date":
                       return <td>{elem[`${item.key}`].split("-").reverse().join(".")}</td>;
                     default:
-                      return <td>{elem[`${item.key}`]}</td>;
+                      if (item.key === "engtype") {
+                        return <td>{elem[`${item.key}`] === 1 ? "Бензиновый" : "Электрический"}</td>;
+                      } else {
+                        return <td>{elem[`${item.key}`]}</td>;
+                      }
                   }
                 })}
                 {data.length > 0 && mode !== "view" && (
