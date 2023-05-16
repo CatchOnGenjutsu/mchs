@@ -209,11 +209,6 @@ export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
           {agentDoverennost.value}
         </Form.Label>
         <Form.Control
-          // className={
-          //   !halfControls.includes(item.key)
-          //     ? styles.half_controls
-          //     : styles.wide_controls
-          // }
           id={agentDoverennost.key}
           // isInvalid={!!errors[el.key]}
           type={agentDoverennost.type}
@@ -223,9 +218,6 @@ export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
           value={data[agentDoverennost.key]}
           onChange={(e) => handleValue(e)}
         />
-        {/* <Form.Control.Feedback type={"invalid"}>
-                    {errors[el.key]}
-                  </Form.Control.Feedback> */}
       </Form.Group>
     </>
   );

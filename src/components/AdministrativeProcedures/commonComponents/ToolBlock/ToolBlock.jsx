@@ -92,6 +92,33 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
       }
     }
   };
+  const handleButtonOpen = async (event) => {
+    switch (true) {
+      case pathName.includes("reginformationchanges/searchboatcard"): {
+        switch (event.currentTarget.id) {
+          case "open": {
+            navigate(`/smallboats/boatId/${id}`);
+            break;
+          }
+          case "add": {
+            setShow(true);
+            break;
+          }
+        }
+        break;
+      }
+      case pathName.includes("reginformationchanges"): {
+        navigate("searchboatcard");
+        break;
+      }
+      case pathName.includes("smallboatsreg"): {
+        navigate(`./decisioncard/${id}`, {
+          state: { mode: "view" },
+        });
+        break;
+      }
+    }
+  };
   return (
     <>
       <div className={`d-flex mb-2`}>
@@ -141,7 +168,7 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
               title={openBtnText}
               disabled={Boolean(!id) || Number(appStatusId) !== 1}
               className={`btn btn-danger btn-sm ms-2`}
-              onClick={handleButtonAdd}>
+              onClick={handleButtonOpen}>
               <img
                 src={open_icon}
                 alt="Открыть"

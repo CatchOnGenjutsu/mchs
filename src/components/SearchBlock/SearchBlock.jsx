@@ -74,6 +74,7 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
         break;
       }
       case window.location.href.includes("smallboatsreg"): {
+        // sessionStorage.setItem("searchParams", JSON.stringify(searchParamsFromStateCertificate));
         dispatch(getDataBoatsRegBySearchParams(searchParamsFromStateBoatsReg));
         break;
       }

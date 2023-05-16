@@ -1,0 +1,140 @@
+.caption_text {
+  font-size: 18px;
+}
+.buttons_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.add_button {
+  margin-top: 15px;
+  margin-left: 15px;
+  width: 150px;
+  height: 40px;
+  background: #2eabff;
+  box-shadow: 7px 7px 10px rgba(9, 9, 9, 0.18), -2px -2px 5px rgba(251, 252, 255, 0.05);
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add_button:hover {
+  cursor: pointer;
+  background-color: #1f86ca;
+  transition: 0.5s;
+}
+
+.edit_button {
+  margin-top: 15px;
+  margin-left: 15px;
+  width: 186px;
+  height: 40px;
+  border: 1px solid #2eabff;
+  box-shadow: 7px 7px 10px rgba(9, 9, 9, 0.18), -2px -2px 4px rgba(251, 252, 255, 0.1);
+  border-radius: 12px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit_button:hover {
+  cursor: pointer;
+  background-color: #64c1ff85;
+  transition: 0.5s;
+}
+
+.close_button {
+  margin-top: 15px;
+  margin-left: 15px;
+  width: 150px;
+  height: 40px;
+  border: 1px solid #2eabff;
+  box-shadow: 7px 7px 10px rgba(9, 9, 9, 0.18), -2px -2px 4px rgba(251, 252, 255, 0.1);
+  border-radius: 12px;
+  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close_button:hover {
+  cursor: pointer;
+  border: 1px solid red;
+  background-color: #ffc4c481;
+  transition: 0.5s;
+  color: black;
+}
+.disabled_button {
+  background-color: #a09f9f;
+  border: 1px solid #414141;
+  color: black;
+}
+.disabled_button:hover {
+  background-color: #a09f9f;
+  border: 1px solid #414141;
+  color: black;
+  cursor: default;
+}
+
+.primary_table {
+  width: 100%;
+  margin: 1em auto 0;
+  border-collapse: collapse;
+  border: 1px solid #767676;
+}
+.primary_table thead th {
+  text-align: center;
+  background: #D0E8FF;
+  padding: 0.3em 0.8em;
+  border: 1px solid #767676;
+}
+.primary_table tbody td {
+  padding: 0.3em 0.8em;
+  border: 1px solid #767676;
+}
+
+.col_check_head {
+  width: 6%;
+}
+.col_name_head {
+  width: 50%;
+}
+.col_number_head {
+  width: 22%;
+}
+.col_sum_head {
+  width: 22%;
+}
+
+.col_check_body {
+  width: 6%;
+}
+.col_name_body {
+  width: 50%;
+  text-align: start;
+}
+.col_number_body {
+  width: 22%;
+}
+.col_sum_body {
+  width: 22%;
+}
+
+.custom_checkbox {
+  margin: 0;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #0363A4;
+  border-radius: 4px;
+}
+.custom_checkbox:hover {
+  cursor: pointer;
+  background-color: #7fccffad;
+}
+.custom_checkbox_checked {
+  background: url("../../../../public/assets/ok_icons.png"),#1A8EDA;
+}

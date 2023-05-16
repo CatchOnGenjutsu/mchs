@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchBlock from "../../../components/SearchBlock/SearchBlock";
 import { MemoSearchTable } from "../../../components/SearchTable/SearchTable";
 import { SMALLBOATS_ADMIN_COLUMNS } from "../../../components/SearchTable/TablesColumns";
@@ -9,11 +9,14 @@ import {
   setOptionsForInputsATE,
 } from "../../../components/SearchBlock/inputsHeaders";
 import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
+import { getDataBoatsRegBySearchParams } from "../../../redux/actions";
 
 export default function SmallBoatsRegistration() {
   const [show, setShow] = useState(false);
   const [appId, setAppId] = useState(null);
   const [appStatusId, setAppStatusId] = useState(null);
+
+  const dispatch = useDispatch();
 
   const handleAppId = (value) => {
     // appId === value ? setAppId(null) : setAppId(value);
@@ -43,6 +46,16 @@ export default function SmallBoatsRegistration() {
     const { smallBoatsRegReducer } = state;
     return smallBoatsRegReducer.data;
   });
+  // useState(() => {
+  //   if (
+  //     window.performance
+  //       .getEntriesByType("navigation")
+  //       .map((nav) => nav.type)
+  //       .includes("reload")
+  //   ) {
+  //     dispatch(getDataBoatsRegBySearchParams(JSON.parse(sessionStorage.getItem("searchParams"))));
+  //   }
+  // }, []);
 
   return (
     <div>

@@ -4,27 +4,27 @@ export const NSIsettings = [
     title: "Классификатор маломерных судов",
   },
   {
-    id: "test1",
+    id: "adminproc",
     title: "Административные процедуры",
   },
   {
-    id: "test2",
+    id: "legislation",
     title: "Законодательство",
   },
   {
-    id: "test3",
+    id: "forms",
     title: "Бланки и заявления",
   },
   {
-    id: "test4",
+    id: "contacts",
     title: "Контакты",
   },
   {
-    id: "test5",
+    id: "paidproc",
     title: "Платные процедуры",
   },
   {
-    id: "test6",
+    id: "requisites",
     title: "Реквизиты для оплаты административных процедур и услуг оказываемых ГИМС",
   }
 ]

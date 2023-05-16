@@ -32,19 +32,21 @@ import {
 import styles from "./AppBoatReg.module.css";
 import { API_ADD_NEW_STATEMENT, MAIN_URL, PORT } from "../../../constants/constants";
 import ResultModalWindow from "../commonComponents/ResultModalWindow/ResultModalWindow";
+import { getDataBoatsRegBySearchParams } from "../../../redux/actions";
 
 export default function AppBoatReg() {
   const [isLoading, setIsLoading] = useState(true);
   const [showResultModal, setShowResultModal] = useState(false);
   const [registrationResult, setRegistrationResult] = useState("");
   const [appId, setAppId] = useState(null);
+  const [type, setType] = useState(null);
 
   const location = useLocation();
   const { mode } = location.state;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const type = window.location.pathname.includes("individual") ? 1 : 2;
+  // const type = mode !== "view" && window.location.pathname.includes("individual") ? 1 : 2;
 
   const boatCardAppEngList = useSelector((state) => {
     const { statementReducer } = state;
@@ -73,7 +75,6 @@ export default function AppBoatReg() {
   const [file, setFile] = useState();
 
   const errorsFields = [];
-  const path = window.location.pathname;
   if (type === 1) {
     Object.entries(fieldAddressOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
     Object.entries(fieldPassportOptions).map((item) =>
@@ -96,11 +97,16 @@ export default function AppBoatReg() {
   const handleErrors = () => {
     let newErrors = {};
     errorsFields.forEach((elem) => {
-      if (!newData[elem] || newData[elem] === "") {
-        newErrors[elem] = "Заполните поле";
+      if (elem !== "saCategory") {
+        if (!newData[elem] || newData[elem] === "") {
+          newErrors[elem] = "Заполните поле";
+        }
+      } else {
+        if (!newData.hasOwnProperty(elem)) {
+          newErrors[elem] = "Заполните поле";
+        }
       }
     });
-    console.log("newErrors", newErrors);
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return true;
@@ -178,12 +184,18 @@ export default function AppBoatReg() {
       const pathArray = window.location.pathname.split("/");
       const id = pathArray[pathArray.length - 1];
       dispatch(getBoatRegInfo(id));
+    } else {
+      setType(window.location.pathname.includes("individual") ? 1 : 2);
+      dispatch(
+        addNewStatementData({ [`personType`]: window.location.pathname.includes("individual") ? 1 : 2 }),
+      );
     }
+
     // ЗАГЛУШКИ
     dispatch(addNewStatementData({ [`inspector`]: 1 }));
     dispatch(addNewStatementData({ [`section`]: 1 }));
     dispatch(addNewStatementData({ [`tiketNum`]: 10000 }));
-    dispatch(addNewStatementData({ [`personType`]: type }));
+    // dispatch(addNewStatementData({ [`personType`]: type }));
     dispatch(
       addNewStatementData({ [`appDate`]: new Date().toLocaleDateString().split(".").reverse().join("-") }),
     );
@@ -265,12 +277,14 @@ export default function AppBoatReg() {
             />
           </div>
           <div className={styles.buttons_container}>
-            <Button
-              variant="primary"
-              className=""
-              onClick={(e) => handleSave(e)}>
-              Зарегистрировать
-            </Button>
+            {mode !== "view" && (
+              <Button
+                variant="primary"
+                className=""
+                onClick={(e) => handleSave(e)}>
+                Зарегистрировать
+              </Button>
+            )}
             <Button
               variant="danger"
               onClick={handleCloseApp}>

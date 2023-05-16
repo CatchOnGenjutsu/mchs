@@ -26,10 +26,9 @@ export async function getGorod(id) {
   if(response.ok){
     const result = await response.json();
     return result.map((item) => {
-      return { value: item.id, label: item.name, key: "gorodId" };
+      return { value: item.id, label: item.name2, key: "gorodId" };
     });
-  }else return []
-
+  } else return []
 }
 
 export async function setOptionsTypesBoat() {

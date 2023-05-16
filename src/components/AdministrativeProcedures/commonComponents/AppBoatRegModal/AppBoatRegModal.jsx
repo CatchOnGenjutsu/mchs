@@ -22,11 +22,7 @@ export default function AppBoatRegModal({ updateData,setShowModal, showModal, mo
   console.log(errorsFields);
 
   const handleChange = (e) => {
-    // if (!!e.target) {
     newData[e.target.dataset.id] = e.currentTarget.value;
-    // } else {
-    //   newData[e.key] = e.value;
-    // }
     if (saveKey) handleErrors();
   };
 
@@ -157,21 +153,6 @@ export default function AppBoatRegModal({ updateData,setShowModal, showModal, mo
                           </option>
                         ))}
                       </Form.Select>
-                      {/* <Select
-                  // ${styles.search_select}
-                  classNamePrefix="select"
-                  placeholder="Выберите..."
-                  data-id={item.key}
-                  onChange={(e) => handleChange(e)}
-                  // defaultValue={item.selectOption[0]}
-                  aria-invalid=''
-                  // {
-                  //   errors[item.key] !== undefined ? "true" : "false"
-                  // }
-                  isSearchable={false}
-                  name={item.key}
-                  options={item.selectOptions}
-                /> */}
                     </Form.Group>
                   );
                 case "date":

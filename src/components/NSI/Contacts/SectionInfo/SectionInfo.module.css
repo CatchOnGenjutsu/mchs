@@ -1,0 +1,41 @@
+.add_button {
+  margin-top: 15px;
+  margin-left: 15px;
+  width: 150px;
+  height: 40px;
+  background: #2eabff;
+  box-shadow: 7px 7px 10px rgba(9, 9, 9, 0.18), -2px -2px 5px rgba(251, 252, 255, 0.05);
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add_button:hover {
+  cursor: pointer;
+  background-color: #1f86ca;
+  transition: 0.5s;
+}
+.primary_table {
+  width: 100%;
+  margin: 1em auto 0;
+  border-collapse: collapse;
+  border: 1px solid #767676; 
+  text-align: start;
+}
+.primary_table thead th {
+  font-size: 20px;
+  background: #F7F7F7;
+  padding: 0.3em 0.8em;
+  border: 1px solid #767676;
+}
+.primary_table tbody td {
+  padding: 0.3em 0.8em;
+  border: 1px solid #767676;
+}
+.col_other {
+  width: 26%;
+}
+.col_tel {
+  width: 22%;
+}

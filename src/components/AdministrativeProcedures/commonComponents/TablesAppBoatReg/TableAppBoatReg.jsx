@@ -8,6 +8,7 @@ export default function TableAppBoatReg({ updateData,tableOptions, dataForTable,
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
   const dispatch = useDispatch();
+  
   const dataReg = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer[typeTable];
@@ -87,22 +88,28 @@ export default function TableAppBoatReg({ updateData,tableOptions, dataForTable,
                     case "date":
                       return <td>{elem[`${item.key}`].split("-").reverse().join(".")}</td>;
                     default:
-                      return <td>{elem[`${item.key}`]}</td>;
+                      if (item.key === "engtype") {
+                        return <td>{elem[`${item.key}`] === 1 ? "Бензиновый" : "Электрический"}</td>;
+                      } else {
+                        return <td>{elem[`${item.key}`]}</td>;
+                      }
                   }
                 })}
                 {data.length > 0 && mode !== "view" && (
                   <td className={styles.edit__column}>
-                    {elem.hasOwnProperty('innerId')?(
-                        <button
-                            className={`${styles.delete__buttons} btn btn-danger`}
-                            // data-tabletype={documentsTableColumns.keyTable}
-                            // data-docname={elem.docname}
-                            // data-doctype="file"
-                            id={elem.innerId}
-                            onClick={(e) => handleDeleteNote(e)}>
-                          &#10006;
-                        </button>
-                    ):''}
+                    {elem.hasOwnProperty("innerId") ? (
+                      <button
+                        className={`${styles.delete__buttons} btn btn-danger`}
+                        // data-tabletype={documentsTableColumns.keyTable}
+                        // data-docname={elem.docname}
+                        // data-doctype="file"
+                        id={elem.innerId}
+                        onClick={(e) => handleDeleteNote(e)}>
+                        &#10006;
+                      </button>
+                    ) : (
+                      ""
+                    )}
                   </td>
                 )}
               </tr>

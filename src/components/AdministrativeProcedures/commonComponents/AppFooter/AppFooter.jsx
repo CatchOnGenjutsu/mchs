@@ -59,9 +59,7 @@ export default function AppFooter({ inputData,mode,updateNewData, handleFile }) 
         <div className={styles.file_area}>
           <p className="me-2">Файл заявления:</p>
           <a
-            href={`${MAIN_URL}${PORT}${API_ADD_STATEMENT_FILE_DOWNLOAD}${
-              data[data.fileType].docname
-            }`}>
+            href={`${MAIN_URL}${PORT}${API_ADD_STATEMENT_FILE_DOWNLOAD}${data[data.fileType].docid}`}>
             {data[data.fileType].docname}
           </a>
         </div>

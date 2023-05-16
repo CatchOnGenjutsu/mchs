@@ -122,7 +122,11 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
                     value={data[option.key]}
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
-                    isInvalid={!!errors[option.key]}
+                    isInvalid={
+                      !!errors[option.key] || newStatement[option.key]
+                        ? newStatement[option.key].length > option.maxlength
+                        : false
+                    }
                   />
                 </Form.Group>
               );

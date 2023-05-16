@@ -77,7 +77,11 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                     readOnly={option.readOnly}
                     disabled={option.disabled || mode === "view" ? true : false}
                     value={newStatement[option.key]}
-                    isInvalid={!!errors[option.key]}
+                    isInvalid={
+                      !!errors[option.key] || newStatement[option.key]
+                        ? newStatement[option.key].length > option.maxlength
+                        : false
+                    }
                   />
                 </Form.Group>
               );

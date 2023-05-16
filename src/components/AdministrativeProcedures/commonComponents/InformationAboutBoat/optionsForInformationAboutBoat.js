@@ -7,6 +7,7 @@ export const fieldBoatOptions = {
     readOnly: false,
     disabled: false,
     required: true,
+    maxlength: 15,
   },
   parkingPlace: {
     key: "parkingPlace",
