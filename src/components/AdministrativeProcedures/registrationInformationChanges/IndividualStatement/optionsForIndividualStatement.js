@@ -16,8 +16,8 @@ export const optionSelectChangeType = [
         value:'Аренда, лизинг'
     }
 ]
-export const boatCardAppEngDtoList = {
-    keyTable: 'boatCardAppEngDtoList',
+export const enginesList = {
+    keyTable: 'enginesList',
     caption: "Сведения о двигателе маломерного судна (при его наличии)",
     nameColumn: [
         {
@@ -68,8 +68,8 @@ export const boatCardAppEngDtoList = {
         },
     ]
 }
-export const boatCardAppSmDtoList = {
-    keyTable: "boatCardAppSmDtoList",
+export const boatCardSpecmarksList = {
+    keyTable: "boatCardSpecmarksList",
     caption: "Особые отметки",
     nameColumn: [
         {
@@ -92,8 +92,8 @@ export const boatCardAppSmDtoList = {
         },
     ],
 };
-export const boatCardAppDealsDtoList = {
-    keyTable: "boatCardAppDealsDtoList",
+export const boatCardModifDealsDtoList = {
+    keyTable: "boatCardModifDealsDtoList",
     caption: "Информация о совершаемых в отношении судна сделок",
     nameColumn: [
         {

@@ -26,10 +26,6 @@ export function getDataRegInfChangeBySearchParams(params) {
             console.log(data)
             for (let item of data) {
                 item["fio"] = `${item.ownerMidname?item.ownerMidname:""} ${item.ownerName?item.ownerName:""} ${item.ownerSurname?item.ownerSurname:""}`;
-                if(item.rayonId){
-                    item["rayonName"] = ateLibrary.find((elem) => elem.uiddistrict === item.rayonId).namedistrictRu
-                }else {item["rayonName"] = ''}
-
             }
             dispatch({
                 type: GET_REG_INFORM_CHANGES,

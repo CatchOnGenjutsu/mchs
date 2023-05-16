@@ -76,7 +76,7 @@ function App() {
               <Route path="/reginformationchanges" element={<RegistrationInformationChanges/>}/>
               <Route path="/reginformationchanges/searchboatcard" element={<FormSearchBoatCard/>}/>
               <Route path="/reginformationchanges/individual/add" element={<IndividualStatement/>}/>
-              <Route path="/reginformationchanges/entity/add" element={<EntityStatement/>}/>
+              <Route path="/reginformationchanges/entity/add" element={<IndividualStatement/>}/>
               <Route path="/nsi" element={<NSI/>}/>
               <Route path="/nsi/classificationBoats" element={<ClassificationBoats/>}/>
               <Route path="/nsi/legislation" element={<Legislation/>}/>

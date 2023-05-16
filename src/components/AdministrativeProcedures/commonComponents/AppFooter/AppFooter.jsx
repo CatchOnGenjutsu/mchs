@@ -7,7 +7,7 @@ import { MAIN_URL, PORT, API_ADD_STATEMENT_FILE_DOWNLOAD } from "../../../../con
 
 import styles from "./AppFooter.module.css";
 
-export default function AppFooter({ mode, handleFile }) {
+export default function AppFooter({ inputData,mode,updateNewData, handleFile }) {
   const [newInfo, setNewInfo] = useState({
     appDate: new Date().toLocaleDateString().split(".").reverse().join("-"),
   });
@@ -16,6 +16,7 @@ export default function AppFooter({ mode, handleFile }) {
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
+  const data = !!inputData?{...inputData}:{...newStatement}
   const handleChange = (e) => {
     switch (true) {
       case e.target.id === "file":
@@ -25,7 +26,10 @@ export default function AppFooter({ mode, handleFile }) {
         }
         break;
       default:
-        dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+        if(!window.location.pathname.includes('reginformationchanges')){
+          dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));}else {
+          updateNewData(e.target.id, e.currentTarget.value)
+        }
         break;
     }
     newInfo[`${e.target.id}`] = e.target.value;
@@ -51,14 +55,12 @@ export default function AppFooter({ mode, handleFile }) {
           </Form.Control.Feedback> */}
         </Form.Group>
       )}
-      {newStatement.fileType && (
+      {data.fileType && (
         <div className={styles.file_area}>
           <p className="me-2">Файл заявления:</p>
           <a
-            href={`${MAIN_URL}${PORT}${API_ADD_STATEMENT_FILE_DOWNLOAD}${
-              newStatement[newStatement.fileType].docid
-            }`}>
-            {newStatement[newStatement.fileType].docname}
+            href={`${MAIN_URL}${PORT}${API_ADD_STATEMENT_FILE_DOWNLOAD}${data[data.fileType].docid}`}>
+            {data[data.fileType].docname}
           </a>
         </div>
       )}
@@ -66,7 +68,7 @@ export default function AppFooter({ mode, handleFile }) {
         <Form.Label>Количество листов:</Form.Label>
         <Form.Control
           id="appSheetCnt"
-          value={newStatement.appSheetCnt}
+          value={data.appSheetCnt}
           type="text"
           readOnly={mode === "view"}
           disabled={mode === "view" ? true : false}
@@ -79,7 +81,7 @@ export default function AppFooter({ mode, handleFile }) {
         <Form.Label>Должностное лицо:</Form.Label>
         <Form.Control
           id="inspector"
-          value={newStatement.inspector}
+          value={data.inspector}
           type="text"
           readOnly={mode === "view"}
           disabled={mode === "view" ? true : false}
@@ -92,7 +94,7 @@ export default function AppFooter({ mode, handleFile }) {
         <Form.Label>Дата подачи заявления:</Form.Label>
         <Form.Control
           id="appDate"
-          value={newStatement.appDate}
+          value={data.appDate}
           type="date"
           readOnly={mode === "view"}
           disabled={mode === "view" ? true : false}

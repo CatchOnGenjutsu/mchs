@@ -19,6 +19,7 @@ export default function SearchTable({ setId, setStatusId, headerColumns, dataFro
     pageIndex: 0,
     pageSize: 10,
   });
+  console.log(dataFromState)
   const [selectedRow, setSelectedRow] = useState(null);
   const columns = useMemo(() => headerColumns, [headerColumns]);
   const {

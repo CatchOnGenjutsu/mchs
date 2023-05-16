@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
 import { deleteNewNote } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable, mode }) {
+export default function TableAppBoatReg({ updateData,tableOptions, dataForTable, typeTable, mode }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
   const dispatch = useDispatch();
-  // const dataChange = dataForTable;
-
+  
   const dataReg = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer[typeTable];
@@ -25,6 +24,7 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
   };
   const handleDeleteNote = (e) => {
     e.preventDefault();
+    if(!window.location.pathname.includes('reginformationchanges')){
     let noteForDelete;
     switch (tableOptions.keyTable) {
       case "boatCardAppEngDtoList":
@@ -48,7 +48,10 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
       default:
         break;
     }
-    dispatch(deleteNewNote(noteForDelete));
+    dispatch(deleteNewNote(noteForDelete));}else {
+      updateData(tableOptions.keyTable,e.target.id,'delete')
+    }
+
   };
 
   return (
@@ -77,7 +80,7 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
                           <input
                             type="checkbox"
                             className={styles.checkbox}
-                            checked={elem.asmLock}
+                            checked={elem.asmLock||elem.msmLock}
                             disabled
                           />
                         </td>
@@ -128,6 +131,7 @@ export default function TableAppBoatReg({ tableOptions, dataForTable, typeTable,
           showModal={showModal}
           modalWindowInputs={tableOptions}
           dataForCheck={data}
+          updateData={updateData}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   optionInfoRepresentPersonSummary,
@@ -13,39 +13,50 @@ import Select from "react-select";
 
 import styles from "./InfoRepresentPerson.module.css";
 
-export default function InfoRepresentPerson({ mode }) {
+export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
   const selectRayonRef = useRef();
   const selectGorodRef = useRef();
+  const selectOblRef = useRef();
+  const selectDocTypeRef = useRef();
   const dispatch = useDispatch();
 
   const newStatement = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
-
+  const [rerender,setRerender]=useState(false)
+  const data = !!inputData?{...inputData}:{...newStatement}
   const halfControls = "agentSurname agentName agentMidname agentDocDepartment agentPersNum agentDoverennost";
 
   const handleValue = async (e) => {
     if (e) {
       switch (true) {
         case Object.keys(e).includes("target"):
+          updateNewData(e.target.id, e.currentTarget.value);
+          if(!window.location.pathname.includes('reginformationchanges')){
           dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+          }
           break;
         case Object.keys(e).includes("key"):
-          console.log(e.key);
           switch (e.key) {
             case "agentOblId":
               selectRayonRef.current.clearValue();
               selectGorodRef.current.clearValue();
+              updateNewData('agentGorodId', null);
+              updateNewData('agentRayonId', null);
               await setOptionsRayonForOblast(e.value);
               break;
             case "agentRayonId":
+              updateNewData('agentGorodId', null)
               await setOptionsGorodForRayon(e.value);
               break;
             default:
               break;
           }
+          updateNewData(e.key, e.value);
+          if(!window.location.pathname.includes('reginformationchanges')){
           dispatch(addNewStatementData({ [`${e.key}`]: e.value }));
+          }
           break;
         default:
           break;
@@ -55,14 +66,25 @@ export default function InfoRepresentPerson({ mode }) {
 
   const setRef = (item) => {
     switch (item.key) {
+      case "agentOblId":
+        return selectOblRef;
       case "agentRayonId":
         return selectRayonRef;
       case "agentGorodId":
         return selectGorodRef;
+      case "agentDocType":
+        return selectDocTypeRef;
       default:
         return null;
     }
   };
+  useEffect(()=>{
+    setRerender(!rerender)
+    selectOblRef.current.clearValue();
+    selectRayonRef.current.clearValue();
+    selectGorodRef.current.clearValue();
+    selectDocTypeRef.current.clearValue();
+  },[inputData])
   return (
     <>
       <h3 className={styles.text_secondary}>Сведения о представителе заинтересованного лица</h3>
@@ -83,12 +105,13 @@ export default function InfoRepresentPerson({ mode }) {
                       className={`${
                         !halfControls.includes(item.key) ? styles.half_controls : styles.wide_controls
                       }`}
+                      ref={setRef(item)}
                       // ${styles.search_select}
                       classNamePrefix="select"
                       placeholder="Выберите..."
                       data-id={item.key}
                       onChange={(e) => handleValue(e)}
-                      value={item.selectOption.find((item) => item.value === newStatement[item.key])}
+                      value={item.selectOption.find((item) => item.value === data[item.key])}
                       isDisabled={mode === "view" ? true : false}
                       isSearchable={false}
                       name={item.key}
@@ -116,7 +139,7 @@ export default function InfoRepresentPerson({ mode }) {
                       readOnly={item.readOnly || mode === "view"}
                       disabled={mode === "view" ? true : false}
                       type={item.type}
-                      value={newStatement[item.key]}
+                      value={data[item.key]}
                       onChange={(e) => handleValue(e)}
                     />
                   </Form.Group>
@@ -140,7 +163,7 @@ export default function InfoRepresentPerson({ mode }) {
                       classNamePrefix="select"
                       placeholder="Выберите"
                       id={item.key}
-                      value={item.selectOption.find((item) => item.value === newStatement[item.key])}
+                      value={item.selectOption.find((item) => item.value === data[item.key])}
                       isDisabled={item.disabled || mode === "view" ? true : false}
                       isSearchable={item.isSearchable}
                       name={item.key}
@@ -169,7 +192,7 @@ export default function InfoRepresentPerson({ mode }) {
                       readOnly={item.readOnly || mode === "view"}
                       disabled={mode === "view" ? true : false}
                       type={item.type}
-                      value={newStatement[item.key]}
+                      value={data[item.key]}
                       onChange={(e) => handleValue(e)}
                     />
                   </Form.Group>
@@ -192,7 +215,7 @@ export default function InfoRepresentPerson({ mode }) {
           readOnly={agentDoverennost.readOnly || mode === "view"}
           disabled={mode === "view" ? true : false}
           // isInvalid={!!errors[el.key]}
-          value={newStatement[agentDoverennost.key]}
+          value={data[agentDoverennost.key]}
           onChange={(e) => handleValue(e)}
         />
       </Form.Group>

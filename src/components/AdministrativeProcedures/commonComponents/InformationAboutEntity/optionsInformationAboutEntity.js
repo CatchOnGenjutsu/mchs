@@ -1,4 +1,4 @@
-import { setRayon, setGorod } from "../utilities";
+import { getRayon, getGorod } from "../utilities";
 
 export const fieldLEInformOptions = {
   nameLe: {
@@ -125,14 +125,14 @@ export const fieldAddressOptions = {
 export async function setOptions(id, key) {
   switch (key) {
     case "oblId": {
-      fieldAddressOptions.rayonId.options = await setRayon(id);
+      fieldAddressOptions.rayonId.options = await getRayon(id);
       fieldAddressOptions.rayonId.disabled = false;
       fieldAddressOptions.gorodId.options = [];
       fieldAddressOptions.gorodId.disabled = true;
       return fieldAddressOptions;
     }
     case "rayonId": {
-      fieldAddressOptions.gorodId.options = await setGorod(id);
+      fieldAddressOptions.gorodId.options = await getGorod(id);
       fieldAddressOptions.gorodId.disabled = false;
       return fieldAddressOptions;
     }

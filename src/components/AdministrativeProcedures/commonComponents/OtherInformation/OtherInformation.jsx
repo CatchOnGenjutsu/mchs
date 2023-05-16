@@ -1,18 +1,21 @@
-import React from "react";
+import {useState} from "react";
 import { Form } from "react-bootstrap";
 import styles from "./OtherInformation.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function OtherInformation({ mode }) {
+export default function OtherInformation({inputData, updateNewData, mode }) {
   const dispatch = useDispatch();
   const handleChange = (e) => {
-    dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+    updateNewData(e.target.id, e.target.value);
+    if(!window.location.pathname.includes('reginformationchanges')){
+    dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));}
   };
   const newStatement = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
+  const data = !!inputData?{...inputData}:{...newStatement}
   return (
     <>
       <h3>Иные сведения</h3>
@@ -23,7 +26,7 @@ export default function OtherInformation({ mode }) {
           type="text"
           readOnly={mode === "view"}
           disabled={mode === "view" ? true : false}
-          value={newStatement["note"]}
+          value={data["note"]}
         />
         <Form.Label>
           Сведения о том, находится ли маломерное судно в хозяйственном ведении или оперативном управлении
@@ -38,7 +41,7 @@ export default function OtherInformation({ mode }) {
           type="text"
           readOnly={mode === "view"}
           disabled={mode === "view" ? true : false}
-          value={newStatement["note2"]}
+          value={data["note2"]}
         />
         <Form.Label>
           Сведения о том, передано ли маломерное судно в аренду, лизинг (если передано, то указать фамилию,

@@ -5,7 +5,7 @@ import {
   API_GET_DICTIONARY_GOROD_FOR_RAYON,
 } from "../../../../constants/constants";
 
-import {setRayon,setGorod} from '../utilities'
+import {getRayon,getGorod} from '../utilities'
 
 export const optionInfoRepresentPersonSummary = {
   agentSurname: {
@@ -141,55 +141,48 @@ export const setOptionsRayonForOblast = async (id) => {
   const response = await fetch(
     MAIN_URL + PORT + API_GET_DICTIONARY_RAYON_FOR_OBL + id,
   );
-  const result = await response.json();
-  console.log("agentOblId", result)
-  optionInfoRepresentPersonAddress.agentRayonId.selectOption.length = 0;
-  result.forEach((item) => {
-    optionInfoRepresentPersonAddress.agentRayonId.selectOption.push({
-      value: item.id,
-      label: item.name,
-      key: "agentRayonId",
+
+  if(response.ok){
+    const result = await response.json();
+    optionInfoRepresentPersonAddress.agentRayonId.selectOption.length = 0;
+    result.forEach((item) => {
+
+      optionInfoRepresentPersonAddress.agentRayonId.selectOption.push({
+        value: item.id,
+        label: item.name,
+        key: "agentRayonId",
+      });
     });
-  });
+  }else {
+    optionInfoRepresentPersonAddress.agentRayonId.selectOption = []
+  }
+  console.log(optionInfoRepresentPersonAddress.agentRayonId)
+
   optionInfoRepresentPersonAddress.agentRayonId.disabled = false;
   optionInfoRepresentPersonAddress.agentGorodId.disabled = true;
   optionInfoRepresentPersonAddress.agentGorodId.selectOption = [];
+
   // return optionInfoRepresentPersonAddress;
 };
-
-
-// export async function setOptions(id,key) {
-//   switch (key) {
-//       case "oblId":{
-//           fieldAddressOptions.rayonId.options = await setRayon(id, "optionsForInformationAboutIndividual")
-//           fieldAddressOptions.rayonId.disabled=false
-//           fieldAddressOptions.gorodId.options = []
-//           fieldAddressOptions.gorodId.disabled = true
-//           return fieldAddressOptions
-//       }
-//       case "rayonId":{
-//           fieldAddressOptions.gorodId.options = await  setGorod(id, "optionsForInformationAboutIndividuals")
-//           fieldAddressOptions.gorodId.disabled = false
-//           return fieldAddressOptions
-//       }
-//       default: return fieldAddressOptions
-
-//   }
-
-// }
 export const setOptionsGorodForRayon = async (id) => {
   const response = await fetch(
     MAIN_URL + PORT + API_GET_DICTIONARY_GOROD_FOR_RAYON + id,
   );
-  const result = await response.json();
-  optionInfoRepresentPersonAddress.agentGorodId.selectOption.length = 0;
-  result.forEach((item) => {
-    optionInfoRepresentPersonAddress.agentGorodId.selectOption.push({
-      value: item.id,
-      label: item.name2,
-      key: "agentGorodId",
+
+  if(response.ok){
+    const result = await response.json();
+    optionInfoRepresentPersonAddress.agentGorodId.selectOption.length = 0;
+    result.forEach((item) => {
+      optionInfoRepresentPersonAddress.agentGorodId.selectOption.push({
+        value: item.id,
+        label: item.name2,
+        key: "agentGorodId",
+      });
     });
-  });
+  }else{
+    optionInfoRepresentPersonAddress.agentGorodId.selectOption = []
+  }
+
   optionInfoRepresentPersonAddress.agentGorodId.disabled = false;
 
 };
