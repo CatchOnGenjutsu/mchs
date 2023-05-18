@@ -8,42 +8,43 @@ import { inputsFindBoatToChange } from "../../components/SearchBlock/inputsHeade
 import { COLUMNS_FORM_SEARCH_BOAT_CARDS } from "../../components/SearchTable/TablesColumns";
 
 function FormSearchBoatCard() {
-	const [show, setShow] = useState(false);
-	const [boatCardId, setBoatCardId] = useState(null);
-	const [addBtnDis, setAddBtnDis] = useState(true);
-	const handleBoatCardId = (value) => {
-		setBoatCardId(value);
-	};
+  const [show, setShow] = useState(false);
+  const [boatCardId, setBoatCardId] = useState(null);
+  const [addBtnDis, setAddBtnDis] = useState(true);
+  const handleBoatCardId = (value) => {
+    console.log(value);
+    setBoatCardId(value);
+  };
 
-	const dataBoatCards = useSelector((state) => {
-		const { registrationInformationChangesReducer } = state;
-		return registrationInformationChangesReducer.dataBoatCards;
-	});
+  const dataBoatCards = useSelector((state) => {
+    const { registrationInformationChangesReducer } = state;
+    return registrationInformationChangesReducer.dataBoatCards;
+  });
 
-	return (
-		<>
-			<h2>Поиск маломерного судна для подачи заявления</h2>
-			<SearchBlock inputsHeaders={Object.values(inputsFindBoatToChange)} />
-			<ToolBlock
-				id={boatCardId}
-				data={dataBoatCards}
-				setShow={setShow}
-				addBtnDisIn={!Boolean(boatCardId)}
-			/>
-			<SearchTable
-				setId={handleBoatCardId}
-				dataFromState={dataBoatCards}
-				headerColumns={COLUMNS_FORM_SEARCH_BOAT_CARDS}
-			/>
-			{show && (
-				<ModalWindow
-					show={show}
-					setShow={setShow}
-					idBoadCard={boatCardId}
-				/>
-			)}
-		</>
-	);
+  return (
+    <>
+      <h2>Поиск маломерного судна для подачи заявления</h2>
+      <SearchBlock inputsHeaders={Object.values(inputsFindBoatToChange)} />
+      <ToolBlock
+        id={boatCardId}
+        data={dataBoatCards}
+        setShow={setShow}
+        addBtnDisIn={!Boolean(boatCardId)}
+      />
+      <SearchTable
+        setId={handleBoatCardId}
+        dataFromState={dataBoatCards}
+        headerColumns={COLUMNS_FORM_SEARCH_BOAT_CARDS}
+      />
+      {show && (
+        <ModalWindow
+          show={show}
+          setShow={setShow}
+          idBoadCard={boatCardId}
+        />
+      )}
+    </>
+  );
 }
 
 export default FormSearchBoatCard;
