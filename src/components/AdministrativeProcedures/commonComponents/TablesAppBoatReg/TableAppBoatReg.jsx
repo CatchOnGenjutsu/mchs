@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
 import { deleteNewNote } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function TableAppBoatReg({ updateData,tableOptions, dataForTable, typeTable, mode }) {
+export default function TableAppBoatReg({ updateData, tableOptions, dataForTable, typeTable, mode }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
   const dispatch = useDispatch();
-  
+
   const dataReg = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer[typeTable];
@@ -24,34 +24,34 @@ export default function TableAppBoatReg({ updateData,tableOptions, dataForTable,
   };
   const handleDeleteNote = (e) => {
     e.preventDefault();
-    if(!window.location.pathname.includes('reginformationchanges')){
-    let noteForDelete;
-    switch (tableOptions.keyTable) {
-      case "boatCardAppEngDtoList":
-        noteForDelete = {
-          id: e.target.id,
-          type: "boatCardAppEngDtoList",
-        };
-        break;
-      case "boatCardAppSmDtoList":
-        noteForDelete = {
-          id: e.target.id,
-          type: "boatCardAppSmDtoList",
-        };
-        break;
-      case "boatCardAppDealsDtoList":
-        noteForDelete = {
-          id: e.target.id,
-          type: "boatCardAppDealsDtoList",
-        };
-        break;
-      default:
-        break;
+    if (!window.location.pathname.includes("reginformationchanges")) {
+      let noteForDelete;
+      switch (tableOptions.keyTable) {
+        case "boatCardAppEngDtoList":
+          noteForDelete = {
+            id: e.target.id,
+            type: "boatCardAppEngDtoList",
+          };
+          break;
+        case "boatCardAppSmDtoList":
+          noteForDelete = {
+            id: e.target.id,
+            type: "boatCardAppSmDtoList",
+          };
+          break;
+        case "boatCardAppDealsDtoList":
+          noteForDelete = {
+            id: e.target.id,
+            type: "boatCardAppDealsDtoList",
+          };
+          break;
+        default:
+          break;
+      }
+      dispatch(deleteNewNote(noteForDelete));
+    } else {
+      updateData(tableOptions.keyTable, e.target.id, "delete");
     }
-    dispatch(deleteNewNote(noteForDelete));}else {
-      updateData(tableOptions.keyTable,e.target.id,'delete')
-    }
-
   };
 
   return (
@@ -80,7 +80,7 @@ export default function TableAppBoatReg({ updateData,tableOptions, dataForTable,
                           <input
                             type="checkbox"
                             className={styles.checkbox}
-                            checked={elem.asmLock||elem.msmLock}
+                            checked={elem.asmLock || elem.msmLock}
                             disabled
                           />
                         </td>

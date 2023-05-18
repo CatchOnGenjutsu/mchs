@@ -268,6 +268,51 @@ export const inputsFindBoatToChange ={
   }
 }
 
+export const inputsHeadersDuplicateShipsTicket = {
+  surname:{
+    key: "surname",
+    value: "Фамилия",
+    type:'text'
+  },
+  name:{
+    key: "name",
+    value: "Имя",
+    type:'text'
+  },
+  midname: {
+    key: "midname",
+    value: "Отчество",
+    type:'text'
+  },
+  appNum:{
+    key: "regNum",
+    value: "Рег. номер судна",
+    type:'text'
+  },
+  unp:{
+    key: "unp",
+    value: "УНП",
+    type:'text'
+  },
+  nameLe:{
+    key: "nameLe",
+    value: "Наименование организации",
+    type:'text'
+  },
+  rayonId: {
+    key: "rayonId",
+    value: "Участок",
+    type:'selectRayon',
+    selectOption:[{value:0, label:'Все'}]
+  },
+  status: {
+    key: "status",
+    value: "Статус",
+    type:'select',
+    selectOption:[{id:0,value:'Все'},{id:3,value:'К выдаче'},{id:8,value:'Выдан'},{id:2,value:'Отказано'}]
+  }
+}
+
 export const setOptionsForInputs = (nsiCheckStatusOptions)=>{
   if(inputsHeadersBasesBuildings.checkStatus.selectOption.length === 1) {
     inputsHeadersBasesBuildings.checkStatus.selectOption.push(...nsiCheckStatusOptions)
@@ -284,6 +329,11 @@ export const setOptionsForInputsATE = (inputsOptions, path)=>{
     case "reginformationchanges":
       if(inputsRegInformChange.rayonId.selectOption.length === 1) {
         inputsRegInformChange.rayonId.selectOption.push(...inputsOptions)
+      }
+      break;
+    case "dupshipsticket":
+      if(inputsHeadersDuplicateShipsTicket.rayonId.selectOption.length === 1) {
+        inputsHeadersDuplicateShipsTicket.rayonId.selectOption.push(...inputsOptions)
       }
       break;
   }

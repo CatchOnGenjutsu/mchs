@@ -1,4 +1,4 @@
-import { useState, useRef ,useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import styles from "./InformationAboutIndividual.module.css";
@@ -6,17 +6,16 @@ import {
   fieldPassportOptions,
   fieldAddressOptions,
   setOptions,
-  getOptions
+  getOptions,
 } from "./optionsForInformationAboutIndividual";
 import Select from "react-select";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
-
 
 function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleErrors, errors, mode }) {
   const selectGorodRef = useRef();
   const selectRayonRef = useRef();
   const selectOblRef = useRef();
-  const selectDocTypeRef =useRef();
+  const selectDocTypeRef = useRef();
   const dispatch = useDispatch();
   const [options, setoptions] = useState({
     passport: fieldPassportOptions,
@@ -26,14 +25,14 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
- const [rerender,setRerender]=useState(false)
- const data = !!inputData?{...inputData}:{...newStatement}
- async function handleChangeSelectSearch(event) {
+  const [rerender, setRerender] = useState(false);
+  const data = !!inputData ? { ...inputData } : { ...newStatement };
+  async function handleChangeSelectSearch(event) {
     if (event) {
       switch (true) {
         case Object.keys(event).includes("target"):
           updateNewData(event.target.id, event.currentTarget.value);
-          if(!window.location.pathname.includes('reginformationchanges')){
+          if (!window.location.pathname.includes("reginformationchanges")) {
             dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
           }
           break;
@@ -45,21 +44,21 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
           switch (event.key) {
             case "rayonId": {
               selectGorodRef.current.clearValue();
-              updateNewData('gorodId', null)
+              updateNewData("gorodId", null);
               break;
             }
             case "oblId": {
               selectRayonRef.current.clearValue();
               selectGorodRef.current.clearValue();
-              updateNewData('gorodId', null)
-              updateNewData('rayonId', null)
+              updateNewData("gorodId", null);
+              updateNewData("rayonId", null);
               break;
             }
             default:
               break;
           }
           updateNewData(event.key, event.value);
-          if(!window.location.pathname.includes('reginformationchanges')){
+          if (!window.location.pathname.includes("reginformationchanges")) {
             dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
           }
           break;
@@ -85,21 +84,21 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
     }
   }
 
-  useEffect(()=>{
-    setRerender(!rerender)
+  useEffect(() => {
+    setRerender(!rerender);
     selectOblRef.current.clearValue();
     selectRayonRef.current.clearValue();
     selectGorodRef.current.clearValue();
     selectDocTypeRef.current.clearValue();
-   async function setOptionsForAdress(){
-        await setOptions(data['oblId'],'oblId' )
-        await setOptions(data['rayonId'],'rayonId')
-     setoptions(getOptions)
-   }
-   setOptionsForAdress()
-  },[inputData])
+    async function setOptionsForAdress() {
+      await setOptions(data["oblId"], "oblId");
+      await setOptions(data["rayonId"], "rayonId");
+      setoptions(getOptions);
+    }
+    setOptionsForAdress();
+  }, [inputData]);
 
-  console.log("OPTIONS",options,'DATA',data)
+  console.log("OPTIONS", options, "DATA", data);
   return (
     <>
       <h3>Сведения о заинтересованном лице</h3>
@@ -123,9 +122,10 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
                     isInvalid={
-                      !!errors[option.key] || newStatement[option.key]
-                        ? newStatement[option.key].length > option.maxlength
-                        : false
+                      !!errors[option.key] ||
+                      (!!option.maxlength && !!data[option.key]
+                        ? data[option.key].length > option.maxlength
+                        : false)
                     }
                   />
                 </Form.Group>

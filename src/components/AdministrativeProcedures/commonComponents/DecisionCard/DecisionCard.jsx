@@ -105,7 +105,7 @@ export default function DecisionCard() {
         Регистрационный номер заявления <span>{appDecisionData.appNum}</span>
       </div>
       <div>
-        Дата подачи заявления<span>{appDecisionData.appDate}</span>
+        Дата подачи заявления <span>{appDecisionData.appDate}</span>
       </div>
       <div className="mb-3">
         <table className={styles.primary_table}>

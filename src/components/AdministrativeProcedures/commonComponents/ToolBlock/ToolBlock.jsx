@@ -13,46 +13,28 @@ import view_icon from "../../../../resourсes/view_icon.svg";
 function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }) {
   const url = new URL(document.location.href);
   const pathName = url.pathname.slice(1);
+  console.log(pathName);
   const navigate = useNavigate();
+  const buttonsNames = {
+    addBtnText: "Добавить заявление",
+    viewBtnText: "Просмотр",
+    editBtnText: "Взять в работу",
+    openBtnText: "Просмотр РК",
+  };
 
-  const [addBtnText, setAddBtnText] = useState(() => {
+  const handleButtonOpen = async (event) => {
     switch (true) {
-      case pathName.includes("smallboatsreg"):
-        return "Добавить заявление";
-      default:
+      case pathName.includes("reginformationchanges/searchboatcard"): {
+        navigate(`/smallboats/boatId/${id}`);
         break;
+      }
     }
-  });
-  const [viewBtnText, setViewBtnText] = useState(() => {
-    switch (true) {
-      case pathName.includes("smallboatsreg"):
-        return "Просмотр";
-      default:
-        break;
-    }
-  });
-  const [openBtnText, setOpenBtnText] = useState(() => {
-    switch (true) {
-      case pathName.includes("smallboatsreg"):
-        return "Взять в работу";
-      default:
-        break;
-    }
-  });
+  };
 
   const handleButtonAdd = async (event) => {
     switch (true) {
       case pathName.includes("reginformationchanges/searchboatcard"): {
-        switch (event.currentTarget.id) {
-          case "open": {
-            navigate(`/smallboats/boatId/${id}`);
-            break;
-          }
-          case "add": {
-            setShow(true);
-            break;
-          }
-        }
+        setShow(true);
         break;
       }
       case pathName.includes("reginformationchanges"): {
@@ -67,23 +49,23 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
   };
   const handleButtonView = async (event) => {
     switch (true) {
-      case pathName.includes("reginformationchanges/searchboatcard"): {
-        switch (event.currentTarget.id) {
-          case "open": {
-            navigate(`/smallboats/boatId/${id}`);
-            break;
-          }
-          case "add": {
-            setShow(true);
-            break;
-          }
-        }
-        break;
-      }
-      case pathName.includes("reginformationchanges"): {
-        navigate("searchboatcard");
-        break;
-      }
+      // case pathName.includes("reginformationchanges/searchboatcard"): {
+      //   switch (event.currentTarget.id) {
+      //     case "open": {
+      //       navigate(`/smallboats/boatId/${id}`);
+      //       break;
+      //     }
+      //     case "add": {
+      //       setShow(true);
+      //       break;
+      //     }
+      //   }
+      //   break;
+      // }
+      // case pathName.includes("reginformationchanges"): {
+      //   navigate("searchboatcard");
+      //   break;
+      // }
       case pathName.includes("smallboatsreg"): {
         navigate(`./app/${id}`, {
           state: { mode: "view" },
@@ -92,25 +74,26 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
       }
     }
   };
-  const handleButtonOpen = async (event) => {
+
+  const handleButtonEdit = async (event) => {
     switch (true) {
-      case pathName.includes("reginformationchanges/searchboatcard"): {
-        switch (event.currentTarget.id) {
-          case "open": {
-            navigate(`/smallboats/boatId/${id}`);
-            break;
-          }
-          case "add": {
-            setShow(true);
-            break;
-          }
-        }
-        break;
-      }
-      case pathName.includes("reginformationchanges"): {
-        navigate("searchboatcard");
-        break;
-      }
+      // case pathName.includes("reginformationchanges/searchboatcard"): {
+      //   switch (event.currentTarget.id) {
+      //     case "open": {
+      //       navigate(`/smallboats/boatId/${id}`);
+      //       break;
+      //     }
+      //     case "add": {
+      //       setShow(true);
+      //       break;
+      //     }
+      //   }
+      //   break;
+      // }
+      // case pathName.includes("reginformationchanges"): {
+      //   navigate("searchboatcard");
+      //   break;
+      // }
       case pathName.includes("smallboatsreg"): {
         navigate(`./decisioncard/${id}`, {
           state: { mode: "view" },
@@ -119,26 +102,29 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
       }
     }
   };
+
   return (
     <>
       <div className={`d-flex mb-2`}>
-        {pathName === "reginformationchanges" ? (
-          <button
-            id={`edit`}
-            disabled={Boolean(!id)}
-            className={`btn btn-danger btn-sm ms-2`}>
-            <img
-              src={edit_icon}
-              alt="Редактировать"
-            />
-          </button>
-        ) : (
-          ""
-        )}
-
+        {pathName.includes("searchboatcard") ? (
+          <>
+            <button
+              id={`open`}
+              title={buttonsNames.openBtnText}
+              disabled={Boolean(!id)}
+              className={`btn btn-danger btn-sm ms-2`}
+              onClick={handleButtonOpen}>
+              <img
+                src={open_icon}
+                alt="Открыть"
+              />
+            </button>
+            <p className={styles.buttons_text}>{buttonsNames.openBtnText}</p>
+          </>
+        ) : null}
         <button
           id={`add`}
-          title={addBtnText}
+          title={buttonsNames.addBtnText}
           disabled={addBtnDisIn}
           className={`btn btn-danger btn-sm ms-2`}
           onClick={handleButtonAdd}>
@@ -147,38 +133,40 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
             alt="Добавить"
           />
         </button>
-        <p className={styles.buttons_text}>{addBtnText}</p>
-        <button
-          id={"view"}
-          title={viewBtnText}
-          disabled={Boolean(!id)}
-          // disabled={viewBtnDisIn}
-          className={`btn btn-danger btn-sm ms-2`}
-          onClick={handleButtonView}>
-          <img
-            src={view_icon}
-            alt="Просмотр"
-          />
-        </button>
-        <p className={styles.buttons_text}>{viewBtnText}</p>
-        {pathName !== "reginformationchanges" ? (
+        <p className={styles.buttons_text}>{buttonsNames.addBtnText}</p>
+        {!pathName.includes("searchboatcard") ? (
           <>
             <button
-              id={`open`}
-              title={openBtnText}
-              disabled={Boolean(!id) || Number(appStatusId) !== 1}
+              id={"view"}
+              title={buttonsNames.viewBtnText}
+              disabled={Boolean(!id)}
+              // disabled={viewBtnDisIn}
               className={`btn btn-danger btn-sm ms-2`}
-              onClick={handleButtonOpen}>
+              onClick={handleButtonView}>
               <img
-                src={open_icon}
-                alt="Открыть"
+                src={view_icon}
+                alt="Просмотр"
               />
             </button>
-            <p className={styles.buttons_text}>{openBtnText}</p>
+            <p className={styles.buttons_text}>{buttonsNames.viewBtnText}</p>
           </>
-        ) : (
-          ""
-        )}
+        ) : null}
+        {!pathName.includes("searchboatcard") ? (
+          <>
+            <button
+              id={`edit`}
+              title={buttonsNames.editBtnText}
+              disabled={Boolean(!id) || Number(appStatusId) !== 1}
+              className={`btn btn-danger btn-sm ms-2`}
+              onClick={handleButtonEdit}>
+              <img
+                src={edit_icon}
+                alt="Редактировать"
+              />
+            </button>
+            <p className={styles.buttons_text}>{buttonsNames.editBtnText}</p>
+          </>
+        ) : null}
       </div>
     </>
   );
