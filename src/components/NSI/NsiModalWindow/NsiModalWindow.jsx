@@ -179,6 +179,7 @@ export default function NsiModalWindow({
                   method: "POST",
                   body: formData,
                 });
+                break;
               case window.location.pathname.includes("paidproc"):
                 request = await fetch(MAIN_URL + PORT + API_EDIT_PAID_PROC_INFO + id, {
                   method: "POST",
