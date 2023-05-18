@@ -1,73 +1,72 @@
 export const MAIN_URL = "http://10.0.1.30";
 //10.0.1.30
 //http://192.168.70.81
-export const PORT = ':8080/'
+export const PORT = ":8080/";
 
-export const API_LOGIN = ""
+export const API_LOGIN = "";
 
-export const API_GET_BOATS_LIST_SEARCH = 'boats/search'
-export const API_GET_BOAT_INFO_CARD = 'boats/getBoatCard/'
-export const API_GET_BOAT_INFO_SPEC_MARKS = "boats/getBoatCardSpecmarks/"
-export const API_GET_BOAT_INFO_ARRESTS = "boats/getBoatArrests/"
-export const API_GET_BOAT_CARD_FOR_MODIF ="boatCardModif/getBoatCardAsBoatModif/"
-export const API_ADD_CHANGE_INFORMATION_CARD ="boatCardModif/addStatement/"
+export const API_GET_BOATS_LIST_SEARCH = "boats/search";
+export const API_GET_BOAT_INFO_CARD = "boats/getBoatCard/";
+export const API_GET_BOAT_INFO_SPEC_MARKS = "boats/getBoatCardSpecmarks/";
+export const API_GET_BOAT_INFO_ARRESTS = "boats/getBoatArrests/";
+export const API_GET_BOAT_CARD_FOR_MODIF = "boatCardModif/getBoatCardAsBoatModif/";
+export const API_ADD_CHANGE_INFORMATION_CARD = "boatCardModif/addStatement/";
 
-export const API_GET_LICENSE_LIST_SEARCH = 'boats/license/search'
-export const API_GET_LICENSE_INFO_CARD = 'boats/license/drivingLicense/'
-export const API_GET_LICENSE_ADD_INFO_CARD = 'boats/license/drivingLicenseAdd/'
+export const API_GET_LICENSE_LIST_SEARCH = "boats/license/search";
+export const API_GET_LICENSE_INFO_CARD = "boats/license/drivingLicense/";
+export const API_GET_LICENSE_ADD_INFO_CARD = "boats/license/drivingLicenseAdd/";
 
-export const API_GET_BASES_BUILDING_LIST_SEARCH = 'bases/search'
-export const API_EDIT_BASES_BUILDING = 'bases/updateBoatParking/'
-export const API_ADD_BASES_BUILDING = 'bases/addBoatParking'
+export const API_GET_BASES_BUILDING_LIST_SEARCH = "bases/search";
+export const API_EDIT_BASES_BUILDING = "bases/updateBoatParking/";
+export const API_ADD_BASES_BUILDING = "bases/addBoatParking";
 
-export const API_GET_GIMS_SECTIONS = "static/info/gimsSections"
-export const API_GET_OWNER_TYPE = "static/info/personTypes"
-export const API_GET_NSI_CHECK_STATUS = "static/info/nsiCheckStatus"
+export const API_GET_GIMS_SECTIONS = "static/info/gimsSections";
+export const API_GET_OWNER_TYPE = "static/info/personTypes";
+export const API_GET_NSI_CHECK_STATUS = "static/info/nsiCheckStatus";
 
-export const API_GET_LICENSE_INFO_FROM_LIBS_OBLAST = 'directory/oblast/'
-export const API_GET_LICENSE_INFO_FROM_LIBS_RAYON = 'directory/rayon/'
-export const API_GET_LICENSE_INFO_FROM_LIBS_GOROD = 'directory/gorod/'
+export const API_GET_LICENSE_INFO_FROM_LIBS_OBLAST = "directory/oblast/";
+export const API_GET_LICENSE_INFO_FROM_LIBS_RAYON = "directory/rayon/";
+export const API_GET_LICENSE_INFO_FROM_LIBS_GOROD = "directory/gorod/";
 
-export const API_ADD_NEW_SPECIAL_MARK = "boats/license/addBoatDrivingLicenseSpecmarks/"
-export const API_ADD_NEW_CONF_MARK = "boats/license/addBoatDrivingLicenseConf/"
+export const API_ADD_NEW_SPECIAL_MARK = "boats/license/addBoatDrivingLicenseSpecmarks/";
+export const API_ADD_NEW_CONF_MARK = "boats/license/addBoatDrivingLicenseConf/";
 
+export const API_GET_USERS_LIBRARY = "static/info/gimsUsers";
+export const API_GET_ATE_LIBRARY = "static/info/gimsSections";
+export const API_GET_APP_REG_STATUS_LIBRARY = "static/info/boatCardStatus";
+export const API_GET_DICTIONARY_RAYON_FOR_OBL = "directory/getRayonByOblast/";
+export const API_GET_DICTIONARY_GOROD_FOR_RAYON = "directory/getGorodByRayon/";
+export const API_LICENSE_CANCELLATION = "boats/license/changeLicenseDateEnd/";
 
-export const API_GET_USERS_LIBRARY = "static/info/gimsUsers"
-export const API_GET_ATE_LIBRARY = "static/info/gimsSections"
-export const API_GET_APP_REG_STATUS_LIBRARY = "static/info/boatCardStatus"
-export const API_GET_DICTIONARY_RAYON_FOR_OBL = "directory/getRayonByOblast/"
-export const API_GET_DICTIONARY_GOROD_FOR_RAYON = "directory/getGorodByRayon/"
-export const API_LICENSE_CANCELLATION = "boats/license/changeLicenseDateEnd/"
+export const API_ADD_NEW_BOAT_DEAL = "boats/saveBoatDeals/";
+export const API_ADD_NEW_BOAT_SPEC_MARK = "boats/addBoatCardSpecmarks/";
+export const API_EDIT_BOAT_SPEC_MARK = "boats/updateBoatCardSpecmarks/";
+export const API_ADD_BOAT_INFO_ARRESTS = "boats/saveBoatArrests/";
+export const API_ADD_BOAT_INFO_DOCS = "boats/file/uploadfile";
+export const API_ADD_BOAT_INFO_DOCS_DOWNLOAD = "boats/file/download/";
+export const API_DELETE_BOAT_INFO_DOCS = "boats/file/delete/";
 
-export const API_ADD_NEW_BOAT_DEAL = "boats/saveBoatDeals/"
-export const API_ADD_NEW_BOAT_SPEC_MARK = "boats/addBoatCardSpecmarks/"
-export const API_EDIT_BOAT_SPEC_MARK = "boats/updateBoatCardSpecmarks/"
-export const API_ADD_BOAT_INFO_ARRESTS = "boats/saveBoatArrests/"
-export const API_ADD_BOAT_INFO_DOCS = "boats/file/uploadfile"
-export const API_ADD_BOAT_INFO_DOCS_DOWNLOAD = "boats/file/download/"
-export const API_DELETE_BOAT_INFO_DOCS = "boats/file/delete/"
+export const API_GET_BOATS_REG_LIST_SEARCH = "boatCardApp/search";
 
-export const API_GET_BOATS_REG_LIST_SEARCH = "boatCardApp/search"
+export const API_GET_BOATS_REG_INFO = "boatCardApp/getBoatCardApp/";
+export const API_GET_BOATS_REG_ENG = "boatCardApp/getEngines/";
+export const API_GET_BOATS_REG_DEALS = "boatCardApp/getDeals/";
+export const API_GET_BOATS_REG_SPEC_MARKS = "boatCardApp/getSpecMarks/";
+export const API_GET_BOATS_DECISION_INFO = "boatCardApp/confirmReg/";
+export const API_ACCEPT_BOAT_REGISTRATION = "boatCardApp/registerBoat/";
+export const API_DECLINE_BOAT_REGISTRATION = "boatCardApp/refuseApp/";
 
-export const API_GET_BOATS_REG_INFO = "boatCardApp/getBoatCardApp/"
-export const API_GET_BOATS_REG_ENG = "boatCardApp/getEngines/"
-export const API_GET_BOATS_REG_DEALS = "boatCardApp/getDeals/"
-export const API_GET_BOATS_REG_SPEC_MARKS = "boatCardApp/getSpecMarks/"
-export const API_GET_BOATS_DECISION_INFO = "boatCardApp/confirmReg/"
-export const API_ACCEPT_BOAT_REGISTRATION = "boatCardApp/registerBoat/"
-export const API_DECLINE_BOAT_REGISTRATION = "boatCardApp/refuseApp/"
+export const API_REG_INFORM_CHANGE = "boatCardModif/search";
+export const API_REG_INFORM_CHANGE_BOAT_CARD = "boatCardModif/searchBoatCard";
 
-export const  API_REG_INFORM_CHANGE = "boatCardModif/search"
-export const  API_REG_INFORM_CHANGE_BOAT_CARD = "boatCardModif/searchBoatCard"
+export const API_ADD_NEW_ENGINE_CHECK = "boatCardApp/checkEngineVin/";
+export const API_GET_BOAT_TYPES = "static/info/boatTypes";
+export const API_GET_BOAT_VID = "static/info/boatVid";
+export const API_GET_BOAT_BODY = "static/info/boatBody";
+export const API_GET_SA_CATEGORY = "static/info/saCategory";
 
-export const API_ADD_NEW_ENGINE_CHECK = "boatCardApp/checkEngineVin/"
-export const API_GET_BOAT_TYPES = "static/info/boatTypes"
-export const API_GET_BOAT_VID = "static/info/boatVid"
-export const API_GET_BOAT_BODY = "static/info/boatBody"
-export const API_GET_SA_CATEGORY = "static/info/saCategory"
-
-export const API_ADD_NEW_STATEMENT = "boatCardApp/addStatement"
-export const API_ADD_STATEMENT_FILE_DOWNLOAD = "boatCardApp/download/"
+export const API_ADD_NEW_STATEMENT = "boatCardApp/addStatement";
+export const API_ADD_STATEMENT_FILE_DOWNLOAD = "boatCardApp/download/";
 
 //NSI
 export const API_DOWNLOAD_LEGISLATION_FILE = "nsi/downloadFile/";
@@ -109,3 +108,4 @@ export const API_DELETE_ADMIN_PROC = "nsi/deleteNsiAp/";
 //DuplicateShipsTicket
 
 export const API_DUP_SHIP_TICKET_DATA = "boatCardAppDup/searchApp";
+// export const API_DUP_SHIP_TICKET_BOAT_CARD = "boatCardAppDup/searchBoatCard";

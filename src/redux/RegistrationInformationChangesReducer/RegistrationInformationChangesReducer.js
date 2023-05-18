@@ -21,12 +21,11 @@ const initialState = {
     ownerSurname: "",
     ownerName: "",
     ownerMidname: "",
-    leName: "",
     regNum: "",
-    boatVin: "",
-    ownerPersNum: "",
-    tiketNum: "",
+    leName: "",
     leUnp: "",
+    boatVin: "",
+    engvin: "",
   },
   dataBoatCards: [],
 };
@@ -39,7 +38,6 @@ export const registrationInformationChangesReducer = (state = initialState, acti
         searchParams: Object.assign(state.searchParams, action.data),
       }))();
     case SET_SEARCH_PARAMS_BOATS_ADMIN_PROC:
-      console.log(state);
       return (() => ({
         ...state,
         searchParamsBoatCards: Object.assign(state.searchParamsBoatCards, action.data),

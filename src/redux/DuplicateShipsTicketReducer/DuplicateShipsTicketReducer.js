@@ -1,8 +1,8 @@
 import {
   GET_DUP_SHIP_TICKET_INFO,
-  SET_SEARCH_PARAMS_REG_INFORM_CHANGES,
+  SET_SEARCH_PARAMS_BOATS_DUP_SHIP_TICKET,
   SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
-  GET_REG_INFORM_CHANGES_BOAT_CARDS,
+  GET_DUP_SHIP_TICKET_BOAT_CARDS,
 } from "../types";
 
 const initialState = {
@@ -17,17 +17,16 @@ const initialState = {
     rayonId: 0,
     status: 0,
   },
-  searchParamsBoatCards: {
-    ownerSurname: "",
-    ownerName: "",
-    ownerMidname: "",
-    leName: "",
-    regNum: "",
-    boatVin: "",
-    ownerPersNum: "",
-    tiketNum: "",
-    leUnp: "",
-  },
+  // searchParamsBoatCards: {
+  //   ownerSurname: "",
+  //   ownerName: "",
+  //   ownerMidname: "",
+  //   regNum: "",
+  //   nameLe: "",
+  //   unp: "",
+  //   boatVin: "",
+  //   engvin: "",
+  // },
   dataBoatCards: [],
 };
 
@@ -38,18 +37,18 @@ export const DuplicateShipsTicketReducer = (state = initialState, action) => {
         ...state,
         searchParams: Object.assign(state.searchParams, action.data),
       }))();
-    // case SET_SEARCH_PARAMS_BOATS_ADMIN_PROC:
-    //   console.log(state);
-    //   return (() => ({
-    //     ...state,
-    //     searchParamsBoatCards: Object.assign(state.searchParamsBoatCards, action.data),
-    //   }))();
+    case SET_SEARCH_PARAMS_BOATS_DUP_SHIP_TICKET:
+      console.log(state);
+      return (() => ({
+        ...state,
+        searchParamsBoatCards: Object.assign(state.searchParamsBoatCards, action.data),
+      }))();
     case GET_DUP_SHIP_TICKET_INFO:
       return (() => ({
         ...state,
         data: action.data,
       }))();
-    // case GET_REG_INFORM_CHANGES_BOAT_CARDS:
+    // case GET_DUP_SHIP_TICKET_BOAT_CARDS:
     //   return (() => ({
     //     ...state,
     //     dataBoatCards: action.data,

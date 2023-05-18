@@ -21,6 +21,7 @@ import {
   GET_REG_INFORM_CHANGES,
   GET_DICTIONARY_RAYON_FOR_OBL,
   SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
+  SET_SEARCH_PARAMS_BOATS_DUP_SHIP_TICKET,
 } from "./types";
 import {
   MAIN_URL,
@@ -87,13 +88,26 @@ export function setSearchParams(id, value, url) {
         data: object,
       };
     }
-    case url === "reginformationchanges/searchboatcard": {
+    case url === "reginformationchanges/searchboatcard" || url === "dupshipsticket/searchboatcard": {
       console.log(2);
       return {
         type: SET_SEARCH_PARAMS_BOATS_ADMIN_PROC,
         data: object,
       };
     }
+    case url === "dupshipsticket": {
+      return {
+        type: SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
+        data: object,
+      };
+    }
+    // case url === "dupshipsticket/searchboatcard": {
+    //   console.log(2);
+    //   return {
+    //     type: SET_SEARCH_PARAMS_BOATS_DUP_SHIP_TICKET,
+    //     data: object,
+    //   };
+    // }
     case url.includes("smallboats"): {
       return {
         type: SET_SEARCH_PARAMS_BOATS,
@@ -112,12 +126,7 @@ export function setSearchParams(id, value, url) {
         data: object,
       };
     }
-    case url.includes("dupshipsticket"): {
-      return {
-        type: SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
-        data: object,
-      };
-    }
+
     default:
   }
 }
