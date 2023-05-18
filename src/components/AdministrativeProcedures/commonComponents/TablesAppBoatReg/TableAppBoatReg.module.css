@@ -53,3 +53,15 @@
   color: white;
   font-size: 1.2em;
 }
+.button_remove_engine{
+  width: 100%;
+  color: #fff; /* цвет текста */
+  text-decoration: none; /* убирать подчёркивание у ссылок */
+  user-select: none; /* убирать выделение текста */
+  background: #fd0d0d!important; /* фон кнопки */
+  padding: .3em 1.5em; /* отступ от текста */
+  outline: none; /* убирать контур в Mozilla */
+  border: none;
+}
+.button_remove_engine:hover { background: rgb(215, 44, 8) !important; } /* при наведении курсора мышки */
+.button_remove_engine:active { background: rgb(152,15,0); } /* при нажатии */

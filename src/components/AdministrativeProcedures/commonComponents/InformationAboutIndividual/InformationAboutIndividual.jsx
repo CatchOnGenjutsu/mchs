@@ -122,8 +122,7 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
                     isInvalid={
-                      !!errors[option.key] ||
-                      (!!option.maxlength && !!data[option.key]
+                      !!errors[option.key] ||( (!!option.maxlength && data[option.key])
                         ? data[option.key].length > option.maxlength
                         : false)
                     }

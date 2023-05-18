@@ -22,6 +22,10 @@ export default function TableAppBoatReg({ updateData, tableOptions, dataForTable
     // setType("save");
     setShowModal(true);
   };
+  const removeEngine=(e)=>{
+    e.preventDefault();
+    updateData(tableOptions.keyTable,e.target.id,'removeEngine')
+  }
   const handleDeleteNote = (e) => {
     e.preventDefault();
     if (!window.location.pathname.includes("reginformationchanges")) {
@@ -53,7 +57,7 @@ export default function TableAppBoatReg({ updateData, tableOptions, dataForTable
       updateData(tableOptions.keyTable, e.target.id, "delete");
     }
   };
-
+  console.log(data)
   return (
     <div
       className={styles.table_content}
@@ -90,7 +94,15 @@ export default function TableAppBoatReg({ updateData, tableOptions, dataForTable
                     default:
                       if (item.key === "engtype") {
                         return <td>{elem[`${item.key}`] === 1 ? "Бензиновый" : "Электрический"}</td>;
-                      } else {
+                      }else if (item.key==='dateRegEnd'&&mode!=='view'&&Boolean(elem['dateReg'])&&!Boolean(elem[`${item.key}`])){
+                        return (<td><button
+                            className={`${styles['button_remove_engine']} `}
+                            id={elem.engid}
+                            onClick={e=>removeEngine(e)}
+                        >
+                          снять
+                        </button></td>)
+                      }else {
                         return <td>{elem[`${item.key}`]}</td>;
                       }
                   }
