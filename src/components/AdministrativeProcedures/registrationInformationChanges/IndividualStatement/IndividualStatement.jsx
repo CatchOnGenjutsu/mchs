@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch ,useSelector} from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { ProgressBar } from "react-loader-spinner";
 import styles from "./IndividualStatement.module.css";
@@ -13,7 +13,9 @@ import AppFooter from "../../commonComponents/AppFooter/AppFooter";
 import OtherInformation from "../../commonComponents/OtherInformation/OtherInformation";
 import { fieldBoatOptions } from "../../commonComponents/InformationAboutBoat/optionsForInformationAboutBoat";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
-import { MAIN_URL, PORT, API_GET_BOAT_CARD_FOR_MODIF } from "../../../../constants/constants";
+import ResultModalWindow from "../../commonComponents/ResultModalWindow/ResultModalWindow";
+
+import { MAIN_URL, PORT, API_GET_BOAT_CARD_FOR_MODIF ,API_ADD_CHANGE_INFORMATION_CARD} from "../../../../constants/constants";
 import { v4 as uuidv4 } from "uuid";
 import {
   optionSelectChangeType,
@@ -22,6 +24,9 @@ import {
   boatCardModifDealsDtoList,
   readStatusForInputField,
 } from "./optionsForIndividualStatement";
+import {
+  clearNewStatement,
+} from "../../../../redux/statementReducer/actionsStatement";
 import {
   fieldAddressOptions,
   fieldPassportOptions,
@@ -32,6 +37,7 @@ import {
 function IndividualStatement() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { idBoadCard,idTypeStatement } = location.state || {};
   const [idTypeChangeStatement, setIdTypeChangeStatement] = useState("1");
 
@@ -43,25 +49,26 @@ function IndividualStatement() {
   const [appId, setAppId] = useState(null);
   const [saveKey, setSaveKey] = useState(false);
   const [file, setFile] = useState();
+  const [errorsFields,setErrorsFields]=useState(Object.entries({...fieldAddressOptions,...fieldPassportOptions}).filter(item => item[1].required).map(el=>el[0]))
 
-  const errorsFields = [];
-  Object.entries(fieldAddressOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
-  Object.entries(fieldPassportOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
-  Object.entries(fieldBoatOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
+  // const errorsFields = [];
+  // Object.entries(fieldAddressOptions).map((item) => {if(item[1].required)return item[0]});
+  // Object.entries(fieldPassportOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
+  // Object.entries(fieldBoatOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
 
   const reduxData = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
   const handleSave = async (e) => {
-    debugger
     if (!handleErrors()) {
+
       const formData = new FormData();
       if (file !== undefined) {
         formData.append(`file`, file);
       }
-      formData.append('data',newData)
-      const request = await fetch(MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_MODIF+String(idBoadCard), {
+      formData.append('data',JSON.stringify(newData))
+      const request = await fetch(MAIN_URL + PORT + API_ADD_CHANGE_INFORMATION_CARD+String(idBoadCard), {
         method: "POST",
         body: formData,
       });
@@ -82,13 +89,13 @@ function IndividualStatement() {
 
   const handleErrors = () => {
     let newErrors = {};
+    console.log(newData,errorsFields)
     errorsFields.forEach((elem) => {
+      console.log(newData[elem])
       if (!newData[elem] || newData[elem] === "") {
         newErrors[elem] = "Заполните поле";
       }
     });
-    console.log(newData)
-    console.log( newErrors)
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return true;
@@ -102,7 +109,6 @@ function IndividualStatement() {
   };
   const updateNewData = (key, value,updateType) => {
     if(updateType==='delete'){
-      debugger
       const index = newData[key].findIndex(el => el.innerId === value);
       if (index !== -1) {
         newData[key].splice(index, 1);
@@ -110,7 +116,14 @@ function IndividualStatement() {
         return
       }
     }
+    if(updateType==='removeEngine'){
 
+      const engine = newData[key].find(el => String(el.engid) === value);
+      const currentDate = new Date();
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      engine.dateRegEnd=currentDate.toLocaleDateString('en', options).replace(/\//g, '.').split('.').reverse().join('.');
+      setNewData({...newData})
+    }
     if (Array.isArray(newData[key])&&updateType!=='delete'){
       value.innerId= uuidv4()
       newData[key].push(value)
@@ -121,7 +134,10 @@ function IndividualStatement() {
     }
 
   };
-  console.log(newData,'DATA!!!')
+  const handleCloseApp = () => {
+    dispatch(clearNewStatement());
+    navigate(-1);
+  };
   const handleTypeChangeStatement = (e)=>{
     setIdTypeChangeStatement(e.currentTarget.value)
     let initialData = {}
@@ -268,21 +284,21 @@ function IndividualStatement() {
             tiketNum:reduxData.tiketNum,
             cardDate:reduxData.cardDate,
             boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
-            boatVin:'',
-            boatYear:'',
-            engineNum:'',
-            parkingPlace:'',
-            boatPayload:'',
-            engpwrmax:'',
-            boatLength:'',
-            boatWidth:'',
-            boatHeight:'',
-            passengersNum:'',
-            saCategory:'',
-            boatName:'',
-            boatType:'',
-            boatVid:'',
-            bodyMaterial:'',
+            boatVin:reduxData.boatVin,
+            boatYear:reduxData.boatYear,
+            engineNum:reduxData.engineNum,
+            parkingPlace:reduxData.parkingPlace,
+            boatPayload:reduxData.boatPayload,
+            engpwrmax:reduxData.engpwrmax,
+            boatLength:reduxData.boatLength,
+            boatWidth:reduxData.boatWidth,
+            boatHeight:reduxData.boatHeight,
+            passengersNum:reduxData.passengersNum,
+            saCategory:reduxData.saCategory,
+            boatName:reduxData.boatName,
+            boatType:reduxData.boatType,
+            boatVid:reduxData.boatVid,
+            bodyMaterial:reduxData.bodyMaterial,
             surname:reduxData.surname,
             name:reduxData.name,
             midname:reduxData.midname,
@@ -435,6 +451,10 @@ function IndividualStatement() {
               <InformationAboutEntity
                   data={newData}
                   updateNewData={updateNewData}
+                  saveKey={saveKey}
+                  handleErrors={handleErrors}
+                  errors={errors}
+                  mode={(idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':''}
               />
           )
           }
@@ -515,8 +535,21 @@ function IndividualStatement() {
         >
           Зарегистрировать
         </Button>
-        <Button variant="danger">Отказать</Button>
+        <Button
+            variant="danger"
+            onClick={handleCloseApp}>
+          Закрыть
+        </Button>
       </div>
+      {showResultModal && (
+          <ResultModalWindow
+              appId={appId}
+              show={showResultModal}
+              setShow={setShowResultModal}
+              result={registrationResult}
+              handleCloseApp={handleCloseApp}
+          />
+      )}
     </div>
   );
 }
