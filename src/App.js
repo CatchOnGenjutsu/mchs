@@ -57,7 +57,6 @@ function App() {
   return (
     <Router>
       <Header />
-      {!isLogin && <Sidebar />}
       {isLogin ? (
         <LoginPage />
       ) : (
@@ -128,6 +127,8 @@ function App() {
               path="/reginformationchanges/individual/add"
               element={<IndividualStatement />}
             />
+            <Route path="/reginformationchanges/entity/add" element={<IndividualStatement/>}/>
+            <Route path="/reginformationchanges/statement/:id" element={<IndividualStatement/>}/>
             <Route
               path="/dupshipsticket"
               element={<DuplicateShipsTicket />}
