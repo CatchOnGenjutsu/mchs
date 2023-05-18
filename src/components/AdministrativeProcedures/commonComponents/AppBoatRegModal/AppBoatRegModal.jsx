@@ -8,7 +8,13 @@ import {
   addNewDealApp,
 } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function AppBoatRegModal({ updateData,setShowModal, showModal, modalWindowInputs, dataForCheck }) {
+export default function AppBoatRegModal({
+  updateData,
+  setShowModal,
+  showModal,
+  modalWindowInputs,
+  dataForCheck,
+}) {
   const [newData, setNewData] = useState({});
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
@@ -18,37 +24,24 @@ export default function AppBoatRegModal({ updateData,setShowModal, showModal, mo
   const errorsFields = modalWindowInputs.nameColumn
     .filter((item) => item.neededInModal)
     .map((item) => Object.values(item))
-    .map((elem) => elem[1]);
-  console.log(errorsFields);
+    .map((elem) => elem[1])
+    .filter((elem) => elem !== "asmLock" && elem !== "msmLock");
 
   const handleChange = (e) => {
-    newData[e.target.dataset.id] = e.currentTarget.value;
+    if (e.target.dataset.id === "asmLock" || e.target.dataset.id === "msmLock") {
+      newData[e.target.dataset.id] = Boolean(e.currentTarget.value);
+    } else {
+      newData[e.target.dataset.id] = e.currentTarget.value;
+    }
+    console.log(e.target.dataset.id);
     if (saveKey) handleErrors();
   };
 
   const handleErrors = () => {
     let newErrors = {};
-    // switch (modalWindowInputs.keyTable) {
-    //   case "certificateWithdrawal":
-    //     errorsFields.forEach((elem) => {
-    //       if (!newData[elem] || newData[elem] === "") {
-    //         if (elem !== "name" && elem !== "userPositions") {
-    //           newErrors[elem] = "Заполните поле"
-    //         }
-    //       }
-    //     })
-    //     break;
-    //   default:
-    //     errorsFields.forEach((elem) => {
-    //       if (!newData[elem] || newData[elem] === "") {
-    //         newErrors[elem] = "Заполните поле"
-    //       }
-    //     })
-    //     break;
-    // }
     errorsFields.forEach((elem) => {
-      if (!newData[elem] || newData[elem] === "") {
-        if (elem !== "asmLock" ||elem !== "msmLock") {
+      if (elem !== "asmLock" || elem !== "msmLock") {
+        if (!newData[elem] || newData[elem] === "") {
           newErrors[elem] = "Заполните поле";
         }
       }
@@ -64,7 +57,7 @@ export default function AppBoatRegModal({ updateData,setShowModal, showModal, mo
 
   const handleSave = () => {
     if (!handleErrors()) {
-      if(!window.location.pathname.includes('reginformationchanges')){
+      if (!window.location.pathname.includes("reginformationchanges")) {
         switch (modalWindowInputs.keyTable) {
           case "boatCardAppEngDtoList":
             if (dataForCheck.findIndex((item) => item.engvin === newData.engvin) < 0) {
@@ -83,8 +76,8 @@ export default function AppBoatRegModal({ updateData,setShowModal, showModal, mo
             setNewData({});
             break;
         }
-      }else {
-        updateData(modalWindowInputs.keyTable,newData)
+      } else {
+        updateData(modalWindowInputs.keyTable, newData);
       }
       setShowModal(false);
       setNewData({});
@@ -94,7 +87,7 @@ export default function AppBoatRegModal({ updateData,setShowModal, showModal, mo
   };
 
   useEffect(() => {
-    let input=null
+    let input = null;
     switch (modalWindowInputs.keyTable) {
       case "boatCardAppEngDtoList":
         setNewData({ engtype: 1 });

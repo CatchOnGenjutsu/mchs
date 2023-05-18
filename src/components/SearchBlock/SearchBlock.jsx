@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 import {
   setSearchParams,
@@ -13,8 +15,9 @@ import {
   getDataRegInfChangeBySearchParams,
   getDataRegInfChangeBoatCardsBySearchParams,
 } from "../../redux/RegistrationInformationChangesReducer/actionRegInfChanges";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+
+import { getDataDupShipsTicketBySearchParams } from "../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicketReducer";
+
 import styles from "./SearchBlock.module.css";
 
 export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
@@ -53,6 +56,10 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
     const { registrationInformationChangesReducer } = state;
     return registrationInformationChangesReducer;
   });
+  const stateDupShipsTicket = useSelector((state) => {
+    const { DuplicateShipsTicketReducer } = state;
+    return DuplicateShipsTicketReducer;
+  });
 
   const handleValue = (e) => {
     e.target
@@ -89,6 +96,10 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
       }
       case e.target.baseURI.includes("basesbuilding"): {
         dispatch(getDataBasesBuildingBySearchParams(searchParamsFromStateBasesBuilding));
+        break;
+      }
+      case e.target.baseURI.includes("dupshipsticket"): {
+        dispatch(getDataDupShipsTicketBySearchParams(stateDupShipsTicket.searchParams));
         break;
       }
       default:

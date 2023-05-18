@@ -1,4 +1,4 @@
-export const MAIN_URL = 'http://10.0.1.30'
+export const MAIN_URL = "http://10.0.1.30";
 //10.0.1.30
 //http://192.168.70.81
 export const PORT = ':8080/'
@@ -70,40 +70,42 @@ export const API_ADD_NEW_STATEMENT = "boatCardApp/addStatement"
 export const API_ADD_STATEMENT_FILE_DOWNLOAD = "boatCardApp/download/"
 
 //NSI
-export const API_DOWNLOAD_LEGISLATION_FILE = "nsi/downloadFile/"
+export const API_DOWNLOAD_LEGISLATION_FILE = "nsi/downloadFile/";
 
-export const API_GET_CLASSIFICATION_BOATS = "nsi/classificationBoats"
+export const API_GET_CLASSIFICATION_BOATS = "nsi/classificationBoats";
 
-export const API_GET_LEGISLATION_INFO = "static/info/infLegislation"
-export const API_ADD_LEGISLATION_INFO = "nsi/addInfLegislation"
-export const API_EDIT_LEGISLATION_INFO = "nsi/changeInfLegislation/"
-export const API_DELETE_LEGISLATION_INFO = "nsi/deleteInfLegislation/"
+export const API_GET_LEGISLATION_INFO = "static/info/infLegislation";
+export const API_ADD_LEGISLATION_INFO = "nsi/addInfLegislation";
+export const API_EDIT_LEGISLATION_INFO = "nsi/changeInfLegislation/";
+export const API_DELETE_LEGISLATION_INFO = "nsi/deleteInfLegislation/";
 
+export const API_GET_FORMS_INFO = "static/info/insForms";
+export const API_ADD_FORMS_INFO = "nsi/addInfForms";
+export const API_EDIT_FORMS_INFO = "nsi/changeInfForms/";
+export const API_DELETE_FORMS_INFO = "nsi/deleteInfForms/";
 
-export const API_GET_FORMS_INFO = "static/info/insForms"
-export const API_ADD_FORMS_INFO = "nsi/addInfForms"
-export const API_EDIT_FORMS_INFO = "nsi/changeInfForms/"
-export const API_DELETE_FORMS_INFO = "nsi/deleteInfForms/"
+export const API_GET_PAID_PROC_INFO = "nsi/infPaidProceduresView";
+export const API_ADD_PAID_PROC_INFO = "nsi/addInfPaidProcedures";
+export const API_EDIT_PAID_PROC_INFO = "nsi/changeInfPaidProcedures/";
+export const API_DELETE_PAID_PROC_INFO = "nsi/deleteInfPaidProcedures/";
 
-export const API_GET_PAID_PROC_INFO = "nsi/infPaidProceduresView"
-export const API_ADD_PAID_PROC_INFO = "nsi/addInfPaidProcedures"
-export const API_EDIT_PAID_PROC_INFO = "nsi/changeInfPaidProcedures/"
-export const API_DELETE_PAID_PROC_INFO = "nsi/deleteInfPaidProcedures/"
+export const API_GET_REQUISITES_INFO = "nsi/infRequisitesView";
+export const API_ADD_REQUISITES_CHAPTER = "nsi/addChapter";
+export const API_EDIT_REQUISITES_CHAPTER = "nsi/changeChapter/";
+export const API_DELETE_REQUISITES_CHAPTER = "nsi/deleteChapter/";
+export const API_ADD_REQUISITES_LINE = "nsi/addLine/";
+export const API_EDIT_REQUISITES_LINE = "nsi/changeLine/";
+export const API_DELETE_REQUISITES_LINE = "nsi/deleteLine/";
 
-export const API_GET_REQUISITES_INFO = "nsi/infRequisitesView"
-export const API_ADD_REQUISITES_CHAPTER = "nsi/addChapter"
-export const API_EDIT_REQUISITES_CHAPTER = "nsi/changeChapter/"
-export const API_DELETE_REQUISITES_CHAPTER = "nsi/deleteChapter/"
-export const API_ADD_REQUISITES_LINE = "nsi/addLine/"
-export const API_EDIT_REQUISITES_LINE = "nsi/changeLine/"
-export const API_DELETE_REQUISITES_LINE = "nsi/deleteLine/"
+export const API_GET_CONTACTS_INFO = "static/info/gimsSectionsOrderByName";
+export const API_GET_SECTION_INFO = "nsi/contacts/";
 
+export const API_GET_ADMIN_PROC = "static/info/nsiAp";
+export const API_ADD_ADMIN_PROC = "nsi/addNsiAp";
+export const API_EDIT_ADMIN_PROC = "nsi/changeNsiAp/";
+export const API_DELETE_ADMIN_PROC = "nsi/deleteNsiAp/";
+//NSI
 
-export const API_GET_CONTACTS_INFO = "static/info/gimsSectionsOrderByName"
-export const API_GET_SECTION_INFO = "nsi/contacts/"
+//DuplicateShipsTicket
 
-export const API_GET_ADMIN_PROC = "static/info/nsiAp" 
-export const API_ADD_ADMIN_PROC = "nsi/addNsiAp"
-export const API_EDIT_ADMIN_PROC = "nsi/changeNsiAp/"
-export const API_DELETE_ADMIN_PROC = "nsi/deleteNsiAp/"
-
+export const API_DUP_SHIP_TICKET_DATA = "boatCardAppDup/searchApp";

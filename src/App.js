@@ -25,6 +25,7 @@ import Requisite from './components/NSI/Requisites/Requisites';
 import Contacts from './components/NSI/Contacts/Contacts';
 import SectionInfo from './components/NSI/Contacts/SectionInfo/SectionInfo';
 import AdministrativeProcedures from './components/NSI/AdministrativeProcedures/AdministrativeProcedures';
+import DuplicateShipsTicket from './containers/AdministrativeProcedures/DuplicateShipsTicket/DuplicateShipsTicket';
 
 import {
   getDictionaryGimsSections,
@@ -76,7 +77,8 @@ function App() {
               <Route path="/reginformationchanges" element={<RegistrationInformationChanges/>}/>
               <Route path="/reginformationchanges/searchboatcard" element={<FormSearchBoatCard/>}/>
               <Route path="/reginformationchanges/individual/add" element={<IndividualStatement/>}/>
-              <Route path="/reginformationchanges/entity/add" element={<IndividualStatement/>}/>
+              <Route path="/dupshipsticket" element={<DuplicateShipsTicket/>}/>
+              <Route path="/nsi/adminproc" element={<AdministrativeProcedures/>}/>
               <Route path="/nsi" element={<NSI/>}/>
               <Route path="/nsi/classificationBoats" element={<ClassificationBoats/>}/>
               <Route path="/nsi/legislation" element={<Legislation/>}/>
@@ -86,6 +88,7 @@ function App() {
               <Route path="/nsi/contacts" element={<Contacts/>}/>
               <Route path="/nsi/contacts/:id" element={<SectionInfo/>}/>
               <Route path="/nsi/adminproc" element={<AdministrativeProcedures/>}/>
+
             </Routes>
           </div>
       } 

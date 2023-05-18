@@ -20,6 +20,7 @@ import {
   GET_DATA_BY_SEARCH_PARAMS_BOATS_REG,
   GET_REG_INFORM_CHANGES,
   GET_DICTIONARY_RAYON_FOR_OBL,
+  SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
 } from "./types";
 import {
   MAIN_URL,
@@ -40,16 +41,13 @@ import {
 
 export function getLoginToken(data) {
   return async (dispatch) => {
-    const request = await fetch(
-      "http://192.168.70.81:8081/api/v1/auth/authenticate",
-      {
-        method: "POST",
-        headers: new Headers({
-          "Content-Type": "application/json",
-        }),
-        body: JSON.stringify(data),
-      },
-    );
+    const request = await fetch("http://192.168.70.81:8081/api/v1/auth/authenticate", {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify(data),
+    });
     const token = await request.json();
     console.log(token);
     if (!!token) {
@@ -114,6 +112,12 @@ export function setSearchParams(id, value, url) {
         data: object,
       };
     }
+    case url.includes("dupshipsticket"): {
+      return {
+        type: SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
+        data: object,
+      };
+    }
     default:
   }
 }
@@ -146,30 +150,21 @@ export function getDataBoatsBySearchParams(params) {
 
 export function getDataCertificatesBySearchParams(params) {
   return async (dispatch) => {
-    const response = await fetch(
-      MAIN_URL + PORT + API_GET_LICENSE_LIST_SEARCH,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
+    const response = await fetch(MAIN_URL + PORT + API_GET_LICENSE_LIST_SEARCH, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ).catch((err) => console.log(err));
+      body: JSON.stringify(params),
+    }).catch((err) => console.log(err));
     if (response.ok) {
       const data = await response.json();
       for (let item of data) {
         const fio = `${item.surname} ${item.name} ${item.midname}`;
         item["fio"] = fio;
-        item.birthDate = !!item.birthDate
-          ? new Date(item.birthDate).toLocaleDateString()
-          : "";
-        item.licenseDate = !!item.licenseDate
-          ? new Date(item.licenseDate).toLocaleDateString()
-          : "";
-        item.licenseDateEnd = !!item.licenseDateEnd
-          ? new Date(item.licenseDateEnd).toLocaleDateString()
-          : "";
+        item.birthDate = !!item.birthDate ? new Date(item.birthDate).toLocaleDateString() : "";
+        item.licenseDate = !!item.licenseDate ? new Date(item.licenseDate).toLocaleDateString() : "";
+        item.licenseDateEnd = !!item.licenseDateEnd ? new Date(item.licenseDateEnd).toLocaleDateString() : "";
       }
       const jsonData = data;
       dispatch({
@@ -196,16 +191,13 @@ export function getDataBasesBuildingBySearchParams(params) {
       default:
         queryParams = "";
     }
-    const response = await fetch(
-      MAIN_URL + PORT + API_GET_BASES_BUILDING_LIST_SEARCH + queryParams,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
+    const response = await fetch(MAIN_URL + PORT + API_GET_BASES_BUILDING_LIST_SEARCH + queryParams, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ).catch((err) => console.log(err));
+      body: JSON.stringify(params),
+    }).catch((err) => console.log(err));
     if (response.ok) {
       const data = await response.json();
       const jsonData = data;
@@ -221,27 +213,22 @@ export function getDataBoatsRegBySearchParams(params) {
   const state = store.getState();
   const ateLibrary = state.dictionaryReducer.ateLibrary;
   return async (dispatch) => {
-    const response = await fetch(
-      MAIN_URL + PORT + API_GET_BOATS_REG_LIST_SEARCH,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
+    const response = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_LIST_SEARCH, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ).catch((err) => console.log(err));
+      body: JSON.stringify(params),
+    }).catch((err) => console.log(err));
     if (response.ok) {
       const data = await response.json();
       console.log(data);
       for (let item of data) {
-        item["fio"] = `${item.surname ? item.surname : ""} ${
-          item.name ? item.name : ""
-        } ${item.midname ? item.midname : ""}`;
+        item["fio"] = `${item.surname ? item.surname : ""} ${item.name ? item.name : ""} ${
+          item.midname ? item.midname : ""
+        }`;
         if (item.rayonId) {
-          item["rayonName"] = ateLibrary.find(
-            (elem) => elem.uiddistrict === item.rayonId,
-          ).namedistrictRu;
+          item["rayonName"] = ateLibrary.find((elem) => elem.uiddistrict === item.rayonId).namedistrictRu;
         } else {
           item["rayonName"] = "";
         }
@@ -279,9 +266,7 @@ export function getDictionaryOwnerType() {
 }
 export function getDictionaryNsiCheckStatus() {
   return async (dispatch) => {
-    const response = await fetch(
-      MAIN_URL + PORT + API_GET_APP_REG_STATUS_LIBRARY,
-    );
+    const response = await fetch(MAIN_URL + PORT + API_GET_APP_REG_STATUS_LIBRARY);
     if (response.ok) {
       dispatch({
         type: GET_DICTIONARY_NSI_CHECK_STATUS,
@@ -315,9 +300,7 @@ export function getAteLibrary() {
 
 export function getApplicationRegLibrary() {
   return async (dispatch) => {
-    const response = await fetch(
-      MAIN_URL + PORT + API_GET_APP_REG_STATUS_LIBRARY,
-    );
+    const response = await fetch(MAIN_URL + PORT + API_GET_APP_REG_STATUS_LIBRARY);
     const data = await response.json();
     dispatch({
       type: GET_APP_REG_STATUS_LIBRARY,
