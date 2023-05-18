@@ -66,6 +66,11 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
       //   navigate("searchboatcard");
       //   break;
       // }
+      case pathName.includes("reginformationchanges"): {
+        navigate(`./statement/${id}`, {
+          state: { mode: "view" },
+        });
+        break;}
       case pathName.includes("smallboatsreg"): {
         navigate(`./app/${id}`, {
           state: { mode: "view" },

@@ -77,6 +77,8 @@ function App() {
               <Route path="/reginformationchanges" element={<RegistrationInformationChanges/>}/>
               <Route path="/reginformationchanges/searchboatcard" element={<FormSearchBoatCard/>}/>
               <Route path="/reginformationchanges/individual/add" element={<IndividualStatement/>}/>
+              <Route path="/reginformationchanges/entity/add" element={<IndividualStatement/>}/>
+              <Route path="/reginformationchanges/statement/:id" element={<IndividualStatement/>}/>
               <Route path="/dupshipsticket" element={<DuplicateShipsTicket/>}/>
               <Route path="/nsi/adminproc" element={<AdministrativeProcedures/>}/>
               <Route path="/nsi" element={<NSI/>}/>
@@ -88,7 +90,6 @@ function App() {
               <Route path="/nsi/contacts" element={<Contacts/>}/>
               <Route path="/nsi/contacts/:id" element={<SectionInfo/>}/>
               <Route path="/nsi/adminproc" element={<AdministrativeProcedures/>}/>
-
             </Routes>
           </div>
       } 
