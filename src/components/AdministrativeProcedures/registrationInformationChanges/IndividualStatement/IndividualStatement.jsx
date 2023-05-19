@@ -150,7 +150,7 @@ function IndividualStatement() {
             tiketNum:reduxData.tiketNum,
             cardDate:reduxData.cardDate,
             boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
-            boatCardModifDealsDtoList:[],
+            boatCardModifDealsList:reduxData.boatCardModifDealsList,
 
             agentDocDate:'',
             agentDocDepartment:'',
@@ -177,9 +177,9 @@ function IndividualStatement() {
             parkingPlace:'',
             boatPayload:'',
             engpwrmax:'',
-            boatLength:'',
-            boatWidth:'',
-            boatHeight:'',
+            boatLength:reduxData.boatLength,
+            boatWidth:reduxData.boatWidth,
+            boatHeight:reduxData.boatHeight,
             passengersNum:'',
             saCategory:null,
             boatName:'',
@@ -218,6 +218,7 @@ function IndividualStatement() {
             personType:reduxData.personType,
             tiketNum:reduxData.tiketNum,
             cardDate:reduxData.cardDate,
+            boatCardModifDealsList:reduxData.boatCardModifDealsList,
             boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
             boatVin:reduxData.boatVin,
             boatYear:reduxData.boatYear,
@@ -283,6 +284,7 @@ function IndividualStatement() {
             personType:reduxData.personType,
             tiketNum:reduxData.tiketNum,
             cardDate:reduxData.cardDate,
+            boatCardModifDealsList:reduxData.boatCardModifDealsList,
             boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
             boatVin:reduxData.boatVin,
             boatYear:reduxData.boatYear,
@@ -354,13 +356,17 @@ function IndividualStatement() {
       const dataBoatCard = await responseBoatCard.json();
       dispatch(addNewStatementData(dataBoatCard))
       setNewData({
+        changeType:1,
         regNum:dataBoatCard.regNum,
         personType:dataBoatCard.personType,
         tiketNum:dataBoatCard.tiketNum,
         cardDate:dataBoatCard.cardDate,
         boatCardSpecmarksList:dataBoatCard.boatCardSpecmarksList,
+        boatLength:dataBoatCard.boatLength,
+        boatWidth:dataBoatCard.boatWidth,
+        boatHeight:dataBoatCard.boatHeight,
         appReason:'',
-        boatCardModifDealsDtoList:[],
+        boatCardModifDealsList:dataBoatCard.boatCardModifDealsList,
         section:1
       })
       setIsLoading(false);
@@ -503,12 +509,13 @@ function IndividualStatement() {
             ""
           )}
 
-          {idTypeChangeStatement === "1" ? (
+          {(idTypeChangeStatement === "1" || idTypeChangeStatement ==="2") ? (
             <TableAppBoatReg
               tableOptions={boatCardModifDealsDtoList}
               typeTable='boatCardAppDealsList'
-              dataForTable={newData.boatCardModifDealsDtoList}
+              dataForTable={newData.boatCardModifDealsList}
               updateData={updateNewData}
+              mode={(idTypeChangeStatement==='2')?'view':''}
             />
           ) : (
             ""

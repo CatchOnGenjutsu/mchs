@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InfoRepresentPerson/InfoRepresentPerson.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InfoRepresentPerson/InfoRepresentPerson.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/optionsForIndividualStatement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/optionsForIndividualStatement.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +84,7 @@
       <workItem from="1679645780167" duration="38978000" />
       <workItem from="1680244928590" duration="137106000" />
       <workItem from="1681711935223" duration="63400000" />
-      <workItem from="1683699061956" duration="125629000" />
+      <workItem from="1683699061956" duration="135679000" />
     </task>
     <servers />
   </component>

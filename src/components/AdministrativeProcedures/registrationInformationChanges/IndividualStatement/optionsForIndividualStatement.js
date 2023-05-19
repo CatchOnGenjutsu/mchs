@@ -93,12 +93,12 @@ export const boatCardSpecmarksList = {
     ],
 };
 export const boatCardModifDealsDtoList = {
-    keyTable: "boatCardModifDealsDtoList",
-    caption: "Информация о совершаемых в отношении судна сделок",
+    keyTable: "boatCardModifDealsList",
+    caption: "Сведения о правах собственности",
     nameColumn: [
         {
             value: "Наименование документа",
-            key: "docNum",
+            key: "docName",
             type: "text",
             neededInModal: true,
         },

@@ -32,9 +32,10 @@ export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
     if (e) {
       switch (true) {
         case Object.keys(e).includes("target"):
-          updateNewData(e.target.id, e.currentTarget.value);
           if(!window.location.pathname.includes('reginformationchanges')){
           dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+          }else{
+            updateNewData(e.target.id, e.currentTarget.value);
           }
           break;
         case Object.keys(e).includes("key"):
