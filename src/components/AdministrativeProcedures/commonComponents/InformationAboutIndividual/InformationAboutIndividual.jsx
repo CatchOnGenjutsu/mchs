@@ -33,7 +33,7 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
         case Object.keys(event).includes("target"):
           updateNewData(event.target.id, event.currentTarget.value);
           if (!window.location.pathname.includes("reginformationchanges")) {
-            dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
+            dispatch(addNewStatementData({ [`${event.target.id}`]: event.currentTarget.value }));
           }
           break;
         case Object.keys(event).includes("key"):
@@ -122,7 +122,8 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
                     isInvalid={
-                      !!errors[option.key] ||( (!!option.maxlength && data[option.key])
+                      !!errors[option.key] ||
+                      (!!option.maxlength && data[option.key]
                         ? data[option.key].length > option.maxlength
                         : false)
                     }
