@@ -16,7 +16,7 @@ import {
   getDataRegInfChangeBoatCardsBySearchParams,
 } from "../../redux/RegistrationInformationChangesReducer/actionRegInfChanges";
 
-import { getDataDupShipsTicketBySearchParams } from "../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicketReducer";
+import { getDataDupShipsTicketBySearchParams } from "../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
 
 import styles from "./SearchBlock.module.css";
 
@@ -64,7 +64,7 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
   const handleValue = (e) => {
     e.target
       ? dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI))
-      : dispatch(setSearchParams("rayonId", e.value, window.location.href));
+      : dispatch(setSearchParams(e.key, e.value, window.location.href));
   };
 
   const handleSearchData = (e) => {
@@ -76,8 +76,13 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
         dispatch(getDataRegInfChangeBySearchParams(stateRegInfChanges.searchParams));
         break;
       }
-      case urlPath === "reginformationchanges/searchboatcard": {
+      case urlPath === "reginformationchanges/searchboatcard" ||
+        urlPath === "dupshipsticket/searchboatcard": {
         dispatch(getDataRegInfChangeBoatCardsBySearchParams(stateRegInfChanges.searchParamsBoatCards));
+        break;
+      }
+      case urlPath === "dupshipsticket": {
+        dispatch(getDataDupShipsTicketBySearchParams(stateDupShipsTicket.searchParams));
         break;
       }
       case window.location.href.includes("smallboatsreg"): {
@@ -98,10 +103,7 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
         dispatch(getDataBasesBuildingBySearchParams(searchParamsFromStateBasesBuilding));
         break;
       }
-      case e.target.baseURI.includes("dupshipsticket"): {
-        dispatch(getDataDupShipsTicketBySearchParams(stateDupShipsTicket.searchParams));
-        break;
-      }
+
       default:
     }
   };

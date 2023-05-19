@@ -1,4 +1,4 @@
-export const NSIsettings = [ 
+export const NSIsettings = [
   {
     id: "classificationBoats",
     title: "Классификатор маломерных судов",
@@ -21,10 +21,10 @@ export const NSIsettings = [
   },
   {
     id: "paidproc",
-    title: "Платные процедуры",
+    title: "Платные услуги",
   },
   {
     id: "requisites",
     title: "Реквизиты для оплаты административных процедур и услуг оказываемых ГИМС",
-  }
-]
+  },
+];

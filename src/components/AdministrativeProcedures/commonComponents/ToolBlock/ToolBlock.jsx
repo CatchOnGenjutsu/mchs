@@ -16,15 +16,19 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
 
   const navigate = useNavigate();
   const buttonsNames = {
+    openBtnText: "Просмотр РК",
     addBtnText: "Добавить заявление",
     viewBtnText: "Просмотр",
     editBtnText: "Взять в работу",
-    openBtnText: "Просмотр РК",
   };
 
   const handleButtonOpen = async (event) => {
     switch (true) {
       case pathName.includes("reginformationchanges/searchboatcard"): {
+        navigate(`/smallboats/boatId/${id}`);
+        break;
+      }
+      case pathName.includes("dupshipsticket/searchboatcard"): {
         navigate(`/smallboats/boatId/${id}`);
         break;
       }
@@ -44,6 +48,14 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
         break;
       }
       case pathName.includes("reginformationchanges"): {
+        navigate("searchboatcard");
+        break;
+      }
+      case pathName.includes("dupshipsticket/searchboatcard"): {
+        navigate(`/dupshipsticket/${id}`);
+        break;
+      }
+      case pathName.includes("dupshipsticket"): {
         navigate("searchboatcard");
         break;
       }
@@ -76,7 +88,8 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
         navigate(`./statement/${id}`, {
           state: { mode: "view" },
         });
-        break;}
+        break;
+      }
       case pathName.includes("smallboatsreg"): {
         navigate(`./app/${id}`, {
           state: { mode: "view" },

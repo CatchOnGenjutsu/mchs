@@ -87,7 +87,7 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
                     value={newStatement[option.key]}
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
-                    isInvalid={!!errors[option.key]}
+                    isInvalid={mode !== "view" && !!errors[option.key]}
                   />
                 </Form.Group>
               );
@@ -102,7 +102,9 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
                     onChange={(e) => handleChangeSelectSearch(e)}
                     defaultValue={newStatement[option.key]}
                     value={option.options.find((item) => item.value === newStatement[option.key])}
-                    className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
+                    className={`${styles["selectSearch"]} ${
+                      mode !== "view" && !!errors[option.key] ? styles.red_border : null
+                    }`}
                     classNamePrefix="select"
                     placeholder="Выберите"
                     id={option.key}
@@ -134,7 +136,7 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
                     value={newStatement[option.key]}
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
-                    isInvalid={!!errors[option.key]}
+                    isInvalid={mode !== "view" && !!errors[option.key]}
                   />
                 </Form.Group>
               );
@@ -147,7 +149,9 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
                   </Form.Label>
                   <Select
                     ref={setRef(option)}
-                    className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
+                    className={`${styles["selectSearch"]} ${
+                      mode !== "view" && !!errors[option.key] ? styles.red_border : null
+                    }`}
                     onChange={(e) => handleChangeSelectSearch(e)}
                     classNamePrefix="select"
                     id={option.key}

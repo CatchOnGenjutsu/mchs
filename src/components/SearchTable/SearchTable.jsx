@@ -19,7 +19,6 @@ export default function SearchTable({ setId, setStatusId, headerColumns, dataFro
     pageIndex: 0,
     pageSize: 10,
   });
-  console.log(dataFromState)
   const [selectedRow, setSelectedRow] = useState(null);
   const columns = useMemo(() => headerColumns, [headerColumns]);
   const {
@@ -75,6 +74,10 @@ export default function SearchTable({ setId, setStatusId, headerColumns, dataFro
         break;
       }
       case e.target.baseURI.includes("reginformationchanges"): {
+        setId(id);
+        break;
+      }
+      case e.target.baseURI.includes("dupshipsticket"): {
         setId(id);
         break;
       }

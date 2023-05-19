@@ -5,7 +5,7 @@ import {
   API_GET_DICTIONARY_GOROD_FOR_RAYON,
 } from "../../../../constants/constants";
 
-import {getRayon,getGorod} from '../utilities'
+import { getRayon, getGorod } from "../utilities";
 
 export const optionInfoRepresentPersonSummary = {
   agentSurname: {
@@ -65,7 +65,7 @@ export const optionInfoRepresentPersonAddress = {
     value: "Страна",
     type: "text",
     readOnly: true,
-    defaultValue: "Республика Беларусь"
+    defaultValue: "Республика Беларусь",
   },
   agentOblId: {
     key: "agentOblId",
@@ -102,31 +102,31 @@ export const optionInfoRepresentPersonAddress = {
     key: "agentUlica",
     value: "Улица",
     type: "text",
-    readOnly: false
+    readOnly: false,
   },
   agentDom: {
     key: "agentDom",
     value: "Дом",
     type: "text",
-    readOnly: false
+    readOnly: false,
   },
   agentKorpus: {
     key: "agentKorpus",
     value: "Корпус",
     type: "text",
-    readOnly: false
+    readOnly: false,
   },
   agentKv: {
     key: "agentKv",
     value: "Квартира",
     type: "text",
-    readOnly: false
+    readOnly: false,
   },
   agentPhone: {
     key: "agentPhone",
     value: "Телефон",
     type: "text",
-    readOnly: false
+    readOnly: false,
   },
 };
 
@@ -134,29 +134,25 @@ export const agentDoverennost = {
   key: "agentDoverennost",
   value: "Сведения о доверенности",
   type: "text",
-  readOnly: false
+  readOnly: false,
 };
 
 export const setOptionsRayonForOblast = async (id) => {
-  const response = await fetch(
-    MAIN_URL + PORT + API_GET_DICTIONARY_RAYON_FOR_OBL + id,
-  );
+  const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_RAYON_FOR_OBL + id);
 
-  if(response.ok){
+  if (response.ok) {
     const result = await response.json();
     optionInfoRepresentPersonAddress.agentRayonId.selectOption.length = 0;
     result.forEach((item) => {
-
       optionInfoRepresentPersonAddress.agentRayonId.selectOption.push({
         value: item.id,
         label: item.name,
         key: "agentRayonId",
       });
     });
-  }else {
-    optionInfoRepresentPersonAddress.agentRayonId.selectOption = []
+  } else {
+    optionInfoRepresentPersonAddress.agentRayonId.selectOption = [];
   }
-  console.log(optionInfoRepresentPersonAddress.agentRayonId)
 
   optionInfoRepresentPersonAddress.agentRayonId.disabled = false;
   optionInfoRepresentPersonAddress.agentGorodId.disabled = true;
@@ -165,11 +161,9 @@ export const setOptionsRayonForOblast = async (id) => {
   // return optionInfoRepresentPersonAddress;
 };
 export const setOptionsGorodForRayon = async (id) => {
-  const response = await fetch(
-    MAIN_URL + PORT + API_GET_DICTIONARY_GOROD_FOR_RAYON + id,
-  );
+  const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_GOROD_FOR_RAYON + id);
 
-  if(response.ok){
+  if (response.ok) {
     const result = await response.json();
     optionInfoRepresentPersonAddress.agentGorodId.selectOption.length = 0;
     result.forEach((item) => {
@@ -179,10 +173,9 @@ export const setOptionsGorodForRayon = async (id) => {
         key: "agentGorodId",
       });
     });
-  }else{
-    optionInfoRepresentPersonAddress.agentGorodId.selectOption = []
+  } else {
+    optionInfoRepresentPersonAddress.agentGorodId.selectOption = [];
   }
 
   optionInfoRepresentPersonAddress.agentGorodId.disabled = false;
-
 };
