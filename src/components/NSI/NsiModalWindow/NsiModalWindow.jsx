@@ -155,6 +155,8 @@ export default function NsiModalWindow({
               setShowModal(false);
               fetchData();
               setCurrentId(null);
+              setDataForEdit({});
+              setNewData({});
             } else {
               setShowErrorText(true);
             }
@@ -225,6 +227,8 @@ export default function NsiModalWindow({
               const response = await request.text();
               setShowModal(false);
               fetchData();
+              setDataForEdit({});
+              setNewData({});
               setCurrentId(null);
             } else {
               setShowErrorText(true);
