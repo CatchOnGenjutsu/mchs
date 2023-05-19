@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch ,useSelector} from "react-redux";
+import { useLocation,useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { ProgressBar } from "react-loader-spinner";
 import styles from "./IndividualStatement.module.css";
 import InformationAboutIndividual from "../../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
-import InformationAboutEntity from "../../commonComponents/InformationAboutEntity/InformationAboutEntity";
+import InformationAboutEntity from "../../commonComponents/InformationAboutEntity/InformationAboutEntity"
 import InfoRepresentPerson from "../../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
 import TableAppBoatReg from "../../commonComponents/TablesAppBoatReg/TableAppBoatReg";
 import InformationAboutBoat from "../../commonComponents/InformationAboutBoat/InformationAboutBoat";
@@ -15,12 +15,7 @@ import { fieldBoatOptions } from "../../commonComponents/InformationAboutBoat/op
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 import ResultModalWindow from "../../commonComponents/ResultModalWindow/ResultModalWindow";
 
-import {
-  MAIN_URL,
-  PORT,
-  API_GET_BOAT_CARD_FOR_MODIF,
-  API_ADD_CHANGE_INFORMATION_CARD,
-} from "../../../../constants/constants";
+import { MAIN_URL, PORT, API_GET_BOAT_CARD_FOR_MODIF ,API_ADD_CHANGE_INFORMATION_CARD} from "../../../../constants/constants";
 import { v4 as uuidv4 } from "uuid";
 import {
   optionSelectChangeType,
@@ -29,17 +24,21 @@ import {
   boatCardModifDealsDtoList,
   readStatusForInputField,
 } from "./optionsForIndividualStatement";
-import { clearNewStatement } from "../../../../redux/statementReducer/actionsStatement";
+import {
+  clearNewStatement,
+} from "../../../../redux/statementReducer/actionsStatement";
 import {
   fieldAddressOptions,
   fieldPassportOptions,
 } from "../../commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
 
+
+
 function IndividualStatement() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { idBoadCard, idTypeStatement } = location.state || {};
+  const { idBoadCard,idTypeStatement } = location.state || {};
   const [idTypeChangeStatement, setIdTypeChangeStatement] = useState("1");
 
   const [isLoading, setIsLoading] = useState(true);
@@ -50,11 +49,7 @@ function IndividualStatement() {
   const [appId, setAppId] = useState(null);
   const [saveKey, setSaveKey] = useState(false);
   const [file, setFile] = useState();
-  const [errorsFields, setErrorsFields] = useState(
-    Object.entries({ ...fieldAddressOptions, ...fieldPassportOptions })
-      .filter((item) => item[1].required)
-      .map((el) => el[0]),
-  );
+  const [errorsFields,setErrorsFields]=useState(Object.entries({...fieldAddressOptions,...fieldPassportOptions}).filter(item => item[1].required).map(el=>el[0]))
 
   // const errorsFields = [];
   // Object.entries(fieldAddressOptions).map((item) => {if(item[1].required)return item[0]});
@@ -67,12 +62,13 @@ function IndividualStatement() {
   });
   const handleSave = async (e) => {
     if (!handleErrors()) {
+
       const formData = new FormData();
       if (file !== undefined) {
         formData.append(`file`, file);
       }
-      formData.append("data", JSON.stringify(newData));
-      const request = await fetch(MAIN_URL + PORT + API_ADD_CHANGE_INFORMATION_CARD + String(idBoadCard), {
+      formData.append('data',JSON.stringify(newData))
+      const request = await fetch(MAIN_URL + PORT + API_ADD_CHANGE_INFORMATION_CARD+String(idBoadCard), {
         method: "POST",
         body: formData,
       });
@@ -86,16 +82,16 @@ function IndividualStatement() {
         setShowResultModal(!showResultModal);
         setRegistrationResult("success");
       }
-    } else {
+    }else {
       setSaveKey(true);
     }
-  };
+  }
 
   const handleErrors = () => {
     let newErrors = {};
-    console.log(newData, errorsFields);
+    console.log(newData,errorsFields)
     errorsFields.forEach((elem) => {
-      console.log(newData[elem]);
+      console.log(newData[elem])
       if (!newData[elem] || newData[elem] === "") {
         newErrors[elem] = "Заполните поле";
       }
@@ -111,285 +107,287 @@ function IndividualStatement() {
   const handleFile = (value) => {
     setFile(value);
   };
-  const updateNewData = (key, value, updateType) => {
-    if (updateType === "delete") {
-      const index = newData[key].findIndex((el) => el.innerId === value);
+  const updateNewData = (key, value,updateType) => {
+    if(updateType==='delete'){
+      const index = newData[key].findIndex(el => el.innerId === value);
       if (index !== -1) {
         newData[key].splice(index, 1);
-        setNewData({ ...newData });
-        return;
+        setNewData({...newData})
+        return
       }
     }
-    if (updateType === "removeEngine") {
-      const engine = newData[key].find((el) => String(el.engid) === value);
+    if(updateType==='removeEngine'){
+
+      const engine = newData[key].find(el => String(el.engid) === value);
       const currentDate = new Date();
-      const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-      engine.dateRegEnd = currentDate
-        .toLocaleDateString("en", options)
-        .replace(/\//g, ".")
-        .split(".")
-        .reverse()
-        .join(".");
-      setNewData({ ...newData });
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      engine.dateRegEnd=currentDate.toLocaleDateString('en', options).replace(/\//g, '.').split('.').reverse().join('.');
+      setNewData({...newData})
     }
-    if (Array.isArray(newData[key]) && updateType !== "delete") {
-      value.innerId = uuidv4();
-      newData[key].push(value);
-      setNewData({ ...newData });
-    } else {
+    if (Array.isArray(newData[key])&&updateType!=='delete'){
+      value.innerId= uuidv4()
+      newData[key].push(value)
+      setNewData({...newData})
+    }else{
       newData[key] = value;
-      setNewData({ ...newData });
+      setNewData({...newData})
     }
+
   };
   const handleCloseApp = () => {
     dispatch(clearNewStatement());
     navigate(-1);
   };
-  const handleTypeChangeStatement = (e) => {
-    setIdTypeChangeStatement(e.currentTarget.value);
-    let initialData = {};
-    switch (e.currentTarget.value) {
-      case "1":
-        initialData = {
-          changeType: e.currentTarget.value,
-          regNum: reduxData.regNum,
-          personType: reduxData.personType,
-          tiketNum: reduxData.tiketNum,
-          cardDate: reduxData.cardDate,
-          boatCardSpecmarksList: reduxData.boatCardSpecmarksList,
-          boatCardModifDealsDtoList: [],
+  const handleTypeChangeStatement = (e)=>{
+    setIdTypeChangeStatement(e.currentTarget.value)
+    let initialData = {}
+      switch (e.currentTarget.value) {
+        case '1':
+          initialData={
+            changeType: e.currentTarget.value,
+            regNum:reduxData.regNum,
+            personType:reduxData.personType,
+            tiketNum:reduxData.tiketNum,
+            cardDate:reduxData.cardDate,
+            boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
+            boatCardModifDealsList:reduxData.boatCardModifDealsList,
 
-          agentDocDate: "",
-          agentDocDepartment: "",
-          agentDocType: null,
-          agentDom: "",
-          agentDoverennost: "",
-          agentGorodId: null,
-          agentKorpus: "",
-          agentKv: "",
-          agentMidname: "",
-          agentName: "",
-          agentNumberOfPassport: "",
-          agentOblId: null,
-          agentPersNum: "",
-          agentPhone: "",
-          agentRayonId: null,
-          agentSerialOfPassport: "",
-          agentSurname: "",
-          agentUlica: "",
-          section: 1,
-          boatVin: "",
-          boatYear: "",
-          engineNum: "",
-          parkingPlace: "",
-          boatPayload: "",
-          engpwrmax: "",
-          boatLength: "",
-          boatWidth: "",
-          boatHeight: "",
-          passengersNum: "",
-          saCategory: null,
-          boatName: "",
-          boatType: null,
-          boatVid: null,
-          bodyMaterial: null,
-          surname: "",
-          name: "",
-          midname: "",
-          docType: null,
-          serialOfPassport: "",
-          numberOfPassport: "",
-          persNum: "",
-          docDepartment: "",
-          docDateIssue: "",
-          oblId: null,
-          rayonId: null,
-          gorodId: null,
-          ulica: "",
-          korpus: "",
-          dom: "",
-          kv: "",
-          phone: "",
-          enginesList: [],
-          appReason: "",
-          note: "",
-          note2: "",
-          section: 1,
-        };
-        break;
-      case "2":
-      case "3":
-        initialData = {
-          changeType: e.currentTarget.value,
-          regNum: reduxData.regNum,
-          personType: reduxData.personType,
-          tiketNum: reduxData.tiketNum,
-          cardDate: reduxData.cardDate,
-          boatCardSpecmarksList: reduxData.boatCardSpecmarksList,
-          boatVin: reduxData.boatVin,
-          boatYear: reduxData.boatYear,
-          engineNum: reduxData.engineNum,
-          parkingPlace: reduxData.parkingPlace,
-          boatPayload: reduxData.boatPayload,
-          engpwrmax: reduxData.engpwrmax,
-          boatLength: reduxData.boatLength,
-          boatWidth: reduxData.boatWidth,
-          boatHeight: reduxData.boatHeight,
-          passengersNum: reduxData.passengersNum,
-          saCategory: reduxData.saCategory,
-          boatName: reduxData.boatName,
-          boatType: reduxData.boatType,
-          boatVid: reduxData.boatVid,
-          bodyMaterial: reduxData.bodyMaterial,
-          surname: reduxData.surname,
-          name: reduxData.name,
-          midname: reduxData.midname,
-          docType: reduxData.docType,
-          serialOfPassport: reduxData.serialOfPassport,
-          numberOfPassport: reduxData.numberOfPassport,
-          persNum: reduxData.persNum,
-          docDepartment: reduxData.docDepartment,
-          docDateIssue: reduxData.docDateIssue,
-          oblId: reduxData.oblId,
-          rayonId: reduxData.rayonId,
-          gorodId: reduxData.gorodId,
-          ulica: reduxData.ulica,
-          korpus: reduxData.korpus,
-          dom: reduxData.dom,
-          kv: reduxData.kv,
-          phone: reduxData.phone,
-          enginesList: reduxData.enginesList,
-          appReason: "",
-          note: "",
-          note2: "",
-          agentDocDate: "",
-          agentDocDepartment: "",
-          agentDocType: null,
-          agentDom: "",
-          agentDoverennost: "",
-          agentGorodId: null,
-          agentKorpus: "",
-          agentKv: "",
-          agentMidname: "",
-          agentName: "",
-          agentNumberOfPassport: "",
-          agentOblId: null,
-          agentPersNum: "",
-          agentPhone: "",
-          agentRayonId: null,
-          agentSerialOfPassport: "",
-          agentSurname: "",
-          agentUlica: "",
-          section: 1,
-        };
-        break;
-      case "4":
-        initialData = {
-          changeType: e.currentTarget.value,
-          regNum: reduxData.regNum,
-          personType: reduxData.personType,
-          tiketNum: reduxData.tiketNum,
-          cardDate: reduxData.cardDate,
-          boatCardSpecmarksList: reduxData.boatCardSpecmarksList,
-          boatVin: reduxData.boatVin,
-          boatYear: reduxData.boatYear,
-          engineNum: reduxData.engineNum,
-          parkingPlace: reduxData.parkingPlace,
-          boatPayload: reduxData.boatPayload,
-          engpwrmax: reduxData.engpwrmax,
-          boatLength: reduxData.boatLength,
-          boatWidth: reduxData.boatWidth,
-          boatHeight: reduxData.boatHeight,
-          passengersNum: reduxData.passengersNum,
-          saCategory: reduxData.saCategory,
-          boatName: reduxData.boatName,
-          boatType: reduxData.boatType,
-          boatVid: reduxData.boatVid,
-          bodyMaterial: reduxData.bodyMaterial,
-          surname: reduxData.surname,
-          name: reduxData.name,
-          midname: reduxData.midname,
-          docType: reduxData.docType,
-          serialOfPassport: reduxData.serialOfPassport,
-          numberOfPassport: reduxData.numberOfPassport,
-          persNum: reduxData.persNum,
-          docDepartment: reduxData.docDepartment,
-          docDateIssue: reduxData.docDateIssue,
-          oblId: reduxData.oblId,
-          rayonId: reduxData.rayonId,
-          gorodId: reduxData.gorodId,
-          ulica: reduxData.ulica,
-          korpus: reduxData.korpus,
-          dom: reduxData.dom,
-          kv: reduxData.kv,
-          phone: reduxData.phone,
-          enginesList: [],
-          appReason: "",
-          note: "",
-          note2: "",
-          agentDocDate: "",
-          agentDocDepartment: "",
-          agentDocType: null,
-          agentDom: "",
-          agentDoverennost: "",
-          agentGorodId: null,
-          agentKorpus: "",
-          agentKv: "",
-          agentMidname: "",
-          agentName: "",
-          agentNumberOfPassport: "",
-          agentOblId: null,
-          agentPersNum: "",
-          agentPhone: "",
-          agentRayonId: null,
-          agentSerialOfPassport: "",
-          agentSurname: "",
-          agentUlica: "",
-          section: 1,
-        };
-        break;
-      default:
-        initialData = {};
-        break;
-    }
-    setNewData(initialData);
-  };
-  useEffect(() => {
+            agentDocDate:'',
+            agentDocDepartment:'',
+            agentDocType:null,
+            agentDom:'',
+            agentDoverennost:'',
+            agentGorodId:null,
+            agentKorpus:'',
+            agentKv:'',
+            agentMidname:'',
+            agentName:'',
+            agentNumberOfPassport:'',
+            agentOblId:null,
+            agentPersNum:'',
+            agentPhone:'',
+            agentRayonId:null,
+            agentSerialOfPassport:'',
+            agentSurname:'',
+            agentUlica:'',
+            section:1,
+            boatVin:'',
+            boatYear:'',
+            engineNum:'',
+            parkingPlace:'',
+            boatPayload:'',
+            engpwrmax:'',
+            boatLength:reduxData.boatLength,
+            boatWidth:reduxData.boatWidth,
+            boatHeight:reduxData.boatHeight,
+            passengersNum:'',
+            saCategory:null,
+            boatName:'',
+            boatType:null,
+            boatVid:null,
+            bodyMaterial:null,
+            surname:'',
+            name:'',
+            midname:'',
+            docType:null,
+            serialOfPassport:'',
+            numberOfPassport:'',
+            persNum:'',
+            docDepartment:'',
+            docDateIssue:'',
+            oblId:null,
+            rayonId:null,
+            gorodId:null,
+            ulica:'',
+            korpus:'',
+            dom:'',
+            kv:'',
+            phone:'',
+            enginesList:[],
+            appReason:'',
+            note:'',
+            note2:'',
+            section:1
+          }
+          break
+        case '2':
+        case '3':
+          initialData={
+            changeType: e.currentTarget.value,
+            regNum:reduxData.regNum,
+            personType:reduxData.personType,
+            tiketNum:reduxData.tiketNum,
+            cardDate:reduxData.cardDate,
+            boatCardModifDealsList:reduxData.boatCardModifDealsList,
+            boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
+            boatVin:reduxData.boatVin,
+            boatYear:reduxData.boatYear,
+            engineNum:reduxData.engineNum,
+            parkingPlace:reduxData.parkingPlace,
+            boatPayload:reduxData.boatPayload,
+            engpwrmax:reduxData.engpwrmax,
+            boatLength:reduxData.boatLength,
+            boatWidth:reduxData.boatWidth,
+            boatHeight:reduxData.boatHeight,
+            passengersNum:reduxData.passengersNum,
+            saCategory:reduxData.saCategory,
+            boatName:reduxData.boatName,
+            boatType:reduxData.boatType,
+            boatVid:reduxData.boatVid,
+            bodyMaterial:reduxData.bodyMaterial,
+            surname:reduxData.surname,
+            name:reduxData.name,
+            midname:reduxData.midname,
+            docType:reduxData.docType,
+            serialOfPassport:reduxData.serialOfPassport,
+            numberOfPassport:reduxData.numberOfPassport,
+            persNum:reduxData.persNum,
+            docDepartment:reduxData.docDepartment,
+            docDateIssue:reduxData.docDateIssue,
+            oblId:reduxData.oblId,
+            rayonId:reduxData.rayonId,
+            gorodId:reduxData.gorodId,
+            ulica:reduxData.ulica,
+            korpus:reduxData.korpus,
+            dom:reduxData.dom,
+            kv:reduxData.kv,
+            phone:reduxData.phone,
+            enginesList:reduxData.enginesList,
+            appReason:'',
+            note:'',
+            note2:'',
+            agentDocDate:'',
+            agentDocDepartment:'',
+            agentDocType:null,
+            agentDom:'',
+            agentDoverennost:'',
+            agentGorodId:null,
+            agentKorpus:'',
+            agentKv:'',
+            agentMidname:'',
+            agentName:'',
+            agentNumberOfPassport:'',
+            agentOblId:null,
+            agentPersNum:'',
+            agentPhone:'',
+            agentRayonId:null,
+            agentSerialOfPassport:'',
+            agentSurname:'',
+            agentUlica:'',
+            section:1
+          }
+          break
+        case '4':
+          initialData={
+            changeType: e.currentTarget.value,
+            regNum:reduxData.regNum,
+            personType:reduxData.personType,
+            tiketNum:reduxData.tiketNum,
+            cardDate:reduxData.cardDate,
+            boatCardModifDealsList:reduxData.boatCardModifDealsList,
+            boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
+            boatVin:reduxData.boatVin,
+            boatYear:reduxData.boatYear,
+            engineNum:reduxData.engineNum,
+            parkingPlace:reduxData.parkingPlace,
+            boatPayload:reduxData.boatPayload,
+            engpwrmax:reduxData.engpwrmax,
+            boatLength:reduxData.boatLength,
+            boatWidth:reduxData.boatWidth,
+            boatHeight:reduxData.boatHeight,
+            passengersNum:reduxData.passengersNum,
+            saCategory:reduxData.saCategory,
+            boatName:reduxData.boatName,
+            boatType:reduxData.boatType,
+            boatVid:reduxData.boatVid,
+            bodyMaterial:reduxData.bodyMaterial,
+            surname:reduxData.surname,
+            name:reduxData.name,
+            midname:reduxData.midname,
+            docType:reduxData.docType,
+            serialOfPassport:reduxData.serialOfPassport,
+            numberOfPassport:reduxData.numberOfPassport,
+            persNum:reduxData.persNum,
+            docDepartment:reduxData.docDepartment,
+            docDateIssue:reduxData.docDateIssue,
+            oblId:reduxData.oblId,
+            rayonId:reduxData.rayonId,
+            gorodId:reduxData.gorodId,
+            ulica:reduxData.ulica,
+            korpus:reduxData.korpus,
+            dom:reduxData.dom,
+            kv:reduxData.kv,
+            phone:reduxData.phone,
+            enginesList:[],
+            appReason:'',
+            note:'',
+            note2:'',
+            agentDocDate:'',
+            agentDocDepartment:'',
+            agentDocType:null,
+            agentDom:'',
+            agentDoverennost:'',
+            agentGorodId:null,
+            agentKorpus:'',
+            agentKv:'',
+            agentMidname:'',
+            agentName:'',
+            agentNumberOfPassport:'',
+            agentOblId:null,
+            agentPersNum:'',
+            agentPhone:'',
+            agentRayonId:null,
+            agentSerialOfPassport:'',
+            agentSurname:'',
+            agentUlica:'',
+            section:1
+          }
+          break
+        default:
+            initialData={}
+            break
+      }
+    setNewData(initialData)
+
+  }
+  useEffect(()=>{
     async function fetchData() {
-      const responseBoatCard = await fetch(
-        MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_MODIF + String(idBoadCard),
-      );
+      const responseBoatCard = await fetch(MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_MODIF + String(idBoadCard));
       const dataBoatCard = await responseBoatCard.json();
-      dispatch(addNewStatementData(dataBoatCard));
+      dispatch(addNewStatementData(dataBoatCard))
       setNewData({
-        regNum: dataBoatCard.regNum,
-        personType: dataBoatCard.personType,
-        tiketNum: dataBoatCard.tiketNum,
-        cardDate: dataBoatCard.cardDate,
-        boatCardSpecmarksList: dataBoatCard.boatCardSpecmarksList,
-        appReason: "",
-        boatCardModifDealsDtoList: [],
-        section: 1,
-      });
+        changeType:1,
+        regNum:dataBoatCard.regNum,
+        personType:dataBoatCard.personType,
+        tiketNum:dataBoatCard.tiketNum,
+        cardDate:dataBoatCard.cardDate,
+        boatCardSpecmarksList:dataBoatCard.boatCardSpecmarksList,
+        boatLength:dataBoatCard.boatLength,
+        boatWidth:dataBoatCard.boatWidth,
+        boatHeight:dataBoatCard.boatHeight,
+        appReason:'',
+        boatCardModifDealsList:dataBoatCard.boatCardModifDealsList,
+        section:1
+      })
       setIsLoading(false);
     }
-    fetchData();
-  }, []);
-  console.log(newData);
-  if (isLoading) {
+    fetchData()
+  },[])
+  console.log(newData)
+  if(isLoading){
     return (
-      <div className={"d-flex flex-column align-items-center"}>
-        <ProgressBar
-          height="80"
-          width="80"
-          ariaLabel="progress-bar-loading"
-          wrapperStyle={{}}
-          wrapperClass="progress-bar-wrapper"
-          borderColor="#F4442E"
-          barColor="#51E5FF"
-        />
-      </div>
-    );
+        <div className={'d-flex flex-column align-items-center'}>
+          <ProgressBar
+              height="80"
+              width="80"
+              ariaLabel="progress-bar-loading"
+              wrapperStyle={{}}
+              wrapperClass="progress-bar-wrapper"
+              borderColor="#F4442E"
+              barColor="#51E5FF"
+          />
+        </div>
+    )
   }
 
   return (
@@ -446,51 +444,47 @@ function IndividualStatement() {
               disabled={true}
             />
           </Form.Group>
-          {idTypeStatement === 1 ? (
-            <InformationAboutIndividual
-              inputData={newData}
-              updateNewData={updateNewData}
-              saveKey={saveKey}
-              handleErrors={handleErrors}
-              errors={errors}
-              mode={idTypeChangeStatement === "2" || idTypeChangeStatement === "3" ? "view" : ""}
-            />
-          ) : (
-            <InformationAboutEntity
-              data={newData}
-              updateNewData={updateNewData}
-              saveKey={saveKey}
-              handleErrors={handleErrors}
-              errors={errors}
-              mode={idTypeChangeStatement === "2" || idTypeChangeStatement === "3" ? "view" : ""}
-            />
-          )}
+          {idTypeStatement===1?(
+              <InformationAboutIndividual
+                  inputData={newData}
+                  updateNewData={updateNewData}
+                  saveKey={saveKey}
+                  handleErrors={handleErrors}
+                  errors={errors}
+                  mode={(idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':''}
+              />
+          ):(
+              <InformationAboutEntity
+                  data={newData}
+                  updateNewData={updateNewData}
+                  saveKey={saveKey}
+                  handleErrors={handleErrors}
+                  errors={errors}
+                  mode={(idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':''}
+              />
+          )
+          }
 
           <InfoRepresentPerson
-            inputData={newData}
-            updateNewData={updateNewData}
-          />
-          {idTypeChangeStatement !== "1" && idTypeChangeStatement !== "4" ? (
+              inputData={newData}
+              updateNewData={updateNewData}/>
+          {(idTypeChangeStatement !== "1" && idTypeChangeStatement !== "4") ? (
             <InformationAboutBoat
-              dataBoat={newData}
+              dataBoat = {newData}
               fieldStatus={readStatusForInputField}
               updateNewData={updateNewData}
               saveKey={saveKey}
               handleErrors={handleErrors}
               errors={errors}
-              mode={"view"}
+              mode={'view'}
             />
           ) : (
             ""
           )}
-          {idTypeChangeStatement === "4" ? (
-            <OtherInformation
+          {idTypeChangeStatement === "4" ? <OtherInformation
               inputData={newData}
               updateNewData={updateNewData}
-            />
-          ) : (
-            ""
-          )}
+          /> : ""}
 
           <Form.Group>
             <Form.Label>
@@ -507,20 +501,21 @@ function IndividualStatement() {
             <TableAppBoatReg
               tableOptions={enginesList}
               dataForTable={newData.enginesList}
-              typeTable="boatCardAppEngList"
+              typeTable='boatCardAppEngList'
               updateData={updateNewData}
-              mode={idTypeChangeStatement === "2" ? "view" : ""}
+              mode={(idTypeChangeStatement==='2')?'view':''}
             />
           ) : (
             ""
           )}
 
-          {idTypeChangeStatement === "1" ? (
+          {(idTypeChangeStatement === "1" || idTypeChangeStatement ==="2") ? (
             <TableAppBoatReg
               tableOptions={boatCardModifDealsDtoList}
-              typeTable="boatCardAppDealsList"
-              dataForTable={newData.boatCardModifDealsDtoList}
+              typeTable='boatCardAppDealsList'
+              dataForTable={newData.boatCardModifDealsList}
               updateData={updateNewData}
+              mode={(idTypeChangeStatement==='2')?'view':''}
             />
           ) : (
             ""
@@ -528,38 +523,39 @@ function IndividualStatement() {
           <TableAppBoatReg
             tableOptions={boatCardSpecmarksList}
             dataForTable={newData.boatCardSpecmarksList}
-            typeTable="boatCardAppSpecMarkList"
+            typeTable='boatCardAppSpecMarkList'
             updateData={updateNewData}
-            mode={idTypeChangeStatement === "2" ? "view" : ""}
+            mode={(idTypeChangeStatement==='2')?'view':''}
           />
           <AppFooter
-            inputData={newData}
-            updateNewData={updateNewData}
-            handleFile={handleFile}
+              inputData={newData}
+              updateNewData={updateNewData}
+              handleFile={handleFile}
           />
         </Form>
       </div>
       <div className={styles.buttons_container}>
         <Button
-          variant="primary"
-          className=""
-          onClick={(e) => handleSave(e)}>
+            variant="primary"
+            className=""
+            onClick={(e) => handleSave(e)}
+        >
           Зарегистрировать
         </Button>
         <Button
-          variant="danger"
-          onClick={handleCloseApp}>
+            variant="danger"
+            onClick={handleCloseApp}>
           Закрыть
         </Button>
       </div>
       {showResultModal && (
-        <ResultModalWindow
-          appId={appId}
-          show={showResultModal}
-          setShow={setShowResultModal}
-          result={registrationResult}
-          handleCloseApp={handleCloseApp}
-        />
+          <ResultModalWindow
+              appId={appId}
+              show={showResultModal}
+              setShow={setShowResultModal}
+              result={registrationResult}
+              handleCloseApp={handleCloseApp}
+          />
       )}
     </div>
   );
