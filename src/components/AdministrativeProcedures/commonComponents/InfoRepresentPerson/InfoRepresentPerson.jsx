@@ -1,4 +1,4 @@
-import { useState, useRef,useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   optionInfoRepresentPersonSummary,
@@ -12,8 +12,9 @@ import { Form } from "react-bootstrap";
 import Select from "react-select";
 
 import styles from "./InfoRepresentPerson.module.css";
+import { addDataForDuplicate } from "../../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
 
-export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
+export default function InfoRepresentPerson({ inputData, mode, updateNewData }) {
   const selectRayonRef = useRef();
   const selectGorodRef = useRef();
   const selectOblRef = useRef();
@@ -24,17 +25,35 @@ export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
-  const [rerender,setRerender]=useState(false)
-  const data = !!inputData?{...inputData}:{...newStatement}
+  const newAppDupl = useSelector((state) => {
+    const { DuplicateShipsTicketReducer } = state;
+    return DuplicateShipsTicketReducer.newAppDupl;
+  });
+  const [rerender, setRerender] = useState(false);
+  const data = !!inputData
+    ? { ...inputData }
+    : window.location.pathname.includes("dupshipsticket")
+    ? { ...newAppDupl }
+    : { ...newStatement };
   const halfControls = "agentSurname agentName agentMidname agentDocDepartment agentPersNum agentDoverennost";
 
   const handleValue = async (e) => {
     if (e) {
       switch (true) {
         case Object.keys(e).includes("target"):
-          updateNewData(e.target.id, e.currentTarget.value);
-          if(!window.location.pathname.includes('reginformationchanges')){
-          dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+          if (!window.location.pathname.includes("reginformationchanges")) {
+            switch (true) {
+              case window.location.pathname.includes("smallboatsreg"):
+                dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+                break;
+              case window.location.pathname.includes("dupshipsticket"):
+                dispatch(addDataForDuplicate({ [`${e.target.id}`]: e.target.value }));
+                break;
+              default:
+                break;
+            }
+          } else {
+            updateNewData(e.target.id, e.currentTarget.value);
           }
           break;
         case Object.keys(e).includes("key"):
@@ -42,20 +61,59 @@ export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
             case "agentOblId":
               selectRayonRef.current.clearValue();
               selectGorodRef.current.clearValue();
-              updateNewData('agentGorodId', null);
-              updateNewData('agentRayonId', null);
+              if (window.location.pathname.includes("reginformationchanges")) {
+                updateNewData("agentGorodId", null);
+                updateNewData("agentRayonId", null);
+              } else {
+                switch (true) {
+                  case window.location.pathname.includes("smallboatsreg"):
+                    dispatch(addNewStatementData({ [`agentRayonId`]: null }));
+                    dispatch(addNewStatementData({ [`agentGorodId`]: null }));
+                    break;
+                  case window.location.pathname.includes("dupshipsticket"):
+                    dispatch(addDataForDuplicate({ [`agentRayonId`]: null }));
+                    dispatch(addDataForDuplicate({ [`agentGorodId`]: null }));
+                    break;
+                  default:
+                    break;
+                }
+              }
               await setOptionsRayonForOblast(e.value);
               break;
             case "agentRayonId":
-              updateNewData('agentGorodId', null)
+              if (window.location.pathname.includes("reginformationchanges")) {
+                updateNewData("agentGorodId", null);
+              } else {
+                switch (true) {
+                  case window.location.pathname.includes("smallboatsreg"):
+                    dispatch(addNewStatementData({ [`agentGorodId`]: null }));
+                    break;
+                  case window.location.pathname.includes("dupshipsticket"):
+                    dispatch(addDataForDuplicate({ [`agentGorodId`]: null }));
+                    break;
+                  default:
+                    break;
+                }
+              }
               await setOptionsGorodForRayon(e.value);
               break;
             default:
               break;
           }
-          updateNewData(e.key, e.value);
-          if(!window.location.pathname.includes('reginformationchanges')){
-          dispatch(addNewStatementData({ [`${e.key}`]: e.value }));
+          if (window.location.pathname.includes("reginformationchanges")) {
+            updateNewData(e.key, e.value);
+          }
+          if (!window.location.pathname.includes("reginformationchanges")) {
+            switch (true) {
+              case window.location.pathname.includes("smallboatsreg"):
+                dispatch(addNewStatementData({ [`${e.key}`]: e.value }));
+                break;
+              case window.location.pathname.includes("dupshipsticket"):
+                dispatch(addDataForDuplicate({ [`${e.key}`]: e.value }));
+                break;
+              default:
+                break;
+            }
           }
           break;
         default:
@@ -78,13 +136,13 @@ export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
         return null;
     }
   };
-  useEffect(()=>{
-    setRerender(!rerender)
+  useEffect(() => {
+    setRerender(!rerender);
     selectOblRef.current.clearValue();
     selectRayonRef.current.clearValue();
     selectGorodRef.current.clearValue();
     selectDocTypeRef.current.clearValue();
-  },[inputData])
+  }, [inputData]);
   return (
     <>
       <h3 className={styles.text_secondary}>Сведения о представителе заинтересованного лица</h3>

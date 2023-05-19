@@ -1,5 +1,10 @@
-import { MAIN_URL, PORT, API_DUP_SHIP_TICKET_DATA } from "../../constants/constants";
-import { GET_DUP_SHIP_TICKET_INFO } from "../types";
+import {
+  MAIN_URL,
+  PORT,
+  API_DUP_SHIP_TICKET_DATA,
+  API_GET_BOAT_CARD_FOR_DUPLICATE,
+} from "../../constants/constants";
+import { GET_DUP_SHIP_TICKET_INFO, GET_BOAT_CARD_FOR_DUPLICATE, ADD_DATA_FOR_DUPLICATE } from "../types";
 
 export function getDataDupShipsTicketBySearchParams(params) {
   return async (dispatch) => {
@@ -22,6 +27,26 @@ export function getDataDupShipsTicketBySearchParams(params) {
         data: data,
       });
     }
+  };
+}
+export function getBoatCardInfoForDuplicate(id) {
+  return async (dispatch) => {
+    const request = await fetch(MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_DUPLICATE + id).catch((err) =>
+      console.log(err),
+    );
+    if (request.status === 200) {
+      const response = await request.json();
+      dispatch({
+        type: GET_BOAT_CARD_FOR_DUPLICATE,
+        data: response,
+      });
+    }
+  };
+}
+export function addDataForDuplicate(data) {
+  return {
+    type: ADD_DATA_FOR_DUPLICATE,
+    data: data,
   };
 }
 

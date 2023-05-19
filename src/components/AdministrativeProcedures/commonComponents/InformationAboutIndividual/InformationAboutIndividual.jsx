@@ -25,8 +25,26 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
+  const newAppDupl = useSelector((state) => {
+    const { DuplicateShipsTicketReducer } = state;
+    return DuplicateShipsTicketReducer.newAppDupl;
+  });
+
+  // const dataFromRedux = (() => {
+  //   switch (true) {
+  //     case window.location.pathname.includes("dupshipsticket"):
+  //       return newAppDupl;
+  //     default:
+  //       return newStatement;
+  //   }
+  // })();
+  // console.log(dataFromRedux);
   const [rerender, setRerender] = useState(false);
-  const data = !!inputData ? { ...inputData } : { ...newStatement };
+  const data = !!inputData
+    ? { ...inputData }
+    : window.location.pathname.includes("dupshipsticket")
+    ? { ...newAppDupl }
+    : { ...newStatement };
   async function handleChangeSelectSearch(event) {
     if (event) {
       switch (true) {
@@ -98,7 +116,7 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
     setOptionsForAdress();
   }, [inputData]);
 
-  console.log("OPTIONS", options, "DATA", data);
+  // console.log("OPTIONS", options, "DATA", data);
   return (
     <>
       <h3>Сведения о заинтересованном лице</h3>
@@ -122,7 +140,7 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
                     isInvalid={
-                      !!errors[option.key] ||
+                      (mode !== "view" && !!errors[option.key]) ||
                       (!!option.maxlength && data[option.key]
                         ? data[option.key].length > option.maxlength
                         : false)
@@ -142,7 +160,9 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
                     onChange={(e) => handleChangeSelectSearch(e)}
                     // defaultValue={data[option.key]}
                     value={option.options.find((item) => item.value === data[option.key])}
-                    className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
+                    className={`${styles["selectSearch"]} ${
+                      mode !== "view" && !!errors[option.key] ? styles.red_border : null
+                    }`}
                     classNamePrefix="select"
                     placeholder="Выберите"
                     id={option.key}
@@ -174,7 +194,7 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
                     value={data[option.key]}
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
-                    isInvalid={!!errors[option.key]}
+                    isInvalid={mode !== "view" && !!errors[option.key]}
                   />
                 </Form.Group>
               );
@@ -187,11 +207,12 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
                   </Form.Label>
                   <Select
                     ref={setRef(option)}
-                    className={`${styles["selectSearch"]} ${!!errors[option.key] ? styles.red_border : null}`}
+                    className={`${styles["selectSearch"]} ${
+                      mode !== "view" && !!errors[option.key] ? styles.red_border : null
+                    }`}
                     onChange={(e) => handleChangeSelectSearch(e)}
                     classNamePrefix="select"
                     id={option.key}
-                    // defaultValue={newStatement[option.key]}
                     value={option.options.find((item) => {
                       return item.value === data[option.key];
                     })}

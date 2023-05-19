@@ -45,6 +45,10 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
         navigate("searchboatcard");
         break;
       }
+      case pathName.includes("dupshipsticket/searchboatcard"): {
+        navigate(`/dupshipsticket/${id}`);
+        break;
+      }
       case pathName.includes("dupshipsticket"): {
         navigate("searchboatcard");
         break;
@@ -78,7 +82,8 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
         navigate(`./statement/${id}`, {
           state: { mode: "view" },
         });
-        break;}
+        break;
+      }
       case pathName.includes("smallboatsreg"): {
         navigate(`./app/${id}`, {
           state: { mode: "view" },

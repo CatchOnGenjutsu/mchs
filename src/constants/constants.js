@@ -108,6 +108,7 @@ export const API_DELETE_ADMIN_PROC = "nsi/deleteNsiAp/";
 //DuplicateShipsTicket
 
 export const API_DUP_SHIP_TICKET_DATA = "boatCardAppDup/searchApp";
+export const API_GET_BOAT_CARD_FOR_DUPLICATE = "boatCardAppDup/getBoatCardForBoatCardDup/";
 // export const API_DUP_SHIP_TICKET_BOAT_CARD = "boatCardAppDup/searchBoatCard";
 // export const API_DUP_SH
 // boatCardAppDup/addStatement/
