@@ -64,7 +64,7 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
   const handleValue = (e) => {
     e.target
       ? dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI))
-      : dispatch(setSearchParams("rayonId", e.value, window.location.href));
+      : dispatch(setSearchParams(e.key, e.value, window.location.href));
   };
 
   const handleSearchData = (e) => {

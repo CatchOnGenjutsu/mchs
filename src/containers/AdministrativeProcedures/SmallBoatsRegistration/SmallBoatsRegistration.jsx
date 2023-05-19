@@ -38,6 +38,7 @@ export default function SmallBoatsRegistration() {
     dataOptionsForSelectATEValidated.push({
       value: item.sctId,
       label: item.sctName,
+      key: "section",
     });
   });
   setOptionsForInputsATE(dataOptionsForSelectATEValidated, document.location.pathname.slice(1));

@@ -164,11 +164,11 @@ export const inputsHeadersSmallBoatsRegistration = {
     value: "Наименование организации",
     type: "text",
   },
-  rayonId: {
-    key: "rayonId",
+  section: {
+    key: "section",
     value: "Участок",
     type: "selectRayon",
-    selectOption: [{ value: 0, label: "Все" }],
+    selectOption: [{ value: 0, label: "Все", key: "section" }],
   },
   status: {
     key: "status",
@@ -176,8 +176,9 @@ export const inputsHeadersSmallBoatsRegistration = {
     type: "select",
     selectOption: [
       { id: 0, value: "Все" },
-      { id: 2, value: "Зарегистрировано" },
-      { id: 1, value: "Черновик" },
+      { id: 3, value: "К выдаче" },
+      { id: 1, value: "Зарегистрировано" },
+      { id: 2, value: "Отказано" },
     ],
   },
 };
@@ -213,11 +214,11 @@ export const inputsRegInformChange = {
     value: "УНП",
     type: "text",
   },
-  rayonId: {
-    key: "rayonId",
+  section: {
+    key: "section",
     value: "Участок",
     type: "selectRayon",
-    selectOption: [{ value: 0, label: "Все" }],
+    selectOption: [{ value: 0, label: "Все", key: "section" }],
   },
   status: {
     key: "status",
@@ -335,13 +336,13 @@ export const setOptionsForInputs = (nsiCheckStatusOptions) => {
 export const setOptionsForInputsATE = (inputsOptions, path) => {
   switch (path) {
     case "smallboatsreg":
-      if (inputsHeadersSmallBoatsRegistration.rayonId.selectOption.length === 1) {
-        inputsHeadersSmallBoatsRegistration.rayonId.selectOption.push(...inputsOptions);
+      if (inputsHeadersSmallBoatsRegistration.section.selectOption.length === 1) {
+        inputsHeadersSmallBoatsRegistration.section.selectOption.push(...inputsOptions);
       }
       break;
     case "reginformationchanges":
-      if (inputsRegInformChange.rayonId.selectOption.length === 1) {
-        inputsRegInformChange.rayonId.selectOption.push(...inputsOptions);
+      if (inputsRegInformChange.section.selectOption.length === 1) {
+        inputsRegInformChange.section.selectOption.push(...inputsOptions);
       }
       break;
     case "dupshipsticket":

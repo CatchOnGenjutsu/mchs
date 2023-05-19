@@ -14,7 +14,7 @@ const initialState = {
     regNum: "",
     unp: "",
     nameLe: "",
-    rayonId: 0,
+    section: 0,
     status: 0,
   },
   searchParamsBoatCards: {
