@@ -54,6 +54,9 @@ export default function DuplShipsTicket() {
             <h2 className={styles.main_text}>Заявление</h2>
             <p className={styles.secondary_text}>о выдаче дубликата судового билета</p>
           </div>
+          {/* <div>
+
+          </div> */}
           {personType === 1 && (
             <InformationAboutIndividual
               // updateNewData={updateNewData}
@@ -74,7 +77,7 @@ export default function DuplShipsTicket() {
           )}
           <InfoRepresentPerson mode={"viewDup"} />
           <InfoAboutBoatDuplicate />
-          <div></div>
+          {/* <div></div> */}
         </>
       )}
     </>
