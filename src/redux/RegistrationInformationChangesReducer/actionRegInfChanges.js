@@ -22,9 +22,9 @@ export function getDataRegInfChangeBySearchParams(params) {
       const data = await response.json();
       // console.log(data);
       for (let item of data) {
-        item["fio"] = `${item.ownerMidname ? item.ownerMidname : ""} ${
-          item.ownerName ? item.ownerName : ""
-        } ${item.ownerSurname ? item.ownerSurname : ""}`;
+        item["fio"] = `${item.surname  ? item.surname  : ""} ${
+          item.name ? item.name : ""
+        } ${item.midname ? item.midname : ""}`;
       }
       dispatch({
         type: GET_REG_INFORM_CHANGES,
@@ -49,9 +49,9 @@ export function getDataRegInfChangeBoatCardsBySearchParams(params) {
       const data = await response.json();
       console.log(data);
       for (let item of data) {
-        item["fio"] = `${item.ownerMidname ? item.ownerMidname : ""} ${
+        item["fio"] = `${item.ownerSurname ? item.ownerSurname : ""} ${
           item.ownerName ? item.ownerName : ""
-        } ${item.ownerSurname ? item.ownerSurname : ""}`;
+        } ${item.ownerMidname ? item.ownerMidname : ""}`;
       }
       dispatch({
         type: GET_REG_INFORM_CHANGES_BOAT_CARDS,

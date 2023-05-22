@@ -455,7 +455,7 @@ function IndividualStatement() {
               />
           ):(
               <InformationAboutEntity
-                  data={newData}
+                  inputData={newData}
                   updateNewData={updateNewData}
                   saveKey={saveKey}
                   handleErrors={handleErrors}
