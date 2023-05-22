@@ -1,40 +1,59 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ProgressBar } from "react-loader-spinner";
+import { Form } from "react-bootstrap";
 
 import TableAppBoatReg from "../TablesAppBoatReg/TableAppBoatReg";
 import ResultModalWindow from "../ResultModalWindow/ResultModalWindow";
-import { ProgressBar } from "react-loader-spinner";
 
 import { clearDecisionData, getDecisionCardInfo } from "../../../../redux/statementReducer/actionsStatement";
+import { getDuplicateDecisionCardInfo } from "../../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
 import { ownerTableColumns, boatTableColumns } from "./tablesSettings";
 
-import styles from "./DecisionCard.module.css";
 import {
   boatCardAppEngDtoList,
   boatCardAppDealsDtoList,
   boatCardAppSmDtoList,
 } from "../../AppBoatReg/tableOptions";
+
 import {
   MAIN_URL,
   PORT,
   API_ACCEPT_BOAT_REGISTRATION,
   API_DECLINE_BOAT_REGISTRATION,
+  API_ACCEPT_DUPLICATE,
+  API_DECLINE_DUPLICATE,
 } from "../../../../constants/constants";
+
+import styles from "./DecisionCard.module.css";
 
 export default function DecisionCard() {
   const [isLoading, setIsLoading] = useState(true);
   const [showResultModal, setShowResultModal] = useState(false);
   const [registrationResult, setRegistrationResult] = useState("");
   const [boatRegNum, setBoatRegNum] = useState(null);
+  const [newData, setNewData] = useState({});
+
+  const acceptBtnText = window.location.pathname.includes("smallboatsreg")
+    ? "Зарегистрировать судно"
+    : "Выдать";
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const appDecisionData = useSelector((state) => {
+  const appRegistrationDecisionData = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.appDecisionData;
   });
+  const appDuplicateDecisionData = useSelector((state) => {
+    const { DuplicateShipsTicketReducer } = state;
+    return DuplicateShipsTicketReducer.appDecisionData;
+  });
+
+  const data = window.location.pathname.includes("smallboatsreg")
+    ? { ...appRegistrationDecisionData }
+    : { ...appDuplicateDecisionData };
 
   const handleButtonClick = async (e) => {
     if (e) {
@@ -44,15 +63,30 @@ export default function DecisionCard() {
           break;
 
         case "accept": {
-          const request = await fetch(
-            MAIN_URL +
-              PORT +
-              API_ACCEPT_BOAT_REGISTRATION +
-              appDecisionData.appId +
-              "/" +
-              appDecisionData.inspector,
-            { method: "POST" },
-          );
+          let request;
+          switch (true) {
+            case window.location.pathname.includes("smallboatsreg"):
+              request = await fetch(
+                MAIN_URL + PORT + API_ACCEPT_BOAT_REGISTRATION + data.appId + "/" + data.inspector,
+                { method: "POST" },
+              );
+              break;
+            case window.location.pathname.includes("decisioncard"):
+              request = await fetch(
+                MAIN_URL + PORT + API_ACCEPT_DUPLICATE + data.appId + "/" + data.inspector,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(newData),
+                },
+              );
+              break;
+
+            default:
+              break;
+          }
           if (request.status !== 200) {
             setShowResultModal(!showResultModal);
             setRegistrationResult("error");
@@ -67,10 +101,22 @@ export default function DecisionCard() {
         }
 
         case "decline": {
-          const request = await fetch(
-            MAIN_URL + PORT + API_DECLINE_BOAT_REGISTRATION + appDecisionData.appId,
-            { method: "POST" },
-          );
+          let request;
+          switch (true) {
+            case window.location.pathname.includes("smallboatsreg"):
+              request = await fetch(MAIN_URL + PORT + API_DECLINE_BOAT_REGISTRATION + data.appId, {
+                method: "POST",
+              });
+              break;
+            case window.location.pathname.includes("decisioncard"):
+              request = await fetch(MAIN_URL + PORT + API_DECLINE_DUPLICATE + data.appId, {
+                method: "POST",
+              });
+              break;
+
+            default:
+              break;
+          }
           if (request.status !== 200) {
             setShowResultModal(!showResultModal);
             setRegistrationResult("error");
@@ -92,26 +138,49 @@ export default function DecisionCard() {
     navigate(-1);
   };
 
+  const handleValue = (e) => {
+    newData[e.target.id] = e.target.value;
+  };
+
   useEffect(() => {
     const pathArray = window.location.pathname.split("/");
     const id = pathArray[pathArray.length - 1];
-    dispatch(getDecisionCardInfo(id));
-    // if
+    // dispatch(getDecisionCardInfo(id));
+    console.log(pathArray);
+    switch (true) {
+      case pathArray.includes("smallboatsreg"):
+        dispatch(getDecisionCardInfo(id));
+        break;
+      case pathArray.includes("dupshipsticket"):
+        dispatch(getDuplicateDecisionCardInfo(id));
+        break;
+      default:
+        break;
+    }
   }, []);
 
   return (
     <>
-      <div>
-        Регистрационный номер заявления <span>{appDecisionData.appNum}</span>
-      </div>
-      <div>
-        Дата подачи заявления <span>{appDecisionData.appDate}</span>
-      </div>
+      {window.location.pathname.includes("smallboatsreg") ? (
+        <>
+          <div>
+            Регистрационный номер заявления <span>{data.appNum || "—"}</span>
+          </div>
+          <div>
+            Дата подачи заявления <span>{data.appDate}</span>
+          </div>
+        </>
+      ) : (
+        <div>
+          Регистрационный номер маломерного судна <span>{data.regNum || "—"}</span>
+        </div>
+      )}
+
       <div className="mb-3">
         <table className={styles.primary_table}>
           <caption className={styles.primary_caption}>{ownerTableColumns.caption}</caption>
           <tbody>
-            {appDecisionData !== undefined
+            {data !== undefined
               ? ownerTableColumns.nameColumn.map((item) => {
                   return (
                     <tr>
@@ -119,15 +188,9 @@ export default function DecisionCard() {
                       {(() => {
                         switch (item.id) {
                           case "fio":
-                            return (
-                              <td className={styles.line_value}>
-                                {appDecisionData.fio || appDecisionData.nameLe}
-                              </td>
-                            );
+                            return <td className={styles.line_value}>{data.fio || data.nameLe}</td>;
                           default:
-                            return (
-                              <td className={styles.line_value}>{appDecisionData[`${item.id}`] || "—"}</td>
-                            );
+                            return <td className={styles.line_value}>{data[`${item.id}`] || "—"}</td>;
                         }
                       })()}
                     </tr>
@@ -139,12 +202,12 @@ export default function DecisionCard() {
         <table className={styles.primary_table}>
           <caption className={styles.primary_caption}>{boatTableColumns.caption}</caption>
           <tbody>
-            {appDecisionData !== undefined
+            {data !== undefined
               ? boatTableColumns.nameColumn.map((item) => {
                   return (
                     <tr>
                       <td className={styles.line_name}>{item.value}</td>
-                      <td className={styles.line_value}>{appDecisionData[`${item.id}`] || "—"}</td>
+                      <td className={styles.line_value}>{data[`${item.id}`] || "—"}</td>
                     </tr>
                   );
                 })
@@ -157,6 +220,9 @@ export default function DecisionCard() {
         tableOptions={boatCardAppEngDtoList}
         mode={"view"}
       />
+      {window.location.pathname.includes("dupshipsticket") && (
+        <div className={styles.marks_block}>Особые отметки и дополнительные сведения</div>
+      )}
       <TableAppBoatReg
         typeTable={"boatCardAppDealsList"}
         tableOptions={boatCardAppDealsDtoList}
@@ -167,15 +233,37 @@ export default function DecisionCard() {
         tableOptions={boatCardAppSmDtoList}
         mode={"view"}
       />
-      <div>
-        Должностное лицо <span className="ms-5">{appDecisionData.inspector}</span>
-      </div>
+      {window.location.pathname.includes("smallboatsreg") ? (
+        <div>
+          Должностное лицо <span className="ms-5">{data.inspector}</span>
+        </div>
+      ) : (
+        <>
+          <Form.Group className={styles.form_group_flex}>
+            <Form.Label
+            // className={`${styles.form_label} ${
+            //   !halfControls.includes(item.key) ? styles.half_label : styles.wide_label
+            // }`}
+            >
+              Номер дубликата судового билета
+            </Form.Label>
+            <Form.Control
+              id={"tiketNumNew"}
+              // isInvalid={!!errors[el.key]}
+              type="text"
+              value={newData.tiketNumNew}
+              onChange={(e) => handleValue(e)}
+            />
+          </Form.Group>
+        </>
+      )}
+
       <div className={styles.buttons_container}>
         <div
           className={styles.reg_button}
           id={"accept"}
           onClick={(e) => handleButtonClick(e)}>
-          Зарегистрировать судно
+          {acceptBtnText}
         </div>
         <div
           className={styles.decline_button}

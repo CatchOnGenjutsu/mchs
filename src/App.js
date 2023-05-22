@@ -150,6 +150,10 @@ function App() {
               element={<DuplShipsTicket />}
             />
             <Route
+              path="/dupshipsticket/decisioncard/:id"
+              element={<DecisionCard />}
+            />
+            <Route
               path="/nsi/adminproc"
               element={<AdministrativeProcedures />}
             />

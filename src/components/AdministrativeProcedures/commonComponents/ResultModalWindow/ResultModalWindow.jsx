@@ -12,6 +12,8 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
     if (result === "success") {
       if (appId === "Denied") {
         setHeaderText("Заявление на регистрацию судна отклонено");
+      } else if (appId === "Refuse") {
+        setHeaderText("Заявление на выдачу дубликата отклонено");
       } else {
         switch (true) {
           case path.includes("decisioncard"):

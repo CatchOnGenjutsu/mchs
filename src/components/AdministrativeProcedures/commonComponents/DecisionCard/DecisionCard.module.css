@@ -94,3 +94,17 @@
   background-color: #64c1ff85;
   transition: 0.5s;
 }
+.marks_block {
+  background: #D0E8FF;
+  font-weight: bold;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  font-size: 18px;
+}
+.form_group_flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

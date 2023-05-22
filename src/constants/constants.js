@@ -109,6 +109,12 @@ export const API_DELETE_ADMIN_PROC = "nsi/deleteNsiAp/";
 
 export const API_DUP_SHIP_TICKET_DATA = "boatCardAppDup/searchApp";
 export const API_GET_BOAT_CARD_FOR_DUPLICATE = "boatCardAppDup/getBoatCardForBoatCardDup/";
+export const API_ADD_NEW_APP_DUPL = "boatCardAppDup/addStatement/";
+export const API_GET_APP_INFO_DUPLICATE = "boatCardAppDup/getBoatCardDupSite/";
+export const API_GET_DUPLICATE_DECISION_INFO = "boatCardAppDup/confirmReg/";
+export const API_ACCEPT_DUPLICATE = "boatCardAppDup/saveBoatCardAppDup/";
+export const API_DECLINE_DUPLICATE = "boatCardAppDup/refuseApp/";
+
 // export const API_DUP_SHIP_TICKET_BOAT_CARD = "boatCardAppDup/searchBoatCard";
 // export const API_DUP_SH
 // boatCardAppDup/addStatement/

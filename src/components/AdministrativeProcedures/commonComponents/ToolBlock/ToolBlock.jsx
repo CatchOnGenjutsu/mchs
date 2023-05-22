@@ -13,6 +13,8 @@ import view_icon from "../../../../resourсes/view_icon.svg";
 function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }) {
   const url = new URL(document.location.href);
   const pathName = url.pathname.slice(1);
+  console.log(id);
+  console.log(appStatusId);
 
   const navigate = useNavigate();
   const buttonsNames = {
@@ -38,12 +40,16 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
   const handleButtonAdd = async (event) => {
     switch (true) {
       case pathName.includes("reginformationchanges/searchboatcard"): {
-        const board = data.find(el=>String(el.id)===id)
-        if(board.ownerType===1){
-          navigate("/reginformationchanges/individual/add", { state: { idBoadCard:id,idTypeStatement:board.ownerType} });
+        const board = data.find((el) => String(el.id) === id);
+        if (board.ownerType === 1) {
+          navigate("/reginformationchanges/individual/add", {
+            state: { idBoadCard: id, idTypeStatement: board.ownerType },
+          });
         }
-        if(board.ownerType===2){
-          navigate("/reginformationchanges/entity/add", { state: { idBoadCard:id , idTypeStatement:board.ownerType} });
+        if (board.ownerType === 2) {
+          navigate("/reginformationchanges/entity/add", {
+            state: { idBoadCard: id, idTypeStatement: board.ownerType },
+          });
         }
         break;
       }
@@ -52,7 +58,11 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
         break;
       }
       case pathName.includes("dupshipsticket/searchboatcard"): {
-        navigate(`/dupshipsticket/${id}`);
+        navigate(`/dupshipsticket/${id}`, {
+          state: {
+            mode: "add",
+          },
+        });
         break;
       }
       case pathName.includes("dupshipsticket"): {
@@ -84,9 +94,17 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
       //   navigate("searchboatcard");
       //   break;
       // }
+      case pathName.includes("dupshipsticket"): {
+        navigate(`/dupshipsticket/${id}`, {
+          state: {
+            mode: "view",
+          },
+        });
+        break;
+      }
       case pathName.includes("reginformationchanges"): {
         navigate(`./statement/${id}`, {
-          state: { mode: "view",id:id },
+          state: { mode: "view", id: id },
         });
         break;
       }
@@ -118,6 +136,12 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
       //   navigate("searchboatcard");
       //   break;
       // }
+      case pathName.includes("dupshipsticket"): {
+        navigate(`./decisioncard/${id}`, {
+          state: { mode: "view" },
+        });
+        break;
+      }
       case pathName.includes("smallboatsreg"): {
         navigate(`./decisioncard/${id}`, {
           state: { mode: "view" },

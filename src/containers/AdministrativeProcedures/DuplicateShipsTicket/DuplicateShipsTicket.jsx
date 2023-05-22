@@ -14,6 +14,8 @@ import { SMALLBOATS_ADMIN_COLUMNS } from "../../../components/SearchTable/Tables
 
 export default function DuplicateShipsTicket() {
   const [statementId, setStatementId] = useState(null);
+  const [appStatusId, setAppStatusId] = useState(null);
+
   const dataOptionsForSelectATE = useSelector((state) => {
     const { dictionaryReducer } = state;
     return dictionaryReducer.ateLibrary;
@@ -24,6 +26,7 @@ export default function DuplicateShipsTicket() {
     dataOptionsForSelectATEValidated.push({
       value: item.sctId,
       label: item.sctName,
+      key: "section",
     });
   });
   setOptionsForInputsATE(dataOptionsForSelectATEValidated, document.location.pathname.slice(1));
@@ -35,6 +38,9 @@ export default function DuplicateShipsTicket() {
 
   const handleStatementId = (value) => {
     setStatementId(value);
+  };
+  const handleAppStatusId = (value) => {
+    setAppStatusId(value);
   };
 
   // useEffect(() => {
@@ -48,9 +54,11 @@ export default function DuplicateShipsTicket() {
       <ToolBlock
         addBtnDis={true}
         id={statementId}
+        appStatusId={appStatusId}
       />
       <SearchTable
         setId={handleStatementId}
+        setStatusId={handleAppStatusId}
         headerColumns={SMALLBOATS_ADMIN_COLUMNS}
         dataFromState={dataStateDupShipsTicket}
       />

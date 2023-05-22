@@ -243,7 +243,10 @@ export default function AppBoatReg() {
                 mode={mode}
               />
             )}
-            <InfoRepresentPerson mode={mode} />
+            <InfoRepresentPerson
+              mode={mode}
+              updateNewData={updateNewData}
+            />
             <InformationAboutBoat
               fieldStatus={[]}
               updateNewData={updateNewData}

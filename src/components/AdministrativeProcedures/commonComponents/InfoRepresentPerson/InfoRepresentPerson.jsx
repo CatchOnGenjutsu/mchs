@@ -1,4 +1,4 @@
-import { useState, useRef,useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   optionInfoRepresentPersonSummary,
@@ -13,7 +13,7 @@ import Select from "react-select";
 
 import styles from "./InfoRepresentPerson.module.css";
 
-export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
+export default function InfoRepresentPerson({ inputData, mode, updateNewData }) {
   const selectRayonRef = useRef();
   const selectGorodRef = useRef();
   const selectOblRef = useRef();
@@ -24,17 +24,29 @@ export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
-  const [rerender,setRerender]=useState(false)
-  const data = !!inputData?{...inputData}:{...newStatement}
+  const newAppDupl = useSelector((state) => {
+    const { DuplicateShipsTicketReducer } = state;
+    return DuplicateShipsTicketReducer.newAppDupl;
+  });
+  const [rerender, setRerender] = useState(false);
+  const data = !!inputData
+    ? { ...inputData }
+    : window.location.pathname.includes("dupshipsticket")
+    ? { ...newAppDupl }
+    : { ...newStatement };
   const halfControls = "agentSurname agentName agentMidname agentDocDepartment agentPersNum agentDoverennost";
 
   const handleValue = async (e) => {
     if (e) {
       switch (true) {
         case Object.keys(e).includes("target"):
-          if(!window.location.pathname.includes('reginformationchanges')){
-          dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
-          }else{
+          if (!window.location.pathname.includes("reginformationchanges")) {
+            if (window.location.pathname.includes("dupshipsticket")) {
+              updateNewData(e.target.id, e.currentTarget.value);
+            } else {
+              dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+            }
+          } else {
             updateNewData(e.target.id, e.currentTarget.value);
           }
           break;
@@ -43,20 +55,20 @@ export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
             case "agentOblId":
               selectRayonRef.current.clearValue();
               selectGorodRef.current.clearValue();
-              updateNewData('agentGorodId', null);
-              updateNewData('agentRayonId', null);
+              updateNewData("agentGorodId", null);
+              updateNewData("agentRayonId", null);
               await setOptionsRayonForOblast(e.value);
               break;
             case "agentRayonId":
-              updateNewData('agentGorodId', null)
+              updateNewData("agentGorodId", null);
               await setOptionsGorodForRayon(e.value);
               break;
             default:
               break;
           }
           updateNewData(e.key, e.value);
-          if(!window.location.pathname.includes('reginformationchanges')){
-          dispatch(addNewStatementData({ [`${e.key}`]: e.value }));
+          if (!window.location.pathname.includes("reginformationchanges")) {
+            dispatch(addNewStatementData({ [`${e.key}`]: e.value }));
           }
           break;
         default:
@@ -79,13 +91,13 @@ export default function InfoRepresentPerson({inputData, mode, updateNewData }) {
         return null;
     }
   };
-  useEffect(()=>{
-    setRerender(!rerender)
+  useEffect(() => {
+    setRerender(!rerender);
     selectOblRef.current.clearValue();
     selectRayonRef.current.clearValue();
     selectGorodRef.current.clearValue();
     selectDocTypeRef.current.clearValue();
-  },[inputData])
+  }, [inputData]);
   return (
     <>
       <h3 className={styles.text_secondary}>Сведения о представителе заинтересованного лица</h3>
