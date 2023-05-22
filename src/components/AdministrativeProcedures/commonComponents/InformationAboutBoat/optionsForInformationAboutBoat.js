@@ -63,7 +63,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
   },
   boatYear: {
     key: "boatYear",
@@ -80,7 +80,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
   },
   boatName: {
     key: "boatName",
@@ -88,7 +88,7 @@ export const fieldBoatOptions = {
     type: "text",
     defaultValue: null,
     readOnly: false,
-    disabled: false
+    disabled: false,
   },
   boatLength: {
     key: "boatLength",
@@ -142,6 +142,6 @@ export function setOptionsForBoat(types, kinds, materials, saCategory) {
   fieldBoatOptions.boatType.options = types;
   fieldBoatOptions.boatVid.options = kinds;
   fieldBoatOptions.bodyMaterial.options = materials;
-  fieldBoatOptions.saCategory.options = saCategory
+  fieldBoatOptions.saCategory.options = saCategory;
   return fieldBoatOptions;
 }

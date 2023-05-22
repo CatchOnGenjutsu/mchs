@@ -5,16 +5,19 @@ import { getBoatCardInfoForDuplicate } from "../../../redux/DuplicateShipsTicket
 import InformationAboutIndividual from "../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
 import InformationAboutEntity from "../commonComponents/InformationAboutEntity/InformationAboutEntity";
 import InfoRepresentPerson from "../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
+import InfoAboutBoatDuplicate from "../commonComponents/InfoAboutBoatDuplicate/InfoAboutBoatDuplicate";
 import { ProgressBar } from "react-loader-spinner";
+
+import styles from "./DuplShipsTicket.module.css";
 
 export default function DuplShipsTicket() {
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
 
-  const dataAppDupl = useSelector((state) => {
+  const newAppDupl = useSelector((state) => {
     const { DuplicateShipsTicketReducer } = state;
-    return DuplicateShipsTicketReducer.dataAppDupl;
+    return DuplicateShipsTicketReducer.newAppDupl;
   });
 
   const personType = useSelector((state) => {
@@ -47,7 +50,10 @@ export default function DuplShipsTicket() {
         </div>
       ) : (
         <>
-          <div>Заявление</div>
+          <div className={styles.caption}>
+            <h2 className={styles.main_text}>Заявление</h2>
+            <p className={styles.secondary_text}>о выдаче дубликата судового билета</p>
+          </div>
           {personType === 1 && (
             <InformationAboutIndividual
               // updateNewData={updateNewData}
@@ -67,6 +73,8 @@ export default function DuplShipsTicket() {
             />
           )}
           <InfoRepresentPerson mode={"viewDup"} />
+          <InfoAboutBoatDuplicate />
+          <div></div>
         </>
       )}
     </>

@@ -1,0 +1,40 @@
+.container-information {
+  display: flex;
+  width: 100%;
+  grid-gap: 10px;
+}
+.common {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-gap: 10px;
+}
+
+.boat-information {
+  background-color: #e5e4e2;
+  padding: 11px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+  grid-template-areas:
+    "BN TN"
+    "BV OD"
+    "BY .";
+}
+.box-boatName {
+  grid-area: BN;
+}
+.box-boatVin {
+  grid-area: BV;
+}
+.box-boatYear {
+  grid-area: BY;
+}
+.box-tiketNum {
+  grid-area: TN;
+}
+.box-operDate {
+  grid-area: OD;
+}
