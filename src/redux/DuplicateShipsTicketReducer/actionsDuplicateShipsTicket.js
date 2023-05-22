@@ -32,6 +32,11 @@ export function getDataDupShipsTicketBySearchParams(params) {
     }).catch((err) => console.log(err));
     if (response.ok) {
       const data = await response.json();
+      for (let item of data) {
+        if (item.operDate) {
+          item.operDate = item.operDate.split("-").reverse().join(".");
+        }
+      }
       // for (let item of data) {
       //   item["fio"] = `${item.ownerMidname ? item.ownerMidname : ""} ${
       //     item.ownerName ? item.ownerName : ""
