@@ -126,17 +126,23 @@ export async function setOptions(id, key) {
   switch (key) {
     case "oblId": {
       fieldAddressOptions.rayonId.options = await getRayon(id);
-      fieldAddressOptions.rayonId.disabled = false;
+      fieldAddressOptions.rayonId.disabled = fieldAddressOptions.rayonId.options.length ?false:true;
       fieldAddressOptions.gorodId.options = [];
       fieldAddressOptions.gorodId.disabled = true;
       return fieldAddressOptions;
     }
     case "rayonId": {
       fieldAddressOptions.gorodId.options = await getGorod(id);
-      fieldAddressOptions.gorodId.disabled = false;
+      fieldAddressOptions.gorodId.disabled = fieldAddressOptions.gorodId.options.length ?false:true;
       return fieldAddressOptions;
     }
     default:
       return fieldAddressOptions;
+  }
+}
+export function getOptions() {
+  return {
+    infoEntity: fieldLEInformOptions,
+    address: fieldAddressOptions,
   }
 }

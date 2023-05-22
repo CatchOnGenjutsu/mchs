@@ -39,6 +39,7 @@ function RegistrationInformationChanges() {
       <ToolBlock
         addBtnDis={true}
         id={statementId}
+        data={dataStateRegInfChanges}
       />
       <SearchTable
         setId={handleStatementId}

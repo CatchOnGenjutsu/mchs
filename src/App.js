@@ -14,7 +14,6 @@ import AppBoatReg from "./components/AdministrativeProcedures/AppBoatReg/AppBoat
 import RegistrationInformationChanges from "./containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges";
 import FormSearchBoatCard from "./containers/FormSearchBoatCard/FormSearchBoatCard";
 import IndividualStatement from "./components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement";
-import EntityStatement from "./components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/EntityStatement";
 import DecisionCard from "./components/AdministrativeProcedures/commonComponents/DecisionCard/DecisionCard";
 import NSI from "./containers/NSI/NSI";
 import ClassificationBoats from "./components/NSI/ClassificationBoats/ClassificationBoats";

@@ -116,7 +116,6 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
     setOptionsForAdress();
   }, [inputData]);
 
-  // console.log("OPTIONS", options, "DATA", data);
   return (
     <>
       <h3>Сведения о заинтересованном лице</h3>

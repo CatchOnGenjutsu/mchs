@@ -1,8 +1,13 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import styles from "./informationAboutEntity.module.css";
-import { fieldLEInformOptions, fieldAddressOptions, setOptions } from "./optionsInformationAboutEntity";
+import {
+  fieldLEInformOptions,
+  fieldAddressOptions,
+  setOptions,
+  getOptions
+} from "./optionsInformationAboutEntity";
 import Select from "react-select";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 
@@ -35,7 +40,9 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
       switch (true) {
         case Object.keys(event).includes("target"):
           updateNewData(event.target.id, event.currentTarget.value);
-          dispatch(addNewStatementData({ [`${event.target.id}`]: event.target.value }));
+          if (!window.location.pathname.includes("reginformationchanges")) {
+            dispatch(addNewStatementData({ [`${event.target.id}`]: event.currentTarget.value }));
+          }
           break;
         case Object.keys(event).includes("key"):
           setoptions({
@@ -45,18 +52,23 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
           switch (event.key) {
             case "rayonId": {
               selectGorodRef.current.clearValue();
+              updateNewData("gorodId", null);
               break;
             }
             case "oblId": {
               selectRayonRef.current.clearValue();
               selectGorodRef.current.clearValue();
+              updateNewData("gorodId", null);
+              updateNewData("rayonId", null);
               break;
             }
             default:
               break;
           }
           updateNewData(event.key, event.value);
-          dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
+          if (!window.location.pathname.includes("reginformationchanges")) {
+            dispatch(addNewStatementData({ [`${event.key}`]: event.value }));
+          }
           break;
         default:
           break;
@@ -67,6 +79,8 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
 
   function setRef(option) {
     switch (option.key) {
+      case "oblId":
+        return selectOblRef;
       case "gorodId":
         return selectGorodRef;
       case "rayonId":
@@ -75,6 +89,18 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
         return null;
     }
   }
+  useEffect(() => {
+    setRerender(!rerender);
+    selectOblRef.current.clearValue();
+    selectRayonRef.current.clearValue();
+    selectGorodRef.current.clearValue();
+    async function setOptionsForAdress() {
+      await setOptions(data["oblId"], "oblId");
+      await setOptions(data["rayonId"], "rayonId");
+      setoptions(getOptions);
+    }
+    setOptionsForAdress();
+  }, [inputData]);
   return (
     <>
       <h3>Сведения о заинтересованном лице</h3>
@@ -142,7 +168,7 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
                   <Form.Control
                     onChange={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
-                    // defaultValue={option.defaultValue}
+                    defaultValue={option.defaultValue}
                     value={data[option.key]}
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}

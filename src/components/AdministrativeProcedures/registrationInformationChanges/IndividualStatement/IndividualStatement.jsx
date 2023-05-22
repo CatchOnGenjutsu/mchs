@@ -15,7 +15,7 @@ import { fieldBoatOptions } from "../../commonComponents/InformationAboutBoat/op
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 import ResultModalWindow from "../../commonComponents/ResultModalWindow/ResultModalWindow";
 
-import { MAIN_URL, PORT, API_GET_BOAT_CARD_FOR_MODIF ,API_ADD_CHANGE_INFORMATION_CARD} from "../../../../constants/constants";
+import { MAIN_URL, PORT, API_GET_BOAT_CARD_FOR_MODIF ,API_ADD_CHANGE_INFORMATION_CARD,API_GET_STATEMENT_MODIF_INFO} from "../../../../constants/constants";
 import { v4 as uuidv4 } from "uuid";
 import {
   optionSelectChangeType,
@@ -31,14 +31,14 @@ import {
   fieldAddressOptions,
   fieldPassportOptions,
 } from "../../commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
-
+import {fieldLEInformOptions}from"../../commonComponents/InformationAboutEntity/optionsInformationAboutEntity"
 
 
 function IndividualStatement() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { idBoadCard,idTypeStatement } = location.state || {};
+  const { idBoadCard,idTypeStatement,modeView,idStatement } = location.state || {};
   const [idTypeChangeStatement, setIdTypeChangeStatement] = useState("1");
 
   const [isLoading, setIsLoading] = useState(true);
@@ -49,12 +49,9 @@ function IndividualStatement() {
   const [appId, setAppId] = useState(null);
   const [saveKey, setSaveKey] = useState(false);
   const [file, setFile] = useState();
-  const [errorsFields,setErrorsFields]=useState(Object.entries({...fieldAddressOptions,...fieldPassportOptions}).filter(item => item[1].required).map(el=>el[0]))
+  const mainInfo = idTypeStatement===1?fieldPassportOptions:fieldLEInformOptions
+  const [errorsFields,setErrorsFields]=useState(Object.entries({...mainInfo,...fieldAddressOptions}).filter(item => item[1].required).map(el=>el[0]))
 
-  // const errorsFields = [];
-  // Object.entries(fieldAddressOptions).map((item) => {if(item[1].required)return item[0]});
-  // Object.entries(fieldPassportOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
-  // Object.entries(fieldBoatOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
 
   const reduxData = useSelector((state) => {
     const { statementReducer } = state;
@@ -189,6 +186,10 @@ function IndividualStatement() {
             surname:'',
             name:'',
             midname:'',
+            unp:reduxData.unp,
+            docDepartmentLe:reduxData.docDepartmentLe,
+            nameLe:reduxData.nameLe,
+            egrNum:reduxData.egrNum,
             docType:null,
             serialOfPassport:'',
             numberOfPassport:'',
@@ -238,6 +239,10 @@ function IndividualStatement() {
             surname:reduxData.surname,
             name:reduxData.name,
             midname:reduxData.midname,
+            unp:reduxData.unp,
+            docDepartmentLe:reduxData.docDepartmentLe,
+            nameLe:reduxData.nameLe,
+            egrNum:reduxData.egrNum,
             docType:reduxData.docType,
             serialOfPassport:reduxData.serialOfPassport,
             numberOfPassport:reduxData.numberOfPassport,
@@ -318,6 +323,10 @@ function IndividualStatement() {
             dom:reduxData.dom,
             kv:reduxData.kv,
             phone:reduxData.phone,
+            unp:reduxData.unp,
+            docDepartmentLe:reduxData.docDepartmentLe,
+            nameLe:reduxData.nameLe,
+            egrNum:reduxData.egrNum,
             enginesList:[],
             appReason:'',
             note:'',
@@ -348,32 +357,43 @@ function IndividualStatement() {
             break
       }
     setNewData(initialData)
-
   }
   useEffect(()=>{
     async function fetchData() {
-      const responseBoatCard = await fetch(MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_MODIF + String(idBoadCard));
-      const dataBoatCard = await responseBoatCard.json();
-      dispatch(addNewStatementData(dataBoatCard))
-      setNewData({
-        changeType:1,
-        regNum:dataBoatCard.regNum,
-        personType:dataBoatCard.personType,
-        tiketNum:dataBoatCard.tiketNum,
-        cardDate:dataBoatCard.cardDate,
-        boatCardSpecmarksList:dataBoatCard.boatCardSpecmarksList,
-        boatLength:dataBoatCard.boatLength,
-        boatWidth:dataBoatCard.boatWidth,
-        boatHeight:dataBoatCard.boatHeight,
-        appReason:'',
-        boatCardModifDealsList:dataBoatCard.boatCardModifDealsList,
-        section:1
-      })
+      if(window.location.pathname.includes('/reginformationchanges/statement')){
+        const responseStatement = await fetch(MAIN_URL+PORT+API_GET_STATEMENT_MODIF_INFO+String(idStatement))
+        const dataStatement =await responseStatement.json()
+        setNewData(dataStatement)
+        setIdTypeChangeStatement(String(dataStatement.changeType))
+      }else {
+        const responseBoatCard = await fetch(MAIN_URL + PORT + API_GET_BOAT_CARD_FOR_MODIF + String(idBoadCard));
+        const dataBoatCard = await responseBoatCard.json();
+        dispatch(addNewStatementData(dataBoatCard))
+        setNewData({
+          changeType:1,
+          regNum:dataBoatCard.regNum,
+          personType:dataBoatCard.personType,
+          tiketNum:dataBoatCard.tiketNum,
+          cardDate:dataBoatCard.cardDate,
+          boatCardSpecmarksList:dataBoatCard.boatCardSpecmarksList,
+          boatLength:dataBoatCard.boatLength,
+          boatWidth:dataBoatCard.boatWidth,
+          boatHeight:dataBoatCard.boatHeight,
+          appReason:'',
+          boatCardModifDealsList:dataBoatCard.boatCardModifDealsList,
+          unp:'',
+          docDepartmentLe:'',
+          nameLe:'',
+          egrNum:'',
+          section:1
+        })
+      }
+
       setIsLoading(false);
     }
     fetchData()
   },[])
-  console.log(newData)
+console.log(newData)
   if(isLoading){
     return (
         <div className={'d-flex flex-column align-items-center'}>
@@ -401,7 +421,10 @@ function IndividualStatement() {
         <Form>
           <Form.Group className={styles["header"]}>
             <Form.Label>Какие изменения вносятся:</Form.Label>
-            <Form.Select onChange={(e) => handleTypeChangeStatement(e)}>
+            <Form.Select
+                disabled={modeView}
+                value={parseInt(idTypeChangeStatement)}
+                onChange={(e) => handleTypeChangeStatement(e)}>
               {optionSelectChangeType.map((el) => (
                 <option value={el.id}>{el.value}</option>
               ))}
@@ -451,7 +474,7 @@ function IndividualStatement() {
                   saveKey={saveKey}
                   handleErrors={handleErrors}
                   errors={errors}
-                  mode={(idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':''}
+                  mode={modeView?modeView:((idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':'')}
               />
           ):(
               <InformationAboutEntity
@@ -460,14 +483,16 @@ function IndividualStatement() {
                   saveKey={saveKey}
                   handleErrors={handleErrors}
                   errors={errors}
-                  mode={(idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':''}
+                  mode={modeView?modeView:((idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':'')}
+
               />
           )
           }
 
           <InfoRepresentPerson
               inputData={newData}
-              updateNewData={updateNewData}/>
+              updateNewData={updateNewData}
+              mode={modeView}/>
           {(idTypeChangeStatement !== "1" && idTypeChangeStatement !== "4") ? (
             <InformationAboutBoat
               dataBoat = {newData}
@@ -476,7 +501,7 @@ function IndividualStatement() {
               saveKey={saveKey}
               handleErrors={handleErrors}
               errors={errors}
-              mode={'view'}
+              mode={modeView?modeView:'view'}
             />
           ) : (
             ""
@@ -484,6 +509,7 @@ function IndividualStatement() {
           {idTypeChangeStatement === "4" ? <OtherInformation
               inputData={newData}
               updateNewData={updateNewData}
+              mode={modeView}
           /> : ""}
 
           <Form.Group>
@@ -495,6 +521,7 @@ function IndividualStatement() {
               type="text"
               value={newData.appReason}
               onChange={(e) => updateNewData(e.target.id, e.currentTarget.value)}
+              disabled={modeView ? true : false}
             />
           </Form.Group>
           {idTypeChangeStatement === "2" || idTypeChangeStatement === "3" ? (
@@ -503,7 +530,7 @@ function IndividualStatement() {
               dataForTable={newData.enginesList}
               typeTable='boatCardAppEngList'
               updateData={updateNewData}
-              mode={(idTypeChangeStatement==='2')?'view':''}
+              mode={modeView?modeView:((idTypeChangeStatement==='2')?'view':'')}
             />
           ) : (
             ""
@@ -515,7 +542,7 @@ function IndividualStatement() {
               typeTable='boatCardAppDealsList'
               dataForTable={newData.boatCardModifDealsList}
               updateData={updateNewData}
-              mode={(idTypeChangeStatement==='2')?'view':''}
+              mode={modeView?modeView:((idTypeChangeStatement==='2')?'view':'')}
             />
           ) : (
             ""
@@ -525,23 +552,23 @@ function IndividualStatement() {
             dataForTable={newData.boatCardSpecmarksList}
             typeTable='boatCardAppSpecMarkList'
             updateData={updateNewData}
-            mode={(idTypeChangeStatement==='2')?'view':''}
+            mode={modeView?modeView:((idTypeChangeStatement==='2')?'view':'')}
           />
           <AppFooter
               inputData={newData}
               updateNewData={updateNewData}
               handleFile={handleFile}
+              mode={modeView}
           />
         </Form>
       </div>
       <div className={styles.buttons_container}>
-        <Button
+        {!modeView && (<Button
             variant="primary"
-            className=""
             onClick={(e) => handleSave(e)}
         >
           Зарегистрировать
-        </Button>
+        </Button>)}
         <Button
             variant="danger"
             onClick={handleCloseApp}>

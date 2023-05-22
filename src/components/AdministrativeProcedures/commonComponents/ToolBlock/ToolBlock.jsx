@@ -13,7 +13,6 @@ import view_icon from "../../../../resourсes/view_icon.svg";
 function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }) {
   const url = new URL(document.location.href);
   const pathName = url.pathname.slice(1);
-
   const navigate = useNavigate();
   const buttonsNames = {
     openBtnText: "Просмотр РК",
@@ -67,26 +66,9 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
   };
   const handleButtonView = async (event) => {
     switch (true) {
-      // case pathName.includes("reginformationchanges/searchboatcard"): {
-      //   switch (event.currentTarget.id) {
-      //     case "open": {
-      //       navigate(`/smallboats/boatId/${id}`);
-      //       break;
-      //     }
-      //     case "add": {
-      //       setShow(true);
-      //       break;
-      //     }
-      //   }
-      //   break;
-      // }
-      // case pathName.includes("reginformationchanges"): {
-      //   navigate("searchboatcard");
-      //   break;
-      // }
       case pathName.includes("reginformationchanges"): {
         navigate(`./statement/${id}`, {
-          state: { mode: "view",id:id },
+          state: { modeView: "view",idStatement:id,idTypeStatement:data.find(el=>String(el.id)===String(id)).personType },
         });
         break;
       }

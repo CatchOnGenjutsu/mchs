@@ -3,10 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/InformationAboutEntity.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/InformationAboutEntity.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/optionsInformationAboutEntity.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/optionsInformationAboutEntity.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutIndividual/InformationAboutIndividual.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutIndividual/InformationAboutIndividual.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/EntityStatement.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/EntityStatement.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/EntityStatement/optionsForEntityStatement.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +90,7 @@
       <workItem from="1679645780167" duration="38978000" />
       <workItem from="1680244928590" duration="137106000" />
       <workItem from="1681711935223" duration="63400000" />
-      <workItem from="1683699061956" duration="143214000" />
+      <workItem from="1683699061956" duration="160890000" />
     </task>
     <servers />
   </component>
