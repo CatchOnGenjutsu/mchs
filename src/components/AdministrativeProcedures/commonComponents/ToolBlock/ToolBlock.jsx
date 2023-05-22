@@ -13,7 +13,7 @@ import view_icon from "../../../../resourсes/view_icon.svg";
 function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }) {
   const url = new URL(document.location.href);
   const pathName = url.pathname.slice(1);
-  console.log(pathName);
+
   const navigate = useNavigate();
   const buttonsNames = {
     openBtnText: "Просмотр РК",
@@ -38,7 +38,13 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
   const handleButtonAdd = async (event) => {
     switch (true) {
       case pathName.includes("reginformationchanges/searchboatcard"): {
-        setShow(true);
+        const board = data.find(el=>String(el.id)===id)
+        if(board.ownerType===1){
+          navigate("/reginformationchanges/individual/add", { state: { idBoadCard:id,idTypeStatement:board.ownerType} });
+        }
+        if(board.ownerType===2){
+          navigate("/reginformationchanges/entity/add", { state: { idBoadCard:id , idTypeStatement:board.ownerType} });
+        }
         break;
       }
       case pathName.includes("reginformationchanges"): {
