@@ -8,6 +8,7 @@ import {
   getBoatCardInfoForDuplicate,
   getAppInfoDuplicate,
 } from "../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
+// import { getDataDupShipsTicketBySearchParams } from "../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
 
 import InformationAboutIndividual from "../commonComponents/InformationAboutIndividual/InformationAboutIndividual";
 import InformationAboutEntity from "../commonComponents/InformationAboutEntity/InformationAboutEntity";
@@ -63,7 +64,8 @@ export default function DuplShipsTicket() {
       inspector: 1,
       appSheetCnt: 2,
     });
-    navigate(-1);
+    navigate("/dupshipsticket");
+    // dispatch(getDataDupShipsTicketBySearchParams(stateDupShipsTicket.searchParams));
   };
 
   const handleButtonClick = async (e) => {
@@ -102,7 +104,6 @@ export default function DuplShipsTicket() {
   useEffect(() => {
     const pathArray = window.location.pathname.split("/");
     const id = pathArray[pathArray.length - 1];
-
     if (mode === "add") {
       dispatch(getBoatCardInfoForDuplicate(id));
     } else {

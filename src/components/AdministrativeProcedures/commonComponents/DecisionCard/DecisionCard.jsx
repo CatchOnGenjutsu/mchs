@@ -71,7 +71,7 @@ export default function DecisionCard() {
                 { method: "POST" },
               );
               break;
-            case window.location.pathname.includes("decisioncard"):
+            case window.location.pathname.includes("dupshipsticket"):
               request = await fetch(
                 MAIN_URL + PORT + API_ACCEPT_DUPLICATE + data.appId + "/" + data.inspector,
                 {
@@ -92,8 +92,16 @@ export default function DecisionCard() {
             setRegistrationResult("error");
           } else {
             const response = await request.text();
-            console.log("response", response);
-            setBoatRegNum(response);
+            switch (true) {
+              case window.location.pathname.includes("smallboatsreg"):
+                setBoatRegNum(response);
+                break;
+              case window.location.pathname.includes("dupshipsticket"):
+                setBoatRegNum(newData.tiketNumNew);
+                break;
+              default:
+                break;
+            }
             setShowResultModal(!showResultModal);
             setRegistrationResult("success");
           }
@@ -108,7 +116,7 @@ export default function DecisionCard() {
                 method: "POST",
               });
               break;
-            case window.location.pathname.includes("decisioncard"):
+            case window.location.pathname.includes("dupshipsticket"):
               request = await fetch(MAIN_URL + PORT + API_DECLINE_DUPLICATE + data.appId, {
                 method: "POST",
               });
@@ -122,7 +130,6 @@ export default function DecisionCard() {
             setRegistrationResult("error");
           } else {
             const response = await request.text();
-            console.log("response", response);
             setBoatRegNum(response);
             setShowResultModal(!showResultModal);
             setRegistrationResult("success");

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import SearchBlock from "../../../components/SearchBlock/SearchBlock";
 import SearchTable from "../../../components/SearchTable/SearchTable";
@@ -10,11 +10,14 @@ import {
   setOptionsForInputsATE,
 } from "../../../components/SearchBlock/inputsHeaders";
 
+import { getDataDupShipsTicketBySearchParams } from "../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
+
 import { SMALLBOATS_ADMIN_COLUMNS } from "../../../components/SearchTable/TablesColumns";
 
 export default function DuplicateShipsTicket() {
   const [statementId, setStatementId] = useState(null);
   const [appStatusId, setAppStatusId] = useState(null);
+  const dispatch = useDispatch();
 
   const dataOptionsForSelectATE = useSelector((state) => {
     const { dictionaryReducer } = state;
@@ -36,6 +39,11 @@ export default function DuplicateShipsTicket() {
     return DuplicateShipsTicketReducer.data;
   });
 
+  const stateDupShipsTicket = useSelector((state) => {
+    const { DuplicateShipsTicketReducer } = state;
+    return DuplicateShipsTicketReducer;
+  });
+
   const handleStatementId = (value) => {
     setStatementId(value);
   };
@@ -43,9 +51,9 @@ export default function DuplicateShipsTicket() {
     setAppStatusId(value);
   };
 
-  // useEffect(() => {
-
-  // }, []);
+  useEffect(() => {
+    dispatch(getDataDupShipsTicketBySearchParams(stateDupShipsTicket.searchParams));
+  }, []);
 
   return (
     <>

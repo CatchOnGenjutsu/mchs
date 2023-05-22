@@ -19,7 +19,7 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
   const navigate = useNavigate();
   const buttonsNames = {
     openBtnText: "Просмотр РК",
-    addBtnText: "Добавить заявление",
+    addBtnText: window.location.pathname.includes("searchboatcard") ? "Выбрать" : "Добавить заявление",
     viewBtnText: "Просмотр",
     editBtnText: "Взять в работу",
   };

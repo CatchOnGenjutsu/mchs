@@ -41,6 +41,11 @@ export default function AppBoatReg() {
   const [appId, setAppId] = useState(null);
   const [type, setType] = useState(null);
 
+  const searchParamsFromStateBoatsReg = useSelector((state) => {
+    const { smallBoatsRegReducer } = state;
+    return smallBoatsRegReducer.searchParams;
+  });
+
   const location = useLocation();
   const { mode } = location.state;
   const dispatch = useDispatch();
@@ -89,6 +94,9 @@ export default function AppBoatReg() {
     );
   }
   Object.entries(fieldBoatOptions).map((item) => (item[1].required ? errorsFields.push(item[0]) : null));
+  if (window.location.pathname.includes("smallboatsreg") && mode === "add") {
+    errorsFields.push("engpwrmaxkwt");
+  }
 
   const handleFile = (value) => {
     setFile(value);
@@ -177,7 +185,18 @@ export default function AppBoatReg() {
   };
   const handleCloseApp = () => {
     dispatch(clearNewStatement());
-    navigate(-1);
+    navigate("/smallboatsreg");
+    dispatch(getDataBoatsRegBySearchParams(searchParamsFromStateBoatsReg));
+    // switch (true) {
+    //   case window.location.pathname.includes("smallboatsreg"):
+    //     navigate("/smallboatsreg");
+    //     break;
+    //   case window.location.pathname.includes("dupshipsticket"):
+    //     navigate("/dupshipsticket");
+    //     break;
+    //   default:
+    //     break;
+    // }
   };
   useEffect(() => {
     if (mode === "view") {

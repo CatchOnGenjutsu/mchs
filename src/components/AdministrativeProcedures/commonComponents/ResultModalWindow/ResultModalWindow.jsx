@@ -16,14 +16,26 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
         setHeaderText("Заявление на выдачу дубликата отклонено");
       } else {
         switch (true) {
-          case path.includes("decisioncard"):
+          case path.includes("dupshipsticket/decisioncard"):
+            setMessageText("Номер дубликата");
+            setHeaderText("Дубликат судового билета успешно выдан");
+            break;
+          case path.includes("smallboatsreg/decisioncard"):
             setHeaderText("Судно успешно зарегистрировано");
+            setMessageText("Регистрационный номер");
+            break;
+          case path.includes("smallboatsreg"):
+            setHeaderText("Заявление успешно зарегистрировано");
+            setMessageText("Регистрационный номер");
+            break;
+          case path.includes("dupshipsticket"):
+            setHeaderText("Заявление успешно зарегистрировано");
+            setMessageText("Регистрационный номер");
             break;
           default:
-            setHeaderText("Заявление успешно зарегистрировано");
             break;
         }
-        setMessageText("Регистрационный номер");
+        console.log(appId);
       }
     } else {
       switch (true) {

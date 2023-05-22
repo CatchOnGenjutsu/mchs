@@ -25,7 +25,7 @@ export const boatCardAppEngDtoList = {
       neededInModal: true,
     },
     {
-      value: "Мощность",
+      value: "Мощность, л.с.",
       key: "engpwr",
       type: "text",
       neededInModal: true,

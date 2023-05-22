@@ -113,7 +113,9 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
       await setOptions(data["rayonId"], "rayonId");
       setoptions(getOptions);
     }
-    setOptionsForAdress();
+    if (window.location.pathname.includes("reginformationchanges")) {
+      setOptionsForAdress();
+    }
   }, [inputData]);
 
   // console.log("OPTIONS", options, "DATA", data);

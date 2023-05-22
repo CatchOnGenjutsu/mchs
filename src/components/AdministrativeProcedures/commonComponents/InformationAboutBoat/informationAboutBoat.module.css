@@ -20,6 +20,24 @@
   width: 70%;
 }
 
+.boat-information-add {
+  background-color: #e5e4e2;
+  padding: 11px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+  grid-template-areas:
+    "BV BV BY EN"
+    "PP PP BN BN"
+    "BT BVid BL BW"
+    "BM BM BH PasNum"
+    "BP BP saCat saCat"
+    "EPKWT EPKWT . ."
+    "EP EP . .";
+}
+
 .boat-information {
   background-color: #e5e4e2;
   padding: 11px;
@@ -56,6 +74,9 @@
 }
 .box-engpwrmax {
   grid-area: EP;
+}
+.box-engpwrmax-kwt {
+  grid-area: EPKWT;
 }
 .box-boatYear {
   grid-area: BY;

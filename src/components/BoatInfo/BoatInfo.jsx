@@ -398,24 +398,24 @@ export default function BoatInfo(props) {
           <thead>
             <tr>
               {dealsHistoryTableColumns.nameColumn.map((item) => {
-                if (item.key !== "docNum")
-                  if (item.key === "docName" || item.key === "note") {
-                    return (
-                      <th
-                        className={styles.deals_history_table_th}
-                        id={item.key}>
-                        {item.value}
-                      </th>
-                    );
-                  } else {
-                    return (
-                      <th
-                        className={styles.deals_history_table_th}
-                        id={item.key}>
-                        Номер и дата документа
-                      </th>
-                    );
-                  }
+                // if (item.key !== "docNum")
+                //   if (item.key === "docName" || item.key === "note") {
+                return (
+                  <th
+                    className={styles.deals_history_table_th}
+                    id={item.key}>
+                    {item.value}
+                  </th>
+                );
+                // } else {
+                //   return (
+                //     <th
+                //       className={styles.deals_history_table_th}
+                //       id={item.key}>
+                //       Номер и дата документа
+                //     </th>
+                //   );
+                // }
               })}
               <th
                 key={uuidv4()}
@@ -428,19 +428,9 @@ export default function BoatInfo(props) {
                   return (
                     <tr>
                       {dealsHistoryTableColumns.nameColumn.map((item) => {
-                        if (item.key !== "docNum" && item.key !== "docDate")
-                          if (item.key !== "docName") {
-                            if (item.key === "dealDate" && !!elem[`${item.key}`]) {
-                              return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
-                            } else return <td>{elem[`${item.key}`]}</td>;
-                          } else {
-                            return (
-                              <td>
-                                {elem[`${item.key}`]}, {elem[`docNum`]} от{" "}
-                                {new Date(elem[`docDate`]).toLocaleDateString()}
-                              </td>
-                            );
-                          }
+                        if (item.key === "docDate") {
+                          return <td>{new Date(elem[`recdate`]).toLocaleDateString() || "—"}</td>;
+                        } else return <td>{elem[`${item.key}`]}</td>;
                       })}
                       <td
                         className={`${editMode ? "" : styles.edit__mode} ${styles.edit__column}`}

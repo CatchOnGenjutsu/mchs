@@ -1,3 +1,13 @@
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  user-select: none;
+}
+.buttons:hover {
+  cursor: pointer;
 }

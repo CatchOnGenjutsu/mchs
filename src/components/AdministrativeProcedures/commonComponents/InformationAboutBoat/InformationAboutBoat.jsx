@@ -28,8 +28,21 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
     if (e) {
       switch (true) {
         case Object.keys(e).includes("target"):
-          updateNewData(e.target.id, e.currentTarget.value);
-          dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+          switch (e.target.id) {
+            case "engpwrmaxkwt":
+              updateNewData(e.target.id, e.currentTarget.value);
+              dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+              updateNewData("engpwrmax", (Number(e.currentTarget.value) * 1.3595).toFixed(2));
+              dispatch(
+                addNewStatementData({ [`engpwrmax`]: (Number(e.currentTarget.value) * 1.3595).toFixed(2) }),
+              );
+              break;
+
+            default:
+              updateNewData(e.target.id, e.currentTarget.value);
+              dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+              break;
+          }
           break;
         case Object.keys(e).includes("key"):
           updateNewData(e.key, e.value);
@@ -58,34 +71,84 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
     <div>
       <h3>Сведения о маломерном судне</h3>
       <div className={styles["container-information"]}>
-        <div className={styles["boat-information"]}>
+        <div className={mode === "add" ? styles["boat-information-add"] : styles["boat-information"]}>
           {Object.values(options).map((option) => {
             if (option.type === "text" || option.type === "date") {
-              return (
-                <Form.Group
-                  controlId={`${option.key}`}
-                  className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
-                  <Form.Label>
-                    {option.value}
-                    {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
-                  </Form.Label>
-                  <Form.Control
-                    //value = {dataBoat[option.key]}
-                    onChange={(e) => handleValue(e)}
-                    type={option.type}
-                    defaultValue={option.defaultValue}
-                    readOnly={option.readOnly}
-                    disabled={option.disabled || mode === "view" ? true : false}
-                    value={newStatement[option.key]}
-                    isInvalid={
-                      !!errors[option.key] ||
-                      (!!option.maxlength && !!newStatement[option.key]
-                        ? newStatement[option.key].length > option.maxlength
-                        : false)
-                    }
-                  />
-                </Form.Group>
-              );
+              if (
+                option.key === "engpwrmax" &&
+                window.location.pathname.includes("smallboatsreg") &&
+                mode === "add"
+              ) {
+                return (
+                  <>
+                    <Form.Group
+                      controlId={`engpwrmaxkwt`}
+                      className={`${styles["common"]} ${styles[`box-engpwrmax-kwt`]}`}>
+                      <Form.Label>
+                        Предельная мощность двигателей, кВт
+                        {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
+                      </Form.Label>
+                      <Form.Control
+                        //value = {dataBoat[option.key]}
+                        onChange={(e) => handleValue(e)}
+                        type={option.type}
+                        readOnly={option.readOnly}
+                        disabled={option.disabled || mode === "view" ? true : false}
+                        value={newStatement["engpwrmaxkwt"]}
+                        isInvalid={!!errors["engpwrmaxkwt"]}
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      controlId={`${option.key}`}
+                      className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
+                      <Form.Label>
+                        {option.value}
+                        {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
+                      </Form.Label>
+                      <Form.Control
+                        //value = {dataBoat[option.key]}
+                        // onChange={(e) => handleValue(e)}
+                        type={option.type}
+                        readOnly={true}
+                        disabled={true}
+                        value={newStatement[option.key]}
+                        isInvalid={
+                          !!errors[option.key] ||
+                          (!!option.maxlength && !!newStatement[option.key]
+                            ? newStatement[option.key].length > option.maxlength
+                            : false)
+                        }
+                      />
+                    </Form.Group>
+                  </>
+                );
+              } else {
+                return (
+                  <Form.Group
+                    controlId={`${option.key}`}
+                    className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
+                    <Form.Label>
+                      {option.value}
+                      {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
+                    </Form.Label>
+                    <Form.Control
+                      //value = {dataBoat[option.key]}
+                      onChange={(e) => handleValue(e)}
+                      type={option.type}
+                      defaultValue={option.defaultValue}
+                      readOnly={option.readOnly}
+                      disabled={option.disabled || mode === "view" ? true : false}
+                      value={newStatement[option.key]}
+                      isInvalid={
+                        !!errors[option.key] ||
+                        (!!option.maxlength && !!newStatement[option.key]
+                          ? newStatement[option.key].length > option.maxlength
+                          : false)
+                      }
+                    />
+                  </Form.Group>
+                );
+              }
             } else if (option.type === "selectSearch") {
               return (
                 <Form.Group className={`${styles["common"]} ${styles[`box-${option.key}`]}`}>
