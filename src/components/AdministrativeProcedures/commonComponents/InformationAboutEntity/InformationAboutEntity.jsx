@@ -6,9 +6,10 @@ import { fieldLEInformOptions, fieldAddressOptions, setOptions } from "./options
 import Select from "react-select";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 
-function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, errors, mode }) {
+function InformationAboutEntity({ inputData, updateNewData, saveKey, handleErrors, errors, mode }) {
   const selectGorodRef = useRef();
   const selectRayonRef = useRef();
+  const selectOblRef = useRef();
   const dispatch = useDispatch();
   const [options, setoptions] = useState({
     infoEntity: fieldLEInformOptions,
@@ -19,7 +20,16 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
-
+  const newAppDupl = useSelector((state) => {
+    const { DuplicateShipsTicketReducer } = state;
+    return DuplicateShipsTicketReducer.newAppDupl;
+  });
+  const [rerender, setRerender] = useState(false);
+  const data = !!inputData
+      ? { ...inputData }
+      : window.location.pathname.includes("dupshipsticket")
+          ? { ...newAppDupl }
+          : { ...newStatement };
   async function handleChangeSelectSearch(event) {
     if (event) {
       switch (true) {
@@ -84,7 +94,7 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
                     onChange={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
                     defaultValue={option.defaultValue}
-                    value={newStatement[option.key]}
+                    value={data[option.key]}
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
                     isInvalid={mode !== "view" && !!errors[option.key]}
@@ -100,8 +110,8 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
                   </Form.Label>
                   <Select
                     onChange={(e) => handleChangeSelectSearch(e)}
-                    defaultValue={newStatement[option.key]}
-                    value={option.options.find((item) => item.value === newStatement[option.key])}
+                    defaultValue={data[option.key]}
+                    value={option.options.find((item) => item.value === data[option.key])}
                     className={`${styles["selectSearch"]} ${
                       mode !== "view" && !!errors[option.key] ? styles.red_border : null
                     }`}
@@ -132,8 +142,8 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
                   <Form.Control
                     onChange={(e) => handleChangeSelectSearch(e)}
                     type={option.type}
-                    defaultValue={option.defaultValue}
-                    value={newStatement[option.key]}
+                    // defaultValue={option.defaultValue}
+                    value={data[option.key]}
                     readOnly={option.readOnly || mode === "view"}
                     disabled={mode === "view" ? true : false}
                     isInvalid={mode !== "view" && !!errors[option.key]}
@@ -155,8 +165,7 @@ function InformationAboutEntity({ data, updateNewData, saveKey, handleErrors, er
                     onChange={(e) => handleChangeSelectSearch(e)}
                     classNamePrefix="select"
                     id={option.key}
-                    // defaultValue={newStatement[option.key]}
-                    value={option.options.find((item) => item.value === newStatement[option.key])}
+                    value={option.options.find((item) => item.value === data[option.key])}
                     placeholder="Выберите"
                     isDisabled={option.disabled || mode === "view" ? true : false}
                     isSearchable={option.isSearchable}

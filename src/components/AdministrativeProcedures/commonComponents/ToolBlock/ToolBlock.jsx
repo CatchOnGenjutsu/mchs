@@ -86,7 +86,7 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
       // }
       case pathName.includes("reginformationchanges"): {
         navigate(`./statement/${id}`, {
-          state: { mode: "view" },
+          state: { mode: "view",id:id },
         });
         break;
       }
