@@ -14,6 +14,12 @@ export default function TableAppBoatReg({ updateData, tableOptions, dataForTable
     return statementReducer[typeTable];
   });
 
+  // console.log(typeTable);
+  // const appDecisionData = useSelector((state) => {
+  //   const { DuplicateShipsTicketReducer } = state;
+  //   return DuplicateShipsTicketReducer.appDecisionData;
+  // });
+
   const data = !!dataForTable ? dataForTable : dataReg;
 
   const handleAddNotes = (e) => {
