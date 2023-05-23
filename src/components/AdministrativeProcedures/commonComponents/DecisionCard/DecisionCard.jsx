@@ -262,6 +262,22 @@ export default function DecisionCard() {
               onChange={(e) => handleValue(e)}
             />
           </Form.Group>
+          <Form.Group className={styles.form_group_flex}>
+            <Form.Label
+            // className={`${styles.form_label} ${
+            //   !halfControls.includes(item.key) ? styles.half_label : styles.wide_label
+            // }`}
+            >
+              Номер дубликата судового билета
+            </Form.Label>
+            <Form.Control
+              id={"ticketDateNew"}
+              // isInvalid={!!errors[el.key]}
+              type="date"
+              value={newData.ticketDateNew}
+              onChange={(e) => handleValue(e)}
+            />
+          </Form.Group>
         </>
       )}
 
