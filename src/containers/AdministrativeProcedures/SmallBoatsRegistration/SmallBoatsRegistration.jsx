@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SearchBlock from "../../../components/SearchBlock/SearchBlock";
 import { MemoSearchTable } from "../../../components/SearchTable/SearchTable";
@@ -8,8 +8,8 @@ import {
   inputsHeadersSmallBoatsRegistration,
   setOptionsForInputsATE,
 } from "../../../components/SearchBlock/inputsHeaders";
-import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
 import { getDataBoatsRegBySearchParams } from "../../../redux/actions";
+import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
 
 export default function SmallBoatsRegistration() {
   const [show, setShow] = useState(false);
@@ -33,6 +33,10 @@ export default function SmallBoatsRegistration() {
     const { dictionaryReducer } = state;
     return dictionaryReducer.ateLibrary;
   });
+  const searchParamsFromStateBoatsReg = useSelector((state) => {
+    const { smallBoatsRegReducer } = state;
+    return smallBoatsRegReducer.searchParams;
+  });
   const dataOptionsForSelectATEValidated = [];
   dataOptionsForSelectATE.forEach((item) => {
     dataOptionsForSelectATEValidated.push({
@@ -47,16 +51,10 @@ export default function SmallBoatsRegistration() {
     const { smallBoatsRegReducer } = state;
     return smallBoatsRegReducer.data;
   });
-  // useState(() => {
-  //   if (
-  //     window.performance
-  //       .getEntriesByType("navigation")
-  //       .map((nav) => nav.type)
-  //       .includes("reload")
-  //   ) {
-  //     dispatch(getDataBoatsRegBySearchParams(JSON.parse(sessionStorage.getItem("searchParams"))));
-  //   }
-  // }, []);
+
+  useEffect(() => {
+    dispatch(getDataBoatsRegBySearchParams(searchParamsFromStateBoatsReg));
+  }, []);
 
   return (
     <div>

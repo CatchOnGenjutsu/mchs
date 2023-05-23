@@ -31,10 +31,11 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
   });
   const [rerender, setRerender] = useState(false);
   const data = !!inputData
-      ? { ...inputData }
-      : window.location.pathname.includes("dupshipsticket")
-          ? { ...newAppDupl }
-          : { ...newStatement };
+    ? { ...inputData }
+    : window.location.pathname.includes("dupshipsticket")
+    ? { ...newAppDupl }
+    : { ...newStatement };
+
   async function handleChangeSelectSearch(event) {
     if (event) {
       switch (true) {
@@ -171,7 +172,7 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
                     defaultValue={option.defaultValue}
                     value={data[option.key]}
                     readOnly={option.readOnly || mode === "view"}
-                    disabled={mode === "view" ? true : false}
+                    disabled={option.disabled || mode === "view" ? true : false}
                     isInvalid={mode !== "view" && !!errors[option.key]}
                   />
                 </Form.Group>

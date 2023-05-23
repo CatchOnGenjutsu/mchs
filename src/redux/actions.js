@@ -231,7 +231,7 @@ export function getDataBoatsRegBySearchParams(params) {
     }).catch((err) => console.log(err));
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
+
       for (let item of data) {
         item["fio"] = `${item.surname ? item.surname : ""} ${item.name ? item.name : ""} ${
           item.midname ? item.midname : ""
@@ -240,6 +240,9 @@ export function getDataBoatsRegBySearchParams(params) {
           item["rayonName"] = ateLibrary.find((elem) => elem.uiddistrict === item.rayonId).namedistrictRu;
         } else {
           item["rayonName"] = "";
+        }
+        if (item.operDate) {
+          item.operDate = item.operDate.split("-").reverse().join(".");
         }
       }
       dispatch({

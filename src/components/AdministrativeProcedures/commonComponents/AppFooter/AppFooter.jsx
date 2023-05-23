@@ -7,7 +7,7 @@ import { MAIN_URL, PORT, API_ADD_STATEMENT_FILE_DOWNLOAD } from "../../../../con
 
 import styles from "./AppFooter.module.css";
 
-export default function AppFooter({ inputData,mode,updateNewData, handleFile }) {
+export default function AppFooter({ inputData, mode, updateNewData, handleFile }) {
   const [newInfo, setNewInfo] = useState({
     appDate: new Date().toLocaleDateString().split(".").reverse().join("-"),
   });
@@ -16,7 +16,16 @@ export default function AppFooter({ inputData,mode,updateNewData, handleFile }) 
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
-  const data = !!inputData?{...inputData}:{...newStatement}
+  const newAppDupl = useSelector((state) => {
+    const { DuplicateShipsTicketReducer } = state;
+    return DuplicateShipsTicketReducer.newAppDupl;
+  });
+  const data = !!inputData
+    ? { ...inputData }
+    : window.location.pathname.includes("dupshipsticket")
+    ? { ...newAppDupl }
+    : { ...newStatement };
+
   const handleChange = (e) => {
     switch (true) {
       case e.target.id === "file":
@@ -26,9 +35,14 @@ export default function AppFooter({ inputData,mode,updateNewData, handleFile }) 
         }
         break;
       default:
-        if(!window.location.pathname.includes('reginformationchanges')){
-          dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));}else {
-          updateNewData(e.target.id, e.currentTarget.value)
+        if (!window.location.pathname.includes("reginformationchanges")) {
+          if (window.location.pathname.includes("dupshipsticket")) {
+            updateNewData(e.target.id, e.currentTarget.value);
+          } else {
+            dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+          }
+        } else {
+          updateNewData(e.target.id, e.currentTarget.value);
         }
         break;
     }
@@ -50,16 +64,12 @@ export default function AppFooter({ inputData,mode,updateNewData, handleFile }) 
               handleChange(e);
             }}
           />
-          {/* <Form.Control.Feedback type={"invalid"}>
-            {errors[item.key]}
-          </Form.Control.Feedback> */}
         </Form.Group>
       )}
       {data.fileType && (
         <div className={styles.file_area}>
           <p className="me-2">Файл заявления:</p>
-          <a
-            href={`${MAIN_URL}${PORT}${API_ADD_STATEMENT_FILE_DOWNLOAD}${data[data.fileType].docid}`}>
+          <a href={`${MAIN_URL}${PORT}${API_ADD_STATEMENT_FILE_DOWNLOAD}${data[data.fileType].docid}`}>
             {data[data.fileType].docname}
           </a>
         </div>

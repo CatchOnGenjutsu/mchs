@@ -3,6 +3,7 @@ import {
   SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
   GET_BOAT_CARD_FOR_DUPLICATE,
   ADD_DATA_FOR_DUPLICATE,
+  GET_DUPLICATE_DECISION_INFO,
 } from "../types";
 
 const initialState = {
@@ -14,11 +15,15 @@ const initialState = {
     regNum: "",
     unp: "",
     nameLe: "",
-    rayonId: 0,
+    section: 0,
     status: 0,
   },
   newAppDupl: {},
   personType: null,
+  boatCardAppEngList: [],
+  boatCardAppSpecMarkList: [],
+  boatCardAppDealsList: [],
+  appDecisionData: {},
 };
 
 export const DuplicateShipsTicketReducer = (state = initialState, action) => {
@@ -43,6 +48,14 @@ export const DuplicateShipsTicketReducer = (state = initialState, action) => {
       return (() => ({
         ...state,
         newAppDupl: { ...state.newAppDupl, ...action.data },
+      }))();
+    case GET_DUPLICATE_DECISION_INFO:
+      return (() => ({
+        ...state,
+        appDecisionData: action.data.data,
+        boatCardAppEngList: [...action.data.dataAppEng],
+        boatCardAppDealsList: [...action.data.dataAppDeals],
+        boatCardAppSpecMarkList: [...action.data.dataAppSpecMarks],
       }))();
 
     default:
