@@ -30,12 +30,17 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
         case Object.keys(e).includes("target"):
           switch (e.target.id) {
             case "engpwrmaxkwt":
+              const newValue = e.currentTarget.value.replace(",", ".");
               updateNewData(e.target.id, e.currentTarget.value);
               dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
-              updateNewData("engpwrmax", (Number(e.currentTarget.value) * 1.3595).toFixed(2));
-              dispatch(
-                addNewStatementData({ [`engpwrmax`]: (Number(e.currentTarget.value) * 1.3595).toFixed(2) }),
-              );
+              if (newValue === "") {
+                updateNewData("engpwrmax", "");
+                dispatch(addNewStatementData({ [`engpwrmax`]: "" }));
+              } else {
+                updateNewData("engpwrmax", (Number(e.currentTarget.value) * 1.3595).toFixed(2));
+                dispatch(addNewStatementData({ [`engpwrmax`]: (Number(newValue) * 1.3595).toFixed(2) }));
+              }
+
               break;
 
             default:
@@ -86,7 +91,7 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                       className={`${styles["common"]} ${styles[`box-engpwrmax-kwt`]}`}>
                       <Form.Label>
                         Предельная мощность двигателей, кВт
-                        {option.required && mode !== "view" && <span className={styles.red_dot}>*</span>}
+                        {mode !== "view" && <span className={styles.red_dot}>*</span>}
                       </Form.Label>
                       <Form.Control
                         //value = {dataBoat[option.key]}
