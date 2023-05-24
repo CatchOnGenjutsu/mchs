@@ -31,7 +31,6 @@ function RegistrationInformationChanges() {
   const handleStatementId = (value) => {
     setStatementId(value);
   };
-
   return (
     <>
       <h2>Регистрация изменений сведений / заявления</h2>
@@ -40,6 +39,7 @@ function RegistrationInformationChanges() {
         addBtnDis={true}
         id={statementId}
         data={dataStateRegInfChanges}
+        appStatusId={statementId?dataStateRegInfChanges.find(el=>el.id.toString()===statementId).statusId:undefined}
       />
       <SearchTable
         setId={handleStatementId}

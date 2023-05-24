@@ -77,7 +77,12 @@ export default function SearchTable({ setId, setStatusId, headerColumns, dataFro
         setId(id);
         break;
       }
+      case e.target.baseURI.includes("dupshipsticket/searchboatcard"): {
+        setId(id);
+        break;
+      }
       case e.target.baseURI.includes("dupshipsticket"): {
+        setStatusId(e.currentTarget.dataset.status);
         setId(id);
         break;
       }
@@ -112,7 +117,10 @@ export default function SearchTable({ setId, setStatusId, headerColumns, dataFro
                 <tr
                   data-id={row.original.id}
                   data-status={
-                    window.location.pathname.includes("smallboatsreg") ? row.original.statusId : null
+                    window.location.pathname.includes("smallboatsreg") ||
+                    window.location.pathname.includes("dupshipsticket")
+                      ? row.original.statusId
+                      : null
                   }
                   onClick={(e) => {
                     setSelectedRow(row.id);

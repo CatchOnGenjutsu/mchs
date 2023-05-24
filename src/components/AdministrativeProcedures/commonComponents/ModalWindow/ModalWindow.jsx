@@ -4,13 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./ModalWindow.module.css";
 
-
 function ModalWindow({ setShow, show, idBoadCard }) {
   const navigate = useNavigate();
   const pathName = window.location.pathname;
   const dispatch = useDispatch();
-
-
 
   const handleLinkClick = (e) => {
     switch (true) {
@@ -18,12 +15,12 @@ function ModalWindow({ setShow, show, idBoadCard }) {
         switch (e.target.dataset.key) {
           case "individual":
             navigate("/smallboatsreg/app/individual", {
-              state: { type: "individual", mode: "create" },
+              state: { type: "individual", mode: "add" },
             });
             break;
           case "entity":
             navigate("/smallboatsreg/app/entity", {
-              state: { type: "entity", mode: "create" },
+              state: { type: "entity", mode: "add" },
             });
             break;
           default:
@@ -50,8 +47,6 @@ function ModalWindow({ setShow, show, idBoadCard }) {
     }
   };
 
-
-
   return (
     <Modal
       show={show}
@@ -60,22 +55,22 @@ function ModalWindow({ setShow, show, idBoadCard }) {
       aria-labelledby="contained-modal-title-vcenter"
       centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Выбор формы собственности</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Выбор вида заявителя</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <nav className={`d-flex`}>
           <div
+            className={styles.buttons}
             onClick={(e) => handleLinkClick(e)}
-            data-key="individual"
-          >
+            data-key="individual">
             Физическое лицо
           </div>
-          <a
+          <div
+            className={styles.buttons}
             onClick={(e) => handleLinkClick(e)}
-            data-key="entity"
-          >
+            data-key="entity">
             Юридическое лицо
-          </a>
+          </div>
         </nav>
       </Modal.Body>
       <Modal.Footer>

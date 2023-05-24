@@ -13,10 +13,11 @@ import view_icon from "../../../../resourсes/view_icon.svg";
 function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }) {
   const url = new URL(document.location.href);
   const pathName = url.pathname.slice(1);
+
   const navigate = useNavigate();
   const buttonsNames = {
     openBtnText: "Просмотр РК",
-    addBtnText: "Добавить заявление",
+    addBtnText: window.location.pathname.includes("searchboatcard") ? "Выбрать" : "Добавить заявление",
     viewBtnText: "Просмотр",
     editBtnText: "Взять в работу",
   };
@@ -51,7 +52,11 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
         break;
       }
       case pathName.includes("dupshipsticket/searchboatcard"): {
-        navigate(`/dupshipsticket/${id}`);
+        navigate(`/dupshipsticket/${id}`, {
+          state: {
+            mode: "add",
+          },
+        });
         break;
       }
       case pathName.includes("dupshipsticket"): {
@@ -100,6 +105,18 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
       //   navigate("searchboatcard");
       //   break;
       // }
+      case pathName.includes("reginformationchanges"): {
+        navigate(`./decisioncard/${id}`, {
+          state: { mode: "view",idStatement:id },
+        });
+        break;
+      }
+      case pathName.includes("dupshipsticket"): {
+        navigate(`./decisioncard/${id}`, {
+          state: { mode: "view" },
+        });
+        break;
+      }
       case pathName.includes("smallboatsreg"): {
         navigate(`./decisioncard/${id}`, {
           state: { mode: "view" },

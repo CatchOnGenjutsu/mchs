@@ -308,11 +308,11 @@ export const inputsHeadersDuplicateShipsTicket = {
     value: "Наименование организации",
     type: "text",
   },
-  rayonId: {
-    key: "rayonId",
+  section: {
+    key: "section",
     value: "Участок",
     type: "selectRayon",
-    selectOption: [{ value: 0, label: "Все" }],
+    selectOption: [{ value: 0, label: "Все", key: "section" }],
   },
   status: {
     key: "status",
@@ -346,8 +346,8 @@ export const setOptionsForInputsATE = (inputsOptions, path) => {
       }
       break;
     case "dupshipsticket":
-      if (inputsHeadersDuplicateShipsTicket.rayonId.selectOption.length === 1) {
-        inputsHeadersDuplicateShipsTicket.rayonId.selectOption.push(...inputsOptions);
+      if (inputsHeadersDuplicateShipsTicket.section.selectOption.length === 1) {
+        inputsHeadersDuplicateShipsTicket.section.selectOption.push(...inputsOptions);
       }
       break;
   }

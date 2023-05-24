@@ -41,6 +41,7 @@ export const fieldAddressOptions = {
     value: "Страна",
     type: "text",
     defaultValue: "Республика Беларусь",
+    disabled: true,
     readOnly: true,
   },
   oblId: {

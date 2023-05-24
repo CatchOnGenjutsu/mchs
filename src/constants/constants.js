@@ -12,6 +12,7 @@ export const API_GET_BOAT_INFO_ARRESTS = "boats/getBoatArrests/";
 export const API_GET_BOAT_CARD_FOR_MODIF = "boatCardModif/getBoatCardAsBoatModif/";
 export const API_GET_STATEMENT_MODIF_INFO ="boatCardModif/getBoatCardModif/";
 export const API_ADD_CHANGE_INFORMATION_CARD = "boatCardModif/addStatement/";
+export const API_DOWNLOAD_FILE_MODIF = "boatCardModif/download/"
 
 export const API_GET_LICENSE_LIST_SEARCH = "boats/license/search";
 export const API_GET_LICENSE_INFO_CARD = "boats/license/drivingLicense/";
@@ -110,6 +111,12 @@ export const API_DELETE_ADMIN_PROC = "nsi/deleteNsiAp/";
 
 export const API_DUP_SHIP_TICKET_DATA = "boatCardAppDup/searchApp";
 export const API_GET_BOAT_CARD_FOR_DUPLICATE = "boatCardAppDup/getBoatCardForBoatCardDup/";
+export const API_ADD_NEW_APP_DUPL = "boatCardAppDup/addStatement/";
+export const API_GET_APP_INFO_DUPLICATE = "boatCardAppDup/getBoatCardDupSite/";
+export const API_GET_DUPLICATE_DECISION_INFO = "boatCardAppDup/confirmReg/";
+export const API_ACCEPT_DUPLICATE = "boatCardAppDup/saveBoatCardAppDup/";
+export const API_DECLINE_DUPLICATE = "boatCardAppDup/refuseApp/";
+
 // export const API_DUP_SHIP_TICKET_BOAT_CARD = "boatCardAppDup/searchBoatCard";
 // export const API_DUP_SH
 // boatCardAppDup/addStatement/

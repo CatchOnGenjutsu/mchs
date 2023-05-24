@@ -137,6 +137,10 @@ function App() {
               element={<IndividualStatement />}
             />
             <Route
+                path="/reginformationchanges/decisioncard/:id"
+                element={<DecisionCard />}
+            />
+            <Route
               path="/dupshipsticket"
               element={<DuplicateShipsTicket />}
             />
@@ -147,6 +151,10 @@ function App() {
             <Route
               path="/dupshipsticket/:id"
               element={<DuplShipsTicket />}
+            />
+            <Route
+              path="/dupshipsticket/decisioncard/:id"
+              element={<DecisionCard />}
             />
             <Route
               path="/nsi/adminproc"
