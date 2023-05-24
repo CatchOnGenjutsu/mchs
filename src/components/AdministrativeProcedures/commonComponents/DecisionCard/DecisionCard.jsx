@@ -153,7 +153,6 @@ export default function DecisionCard() {
     const pathArray = window.location.pathname.split("/");
     const id = pathArray[pathArray.length - 1];
     // dispatch(getDecisionCardInfo(id));
-    console.log(pathArray);
     switch (true) {
       case pathArray.includes("smallboatsreg"):
         dispatch(getDecisionCardInfo(id));

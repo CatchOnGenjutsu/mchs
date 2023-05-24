@@ -53,9 +53,9 @@ export const DuplicateShipsTicketReducer = (state = initialState, action) => {
       return (() => ({
         ...state,
         appDecisionData: action.data.data,
-        boatCardAppEngList: [...action.data.dataAppEng],
-        boatCardAppDealsList: [...action.data.dataAppDeals],
-        boatCardAppSpecMarkList: [...action.data.dataAppSpecMarks],
+        boatCardAppEngList: [...action.data.boatCardAppEngList],
+        boatCardAppDealsList: [...action.data.boatCardAppDealsList],
+        boatCardAppSpecMarkList: [...action.data.boatCardAppSpecMarkList],
       }))();
 
     default:
