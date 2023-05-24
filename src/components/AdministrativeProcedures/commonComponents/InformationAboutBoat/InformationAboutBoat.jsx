@@ -31,8 +31,8 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
           switch (e.target.id) {
             case "engpwrmaxkwt":
               const newValue = e.currentTarget.value.replace(",", ".");
-              updateNewData(e.target.id, e.currentTarget.value);
-              dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
+              updateNewData(e.target.id, newValue);
+              dispatch(addNewStatementData({ [`${e.target.id}`]: newValue }));
               if (newValue === "") {
                 updateNewData("engpwrmax", "");
                 dispatch(addNewStatementData({ [`engpwrmax`]: "" }));
@@ -40,9 +40,7 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                 updateNewData("engpwrmax", (Number(e.currentTarget.value) * 1.3595).toFixed(2));
                 dispatch(addNewStatementData({ [`engpwrmax`]: (Number(newValue) * 1.3595).toFixed(2) }));
               }
-
               break;
-
             default:
               updateNewData(e.target.id, e.currentTarget.value);
               dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.value }));
