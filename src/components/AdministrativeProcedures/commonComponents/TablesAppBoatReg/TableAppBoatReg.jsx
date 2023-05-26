@@ -97,6 +97,8 @@ export default function TableAppBoatReg({ updateData, tableOptions, dataForTable
                         </td>
                       );
                     case "date":
+                      console.log(item);
+                      console.log(elem);
                       return <td>{elem[`${item.key}`].split("-").reverse().join(".")}</td>;
                     default:
                       if (item.key === "engtype") {

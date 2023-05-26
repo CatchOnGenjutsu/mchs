@@ -30,7 +30,7 @@ import {
   API_DECLINE_DUPLICATE,
   API_GET_STATEMENT_MODIF_INFO,
   API_ACCEPT_BOAT_MODIF,
-  API_DECLINE_BOAT_MODIF
+  API_DECLINE_BOAT_MODIF,
 } from "../../../../constants/constants";
 
 import styles from "./DecisionCard.module.css";
@@ -41,7 +41,7 @@ export default function DecisionCard() {
   const [registrationResult, setRegistrationResult] = useState("");
   const [boatRegNum, setBoatRegNum] = useState(null);
   const [newData, setNewData] = useState({});
-  const [changeInfData,setChangeInfData]=useState({})
+  const [changeInfData, setChangeInfData] = useState(null);
 
   let acceptBtnText = window.location.pathname.includes("smallboatsreg")
     ? "Зарегистрировать судно"
@@ -59,20 +59,20 @@ export default function DecisionCard() {
     return DuplicateShipsTicketReducer.appDecisionData;
   });
 
-  let data = null
-    switch (true) {
-      case window.location.pathname.includes("smallboatsreg"):
-        data = { ...appRegistrationDecisionData }
-        break;
-      case window.location.pathname.includes("dupshipsticket"):
-        data = { ...appDuplicateDecisionData }
-        break;
-      case window.location.pathname.includes("reginformationchanges"):
-        data = changeInfData
-        break;
-      default:
-        break;
-    }
+  let data = null;
+  switch (true) {
+    case window.location.pathname.includes("smallboatsreg"):
+      data = { ...appRegistrationDecisionData };
+      break;
+    case window.location.pathname.includes("dupshipsticket"):
+      data = { ...appDuplicateDecisionData };
+      break;
+    case window.location.pathname.includes("reginformationchanges"):
+      data = changeInfData;
+      break;
+    default:
+      break;
+  }
   const handleButtonClick = async (e) => {
     if (e) {
       switch (e.target.id) {
@@ -101,13 +101,12 @@ export default function DecisionCard() {
                 },
               );
               break;
-              case window.location.pathname.includes("reginformationchanges"):
-                const pathArray = window.location.pathname.split("/");
-                const id = pathArray[pathArray.length - 1];
-                request = await fetch(
-                MAIN_URL + PORT + API_ACCEPT_BOAT_MODIF + id + "/" + data.inspector,
-                { method: "POST" },
-              );
+            case window.location.pathname.includes("reginformationchanges"):
+              const pathArray = window.location.pathname.split("/");
+              const id = pathArray[pathArray.length - 1];
+              request = await fetch(MAIN_URL + PORT + API_ACCEPT_BOAT_MODIF + id + "/" + data.inspector, {
+                method: "POST",
+              });
               break;
 
             default:
@@ -151,12 +150,9 @@ export default function DecisionCard() {
               });
               break;
             case window.location.pathname.includes("reginformationchanges"):
-                const pathArray = window.location.pathname.split("/");
-                const id = pathArray[pathArray.length - 1];
-                request = await fetch(
-                MAIN_URL + PORT + API_DECLINE_BOAT_MODIF + id ,
-                { method: "POST" },
-              );
+              const pathArray = window.location.pathname.split("/");
+              const id = pathArray[pathArray.length - 1];
+              request = await fetch(MAIN_URL + PORT + API_DECLINE_BOAT_MODIF + id, { method: "POST" });
               break;
             default:
               break;
@@ -200,33 +196,33 @@ export default function DecisionCard() {
         break;
       case pathArray.includes("reginformationchanges"):
         async function fetchData() {
-          const response = await fetch(MAIN_URL+PORT+API_GET_STATEMENT_MODIF_INFO+String(id))
-          const responseData = await response.json()
-          responseData.bodyMaterial = responseData.bodyMaterialValue
-          responseData.saCategory = responseData.saCategoryValue
-          setChangeInfData(responseData)
+          const response = await fetch(MAIN_URL + PORT + API_GET_STATEMENT_MODIF_INFO + String(id));
+          const responseData = await response.json();
+          responseData.bodyMaterial = responseData.bodyMaterialValue;
+          responseData.saCategory = responseData.saCategoryValue;
+          setChangeInfData(responseData);
           setIsLoading(false);
         }
-        fetchData()
+        fetchData();
         break;
       default:
         break;
     }
   }, []);
-  if(isLoading){
+  if (isLoading) {
     return (
-        <div className={'d-flex flex-column align-items-center'}>
-          <ProgressBar
-              height="80"
-              width="80"
-              ariaLabel="progress-bar-loading"
-              wrapperStyle={{}}
-              wrapperClass="progress-bar-wrapper"
-              borderColor="#F4442E"
-              barColor="#51E5FF"
-          />
-        </div>
-    )
+      <div className={"d-flex flex-column align-items-center"}>
+        <ProgressBar
+          height="80"
+          width="80"
+          ariaLabel="progress-bar-loading"
+          wrapperStyle={{}}
+          wrapperClass="progress-bar-wrapper"
+          borderColor="#F4442E"
+          barColor="#51E5FF"
+        />
+      </div>
+    );
   }
   return (
     <>
@@ -286,66 +282,64 @@ export default function DecisionCard() {
       </div>
       <TableAppBoatReg
         typeTable={"boatCardAppEngList"}
-        tableOptions={changeInfData?enginesList:boatCardAppEngDtoList}
+        tableOptions={changeInfData ? enginesList : boatCardAppEngDtoList}
         mode={"view"}
-        dataForTable={changeInfData?changeInfData.enginesList:undefined}
+        dataForTable={changeInfData ? changeInfData.enginesList : undefined}
       />
       {window.location.pathname.includes("dupshipsticket") && (
         <div className={styles.marks_block}>Особые отметки и дополнительные сведения</div>
       )}
       <TableAppBoatReg
         typeTable={"boatCardAppDealsList"}
-        tableOptions={changeInfData?boatCardModifDealsDtoList:boatCardAppDealsDtoList}
+        tableOptions={changeInfData ? boatCardModifDealsDtoList : boatCardAppDealsDtoList}
         mode={"view"}
-        dataForTable={changeInfData?changeInfData.boatCardModifDealsList:undefined}
+        dataForTable={changeInfData ? changeInfData.boatCardModifDealsList : undefined}
       />
       <TableAppBoatReg
         typeTable={"boatCardAppSpecMarkList"}
-        tableOptions={changeInfData?boatCardSpecmarksList:boatCardAppSmDtoList}
+        tableOptions={changeInfData ? boatCardSpecmarksList : boatCardAppSmDtoList}
         mode={"view"}
-        dataForTable={changeInfData?changeInfData.boatCardSpecmarksList:undefined}
+        dataForTable={changeInfData ? changeInfData.boatCardSpecmarksList : undefined}
       />
-      {
-        window.location.pathname.includes("smallboatsreg") && (
+      {window.location.pathname.includes("smallboatsreg") && (
         <div>
-        Должностное лицо <span className="ms-5">{data.inspector}</span>
+          Должностное лицо <span className="ms-5">{data.inspector}</span>
         </div>
-        )
-      }
+      )}
       {window.location.pathname.includes("dupshipsticket") && (
         <>
-        <Form.Group className={styles.form_group_flex}>
-        <Form.Label
-        // className={`${styles.form_label} ${
-        //   !halfControls.includes(item.key) ? styles.half_label : styles.wide_label
-        // }`}
-        >
-        Номер дубликата судового билета
-        </Form.Label>
-        <Form.Control
-        id={"tiketNumNew"}
-        // isInvalid={!!errors[el.key]}
-        type="text"
-        value={newData.tiketNumNew}
-        onChange={(e) => handleValue(e)}
-        />
-        </Form.Group>
-        <Form.Group className={styles.form_group_flex}>
-        <Form.Label
-        // className={`${styles.form_label} ${
-        //   !halfControls.includes(item.key) ? styles.half_label : styles.wide_label
-        // }`}
-        >
-          Дата выдачи дубликата судового билета
-        </Form.Label>
-        <Form.Control
-        id={"ticketDateNew"}
-        // isInvalid={!!errors[el.key]}
-        type="date"
-        value={newData.ticketDateNew}
-        onChange={(e) => handleValue(e)}
-        />
-        </Form.Group>
+          <Form.Group className={styles.form_group_flex}>
+            <Form.Label
+            // className={`${styles.form_label} ${
+            //   !halfControls.includes(item.key) ? styles.half_label : styles.wide_label
+            // }`}
+            >
+              Номер дубликата судового билета
+            </Form.Label>
+            <Form.Control
+              id={"tiketNumNew"}
+              // isInvalid={!!errors[el.key]}
+              type="text"
+              value={newData.tiketNumNew}
+              onChange={(e) => handleValue(e)}
+            />
+          </Form.Group>
+          <Form.Group className={styles.form_group_flex}>
+            <Form.Label
+            // className={`${styles.form_label} ${
+            //   !halfControls.includes(item.key) ? styles.half_label : styles.wide_label
+            // }`}
+            >
+              Дата выдачи дубликата судового билета
+            </Form.Label>
+            <Form.Control
+              id={"ticketDateNew"}
+              // isInvalid={!!errors[el.key]}
+              type="date"
+              value={newData.ticketDateNew}
+              onChange={(e) => handleValue(e)}
+            />
+          </Form.Group>
         </>
       )}
 
