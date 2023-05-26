@@ -57,6 +57,7 @@ export default function AppBoatRegModal({
 
   const handleSave = () => {
     if (!handleErrors()) {
+      debugger
       if (!window.location.pathname.includes("reginformationchanges")) {
         switch (modalWindowInputs.keyTable) {
           case "boatCardAppEngDtoList":
@@ -77,6 +78,13 @@ export default function AppBoatRegModal({
             break;
         }
       } else {
+        console.log(modalWindowInputs.keyTable)
+        if(modalWindowInputs.keyTable==="enginesList"){
+          if (dataForCheck.findIndex((item) => item.engvin === newData.engvin) <= 0) {
+
+            return
+          }
+        }
         updateData(modalWindowInputs.keyTable, newData);
       }
       setShowModal(false);

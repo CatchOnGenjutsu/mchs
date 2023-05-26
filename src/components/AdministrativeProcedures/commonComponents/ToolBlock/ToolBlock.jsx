@@ -88,23 +88,6 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
 
   const handleButtonEdit = async (event) => {
     switch (true) {
-      // case pathName.includes("reginformationchanges/searchboatcard"): {
-      //   switch (event.currentTarget.id) {
-      //     case "open": {
-      //       navigate(`/smallboats/boatId/${id}`);
-      //       break;
-      //     }
-      //     case "add": {
-      //       setShow(true);
-      //       break;
-      //     }
-      //   }
-      //   break;
-      // }
-      // case pathName.includes("reginformationchanges"): {
-      //   navigate("searchboatcard");
-      //   break;
-      // }
       case pathName.includes("reginformationchanges"): {
         navigate(`./decisioncard/${id}`, {
           state: { mode: "view",idStatement:id },

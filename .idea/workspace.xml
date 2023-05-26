@@ -3,37 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/AppBoatReg/AppBoatReg.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/AppBoatReg/AppBoatReg.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/AppBoatReg/tableOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/AppBoatReg/tableOptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/DuplShipsTicket/DuplShipsTicket.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/DuplShipsTicket/DuplShipsTicket.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/DuplShipsTicket/DuplShipsTicket.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/DuplShipsTicket/DuplShipsTicket.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppFooter/AppFooter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppFooter/AppFooter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppBoatRegModal/AppBoatRegModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/AppBoatRegModal/AppBoatRegModal.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/DecisionCard/DecisionCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/DecisionCard/DecisionCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/DecisionCard/DecisionCard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/DecisionCard/DecisionCard.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InfoRepresentPerson/InfoRepresentPerson.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InfoRepresentPerson/InfoRepresentPerson.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/InformationAboutBoat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/InformationAboutBoat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/informationAboutBoat.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutBoat/informationAboutBoat.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/InformationAboutEntity.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/InformationAboutEntity.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/optionsInformationAboutEntity.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutEntity/optionsInformationAboutEntity.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutIndividual/InformationAboutIndividual.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/InformationAboutIndividual/InformationAboutIndividual.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ResultModalWindow/ResultModalWindow.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ResultModalWindow/ResultModalWindow.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/TablesAppBoatReg/TableAppBoatReg.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/TablesAppBoatReg/TableAppBoatReg.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BoatInfo/BoatInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BoatInfo/BoatInfo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BoatInfo/BoatInfo.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BoatInfo/BoatInfo.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/DuplicateShipsTicket/DuplicateShipsTicket.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/DuplicateShipsTicket/DuplicateShipsTicket.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/SmallBoatsRegistration/SmallBoatsRegistration.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/SmallBoatsRegistration/SmallBoatsRegistration.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/DuplicateShipsTicketReducer/DuplicateShipsTicketReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/DuplicateShipsTicketReducer/DuplicateShipsTicketReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +44,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/containers/AdministrativeProcedures" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -112,7 +86,10 @@
       <workItem from="1681711935223" duration="63400000" />
       <workItem from="1683699061956" duration="160890000" />
       <workItem from="1684908950570" duration="1263000" />
-      <workItem from="1684911608944" duration="10143000" />
+      <workItem from="1684911608944" duration="10564000" />
+      <workItem from="1684936464751" duration="10000" />
+      <workItem from="1684936489292" duration="2406000" />
+      <workItem from="1685082314111" duration="5869000" />
     </task>
     <servers />
   </component>

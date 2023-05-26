@@ -28,7 +28,9 @@ import {
   API_DECLINE_BOAT_REGISTRATION,
   API_ACCEPT_DUPLICATE,
   API_DECLINE_DUPLICATE,
-  API_GET_STATEMENT_MODIF_INFO
+  API_GET_STATEMENT_MODIF_INFO,
+  API_ACCEPT_BOAT_MODIF,
+  API_DECLINE_BOAT_MODIF
 } from "../../../../constants/constants";
 
 import styles from "./DecisionCard.module.css";
@@ -99,6 +101,14 @@ export default function DecisionCard() {
                 },
               );
               break;
+              case window.location.pathname.includes("reginformationchanges"):
+                const pathArray = window.location.pathname.split("/");
+                const id = pathArray[pathArray.length - 1];
+                request = await fetch(
+                MAIN_URL + PORT + API_ACCEPT_BOAT_MODIF + id + "/" + data.inspector,
+                { method: "POST" },
+              );
+              break;
 
             default:
               break;
@@ -110,6 +120,9 @@ export default function DecisionCard() {
             const response = await request.text();
             switch (true) {
               case window.location.pathname.includes("smallboatsreg"):
+                setBoatRegNum(response);
+                break;
+              case window.location.pathname.includes("reginformationchanges"):
                 setBoatRegNum(response);
                 break;
               case window.location.pathname.includes("dupshipsticket"):
@@ -137,7 +150,14 @@ export default function DecisionCard() {
                 method: "POST",
               });
               break;
-
+            case window.location.pathname.includes("reginformationchanges"):
+                const pathArray = window.location.pathname.split("/");
+                const id = pathArray[pathArray.length - 1];
+                request = await fetch(
+                MAIN_URL + PORT + API_DECLINE_BOAT_MODIF + id ,
+                { method: "POST" },
+              );
+              break;
             default:
               break;
           }
@@ -183,6 +203,7 @@ export default function DecisionCard() {
           const response = await fetch(MAIN_URL+PORT+API_GET_STATEMENT_MODIF_INFO+String(id))
           const responseData = await response.json()
           responseData.bodyMaterial = responseData.bodyMaterialValue
+          responseData.saCategory = responseData.saCategoryValue
           setChangeInfData(responseData)
           setIsLoading(false);
         }

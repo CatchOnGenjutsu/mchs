@@ -118,7 +118,7 @@ function IndividualStatement() {
       const engine = newData[key].find(el => String(el.engid) === value);
       const currentDate = new Date();
       const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-      engine.dateRegEnd=currentDate.toLocaleDateString('en', options).replace(/\//g, '.').split('.').reverse().join('.');
+      engine.dateRegEnd=currentDate.toLocaleDateString('ru', options).replace(/\//g, '.').split('.').reverse().join('.');
       setNewData({...newData})
     }
     if (Array.isArray(newData[key])&&updateType!=='delete'){
@@ -148,7 +148,7 @@ function IndividualStatement() {
             cardDate:reduxData.cardDate,
             boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
             boatCardModifDealsList:reduxData.boatCardModifDealsList,
-
+            appDate:new Date(),
             agentDocDate:'',
             agentDocDepartment:'',
             agentDocType:null,
@@ -167,7 +167,6 @@ function IndividualStatement() {
             agentSerialOfPassport:'',
             agentSurname:'',
             agentUlica:'',
-            section:1,
             boatVin:'',
             boatYear:'',
             engineNum:'',
@@ -279,7 +278,8 @@ function IndividualStatement() {
             agentSerialOfPassport:'',
             agentSurname:'',
             agentUlica:'',
-            section:1
+            section:1,
+            appDate:new Date(),
           }
           break
         case '4':
@@ -349,7 +349,8 @@ function IndividualStatement() {
             agentSerialOfPassport:'',
             agentSurname:'',
             agentUlica:'',
-            section:1
+            section:1,
+            appDate:new Date(),
           }
           break
         default:
@@ -385,7 +386,8 @@ function IndividualStatement() {
           docDepartmentLe:'',
           nameLe:'',
           egrNum:'',
-          section:1
+          section:1,
+          appDate:new Date()
         })
       }
 
