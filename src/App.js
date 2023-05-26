@@ -27,6 +27,7 @@ import SectionInfo from "./components/NSI/Contacts/SectionInfo/SectionInfo";
 import AdministrativeProcedures from "./components/NSI/AdministrativeProcedures/AdministrativeProcedures";
 import DuplicateShipsTicket from "./containers/AdministrativeProcedures/DuplicateShipsTicket/DuplicateShipsTicket";
 import DuplShipsTicket from "./components/AdministrativeProcedures/DuplShipsTicket/DuplShipsTicket";
+import ShipsTicket from "./containers/AdministrativeProcedures/ShipsTicket/ShipsTicket";
 
 import {
   getDictionaryGimsSections,
@@ -152,6 +153,10 @@ function App() {
             <Route
               path="/dupshipsticket/decisioncard/:id"
               element={<DecisionCard />}
+            />
+            <Route
+              path="/shipsticket"
+              element={<ShipsTicket />}
             />
             <Route
               path="/nsi/adminproc"
