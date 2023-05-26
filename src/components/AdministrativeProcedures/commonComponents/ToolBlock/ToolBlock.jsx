@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -11,8 +11,14 @@ import open_icon from "../../../../resourсes/open-icon.svg";
 import view_icon from "../../../../resourсes/view_icon.svg";
 
 function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }) {
-  const url = new URL(document.location.href);
-  const pathName = url.pathname.slice(1);
+  const [openBtn, setOpenBtn] = useState(false);
+  const [addBtn, setAddBtn] = useState(false);
+  const [viewBtn, setViewBtn] = useState(false);
+  const [editBtn, setEditBtn] = useState(false);
+
+  const pathName = window.location.pathname.slice(1);
+  console.log(id);
+  console.log(appStatusId);
 
   const navigate = useNavigate();
   const buttonsNames = {
@@ -38,12 +44,16 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
   const handleButtonAdd = async (event) => {
     switch (true) {
       case pathName.includes("reginformationchanges/searchboatcard"): {
-        const board = data.find(el=>String(el.id)===id)
-        if(board.ownerType===1){
-          navigate("/reginformationchanges/individual/add", { state: { idBoadCard:id,idTypeStatement:board.ownerType} });
+        const board = data.find((el) => String(el.id) === id);
+        if (board.ownerType === 1) {
+          navigate("/reginformationchanges/individual/add", {
+            state: { idBoadCard: id, idTypeStatement: board.ownerType },
+          });
         }
-        if(board.ownerType===2){
-          navigate("/reginformationchanges/entity/add", { state: { idBoadCard:id , idTypeStatement:board.ownerType} });
+        if (board.ownerType === 2) {
+          navigate("/reginformationchanges/entity/add", {
+            state: { idBoadCard: id, idTypeStatement: board.ownerType },
+          });
         }
         break;
       }
@@ -108,11 +118,54 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
       }
     }
   };
+  useEffect(() => {
+    switch (true) {
+      case pathName === "smallboatsreg":
+        setOpenBtn(false);
+        setAddBtn(true);
+        setViewBtn(true);
+        setEditBtn(true);
+        break;
+      case pathName === "reginformationchanges":
+        setOpenBtn(false);
+        setAddBtn(true);
+        setViewBtn(true);
+        setEditBtn(true);
+        break;
+      case pathName === "reginformationchanges/searchboatcard":
+        setOpenBtn(true);
+        setAddBtn(true);
+        setViewBtn(false);
+        setEditBtn(false);
+        break;
+      case pathName === "shipsticket":
+        setOpenBtn(false);
+        setAddBtn(false);
+        setViewBtn(false);
+        setEditBtn(true);
+        break;
+      case pathName === "dupshipsticket":
+        setOpenBtn(false);
+        setAddBtn(true);
+        setViewBtn(true);
+        setEditBtn(true);
+        break;
+      case pathName === "dupshipsticket/searchboatcard":
+        setOpenBtn(true);
+        setAddBtn(true);
+        setViewBtn(false);
+        setEditBtn(false);
+        break;
+
+      default:
+        break;
+    }
+  }, []);
 
   return (
     <>
       <div className={`d-flex mb-2`}>
-        {pathName.includes("searchboatcard") ? (
+        {openBtn && (
           <>
             <button
               id={`open`}
@@ -127,20 +180,25 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
             </button>
             <p className={styles.buttons_text}>{buttonsNames.openBtnText}</p>
           </>
-        ) : null}
-        <button
-          id={`add`}
-          title={buttonsNames.addBtnText}
-          disabled={addBtnDisIn}
-          className={`btn btn-danger btn-sm ms-2`}
-          onClick={handleButtonAdd}>
-          <img
-            src={add_icon}
-            alt="Добавить"
-          />
-        </button>
-        <p className={styles.buttons_text}>{buttonsNames.addBtnText}</p>
-        {!pathName.includes("searchboatcard") ? (
+        )}
+        {addBtn && (
+          <>
+            {" "}
+            <button
+              id={`add`}
+              title={buttonsNames.addBtnText}
+              disabled={addBtnDisIn}
+              className={`btn btn-danger btn-sm ms-2`}
+              onClick={handleButtonAdd}>
+              <img
+                src={add_icon}
+                alt="Добавить"
+              />
+            </button>
+            <p className={styles.buttons_text}>{buttonsNames.addBtnText}</p>
+          </>
+        )}
+        {viewBtn && (
           <>
             <button
               id={"view"}
@@ -156,8 +214,8 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
             </button>
             <p className={styles.buttons_text}>{buttonsNames.viewBtnText}</p>
           </>
-        ) : null}
-        {!pathName.includes("searchboatcard") ? (
+        )}
+        {editBtn && (
           <>
             <button
               id={`edit`}
@@ -172,7 +230,7 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
             </button>
             <p className={styles.buttons_text}>{buttonsNames.editBtnText}</p>
           </>
-        ) : null}
+        )}
       </div>
     </>
   );

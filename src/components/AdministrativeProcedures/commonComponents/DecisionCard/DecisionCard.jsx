@@ -336,7 +336,7 @@ export default function DecisionCard() {
         //   !halfControls.includes(item.key) ? styles.half_label : styles.wide_label
         // }`}
         >
-        Номер дубликата судового билета
+          Дата выдачи дубликата судового билета
         </Form.Label>
         <Form.Control
         id={"ticketDateNew"}
@@ -347,9 +347,7 @@ export default function DecisionCard() {
         />
         </Form.Group>
         </>
-      )
-
-      }
+      )}
 
       <div className={styles.buttons_container}>
         <div

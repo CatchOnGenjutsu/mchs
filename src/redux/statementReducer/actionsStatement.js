@@ -9,7 +9,7 @@ import {
   ADD_NEW_STATEMENT,
   CLEAR_NEW_STATEMENT,
   GET_BOATS_DECISION_INFO,
-  CLEAR_DECISION_DATA
+  CLEAR_DECISION_DATA,
 } from "../types";
 
 import {
@@ -21,7 +21,7 @@ import {
   API_GET_BOATS_REG_ENG,
   API_GET_BOATS_REG_DEALS,
   API_GET_BOATS_REG_SPEC_MARKS,
-  API_GET_BOATS_DECISION_INFO
+  API_GET_BOATS_DECISION_INFO,
 } from "../../constants/constants";
 
 import {
@@ -112,13 +112,13 @@ export function getBoatRegInfo(id) {
 
 export function getDecisionCardInfo(id) {
   return async (dispatch) => {
-    const request = await fetch(MAIN_URL + PORT + API_GET_BOATS_DECISION_INFO + id)
+    const request = await fetch(MAIN_URL + PORT + API_GET_BOATS_DECISION_INFO + id);
     const requestEngines = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_ENG + id);
     const requestDeals = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_DEALS + id);
     const requestSpecMarks = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_SPEC_MARKS + id);
-    
+
     if (request.status === 200) {
-      const response = await request.json()
+      const response = await request.json();
       const dataAppEng = await requestEngines.json();
       const dataAppDeals = await requestDeals.json();
       const dataAppSpecMarks = await requestSpecMarks.json();
@@ -137,7 +137,7 @@ export function getDecisionCardInfo(id) {
         data: jsonData,
       });
     }
-  }
+  };
 }
 
 export function addNewEngineCheck(engineVin, newEngine) {

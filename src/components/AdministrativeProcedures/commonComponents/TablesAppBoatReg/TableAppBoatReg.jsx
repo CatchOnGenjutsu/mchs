@@ -13,8 +13,16 @@ export default function TableAppBoatReg({ updateData, tableOptions, dataForTable
     const { statementReducer } = state;
     return statementReducer[typeTable];
   });
+  const dataDecis = useSelector((state) => {
+    const { DuplicateShipsTicketReducer } = state;
+    return DuplicateShipsTicketReducer[typeTable];
+  });
 
-  const data = !!dataForTable ? dataForTable : dataReg;
+  const data = !!dataForTable
+    ? dataForTable
+    : window.location.pathname.includes("smallboatsreg")
+    ? [...dataReg]
+    : [...dataDecis];
 
   const handleAddNotes = (e) => {
     e.preventDefault();

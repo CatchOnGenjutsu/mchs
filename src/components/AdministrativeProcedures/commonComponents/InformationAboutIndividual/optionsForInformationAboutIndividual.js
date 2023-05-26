@@ -95,7 +95,6 @@ export const fieldAddressOptions = {
     type: "text",
     defaultValue: "Республика Беларусь",
     readOnly: true,
-    
   },
   oblId: {
     key: "oblId",
@@ -144,13 +143,6 @@ export const fieldAddressOptions = {
     defaultValue: null,
     readOnly: false,
   },
-  korpus: {
-    key: "korpus",
-    value: "Корпус",
-    type: "text",
-    defaultValue: null,
-    readOnly: false,
-  },
   dom: {
     key: "dom",
     value: "Дом",
@@ -158,6 +150,13 @@ export const fieldAddressOptions = {
     defaultValue: null,
     readOnly: false,
     required: true,
+  },
+  korpus: {
+    key: "korpus",
+    value: "Корпус",
+    type: "text",
+    defaultValue: null,
+    readOnly: false,
   },
   kv: {
     key: "kv",
@@ -180,14 +179,14 @@ export async function setOptions(id, key) {
   switch (key) {
     case "oblId": {
       fieldAddressOptions.rayonId.options = await getRayon(id);
-      fieldAddressOptions.rayonId.disabled = fieldAddressOptions.rayonId.options.length ?false:true;
+      fieldAddressOptions.rayonId.disabled = fieldAddressOptions.rayonId.options.length ? false : true;
       fieldAddressOptions.gorodId.options = [];
       fieldAddressOptions.gorodId.disabled = true;
       return fieldAddressOptions;
     }
     case "rayonId": {
       fieldAddressOptions.gorodId.options = await getGorod(id);
-      fieldAddressOptions.gorodId.disabled = fieldAddressOptions.gorodId.options.length ?false:true;
+      fieldAddressOptions.gorodId.disabled = fieldAddressOptions.gorodId.options.length ? false : true;
       return fieldAddressOptions;
     }
     default:
@@ -198,5 +197,5 @@ export function getOptions() {
   return {
     passport: fieldPassportOptions,
     address: fieldAddressOptions,
-  }
+  };
 }
