@@ -42,10 +42,7 @@ export default function DecisionCard() {
   const [boatRegNum, setBoatRegNum] = useState(null);
   const [newData, setNewData] = useState({});
   const [changeInfData, setChangeInfData] = useState(null);
-
-  let acceptBtnText = window.location.pathname.includes("smallboatsreg")
-    ? "Зарегистрировать судно"
-    : "Выдать";
+  const [acceptBtnText, setAcceptBtnText] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -189,10 +186,13 @@ export default function DecisionCard() {
       case pathArray.includes("smallboatsreg"):
         dispatch(getDecisionCardInfo(id));
         setIsLoading(false);
+        setAcceptBtnText("Зарегистрировать судно");
         break;
       case pathArray.includes("dupshipsticket"):
         dispatch(getDuplicateDecisionCardInfo(id));
         setIsLoading(false);
+        setAcceptBtnText("Выдать");
+
         break;
       case pathArray.includes("reginformationchanges"):
         async function fetchData() {
@@ -202,6 +202,7 @@ export default function DecisionCard() {
           responseData.saCategory = responseData.saCategoryValue;
           setChangeInfData(responseData);
           setIsLoading(false);
+          setAcceptBtnText("Принять");
         }
         fetchData();
         break;
