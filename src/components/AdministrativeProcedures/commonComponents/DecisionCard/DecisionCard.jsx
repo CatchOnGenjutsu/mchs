@@ -41,7 +41,7 @@ export default function DecisionCard() {
   const [registrationResult, setRegistrationResult] = useState("");
   const [boatRegNum, setBoatRegNum] = useState(null);
   const [newData, setNewData] = useState({});
-  const [changeInfData,setChangeInfData]=useState({})
+  const [changeInfData,setChangeInfData]=useState(null)
 
   let acceptBtnText = window.location.pathname.includes("smallboatsreg")
     ? "Зарегистрировать судно"
