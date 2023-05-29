@@ -138,8 +138,8 @@ function App() {
               element={<IndividualStatement />}
             />
             <Route
-                path="/reginformationchanges/decisioncard/:id"
-                element={<DecisionCard />}
+              path="/reginformationchanges/decisioncard/:id"
+              element={<DecisionCard />}
             />
             <Route
               path="/dupshipsticket"
@@ -160,6 +160,10 @@ function App() {
             <Route
               path="/shipsticket"
               element={<ShipsTicket />}
+            />
+            <Route
+              path="/shipsticket/decisioncard/:id"
+              element={<DecisionCard />}
             />
             <Route
               path="/nsi/adminproc"

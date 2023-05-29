@@ -213,7 +213,7 @@ export default function AppBoatReg() {
     // ЗАГЛУШКИ
     dispatch(addNewStatementData({ [`inspector`]: 1 }));
     dispatch(addNewStatementData({ [`section`]: 1 }));
-    dispatch(addNewStatementData({ [`tiketNum`]: 10000 }));
+    // dispatch(addNewStatementData({ [`tiketNum`]: 10000 }));
     // dispatch(addNewStatementData({ [`personType`]: type }));
     dispatch(
       addNewStatementData({ [`appDate`]: new Date().toLocaleDateString().split(".").reverse().join("-") }),

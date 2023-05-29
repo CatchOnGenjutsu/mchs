@@ -17,6 +17,7 @@ import {
 } from "../../redux/RegistrationInformationChangesReducer/actionRegInfChanges";
 
 import { getDataDupShipsTicketBySearchParams } from "../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
+import { getDataShipsTicketBySearchParams } from "../../redux/ShipsTicketReducer/actionsShipsTicket";
 
 import styles from "./SearchBlock.module.css";
 
@@ -61,6 +62,11 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
     return DuplicateShipsTicketReducer;
   });
 
+  const searchParamsFromStateShipsTicket = useSelector((state) => {
+    const { ShipsTicketReducer } = state;
+    return ShipsTicketReducer.searchParams;
+  });
+
   const handleValue = (e) => {
     e.target
       ? dispatch(setSearchParams(e.target.dataset.id, e.target.value, e.target.baseURI))
@@ -83,6 +89,10 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
       }
       case urlPath === "dupshipsticket": {
         dispatch(getDataDupShipsTicketBySearchParams(stateDupShipsTicket.searchParams));
+        break;
+      }
+      case urlPath === "shipsticket": {
+        dispatch(getDataShipsTicketBySearchParams(searchParamsFromStateShipsTicket));
         break;
       }
       case window.location.href.includes("smallboatsreg"): {

@@ -86,6 +86,11 @@ export default function SearchTable({ setId, setStatusId, headerColumns, dataFro
         setId(id);
         break;
       }
+      case e.target.baseURI.includes("shipsticket"): {
+        setStatusId(e.currentTarget.dataset.status);
+        setId(id);
+        break;
+      }
       default:
     }
   };
@@ -118,7 +123,8 @@ export default function SearchTable({ setId, setStatusId, headerColumns, dataFro
                   data-id={row.original.id}
                   data-status={
                     window.location.pathname.includes("smallboatsreg") ||
-                    window.location.pathname.includes("dupshipsticket")
+                    window.location.pathname.includes("dupshipsticket") ||
+                    window.location.pathname.includes("shipsticket")
                       ? row.original.statusId
                       : null
                   }

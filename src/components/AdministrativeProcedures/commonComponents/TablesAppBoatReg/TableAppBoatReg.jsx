@@ -97,11 +97,14 @@ export default function TableAppBoatReg({ updateData, tableOptions, mainData,dat
                         </td>
                       );
                     case "date":
-                      console.log(item);
-                      console.log(elem);
-                      return <td>{elem[`${item.key}`].split("-").reverse().join(".")}</td>;
+                      // console.log(item);
+                      // console.log(elem);
+                      return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
+                    // return <td>{elem[`${item.key}`].split("-").reverse().join(".")}</td>;
                     default:
                       if (item.key === "engtype") {
+                        // console.log(item.key);
+                        // console.log(elem);
                         return <td>{elem[`${item.key}`] === 1 ? "Бензиновый" : "Электрический"}</td>;
                       } else if (
                         item.key === "dateRegEnd" &&
