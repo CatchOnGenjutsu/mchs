@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import Select from "react-select";
+import {MAIN_URL, PORT,API_CHECK_ENGINES_MODIF} from "../../../../constants/constants"
 import {
   addNewEngineCheck,
   addNewSpecMarkApp,
@@ -14,10 +14,12 @@ export default function AppBoatRegModal({
   showModal,
   modalWindowInputs,
   dataForCheck,
+  mainData
 }) {
   const [newData, setNewData] = useState({});
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
+  const [textCheckEngine,setTextCheckEngine]= useState(null);
 
   const dispatch = useDispatch();
 
@@ -26,6 +28,40 @@ export default function AppBoatRegModal({
     .map((item) => Object.values(item))
     .map((elem) => elem[1])
     .filter((elem) => elem !== "asmLock" && elem !== "msmLock");
+
+  const resultCheck = async ()=>{
+    const responseEngine = await fetch(MAIN_URL+PORT+API_CHECK_ENGINES_MODIF+newData.engvin+"/"+newData.engtype+"/"+newData.engProdYear,{method:"POST"})
+    if(responseEngine.ok){
+      if(!JSON.parse(await responseEngine.text())){
+        setTextCheckEngine("Данный двигатель установлен на другой лодке")
+      }else{
+        updateData(modalWindowInputs.keyTable, newData);
+        setShowModal(false);
+        setNewData({});
+      }
+    }else {
+      setTextCheckEngine("Ошибка на сервере")
+    }
+  }
+  const countEnginesMaxPower = ()=>{
+    const count = dataForCheck.reduce((acc,current)=>{
+      if(!current.dateRegEnd){
+        return  acc + parseFloat(current.engpwr)
+      }
+      return acc
+    },0)
+    return count
+  }
+  const countEnginesCheck = ()=>{
+    const count = dataForCheck.reduce((acc,current)=>{
+      if(!current.dateRegEnd){
+       return  acc + 1
+      }
+      return acc
+    },0)
+
+    return count
+  }
 
   const handleChange = (e) => {
     if (e.target.dataset.id === "asmLock" || e.target.dataset.id === "msmLock") {
@@ -57,39 +93,51 @@ export default function AppBoatRegModal({
 
   const handleSave = () => {
     if (!handleErrors()) {
-      debugger
-      if (!window.location.pathname.includes("reginformationchanges")) {
-        switch (modalWindowInputs.keyTable) {
-          case "boatCardAppEngDtoList":
-            if (dataForCheck.findIndex((item) => item.engvin === newData.engvin) < 0) {
-              dispatch(addNewEngineCheck(newData.engvin, newData));
-            }
-            break;
-          case "boatCardAppSmDtoList":
-            console.log(newData);
-            dispatch(addNewSpecMarkApp(newData));
-            break;
-          case "boatCardAppDealsDtoList":
-            dispatch(addNewDealApp(newData));
-            break;
-          default:
-            setShowModal(false);
-            setNewData({});
-            break;
-        }
-      } else {
-        console.log(modalWindowInputs.keyTable)
-        if(modalWindowInputs.keyTable==="enginesList"){
-          if (dataForCheck.findIndex((item) => item.engvin === newData.engvin) <= 0) {
+      switch (true){
+        case window.location.pathname.includes("reginformationchanges"):
+          switch (modalWindowInputs.keyTable) {
+            case "enginesList":
+              if (dataForCheck.find((item) => (item.engvin === newData.engvin && item.engtype === (newData.engtype==="1"?"Бензиновый":"Электрический") && item.engProdYear===newData.engProdYear))) {
+                setTextCheckEngine("Двигатель установлен на данном судне")
+                break;
+              }
+              if (!(mainData.engineNum>=countEnginesCheck()+1)){
+                setTextCheckEngine("Превышает допустимое количество двигателей")
+                break;
+              }
+              if (!(mainData.engpwrmax >countEnginesMaxPower()+parseFloat(newData.engpwr))){
+                setTextCheckEngine("Превышает допустимую предельную мощность двигателей")
+                break;
+              }
 
-            return
+              resultCheck()
+                break;
+            default : updateData(modalWindowInputs.keyTable, newData);
           }
-        }
-        updateData(modalWindowInputs.keyTable, newData);
-      }
-      setShowModal(false);
-      setNewData({});
-    } else {
+          break;
+        default:
+          switch (modalWindowInputs.keyTable) {
+            case "boatCardAppEngDtoList":
+              if (dataForCheck.findIndex((item) => item.engvin === newData.engvin) < 0) {
+                dispatch(addNewEngineCheck(newData.engvin, newData));
+              }
+              break;
+            case "boatCardAppSmDtoList":
+              console.log(newData);
+              dispatch(addNewSpecMarkApp(newData));
+              break;
+            case "boatCardAppDealsDtoList":
+              dispatch(addNewDealApp(newData));
+              break;
+            default:
+              setShowModal(false);
+              setNewData({});
+              break;
+          }
+          setShowModal(false);
+          setNewData({});
+          break;
+      }} else {
       setSaveKey(true);
     }
   };
@@ -218,6 +266,9 @@ export default function AppBoatRegModal({
               }
             }
           })}
+          <Form.Label
+          className={`text-danger`}
+          >{textCheckEngine?textCheckEngine:''}</Form.Label>
         </Form>
       </Modal.Body>
       <Modal.Footer>
