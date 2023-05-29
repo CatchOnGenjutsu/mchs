@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -16,11 +16,10 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
   const [viewBtn, setViewBtn] = useState(false);
   const [editBtn, setEditBtn] = useState(false);
 
-  const pathName = window.location.pathname.slice(1);
-  console.log(id);
-  console.log(appStatusId);
-
   const navigate = useNavigate();
+
+  const pathName = window.location.pathname.slice(1);
+
   const buttonsNames = {
     openBtnText: "Просмотр РК",
     addBtnText: window.location.pathname.includes("searchboatcard") ? "Выбрать" : "Добавить заявление",
@@ -83,7 +82,17 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
     switch (true) {
       case pathName.includes("reginformationchanges"): {
         navigate(`./statement/${id}`, {
-          state: { modeView: "view",idStatement:id,idTypeStatement:data.find(el=>String(el.id)===String(id)).personType },
+          state: {
+            modeView: "view",
+            idStatement: id,
+            idTypeStatement: data.find((el) => String(el.id) === String(id)).personType,
+          },
+        });
+        break;
+      }
+      case pathName.includes("dupshipsticket"): {
+        navigate(`/dupshipsticket/${id}`, {
+          state: { mode: "view" },
         });
         break;
       }
@@ -100,7 +109,7 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
     switch (true) {
       case pathName.includes("reginformationchanges"): {
         navigate(`./decisioncard/${id}`, {
-          state: { mode: "view",idStatement:id },
+          state: { mode: "view", idStatement: id },
         });
         break;
       }
@@ -111,6 +120,12 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
         break;
       }
       case pathName.includes("smallboatsreg"): {
+        navigate(`./decisioncard/${id}`, {
+          state: { mode: "view" },
+        });
+        break;
+      }
+      case pathName.includes("shipsticket"): {
         navigate(`./decisioncard/${id}`, {
           state: { mode: "view" },
         });
@@ -220,7 +235,13 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
             <button
               id={`edit`}
               title={buttonsNames.editBtnText}
-              disabled={Boolean(!id) || Number(appStatusId) !== 1}
+              disabled={
+                Boolean(!id)
+                // ||
+                // (window.location.pathname.includes("dupshipsticket") && Number(appStatusId) !== 1) ||
+                // (window.location.pathname.includes("smallboatsreg") && Number(appStatusId) !== 1) ||
+                // (window.location.pathname.includes("shipsticket") && Number(appStatusId) !== 3)
+              }
               className={`btn btn-danger btn-sm ms-2`}
               onClick={handleButtonEdit}>
               <img

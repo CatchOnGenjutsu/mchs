@@ -398,5 +398,10 @@ export const setOptionsForInputsATE = (inputsOptions, path) => {
         inputsHeadersDuplicateShipsTicket.section.selectOption.push(...inputsOptions);
       }
       break;
+    case "shipsticket":
+      if (inputsHeadersShipsTicket.section.selectOption.length === 1) {
+        inputsHeadersShipsTicket.section.selectOption.push(...inputsOptions);
+      }
+      break;
   }
 };

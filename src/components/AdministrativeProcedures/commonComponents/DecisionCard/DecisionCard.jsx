@@ -192,8 +192,12 @@ export default function DecisionCard() {
         dispatch(getDuplicateDecisionCardInfo(id));
         setIsLoading(false);
         setAcceptBtnText("Выдать");
-
         break;
+      // case pathArray.includes("shipsticket"):
+      //   dispatch(getDuplicateDecisionCardInfo(id));
+      //   setIsLoading(false);
+      //   setAcceptBtnText("Выдать");
+      //   break;
       case pathArray.includes("reginformationchanges"):
         async function fetchData() {
           const response = await fetch(MAIN_URL + PORT + API_GET_STATEMENT_MODIF_INFO + String(id));

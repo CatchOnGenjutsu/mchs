@@ -70,10 +70,10 @@ export function getBoatRegInfo(id) {
     dataApp.saCategory = !!dataApp.saCategory ? dataApp.saCategory.sacCode : null;
     dataApp.fileType = dataApp.fileDoc ? "fileDoc" : dataApp.filePdf ? "filePdf" : "";
 
-    dataAppEng.map((item) => {
-      item.engtype = item.engTypeName;
-      return item;
-    });
+    // dataAppEng.map((item) => {
+    //   item.engtype = item.engTypeName;
+    //   return item;
+    // });
     // let fullName = "";
     // let fullAddress = "";
     // if (dataApp.personType.ptcode === 1) {

@@ -37,11 +37,6 @@ export function getDataDupShipsTicketBySearchParams(params) {
           item.operDate = item.operDate.split("-").reverse().join(".");
         }
       }
-      // for (let item of data) {
-      //   item["fio"] = `${item.ownerMidname ? item.ownerMidname : ""} ${
-      //     item.ownerName ? item.ownerName : ""
-      //   } ${item.ownerSurname ? item.ownerSurname : ""}`;
-      // }
       dispatch({
         type: GET_DUP_SHIP_TICKET_INFO,
         data: data,
@@ -69,9 +64,6 @@ export function getBoatCardInfoForDuplicate(id) {
         await setOptionsRayonForOblast(response.agentOblId);
         await setOptionsGorodForRayon(response.agentRayonId);
       }
-      // response.appDate = new Date().toLocaleDateString().split(".").reverse().join("-")
-      // response.appSheetCnt = 2;
-      // response.appDate = new Date().toLocaleDateString().split(".").reverse().join("-")
       dispatch({
         type: GET_BOAT_CARD_FOR_DUPLICATE,
         data: response,
@@ -125,31 +117,8 @@ export function getDuplicateDecisionCardInfo(id) {
         type: GET_DUPLICATE_DECISION_INFO,
         data: jsonData,
       });
+    } else {
+      console.log(request);
     }
   };
 }
-
-// export function getDataDupShipsTicketBoatCardsBySearchParams(params) {
-//   return async (dispatch) => {
-//     const response = await fetch(MAIN_URL + PORT + API_DUP_SHIP_TICKET_BOAT_CARD, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(params),
-//     }).catch((err) => console.log(err));
-//     if (response.ok) {
-//       const data = await response.json();
-//       console.log(data);
-//       // for (let item of data) {
-//       //   item["fio"] = `${item.ownerMidname ? item.ownerMidname : ""} ${
-//       //     item.ownerName ? item.ownerName : ""
-//       //   } ${item.ownerSurname ? item.ownerSurname : ""}`;
-//       // }
-//       dispatch({
-//         type: GET_DUP_SHIP_TICKET_BOAT_CARDS,
-//         data: data,
-//       });
-//     }
-//   };
-// }

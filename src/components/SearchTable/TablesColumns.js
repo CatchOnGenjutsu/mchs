@@ -1,32 +1,32 @@
 export const SMALLBOATS_COLUMNS = [
   {
-  Header: "Рег. номер",
-  accessor: "regNum",
+    Header: "Рег. номер",
+    accessor: "regNum",
   },
   {
-  Header: "Заводской номер судна",
-  accessor: "boatVin",
+    Header: "Заводской номер судна",
+    accessor: "boatVin",
   },
   {
-  Header: "ФИО Собственника",
-  accessor: "owner",
+    Header: "ФИО Собственника",
+    accessor: "owner",
   },
   {
     Header: "Идентификационный номер",
     accessor: "ownerPersNum",
   },
   {
-  Header: "Наименование организации",
-  accessor: "leName",
+    Header: "Наименование организации",
+    accessor: "leName",
   },
   {
-  Header: "УНП",
-  accessor: "leUnp",
+    Header: "УНП",
+    accessor: "leUnp",
   },
   {
-  Header: "Адрес",
-  accessor: "address",
-  }
+    Header: "Адрес",
+    accessor: "address",
+  },
 ];
 
 export const SERTIFICATES_COLUMNS = [
@@ -41,7 +41,7 @@ export const SERTIFICATES_COLUMNS = [
   {
     Header: "Дата рождения",
     accessor: "birthDate",
-    },
+  },
   {
     Header: "Идентификационный номер",
     accessor: "persNum",
@@ -57,46 +57,47 @@ export const SERTIFICATES_COLUMNS = [
   {
     Header: "Действителен до",
     accessor: "licenseDateEnd",
-  }
-]
+  },
+];
 export const BUILDING_COLUMNS = [
   {
-  Header: "Наименование ЮЛ (ФИО ФЛ, ИП) эксплуатанта базы",
-  accessor: "ownerLeName",
+    Header: "Наименование ЮЛ (ФИО ФЛ, ИП) эксплуатанта базы",
+    accessor: "ownerLeName",
   },
   {
-  Header: "Адрес и телефон эксплуатанта базы",
-  accessor: "ownerContact",
+    Header: "Адрес и телефон эксплуатанта базы",
+    accessor: "ownerContact",
   },
   {
     Header: "УНП",
     accessor: "unp",
   },
   {
-  Header: "Местонахождение и телефон базы",
-  accessor: "baseContact",
+    Header: "Местонахождение и телефон базы",
+    accessor: "baseContact",
   },
   {
-  Header: "Наименование должности, ФИО, ответственного за эксплуатацию базы, номер и дата приказа о назначении",
-  accessor: "responData",
+    Header:
+      "Наименование должности, ФИО, ответственного за эксплуатацию базы, номер и дата приказа о назначении",
+    accessor: "responData",
   },
   {
-  Header: "Дата последнего обследования",
-  accessor: "checkDate",
+    Header: "Дата последнего обследования",
+    accessor: "checkDate",
   },
   {
-  Header: "Результат последнего обследования",
-  accessor: "statusName",
+    Header: "Результат последнего обследования",
+    accessor: "statusName",
   },
   {
-  Header: "Участок",
-  accessor: "sectionName",
+    Header: "Участок",
+    accessor: "sectionName",
   },
   {
-  Header: "Примечание",
-  accessor: "note",
+    Header: "Примечание",
+    accessor: "note",
   },
-]
+];
 export const SMALLBOATS_ADMIN_COLUMNS = [
   {
     Header: "Рег. номер заявления",
@@ -113,7 +114,7 @@ export const SMALLBOATS_ADMIN_COLUMNS = [
   {
     Header: "Ид. номер заявителя",
     accessor: "persNum",
-    },
+  },
   {
     Header: "Наим. организации",
     accessor: "nameLe",
@@ -133,8 +134,8 @@ export const SMALLBOATS_ADMIN_COLUMNS = [
   {
     Header: "Статус заявления",
     accessor: "statusName",
-  }
-]
+  },
+];
 export const COLUMNS_FORM_SEARCH_BOAT_CARDS = [
   {
     Header: "Рег. номер судна",
@@ -164,5 +165,47 @@ export const COLUMNS_FORM_SEARCH_BOAT_CARDS = [
     Header: "Номер судового билета",
     accessor: "tiketNum",
   },
-]
+];
 
+export const SHIPS_TICKET_COLUMNS = [
+  // {
+  //   Header: "Рег. номер заявления",
+  //   accessor: "appNum",
+  // },
+  // {
+  //   Header: "Дата регистрации заявления",
+  //   accessor: "operDate",
+  // },
+  {
+    Header: "ФИО",
+    accessor: "fio",
+  },
+  {
+    Header: "Ид. номер заявителя",
+    accessor: "persNum",
+  },
+  {
+    Header: "Наим. организации",
+    accessor: "nameLe",
+  },
+  {
+    Header: "УНП",
+    accessor: "unp",
+  },
+  {
+    Header: "Судовой билет №",
+    accessor: "tiketNum",
+  },
+  // {
+  //   Header: "Рег. номер судна",
+  //   accessor: "regNum",
+  // },
+  {
+    Header: "Участок",
+    accessor: "sctName",
+  },
+  {
+    Header: "Статус заявления",
+    accessor: "statusName",
+  },
+];
