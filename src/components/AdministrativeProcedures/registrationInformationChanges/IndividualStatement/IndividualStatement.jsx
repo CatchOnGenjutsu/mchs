@@ -421,6 +421,7 @@ console.log(newData)
       </p>
       <div className={styles["form-container"]}>
         <Form>
+          {newData.boatCardSpecmarksList.find(el=>el.msmLock===true) && idTypeChangeStatement==='2' && (<p className={'text-danger'}>Есть ограничения на снятие с учета!!!</p>)}
           <Form.Group className={styles["header"]}>
             <Form.Label>Какие изменения вносятся:</Form.Label>
             <Form.Select
@@ -529,6 +530,7 @@ console.log(newData)
           {idTypeChangeStatement === "2" || idTypeChangeStatement === "3" ? (
             <TableAppBoatReg
               tableOptions={enginesList}
+              mainData={newData}
               dataForTable={newData.enginesList}
               typeTable='boatCardAppEngList'
               updateData={updateNewData}
@@ -568,6 +570,7 @@ console.log(newData)
         {!modeView && (<Button
             variant="primary"
             onClick={(e) => handleSave(e)}
+            disabled={newData.boatCardSpecmarksList.find(el=>el.msmLock===true) && idTypeChangeStatement==='2'}
         >
           Зарегистрировать
         </Button>)}

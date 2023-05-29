@@ -12,9 +12,12 @@ export const API_GET_BOAT_INFO_ARRESTS = "boats/getBoatArrests/";
 export const API_GET_BOAT_CARD_FOR_MODIF = "boatCardModif/getBoatCardAsBoatModif/";
 export const API_GET_STATEMENT_MODIF_INFO = "boatCardModif/getBoatCardModif/";
 export const API_ADD_CHANGE_INFORMATION_CARD = "boatCardModif/addStatement/";
-export const API_DOWNLOAD_FILE_MODIF = "boatCardModif/download/";
-export const API_ACCEPT_BOAT_MODIF = "boatCardModif/register/";
-export const API_DECLINE_BOAT_MODIF = "boatCardModif/refuseApp/";
+
+export const API_DOWNLOAD_FILE_MODIF = "boatCardModif/download/"
+export const API_ACCEPT_BOAT_MODIF = "boatCardModif/register/"
+export const API_DECLINE_BOAT_MODIF = "boatCardModif/refuseApp/"
+export const API_CHECK_ENGINES_MODIF ="boatCardModif/checkEngineVin/"
+
 
 export const API_GET_LICENSE_LIST_SEARCH = "boats/license/search";
 export const API_GET_LICENSE_INFO_CARD = "boats/license/drivingLicense/";

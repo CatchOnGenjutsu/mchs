@@ -23,7 +23,7 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
     const { statementReducer } = state;
     return statementReducer.newStatement;
   });
-
+  const data = !!dataBoat?dataBoat:newStatement
   const handleValue = async (e) => {
     if (e) {
       switch (true) {
@@ -97,7 +97,7 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                         type={option.type}
                         readOnly={option.readOnly}
                         disabled={option.disabled || mode === "view" ? true : false}
-                        value={newStatement["engpwrmaxkwt"]}
+                        value={data["engpwrmaxkwt"]}
                         isInvalid={!!errors["engpwrmaxkwt"]}
                       />
                     </Form.Group>
@@ -114,11 +114,11 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                         type={option.type}
                         readOnly={true}
                         disabled={true}
-                        value={newStatement[option.key]}
+                        value={data[option.key]}
                         isInvalid={
                           !!errors[option.key] ||
-                          (!!option.maxlength && !!newStatement[option.key]
-                            ? newStatement[option.key].length > option.maxlength
+                          (!!option.maxlength && !!data[option.key]
+                            ? data[option.key].length > option.maxlength
                             : false)
                         }
                       />
@@ -141,11 +141,11 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                       defaultValue={option.defaultValue}
                       readOnly={option.readOnly}
                       disabled={option.disabled || mode === "view" ? true : false}
-                      value={newStatement[option.key]}
+                      value={data[option.key]}
                       isInvalid={
                         !!errors[option.key] ||
-                        (!!option.maxlength && !!newStatement[option.key]
-                          ? newStatement[option.key].length > option.maxlength
+                        (!!option.maxlength && !!data[option.key]
+                          ? data[option.key].length > option.maxlength
                           : false)
                       }
                     />
@@ -166,7 +166,7 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
                     classNamePrefix="select"
                     placeholder="Выберите"
                     id={option.key}
-                    value={option.options.find((item) => item.value === newStatement[option.key])}
+                    value={option.options.find((item) => item.value === data[option.key])}
                     isDisabled={option.disabled || mode === "view" ? true : false}
                     isSearchable={false}
                     name={option.key}
