@@ -164,7 +164,11 @@ function App() {
               element={<ShipsTicket />}
             />
             <Route
-              path="/shipsticket/decisioncard/:id"
+              path="/shipsticket/decisioncard/boatCardAppId/:id"
+              element={<DecisionCard />}
+            />
+            <Route
+              path="/shipsticket/decisioncard/boatCardModifId/:id"
               element={<DecisionCard />}
             />
             <Route

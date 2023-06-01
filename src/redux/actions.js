@@ -21,7 +21,8 @@ import {
   GET_DICTIONARY_RAYON_FOR_OBL,
   SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
   SET_SEARCH_PARAMS_BOATS_DUP_SHIP_TICKET,
-  SET_SEARCH_PARAMS_PROVISION_INFORMATION
+  SET_SEARCH_PARAMS_PROVISION_INFORMATION,
+  SET_SEARCH_PARAMS_SHIPS_TICKET,
 } from "./types";
 import {
   MAIN_URL,
@@ -102,6 +103,12 @@ export function setSearchParams(id, value, url) {
     case url === "dupshipsticket": {
       return {
         type: SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
+        data: object,
+      };
+    }
+    case url === "shipsticket": {
+      return {
+        type: SET_SEARCH_PARAMS_SHIPS_TICKET,
         data: object,
       };
     }

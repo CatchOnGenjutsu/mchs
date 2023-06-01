@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import {MAIN_URL, PORT,API_CHECK_ENGINES_MODIF} from "../../../../constants/constants"
+import { MAIN_URL, PORT, API_CHECK_ENGINES_MODIF } from "../../../../constants/constants";
 import {
   addNewEngineCheck,
   addNewSpecMarkApp,
@@ -14,12 +14,12 @@ export default function AppBoatRegModal({
   showModal,
   modalWindowInputs,
   dataForCheck,
-  mainData
+  mainData,
 }) {
   const [newData, setNewData] = useState({});
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
-  const [textCheckEngine,setTextCheckEngine]= useState(null);
+  const [textCheckEngine, setTextCheckEngine] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -29,39 +29,49 @@ export default function AppBoatRegModal({
     .map((elem) => elem[1])
     .filter((elem) => elem !== "asmLock" && elem !== "msmLock");
 
-  const resultCheck = async ()=>{
-    const responseEngine = await fetch(MAIN_URL+PORT+API_CHECK_ENGINES_MODIF+newData.engvin+"/"+newData.engtype+"/"+newData.engProdYear,{method:"POST"})
-    if(responseEngine.ok){
-      if(!JSON.parse(await responseEngine.text())){
-        setTextCheckEngine("Данный двигатель установлен на другой лодке")
-      }else{
+  const resultCheck = async () => {
+    const responseEngine = await fetch(
+      MAIN_URL +
+        PORT +
+        API_CHECK_ENGINES_MODIF +
+        newData.engvin +
+        "/" +
+        newData.engtype +
+        "/" +
+        newData.engProdYear,
+      { method: "POST" },
+    );
+    if (responseEngine.ok) {
+      if (!JSON.parse(await responseEngine.text())) {
+        setTextCheckEngine("Данный двигатель установлен на другой лодке");
+      } else {
         updateData(modalWindowInputs.keyTable, newData);
         setShowModal(false);
         setNewData({});
       }
-    }else {
-      setTextCheckEngine("Ошибка на сервере")
+    } else {
+      setTextCheckEngine("Ошибка на сервере");
     }
-  }
-  const countEnginesMaxPower = ()=>{
-    const count = dataForCheck.reduce((acc,current)=>{
-      if(!current.dateRegEnd){
-        return  acc + parseFloat(current.engpwr)
+  };
+  const countEnginesMaxPower = () => {
+    const count = dataForCheck.reduce((acc, current) => {
+      if (!current.dateRegEnd) {
+        return acc + parseFloat(current.engpwr);
       }
-      return acc
-    },0)
-    return count
-  }
-  const countEnginesCheck = ()=>{
-    const count = dataForCheck.reduce((acc,current)=>{
-      if(!current.dateRegEnd){
-       return  acc + 1
+      return acc;
+    }, 0);
+    return count;
+  };
+  const countEnginesCheck = () => {
+    const count = dataForCheck.reduce((acc, current) => {
+      if (!current.dateRegEnd) {
+        return acc + 1;
       }
-      return acc
-    },0)
+      return acc;
+    }, 0);
 
-    return count
-  }
+    return count;
+  };
 
   const handleChange = (e) => {
     if (e.target.dataset.id === "asmLock" || e.target.dataset.id === "msmLock") {
@@ -93,26 +103,34 @@ export default function AppBoatRegModal({
 
   const handleSave = () => {
     if (!handleErrors()) {
-      switch (true){
+      switch (true) {
         case window.location.pathname.includes("reginformationchanges"):
           switch (modalWindowInputs.keyTable) {
             case "enginesList":
-              if (dataForCheck.find((item) => (item.engvin === newData.engvin && item.engtype === (newData.engtype==="1"?"Бензиновый":"Электрический") && item.engProdYear===newData.engProdYear))) {
-                setTextCheckEngine("Двигатель установлен на данном судне")
+              if (
+                dataForCheck.find(
+                  (item) =>
+                    item.engvin === newData.engvin &&
+                    item.engtype === (newData.engtype === "1" ? "Бензиновый" : "Электрический") &&
+                    item.engProdYear === newData.engProdYear,
+                )
+              ) {
+                setTextCheckEngine("Двигатель установлен на данном судне");
                 break;
               }
-              if (!(mainData.engineNum>=countEnginesCheck()+1)){
-                setTextCheckEngine("Превышает допустимое количество двигателей")
+              if (!(mainData.engineNum >= countEnginesCheck() + 1)) {
+                setTextCheckEngine("Превышает допустимое количество двигателей");
                 break;
               }
-              if (!(mainData.engpwrmax >countEnginesMaxPower()+parseFloat(newData.engpwr))){
-                setTextCheckEngine("Превышает допустимую предельную мощность двигателей")
+              if (!(mainData.engpwrmax > countEnginesMaxPower() + parseFloat(newData.engpwr))) {
+                setTextCheckEngine("Превышает допустимую предельную мощность двигателей");
                 break;
               }
 
-              resultCheck()
-                break;
-            default : updateData(modalWindowInputs.keyTable, newData);
+              resultCheck();
+              break;
+            default:
+              updateData(modalWindowInputs.keyTable, newData);
           }
           break;
         default:
@@ -137,7 +155,8 @@ export default function AppBoatRegModal({
           setShowModal(false);
           setNewData({});
           break;
-      }} else {
+      }
+    } else {
       setSaveKey(true);
     }
   };
@@ -266,9 +285,7 @@ export default function AppBoatRegModal({
               }
             }
           })}
-          <Form.Label
-          className={`text-danger`}
-          >{textCheckEngine?textCheckEngine:''}</Form.Label>
+          <Form.Label className={`text-danger`}>{textCheckEngine ? textCheckEngine : ""}</Form.Label>
         </Form>
       </Modal.Body>
       <Modal.Footer>
