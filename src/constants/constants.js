@@ -124,3 +124,4 @@ export const API_DECLINE_DUPLICATE = "boatCardAppDup/refuseApp/";
 // boatCardAppDup/addStatement/
 
 export const API_GET_SHIPS_TICKET_DATA = "issuanceBoatTicket/searchTicket";
+export const API_GET_SHIPS_TICKET_DECISION_INFO = "issuanceBoatTicket/confirmReg";

@@ -9,6 +9,7 @@ import ResultModalWindow from "../ResultModalWindow/ResultModalWindow";
 
 import { clearDecisionData, getDecisionCardInfo } from "../../../../redux/statementReducer/actionsStatement";
 import { getDuplicateDecisionCardInfo } from "../../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
+import { getShipsTicketDecisionInfo } from "../../../../redux/ShipsTicketReducer/actionsShipsTicket";
 import { ownerTableColumns, boatTableColumns } from "./tablesSettings";
 
 import {
@@ -46,6 +47,7 @@ export default function DecisionCard() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const appRegistrationDecisionData = useSelector((state) => {
     const { statementReducer } = state;
@@ -55,6 +57,10 @@ export default function DecisionCard() {
     const { DuplicateShipsTicketReducer } = state;
     return DuplicateShipsTicketReducer.appDecisionData;
   });
+  const appShipsTicketDecisionData = useSelector((state) => {
+    const { ShipsTicketReducer } = state;
+    return ShipsTicketReducer.appDecisionData;
+  });
 
   let data = null;
   switch (true) {
@@ -63,6 +69,9 @@ export default function DecisionCard() {
       break;
     case window.location.pathname.includes("dupshipsticket"):
       data = { ...appDuplicateDecisionData };
+      break;
+    case window.location.pathname.includes("shipsticket"):
+      data = { ...appShipsTicketDecisionData };
       break;
     case window.location.pathname.includes("reginformationchanges"):
       data = changeInfData;
@@ -88,7 +97,8 @@ export default function DecisionCard() {
               break;
             case window.location.pathname.includes("dupshipsticket"):
               request = await fetch(
-                MAIN_URL + PORT + API_ACCEPT_DUPLICATE + data.appId + "/" + data.inspector,
+                MAIN_URL + PORT + API_ACCEPT_DUPLICATE + data.appId,
+                //  + "/" + data.inspector
                 {
                   method: "POST",
                   headers: {
@@ -193,11 +203,12 @@ export default function DecisionCard() {
         setIsLoading(false);
         setAcceptBtnText("Выдать");
         break;
-      // case pathArray.includes("shipsticket"):
-      //   dispatch(getDuplicateDecisionCardInfo(id));
-      //   setIsLoading(false);
-      //   setAcceptBtnText("Выдать");
-      //   break;
+      case pathArray.includes("shipsticket"):
+        const tableKey = pathArray[pathArray.length - 2];
+        dispatch(getShipsTicketDecisionInfo(id, tableKey));
+        setIsLoading(false);
+        setAcceptBtnText("Выдать");
+        break;
       case pathArray.includes("reginformationchanges"):
         async function fetchData() {
           const response = await fetch(MAIN_URL + PORT + API_GET_STATEMENT_MODIF_INFO + String(id));
@@ -291,9 +302,10 @@ export default function DecisionCard() {
         mode={"view"}
         dataForTable={changeInfData ? changeInfData.enginesList : undefined}
       />
-      {window.location.pathname.includes("dupshipsticket") && (
-        <div className={styles.marks_block}>Особые отметки и дополнительные сведения</div>
-      )}
+      {window.location.pathname.includes("dupshipsticket") ||
+        (window.location.pathname.includes("shipsticket") && (
+          <div className={styles.marks_block}>Особые отметки и дополнительные сведения</div>
+        ))}
       <TableAppBoatReg
         typeTable={"boatCardAppDealsList"}
         tableOptions={changeInfData ? boatCardModifDealsDtoList : boatCardAppDealsDtoList}

@@ -113,15 +113,13 @@ export function getBoatRegInfo(id) {
 export function getDecisionCardInfo(id) {
   return async (dispatch) => {
     const request = await fetch(MAIN_URL + PORT + API_GET_BOATS_DECISION_INFO + id);
-    const requestEngines = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_ENG + id);
-    const requestDeals = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_DEALS + id);
-    const requestSpecMarks = await fetch(MAIN_URL + PORT + API_GET_BOATS_REG_SPEC_MARKS + id);
 
     if (request.status === 200) {
       const response = await request.json();
-      const dataAppEng = await requestEngines.json();
-      const dataAppDeals = await requestDeals.json();
-      const dataAppSpecMarks = await requestSpecMarks.json();
+      console.log("response", response);
+      const dataAppEng = response.boatCardAppEngDtoList;
+      const dataAppDeals = response.boatCardAppDealDtoList;
+      const dataAppSpecMarks = response.boatCardAppSmDtoList;
       dataAppEng.map((item) => {
         item.engtype = item.engTypeName;
         return item;

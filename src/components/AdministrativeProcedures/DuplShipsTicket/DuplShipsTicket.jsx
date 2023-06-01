@@ -145,8 +145,8 @@ export default function DuplShipsTicket() {
               </div>
               <div className={styles.header_content}>
                 <p>{newAppDupl.regNum || "—"}</p>
-                <p>{newAppDupl.tiketNum}</p>
-                <p>{newAppDupl.operDate.split("-").reverse().join(".")}</p>
+                <p>{newAppDupl.tiketNum || "—"}</p>
+                <p>{newAppDupl.operDate.split("-").reverse().join(".") || "—"}</p>
                 <Form.Control
                   type={"text"}
                   readOnly={mode === "add" ? false : true}

@@ -10,7 +10,7 @@ import add_icon from "../../../../resourсes/add-icon.svg";
 import open_icon from "../../../../resourсes/open-icon.svg";
 import view_icon from "../../../../resourсes/view_icon.svg";
 
-function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }) {
+function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }) {
   const [openBtn, setOpenBtn] = useState(false);
   const [addBtn, setAddBtn] = useState(false);
   const [viewBtn, setViewBtn] = useState(false);
@@ -126,8 +126,8 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
         break;
       }
       case pathName.includes("shipsticket"): {
-        navigate(`./decisioncard/${id}`, {
-          state: { mode: "view" },
+        navigate(`./decisioncard/${tableKey}/${id}`, {
+          state: { mode: "view", tableKey: tableKey },
         });
         break;
       }
@@ -235,13 +235,22 @@ function ToolBlock({ data, id, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }
             <button
               id={`edit`}
               title={buttonsNames.editBtnText}
-              disabled={
-                Boolean(!id)
-                // ||
-                // (window.location.pathname.includes("dupshipsticket") && Number(appStatusId) !== 1) ||
-                // (window.location.pathname.includes("smallboatsreg") && Number(appStatusId) !== 1) ||
-                // (window.location.pathname.includes("shipsticket") && Number(appStatusId) !== 3)
-              }
+              disabled={(() => {
+                if (!Boolean(id)) {
+                  return true;
+                } else {
+                  switch (true) {
+                    case window.location.pathname.includes("smallboatsreg") ||
+                      window.location.pathname.includes("dupshipsticket") ||
+                      window.location.pathname.includes("reginformationchanges"):
+                      return Number(appStatusId) !== 1 ? true : false;
+                    case window.location.pathname.includes("shipsticket"):
+                      return Number(appStatusId) !== 3 ? true : false;
+                    default:
+                      break;
+                  }
+                }
+              })()}
               className={`btn btn-danger btn-sm ms-2`}
               onClick={handleButtonEdit}>
               <img

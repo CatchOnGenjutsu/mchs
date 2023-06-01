@@ -14,6 +14,7 @@ export default function ShipsTicket() {
   const [show, setShow] = useState(false);
   const [appId, setAppId] = useState(null);
   const [appStatusId, setAppStatusId] = useState(null);
+  const [tableKey, setTableKey] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -27,6 +28,10 @@ export default function ShipsTicket() {
   const handleSearchButton = () => {
     // appId === value ? setAppId(null) : setAppId(value);
     setAppId(null);
+  };
+
+  const handleTableKey = (value) => {
+    setTableKey(value);
   };
 
   const dataOptionsForSelectATE = useSelector((state) => {
@@ -64,10 +69,12 @@ export default function ShipsTicket() {
       <ToolBlock
         id={appId}
         appStatusId={appStatusId}
+        tableKey={tableKey}
       />
       <MemoSearchTable
         setId={handleAppId}
         setStatusId={handleAppStatusId}
+        setTableKey={handleTableKey}
         headerColumns={SHIPS_TICKET_COLUMNS}
         dataFromState={dataFromStateShipsTicket}
       />

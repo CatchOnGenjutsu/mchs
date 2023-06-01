@@ -4,14 +4,14 @@ import {
   API_GET_SHIPS_TICKET_DATA,
   API_GET_BOAT_CARD_FOR_DUPLICATE,
   API_GET_APP_INFO_DUPLICATE,
-  API_GET_DUPLICATE_DECISION_INFO,
+  API_GET_SHIPS_TICKET_DECISION_INFO,
 } from "../../constants/constants";
 
 import {
   GET_SHIPS_TICKET_INFO,
   GET_BOAT_CARD_FOR_DUPLICATE,
   ADD_DATA_FOR_DUPLICATE,
-  GET_DUPLICATE_DECISION_INFO,
+  GET_SHIPS_TICKET_DECISION_INFO,
 } from "../types";
 
 export function getDataShipsTicketBySearchParams(params) {
@@ -25,8 +25,8 @@ export function getDataShipsTicketBySearchParams(params) {
     }).catch((err) => console.log(err));
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       for (let item of data[0].boatCardAppList) {
+        item.key = "boatCardAppId";
         if (item.operDate) {
           item.operDate = item.operDate.split("-").reverse().join(".");
         }
@@ -35,6 +35,7 @@ export function getDataShipsTicketBySearchParams(params) {
         }
       }
       for (let item of data[0].boatcardModifList) {
+        item.key = "boatCardModifId";
         if (item.operDate) {
           item.operDate = item.operDate.split("-").reverse().join(".");
         }
@@ -43,10 +44,42 @@ export function getDataShipsTicketBySearchParams(params) {
         }
       }
       const validData = [...data[0].boatCardAppList, ...data[0].boatcardModifList];
+      console.log(validData);
       dispatch({
         type: GET_SHIPS_TICKET_INFO,
         data: validData,
       });
+    }
+  };
+}
+
+export function getShipsTicketDecisionInfo(id, key) {
+  return async (dispatch) => {
+    const request = await fetch(
+      MAIN_URL +
+        PORT +
+        API_GET_SHIPS_TICKET_DECISION_INFO +
+        "?" +
+        new URLSearchParams({
+          [`${key}`]: id,
+        }),
+    );
+
+    if (request.status === 200) {
+      const response = await request.json();
+      console.log(response);
+      const jsonData = {
+        data: response,
+        boatCardAppEngList: response.boatCardAppEngList,
+        boatCardAppDealsList: response.boatCardAppDealsList,
+        boatCardAppSpecMarkList: response.boatCardAppSpecMarkList,
+      };
+      dispatch({
+        type: GET_SHIPS_TICKET_DECISION_INFO,
+        data: jsonData,
+      });
+    } else {
+      console.log(request);
     }
   };
 }

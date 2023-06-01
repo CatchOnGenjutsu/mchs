@@ -3,7 +3,7 @@ import {
   GET_SHIPS_TICKET_INFO,
   GET_BOAT_CARD_FOR_DUPLICATE,
   ADD_DATA_FOR_DUPLICATE,
-  GET_DUPLICATE_DECISION_INFO,
+  GET_SHIPS_TICKET_DECISION_INFO,
 } from "../types";
 
 const initialState = {
@@ -49,14 +49,14 @@ export const ShipsTicketReducer = (state = initialState, action) => {
     //     ...state,
     //     newAppDupl: { ...state.newAppDupl, ...action.data },
     //   }))();
-    // case GET_DUPLICATE_DECISION_INFO:
-    //   return (() => ({
-    //     ...state,
-    //     appDecisionData: action.data.data,
-    //     boatCardAppEngList: [...action.data.boatCardAppEngList],
-    //     boatCardAppDealsList: [...action.data.boatCardAppDealsList],
-    //     boatCardAppSpecMarkList: [...action.data.boatCardAppSpecMarkList],
-    //   }))();
+    case GET_SHIPS_TICKET_DECISION_INFO:
+      return (() => ({
+        ...state,
+        appDecisionData: action.data.data,
+        boatCardAppEngList: [...action.data.data.boatCardAppEngDtoList],
+        boatCardAppDealsList: [...action.data.data.boatCardAppDealDtoList],
+        boatCardAppSpecMarkList: [...action.data.data.boatCardAppSmDtoList],
+      }))();
 
     default:
       return state;
