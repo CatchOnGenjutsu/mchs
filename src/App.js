@@ -27,6 +27,8 @@ import AdministrativeProcedures from "./components/NSI/AdministrativeProcedures/
 import DuplicateShipsTicket from "./containers/AdministrativeProcedures/DuplicateShipsTicket/DuplicateShipsTicket";
 import DuplShipsTicket from "./components/AdministrativeProcedures/DuplShipsTicket/DuplShipsTicket";
 import ShipsTicket from "./containers/AdministrativeProcedures/ShipsTicket/ShipsTicket";
+import ProvisionInformation from "./containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation";
+
 
 import {
   getDictionaryGimsSections,
@@ -204,6 +206,11 @@ function App() {
             <Route
               path="/nsi/adminproc"
               element={<AdministrativeProcedures />}
+            />
+            <Route
+                path="/provisioninformation"
+                element={<ProvisionInformation />}
+
             />
           </Routes>
         </div>

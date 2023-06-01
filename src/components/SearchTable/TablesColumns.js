@@ -209,3 +209,38 @@ export const SHIPS_TICKET_COLUMNS = [
     accessor: "statusName",
   },
 ];
+
+export const PRIVISION_INFORMATION_COLUMNS = [
+  {
+    Header: "Рег. номер заявления",
+    accessor: "appNum",
+  },
+  {
+    Header: "Дата регистрации заявления",
+    accessor: "operDate",
+  },
+  {
+    Header: "ФИО",
+    accessor: "fio",
+  },
+  {
+    Header: "Ид. номер заявителя",
+    accessor: "persNum",
+  },
+  {
+    Header: "Наим. организации",
+    accessor: "nameLe",
+  },
+  {
+    Header: "УНП",
+    accessor: "unp",
+  },
+  {
+    Header: "Участок",
+    accessor: "sctName",
+  },
+  {
+    Header: "Статус заявления",
+    accessor: "statusName",
+  },
+];

@@ -24,7 +24,7 @@ export const sidebarSettings = [
         { title: "Выдача судового билета", id: "shipsticket" },
         { title: "Выдача дубликата судового билета", id: "dupshipsticket" },
         { title: "Выдача (обмен) удостоверений", id: "" },
-        { title: "Предоставление информации", id: "" },
+        { title: "Предоставление информации", id: "provisioninformation" },
         { title: "Журнал регистрации АП", id: "" },
         { title: "Оплата административных процедур", id: "" },
       ],

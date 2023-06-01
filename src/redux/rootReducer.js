@@ -10,6 +10,7 @@ import { tableReducer } from "./globalReducers/tableReducer";
 import { statementReducer } from "./statementReducer/statementReducer";
 import { DuplicateShipsTicketReducer } from "./DuplicateShipsTicketReducer/DuplicateShipsTicketReducer";
 import { ShipsTicketReducer } from "./ShipsTicketReducer/ShipsTicketReducer";
+import {provisionInformationReducer} from "./provisionInformationReducer/provisionInformationReducer";
 
 export const rootReducer = combineReducers({
   loginReducer,
@@ -23,4 +24,5 @@ export const rootReducer = combineReducers({
   statementReducer,
   DuplicateShipsTicketReducer,
   ShipsTicketReducer,
+  provisionInformationReducer,
 });

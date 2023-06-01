@@ -18,10 +18,10 @@ import {
   GET_APP_REG_STATUS_LIBRARY,
   SET_SORT_STATE_TABLE,
   GET_DATA_BY_SEARCH_PARAMS_BOATS_REG,
-  GET_REG_INFORM_CHANGES,
   GET_DICTIONARY_RAYON_FOR_OBL,
   SET_SEARCH_PARAMS_DUP_SHIP_TICKET,
   SET_SEARCH_PARAMS_BOATS_DUP_SHIP_TICKET,
+  SET_SEARCH_PARAMS_PROVISION_INFORMATION
 } from "./types";
 import {
   MAIN_URL,
@@ -82,18 +82,22 @@ export function setSearchParams(id, value, url) {
       };
     }
     case url === "reginformationchanges": {
-      console.log(1);
       return {
         type: SET_SEARCH_PARAMS_REG_INFORM_CHANGES,
         data: object,
       };
     }
     case url === "reginformationchanges/searchboatcard" || url === "dupshipsticket/searchboatcard": {
-      console.log(2);
       return {
         type: SET_SEARCH_PARAMS_BOATS_ADMIN_PROC,
         data: object,
       };
+    }
+    case url = "provisioninformation":{
+      return {
+        type: SET_SEARCH_PARAMS_PROVISION_INFORMATION,
+        data: object,
+      }
     }
     case url === "dupshipsticket": {
       return {

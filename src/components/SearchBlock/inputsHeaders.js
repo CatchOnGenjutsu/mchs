@@ -198,10 +198,9 @@ export const inputsRegInformChange = {
     value: "Отчество",
     type: "text",
   },
-  regNum: {
-    key: "regNum",
-    value: "Рег. номер судна",
-    description: "В формате XX 1111",
+  appNum: {
+    key: "appNum",
+    value: "Рег. номер заявления",
     type: "text",
   },
   nameLe: {
@@ -226,8 +225,10 @@ export const inputsRegInformChange = {
     type: "select",
     selectOption: [
       { id: 0, value: "Все" },
-      { id: 2, value: "Зарегистрировано" },
-      { id: 1, value: "Черновик" },
+      { id: 1, value: "Зарегистрировано" },
+      { id: 2, value: "Отказано" },
+      { id:3,value: "К выдаче"} ,
+      { id:4,value: "АП завершена"} ,
     ],
   },
 };
@@ -374,6 +375,54 @@ export const inputsHeadersShipsTicket = {
     ],
   },
 };
+export const inputsProvisionInformation = {
+  surname: {
+    key: "surname",
+    value: "Фамилия",
+    type: "text",
+  },
+  name: {
+    key: "name",
+    value: "Имя",
+    type: "text",
+  },
+  midname: {
+    key: "midname",
+    value: "Отчество",
+    type: "text",
+  },
+  appNum: {
+    key: "appNum",
+    value: "Рег. номер заявления",
+    type: "text",
+  },
+  nameLe: {
+    key: "nameLe",
+    value: "Наименование организации",
+    type: "text",
+  },
+  unp: {
+    key: "unp",
+    value: "УНП",
+    type: "text",
+  },
+  section: {
+    key: "section",
+    value: "Участок",
+    type: "selectRayon",
+    selectOption: [{ value: 0, label: "Все", key: "section" }],
+  },
+  status: {
+    key: "status",
+    value: "Статус",
+    type: "select",
+    selectOption: [
+      { id: 0, value: "Все" },
+      { id: 1, value: "Зарегистрировано" },
+      { id: 4, value: "АП Завершена" },
+    ],
+  },
+};
 
 export const setOptionsForInputs = (nsiCheckStatusOptions) => {
   if (inputsHeadersBasesBuildings.checkStatus.selectOption.length === 1) {
@@ -391,6 +440,11 @@ export const setOptionsForInputsATE = (inputsOptions, path) => {
     case "reginformationchanges":
       if (inputsRegInformChange.section.selectOption.length === 1) {
         inputsRegInformChange.section.selectOption.push(...inputsOptions);
+      }
+      break;
+    case "provisioninformation":
+      if (inputsProvisionInformation.section.selectOption.length === 1) {
+        inputsProvisionInformation.section.selectOption.push(...inputsOptions);
       }
       break;
     case "dupshipsticket":
