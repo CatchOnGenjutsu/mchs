@@ -2,19 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/provisionInformationReducer/actionProvisionInformation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/provisionInformationReducer/provisionInformationReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/StatementProvisionInformation/statementProvisionInformation.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchBlock/SearchBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBlock/SearchBlock.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBlock/inputsHeaders.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchTable/TablesColumns.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchTable/TablesColumns.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/sidebarSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/sidebarSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/rootReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/rootReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchTable/SearchTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +20,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
-        <option value="JSX File" />
         <option value="JavaScript File" />
+        <option value="JSX File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -96,7 +92,7 @@
       <workItem from="1684911608944" duration="10564000" />
       <workItem from="1684936464751" duration="10000" />
       <workItem from="1684936489292" duration="2406000" />
-      <workItem from="1685082314111" duration="49471000" />
+      <workItem from="1685082314111" duration="55212000" />
     </task>
     <servers />
   </component>

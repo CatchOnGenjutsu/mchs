@@ -20,7 +20,6 @@ export function getDataRegInfChangeBySearchParams(params) {
     }).catch((err) => console.log(err));
     if (response.ok) {
       const data = await response.json();
-      // console.log(data);
       for (let item of data) {
         item["fio"] = `${item.surname  ? item.surname  : ""} ${
           item.name ? item.name : ""

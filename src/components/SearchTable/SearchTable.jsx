@@ -77,6 +77,10 @@ export default function SearchTable({ setId, setStatusId, setTableKey, headerCol
         setId(id);
         break;
       }
+      case e.target.baseURI.includes("provisioninformation"): {
+        setId(id);
+        break;
+      }
       case e.target.baseURI.includes("dupshipsticket/searchboatcard"): {
         setId(id);
         break;

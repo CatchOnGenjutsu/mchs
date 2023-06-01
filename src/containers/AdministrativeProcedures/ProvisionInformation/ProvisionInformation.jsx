@@ -5,10 +5,12 @@ import ToolBlock from "../../../components/AdministrativeProcedures/commonCompon
 import SearchTable from "../../../components/SearchTable/SearchTable";
 import {PRIVISION_INFORMATION_COLUMNS} from "../../../components/SearchTable/TablesColumns";
 import {useSelector} from "react-redux";
-import {useState} from "react";
+import React, {useState} from "react";
+import ModalWindow from "../../../components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow";
 
 function ProvisionInformation(props) {
     const [statementId, setStatementId] = useState(null);
+    const [show, setShow] = useState(false);
     const dataOptionsForSelectATE = useSelector((state) => {
         const { dictionaryReducer } = state;
         return dictionaryReducer.ateLibrary;
@@ -33,17 +35,25 @@ function ProvisionInformation(props) {
         <>
             <h2>Предоставление информации о судне</h2>
             <SearchBlock inputsHeaders={Object.values(inputsProvisionInformation)} />
-            {/*<ToolBlock*/}
-            {/*    // addBtnDis={true}*/}
-            {/*    // id={statementId}*/}
-            {/*    // data={dataStateRegInfChanges}*/}
-            {/*    // appStatusId={statementId?dataStateRegInfChanges.find(el=>el.id.toString()===statementId).statusId:undefined}*/}
-            {/*/>*/}
+            <ToolBlock
+                // addBtnDis={true}
+                id={statementId}
+                show={show}
+                setShow={setShow}
+                // data={dataStateRegInfChanges}
+                // appStatusId={statementId?dataStateRegInfChanges.find(el=>el.id.toString()===statementId).statusId:undefined}
+            />
             <SearchTable
                 setId={handleStatementId}
                 headerColumns={PRIVISION_INFORMATION_COLUMNS}
                 dataFromState={dataStateProvisionInf}
             />
+            {show && (
+                <ModalWindow
+                    show={show}
+                    setShow={setShow}
+                />
+            )}
         </>
     );
 }
