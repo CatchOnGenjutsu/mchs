@@ -31,7 +31,7 @@ import {
   API_DECLINE_DUPLICATE,
   API_GET_STATEMENT_MODIF_INFO,
   API_ACCEPT_BOAT_MODIF,
-  API_DECLINE_BOAT_MODIF,
+  API_DECLINE_BOAT_MODIF
 } from "../../../../constants/constants";
 
 import styles from "./DecisionCard.module.css";
@@ -219,7 +219,7 @@ export default function DecisionCard() {
           setIsLoading(false);
           setAcceptBtnText("Принять");
         }
-        fetchData();
+        fetchData()
         break;
       default:
         break;

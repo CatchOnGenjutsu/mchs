@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
 import { deleteNewNote } from "../../../../redux/statementReducer/actionsStatement";
 
-export default function TableAppBoatReg({ updateData, tableOptions, dataForTable, typeTable, mode }) {
+export default function TableAppBoatReg({ updateData, tableOptions, mainData,dataForTable, typeTable, mode }) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
   const dispatch = useDispatch();
@@ -165,6 +165,7 @@ export default function TableAppBoatReg({ updateData, tableOptions, dataForTable
       )}
       {showModal && (
         <AppBoatRegModal
+          mainData={mainData}
           setShowModal={setShowModal}
           showModal={showModal}
           modalWindowInputs={tableOptions}
