@@ -20,6 +20,7 @@ import { getDataDupShipsTicketBySearchParams } from "../../redux/DuplicateShipsT
 import { getDataShipsTicketBySearchParams } from "../../redux/ShipsTicketReducer/actionsShipsTicket";
 
 import styles from "./SearchBlock.module.css";
+import {getDataProvisionInformationBySearchParams} from "../../redux/provisionInformationReducer/actionProvisionInformation";
 
 export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
   const dispatch = useDispatch();
@@ -66,6 +67,10 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
     const { ShipsTicketReducer } = state;
     return ShipsTicketReducer.searchParams;
   });
+  const searchParamsProvisionInformation = useSelector((state) => {
+    const { provisionInformationReducer } = state;
+    return provisionInformationReducer.searchParams;
+  });
 
   const handleValue = (e) => {
     e.target
@@ -93,6 +98,10 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
       }
       case urlPath === "shipsticket": {
         dispatch(getDataShipsTicketBySearchParams(searchParamsFromStateShipsTicket));
+        break;
+      }
+      case urlPath === "provisioninformation": {
+        dispatch(getDataProvisionInformationBySearchParams(searchParamsProvisionInformation));
         break;
       }
       case window.location.href.includes("smallboatsreg"): {
