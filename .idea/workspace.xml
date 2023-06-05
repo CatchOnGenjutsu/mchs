@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation.jsx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/AdministrativeProcedures/StatementProvisionInformation/statementProvisionInformation.module.css" afterDir="false" />
@@ -12,6 +13,9 @@
       <change beforePath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/RegistrationInformationChangesReducer/actionRegInfChanges.js" afterDir="false" />
     </list>
+=======
+    <list default="true" id="6d83bee9-2b89-40cc-adec-0e1d61a85890" name="Default Changelist" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,7 +96,12 @@
       <workItem from="1684911608944" duration="10564000" />
       <workItem from="1684936464751" duration="10000" />
       <workItem from="1684936489292" duration="2406000" />
+<<<<<<< Updated upstream
       <workItem from="1685082314111" duration="55212000" />
+=======
+      <workItem from="1685082314111" duration="49471000" />
+      <workItem from="1685686059239" duration="22000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

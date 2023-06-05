@@ -32,11 +32,15 @@ function ModalWindow({ setShow, show, idBoadCard }) {
         switch (e.target.dataset.key) {
           case "individual":
             idTypeStatement=1
-            navigate("/provisioninformation/individual/add");
+            navigate("/provisioninformation/individual/add",{
+              state:{idTypeStatement}
+            });
             break;
           case "entity":
             idTypeStatement=2
-            navigate("/provisioninformation/entity/add");
+            navigate("/provisioninformation/entity/add",{
+              state:{idTypeStatement}
+            });
             break;
           default:
             break;
