@@ -42,6 +42,8 @@ import {
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import StatementProvisionInformation
+  from "./components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation";
 
 function App() {
   const dispatch = useDispatch();
@@ -214,7 +216,14 @@ function App() {
             <Route
                 path="/provisioninformation"
                 element={<ProvisionInformation />}
-
+            />
+            <Route
+                path="/provisioninformation/individual/add"
+                element={<StatementProvisionInformation />}
+            />
+            <Route
+                path="/provisioninformation/entity/add"
+                element={<StatementProvisionInformation />}
             />
           </Routes>
         </div>

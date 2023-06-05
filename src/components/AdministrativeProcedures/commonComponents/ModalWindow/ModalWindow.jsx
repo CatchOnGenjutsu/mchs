@@ -27,21 +27,25 @@ function ModalWindow({ setShow, show, idBoadCard }) {
             break;
         }
         break;
-      // case pathName.includes("reginformationchanges"):
-      //   let idTypeStatement=null
-      //   switch (e.target.dataset.key) {
-      //     case "individual":
-      //       idTypeStatement=1
-      //       navigate("/reginformationchanges/individual/add", { state: { idBoadCard,idTypeStatement} });
-      //       break;
-      //     case "entity":
-      //       idTypeStatement=2
-      //       navigate("/reginformationchanges/entity/add", { state: { idBoadCard , idTypeStatement} });
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      //   break;
+      case pathName.includes("provisioninformation"):
+        let idTypeStatement=null
+        switch (e.target.dataset.key) {
+          case "individual":
+            idTypeStatement=1
+            navigate("/provisioninformation/individual/add",{
+              state:{idTypeStatement}
+            });
+            break;
+          case "entity":
+            idTypeStatement=2
+            navigate("/provisioninformation/entity/add",{
+              state:{idTypeStatement}
+            });
+            break;
+          default:
+            break;
+        }
+        break;
       default:
         break;
     }

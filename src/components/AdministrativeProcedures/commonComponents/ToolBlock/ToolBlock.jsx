@@ -10,7 +10,7 @@ import add_icon from "../../../../resourсes/add-icon.svg";
 import open_icon from "../../../../resourсes/open-icon.svg";
 import view_icon from "../../../../resourсes/view_icon.svg";
 
-function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn, viewBtnDisIn }) {
+function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
   const [openBtn, setOpenBtn] = useState(false);
   const [addBtn, setAddBtn] = useState(false);
   const [viewBtn, setViewBtn] = useState(false);
@@ -70,6 +70,11 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn, view
       }
       case pathName.includes("dupshipsticket"): {
         navigate("searchboatcard");
+        break;
+      }
+      case pathName.includes("provisioninformation"): {
+        setShow(true);
+        // navigate("addStatement");
         break;
       }
       case pathName.includes("smallboatsreg"): {
@@ -134,6 +139,7 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn, view
     }
   };
   useEffect(() => {
+    console.log(id)
     switch (true) {
       case pathName === "smallboatsreg":
         setOpenBtn(false);
@@ -171,7 +177,12 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn, view
         setViewBtn(false);
         setEditBtn(false);
         break;
-
+      case pathName === "provisioninformation":
+        setOpenBtn(false);
+        setAddBtn(true);
+        setViewBtn(true);
+        setEditBtn(true);
+        break;
       default:
         break;
     }
