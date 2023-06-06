@@ -38,8 +38,6 @@ export default function Sidebar() {
     setSidebarListArray(
       Object.values(sidebarListArray).map((item) => {
         const index = item.listModal.findIndex((elem) => elem.id === window.location.pathname.split("/")[1]);
-        console.log(index);
-        console.log(item);
         if (index >= 0) {
           item.isHidden = false;
         } else {
@@ -107,24 +105,30 @@ export default function Sidebar() {
                   </ul>
                 </>
               ) : (
-                <li
+                // <li
+                //   onClick={() => handleMenuItemClick()}
+                //   className={({ isActive }) =>
+                //     isActive
+                //       ? `${styles["sidebar-list-item"]} ${styles["colored"]}`
+                //       : `${styles["sidebar-list-item"]} `
+                //   }
+                //   // className={styles["sidebar-list-item"]}
+                //   data-title={item.id}
+                //   id={item.id}
+                //   key={uuidv4()}>
+                <NavLink
                   onClick={() => handleMenuItemClick()}
-                  className={styles["sidebar-list-item"]}
-                  data-title={item.id}
-                  id={item.id}
-                  key={uuidv4()}>
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive
-                        ? `${styles["sidebar-nolist-item"]} ${styles["colored"]}`
-                        : `${styles["sidebar-nolist-item"]}`
-                    }
-                    to={`/${item.id}`}
-                    key={uuidv4()}
-                    id={item.id}>
-                    {item.title}
-                  </NavLink>
-                </li>
+                  className={({ isActive }) =>
+                    isActive
+                      ? `${styles["sidebar-nolist-item"]} ${styles["colored"]}`
+                      : `${styles["sidebar-nolist-item"]}`
+                  }
+                  to={`/${item.id}`}
+                  key={uuidv4()}
+                  id={item.id}>
+                  {item.title}
+                </NavLink>
+                // </li>
               )}
             </>
           ))}
