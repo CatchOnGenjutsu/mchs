@@ -27,12 +27,6 @@ export default function Sidebar() {
     );
   };
 
-  // const handleColorChange = (e) => {
-  //   const oldElem = document.querySelector(`.${styles["colored"]}`);
-  //   if (oldElem) oldElem.classList.remove(styles["colored"]);
-  //   const newElem = document.querySelector(`#${e.target.id}`);
-  //   newElem.classList.add(styles["colored"]);
-  // };
   const handleMenuItemClick = () => {
     dispatch(clearNewStatement());
     setSidebarListArray(
@@ -84,8 +78,8 @@ export default function Sidebar() {
                     )}
                   </li>
                   <ul
-                    className={styles["sidebar-list-modal"]}
-                    hidden={item.isHidden}>
+                    key={uuidv4()}
+                    className={`${styles["sidebar-list-modal"]} ${item.isHidden ? styles["hide"] : ""}`}>
                     {item.listModal !== undefined
                       ? item.listModal.map((elem) => (
                           <NavLink
@@ -105,17 +99,6 @@ export default function Sidebar() {
                   </ul>
                 </>
               ) : (
-                // <li
-                //   onClick={() => handleMenuItemClick()}
-                //   className={({ isActive }) =>
-                //     isActive
-                //       ? `${styles["sidebar-list-item"]} ${styles["colored"]}`
-                //       : `${styles["sidebar-list-item"]} `
-                //   }
-                //   // className={styles["sidebar-list-item"]}
-                //   data-title={item.id}
-                //   id={item.id}
-                //   key={uuidv4()}>
                 <NavLink
                   onClick={() => handleMenuItemClick()}
                   className={({ isActive }) =>
@@ -128,7 +111,6 @@ export default function Sidebar() {
                   id={item.id}>
                   {item.title}
                 </NavLink>
-                // </li>
               )}
             </>
           ))}
