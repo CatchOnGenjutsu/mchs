@@ -16,54 +16,82 @@ export default function Sidebar() {
 
   const showDropdownMenu = (e) => {
     setSidebarListArray(
-      sidebarListArray.map((item) => {
-        if (item[1] === e.currentTarget.dataset.title && item[2] !== undefined) {
-          item[2].isHidden = !item[2].isHidden;
-        } else if (e.currentTarget.dataset.title === "undefined" && item[2] !== undefined) {
-          item[2].isHidden = true;
+      Object.values(sidebarListArray).map((item) => {
+        if (item.id === e.currentTarget.dataset.title && item.listModal !== undefined) {
+          item.isHidden = !item.isHidden;
+        } else if (e.currentTarget.dataset.title === "undefined" && item.listModal !== undefined) {
+          item.isHidden = true;
         }
         return item;
       }),
     );
   };
 
-  const handleColorChange = (e) => {
-    const oldElem = document.querySelector(`.${styles["colored"]}`);
-    if (oldElem) oldElem.classList.remove(styles["colored"]);
-    const newElem = document.querySelector(`#${e.target.id}`);
-    newElem.classList.add(styles["colored"]);
+  // const handleColorChange = (e) => {
+  //   const oldElem = document.querySelector(`.${styles["colored"]}`);
+  //   if (oldElem) oldElem.classList.remove(styles["colored"]);
+  //   const newElem = document.querySelector(`#${e.target.id}`);
+  //   newElem.classList.add(styles["colored"]);
+  // };
+  const handleMenuItemClick = () => {
+    dispatch(clearNewStatement());
+    setSidebarListArray(
+      Object.values(sidebarListArray).map((item) => {
+        const index = item.listModal.findIndex((elem) => elem.id === window.location.pathname.split("/")[1]);
+        console.log(index);
+        console.log(item);
+        if (index >= 0) {
+          item.isHidden = false;
+        } else {
+          item.isHidden = true;
+        }
+        return item;
+      }),
+    );
   };
+
   useEffect(() => {
     window.location.href.includes("login") ? setIsLogin("login") : setIsLogin("");
-  });
+    setSidebarListArray(
+      Object.values(sidebarListArray).map((item) => {
+        const index = item.listModal.findIndex((elem) => elem.id === window.location.pathname.split("/")[1]);
+        if (index >= 0) {
+          item.isHidden = false;
+        } else {
+          item.isHidden = true;
+        }
+        return item;
+      }),
+    );
+  }, [window.location.pathname]);
   if (!isLogin) {
     return (
       <div className={styles["sidebar-container"]}>
         <ul className={styles["sidebar-list"]}>
-          {sidebarListArray.map((item) => (
+          {Object.values(sidebarListArray).map((item) => (
             <>
-              {item[2].listModal.length !== 0 ? (
+              {item.listModal.length !== 0 ? (
                 <>
                   <li
                     onClick={showDropdownMenu}
                     className={styles["sidebar-list-item"]}
-                    data-title={item[1]}
+                    data-title={item.id}
                     key={uuidv4()}>
-                    {item[0]}
-                    {item[2].listModal.length !== 0 && (
+                    {item.title}
+                    {item.listModal.length !== 0 && (
                       <img
                         alt="arrow icon"
-                        className={!item[2].isHidden ? styles["rotated-image"] : ""}
+                        className={!item.isHidden ? styles["rotated-image"] : ""}
                         src="/assets/icon-down-arrow.png"></img>
                     )}
                   </li>
                   <ul
                     className={styles["sidebar-list-modal"]}
-                    hidden={item[2].isHidden}>
-                    {item[2] !== undefined
-                      ? item[2].listModal.map((elem) => (
+                    hidden={item.isHidden}>
+                    {item.listModal !== undefined
+                      ? item.listModal.map((elem) => (
                           <NavLink
-                            onClick={() => dispatch(clearNewStatement())}
+                            onClick={() => handleMenuItemClick()}
                             className={({ isActive }) =>
                               isActive
                                 ? `${styles["sidebar-list-item-modal"]} ${styles["colored"]}`
@@ -77,16 +105,13 @@ export default function Sidebar() {
                         ))
                       : null}
                   </ul>
-                  {/* {item[2] !== undefined ? ( */}
-
-                  {/* ) : null} */}
                 </>
               ) : (
                 <li
-                  onClick={handleColorChange}
+                  onClick={() => handleMenuItemClick()}
                   className={styles["sidebar-list-item"]}
-                  data-title={item[1]}
-                  id={item[1]}
+                  data-title={item.id}
+                  id={item.id}
                   key={uuidv4()}>
                   <NavLink
                     className={({ isActive }) =>
@@ -94,10 +119,10 @@ export default function Sidebar() {
                         ? `${styles["sidebar-nolist-item"]} ${styles["colored"]}`
                         : `${styles["sidebar-nolist-item"]}`
                     }
-                    to={`/${item[1]}`}
+                    to={`/${item.id}`}
                     key={uuidv4()}
-                    id={item[1]}>
-                    {item[0]}
+                    id={item.id}>
+                    {item.title}
                   </NavLink>
                 </li>
               )}

@@ -31,7 +31,9 @@ import {
   API_DECLINE_DUPLICATE,
   API_GET_STATEMENT_MODIF_INFO,
   API_ACCEPT_BOAT_MODIF,
-  API_DECLINE_BOAT_MODIF
+  API_DECLINE_BOAT_MODIF,
+  API_ACCEPT_SHIPS_TICKET,
+  API_DECLINE_SHIPS_TICKET,
 } from "../../../../constants/constants";
 
 import styles from "./DecisionCard.module.css";
@@ -88,6 +90,9 @@ export default function DecisionCard() {
 
         case "accept": {
           let request;
+          const pathArray = window.location.pathname.split("/");
+          const id = pathArray[pathArray.length - 1];
+          const tableKey = pathArray[pathArray.length - 2];
           switch (true) {
             case window.location.pathname.includes("smallboatsreg"):
               request = await fetch(
@@ -95,10 +100,15 @@ export default function DecisionCard() {
                 { method: "POST" },
               );
               break;
-            case window.location.pathname.includes("dupshipsticket"):
+            case window.location.pathname.includes("/shipsticket"):
               request = await fetch(
-                MAIN_URL + PORT + API_ACCEPT_DUPLICATE + data.appId,
-                //  + "/" + data.inspector
+                MAIN_URL +
+                  PORT +
+                  API_ACCEPT_SHIPS_TICKET +
+                  "?" +
+                  new URLSearchParams({
+                    [`${tableKey}`]: id,
+                  }),
                 {
                   method: "POST",
                   headers: {
@@ -108,9 +118,16 @@ export default function DecisionCard() {
                 },
               );
               break;
+            case window.location.pathname.includes("dupshipsticket"):
+              request = await fetch(MAIN_URL + PORT + API_ACCEPT_DUPLICATE + data.appId, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newData),
+              });
+              break;
             case window.location.pathname.includes("reginformationchanges"):
-              const pathArray = window.location.pathname.split("/");
-              const id = pathArray[pathArray.length - 1];
               request = await fetch(MAIN_URL + PORT + API_ACCEPT_BOAT_MODIF + id + "/" + data.inspector, {
                 method: "POST",
               });
@@ -131,6 +148,9 @@ export default function DecisionCard() {
               case window.location.pathname.includes("reginformationchanges"):
                 setBoatRegNum(response);
                 break;
+              case window.location.pathname.includes("/shipsticket"):
+                setBoatRegNum(newData.tiketNumNew);
+                break;
               case window.location.pathname.includes("dupshipsticket"):
                 setBoatRegNum(newData.tiketNumNew);
                 break;
@@ -145,11 +165,28 @@ export default function DecisionCard() {
 
         case "decline": {
           let request;
+          const pathArray = window.location.pathname.split("/");
+          const declineId = pathArray[pathArray.length - 1];
+          const tableKey = pathArray[pathArray.length - 2];
           switch (true) {
             case window.location.pathname.includes("smallboatsreg"):
               request = await fetch(MAIN_URL + PORT + API_DECLINE_BOAT_REGISTRATION + data.appId, {
                 method: "POST",
               });
+              break;
+            case window.location.pathname.includes("/shipsticket"):
+              request = await fetch(
+                MAIN_URL +
+                  PORT +
+                  API_DECLINE_SHIPS_TICKET +
+                  "?" +
+                  new URLSearchParams({
+                    [`${tableKey}`]: declineId,
+                  }),
+                {
+                  method: "POST",
+                },
+              );
               break;
             case window.location.pathname.includes("dupshipsticket"):
               request = await fetch(MAIN_URL + PORT + API_DECLINE_DUPLICATE + data.appId, {
@@ -191,7 +228,6 @@ export default function DecisionCard() {
   useEffect(() => {
     const pathArray = window.location.pathname.split("/");
     const id = pathArray[pathArray.length - 1];
-    console.log(pathArray);
     switch (true) {
       case pathArray.includes("smallboatsreg"):
         dispatch(getDecisionCardInfo(id));
@@ -219,7 +255,7 @@ export default function DecisionCard() {
           setIsLoading(false);
           setAcceptBtnText("Принять");
         }
-        fetchData()
+        fetchData();
         break;
       default:
         break;
@@ -323,7 +359,7 @@ export default function DecisionCard() {
           Должностное лицо <span className="ms-5">{data.inspector}</span>
         </div>
       )}
-      {window.location.pathname.includes("dupshipsticket") && (
+      {/* {window.location.pathname.includes("dupshipsticket") && (
         <>
           <Form.Group className={styles.form_group_flex}>
             <Form.Label
@@ -358,15 +394,71 @@ export default function DecisionCard() {
             />
           </Form.Group>
         </>
+      )} */}
+      {(window.location.pathname.includes("/shipsticket/decisioncard") ||
+        window.location.pathname.includes("dupshipsticket")) && (
+        <>
+          <Form.Group className={styles.form_group_flex}>
+            <Form.Label
+            // className={`${styles.form_label} ${
+            //   !halfControls.includes(item.key) ? styles.half_label : styles.wide_label
+            // }`}
+            >
+              {window.location.pathname.includes("/shipsticket/decisioncard")
+                ? "Номер судового билета"
+                : "Номер дубликата судового билета"}
+            </Form.Label>
+            <Form.Control
+              id={"tiketNumNew"}
+              // isInvalid={!!errors[el.key]}
+              disabled={Number(data.boatCardStatus) === 0}
+              type="text"
+              value={newData.tiketNumNew}
+              onChange={(e) => handleValue(e)}
+            />
+          </Form.Group>
+          <Form.Group className={styles.form_group_flex}>
+            <Form.Label
+            // className={`${styles.form_label} ${
+            //   !halfControls.includes(item.key) ? styles.half_label : styles.wide_label
+            // }`}
+            >
+              {window.location.pathname.includes("/shipsticket/decisioncard")
+                ? "Дата выдачи судового билета"
+                : "Дата выдачи дубликата судового билета"}
+            </Form.Label>
+            <Form.Control
+              id={"ticketDateNew"}
+              // isInvalid={!!errors[el.key]}
+              disabled={Number(data.boatCardStatus) === 0}
+              type="date"
+              value={newData.ticketDateNew}
+              onChange={(e) => handleValue(e)}
+            />
+          </Form.Group>
+        </>
       )}
 
       <div className={styles.buttons_container}>
-        <div
-          className={styles.reg_button}
-          id={"accept"}
-          onClick={(e) => handleButtonClick(e)}>
-          {acceptBtnText}
-        </div>
+        {window.location.pathname.includes("smallboatsreg/decisioncard/") ? (
+          <div
+            className={styles.reg_button}
+            id={"accept"}
+            onClick={(e) => handleButtonClick(e)}>
+            {acceptBtnText}
+          </div>
+        ) : (
+          (window.location.pathname.includes("/shipsticket/decisioncard") ||
+            window.location.pathname.includes("dupshipsticket/decisioncard")) &&
+          Number(data.boatCardStatus) !== 0 && (
+            <div
+              className={styles.reg_button}
+              id={"accept"}
+              onClick={(e) => handleButtonClick(e)}>
+              {acceptBtnText}
+            </div>
+          )
+        )}
         <div
           className={styles.decline_button}
           id={"decline"}

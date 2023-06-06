@@ -1,5 +1,6 @@
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "./components/LoginPage/LoginPage";
 import SmallBoats from "./containers/SmallBoats/SmallBoats";
@@ -28,7 +29,7 @@ import DuplicateShipsTicket from "./containers/AdministrativeProcedures/Duplicat
 import DuplShipsTicket from "./components/AdministrativeProcedures/DuplShipsTicket/DuplShipsTicket";
 import ShipsTicket from "./containers/AdministrativeProcedures/ShipsTicket/ShipsTicket";
 import ProvisionInformation from "./containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation";
-
+import StatementProvisionInformation from "./components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation";
 
 import {
   getDictionaryGimsSections,
@@ -38,12 +39,10 @@ import {
   getAteLibrary,
   getApplicationRegLibrary,
 } from "./redux/actions";
+import { setActiveItem } from "./components/Sidebar/sidebarSettings";
 
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import StatementProvisionInformation
-  from "./components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +56,7 @@ function App() {
     dispatch(getUsersLibrary());
     dispatch(getAteLibrary());
     dispatch(getApplicationRegLibrary());
+    // setActiveItem(window.location.pathname.split("/")[1]);
   }, [window.location.pathname]);
 
   return (
@@ -214,16 +214,16 @@ function App() {
               element={<AdministrativeProcedures />}
             />
             <Route
-                path="/provisioninformation"
-                element={<ProvisionInformation />}
+              path="/provisioninformation"
+              element={<ProvisionInformation />}
             />
             <Route
-                path="/provisioninformation/individual/add"
-                element={<StatementProvisionInformation />}
+              path="/provisioninformation/individual/add"
+              element={<StatementProvisionInformation />}
             />
             <Route
-                path="/provisioninformation/entity/add"
-                element={<StatementProvisionInformation />}
+              path="/provisioninformation/entity/add"
+              element={<StatementProvisionInformation />}
             />
           </Routes>
         </div>

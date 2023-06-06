@@ -12,9 +12,18 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
     if (result === "success") {
       switch (appId) {
         case "Denied":
-          setHeaderText("Заявление на регистрацию судна отклонено");
+          switch (true) {
+            case path.includes("/shipsticket/decisioncard"):
+              setHeaderText("Выдача судового билета успешно отклонена");
+              break;
+            case path.includes("smallboatsreg/decisioncard"):
+              setHeaderText("Заявление на регистрацию судна отклонено");
+              break;
+            default:
+              break;
+          }
           break;
-        case "Refuse" :
+        case "Refuse":
           switch (true) {
             case path.includes("dupshipsticket/decisioncard"):
               setHeaderText("Заявление на выдачу дубликата отклонено");
@@ -22,12 +31,16 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
             case path.includes("reginformationchanges/decisioncard"):
               setHeaderText("Заявление на изменения данных отклонено");
               break;
-            default:break;
+            default:
+              break;
           }
-
           break;
         default:
           switch (true) {
+            case path.includes("/shipsticket/decisioncard"):
+              setMessageText("Номер судового билета");
+              setHeaderText("Судовой билет успешно выдан");
+              break;
             case path.includes("dupshipsticket/decisioncard"):
               setMessageText("Номер дубликата");
               setHeaderText("Дубликат судового билета успешно выдан");
@@ -43,38 +56,15 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
             case path.includes("dupshipsticket"):
               setHeaderText("Заявление успешно зарегистрировано");
               setMessageText("Регистрационный номер");
+            case path.includes("reginformationchanges"):
+              setHeaderText("Заявление успешно зарегистрировано");
+              setMessageText("Регистрационный номер");
               break;
             default:
               break;
           }
           break;
       }
-      // if (appId === "Denied") {
-      //   setHeaderText("Заявление на регистрацию судна отклонено");
-      // } else if (appId === "Refuse") {
-      //   setHeaderText("Заявление на выдачу дубликата отклонено");
-      // } else {
-      //   switch (true) {
-      //     case path.includes("dupshipsticket/decisioncard"):
-      //       setMessageText("Номер дубликата");
-      //       setHeaderText("Дубликат судового билета успешно выдан");
-      //       break;
-      //     case path.includes("smallboatsreg/decisioncard"):
-      //       setHeaderText("Судно успешно зарегистрировано");
-      //       setMessageText("Регистрационный номер");
-      //       break;
-      //     case path.includes("smallboatsreg"):
-      //       setHeaderText("Заявление успешно зарегистрировано");
-      //       setMessageText("Регистрационный номер");
-      //       break;
-      //     case path.includes("dupshipsticket"):
-      //       setHeaderText("Заявление успешно зарегистрировано");
-      //       setMessageText("Регистрационный номер");
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // }
     } else {
       switch (true) {
         case path.includes("decisioncard"):
