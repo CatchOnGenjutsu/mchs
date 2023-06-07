@@ -440,7 +440,8 @@ export default function DecisionCard() {
       )}
 
       <div className={styles.buttons_container}>
-        {window.location.pathname.includes("smallboatsreg/decisioncard/") ? (
+        {window.location.pathname.includes("smallboatsreg/decisioncard/") ||
+        window.location.pathname.includes("reginformationchanges/decisioncard/") ? (
           <div
             className={styles.reg_button}
             id={"accept"}
