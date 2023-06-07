@@ -53,9 +53,9 @@ export const ShipsTicketReducer = (state = initialState, action) => {
       return (() => ({
         ...state,
         appDecisionData: action.data.data,
-        boatCardAppEngList: [...action.data.data.boatCardAppEngDtoList],
-        boatCardAppDealsList: [...action.data.data.boatCardAppDealDtoList],
-        boatCardAppSpecMarkList: [...action.data.data.boatCardAppSmDtoList],
+        boatCardAppEngList: [...action.data.boatCardAppEngList],
+        boatCardAppDealsList: [...action.data.boatCardAppDealsList],
+        boatCardAppSpecMarkList: [...action.data.boatCardAppSpecMarkList],
       }))();
 
     default:

@@ -70,9 +70,15 @@ export function getShipsTicketDecisionInfo(id, key) {
       console.log(response);
       const jsonData = {
         data: response,
-        boatCardAppEngList: response.boatCardAppEngList,
-        boatCardAppDealsList: response.boatCardAppDealsList,
-        boatCardAppSpecMarkList: response.boatCardAppSpecMarkList,
+        boatCardAppEngList: response.boatCardAppEngList
+          ? response.boatCardAppEngList
+          : response.boatCardModifEngDtoList,
+        boatCardAppDealsList: response.boatCardAppDealsList
+          ? response.boatCardAppDealsList
+          : response.boatCardModifDealsDtoList,
+        boatCardAppSpecMarkList: response.boatCardAppSpecMarkList
+          ? response.boatCardAppSpecMarkList
+          : response.boatCardModifSmDtoList,
       };
       dispatch({
         type: GET_SHIPS_TICKET_DECISION_INFO,
