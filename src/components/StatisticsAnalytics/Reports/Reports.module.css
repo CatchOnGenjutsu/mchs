@@ -1,0 +1,39 @@
+.form_inputs {
+  display: flex;
+  flex-direction: column;
+  margin: 3vh 0 8px;
+  padding: 1vh 1vw;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background: #1c93e2;
+}
+.area_inputs {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 76vw;
+}
+
+.input_element {
+  margin: 0 1vw 0.2em;
+  min-width: 16vw;
+}
+.label_text {
+  color: white;
+  font-size: 1.2em;
+  line-height: 1em;
+  margin-bottom: 0.1rem;
+}
+
+.buttons_block {
+  display: flex;
+  justify-content: center;
+}
+
+.button_element {
+  margin: 1em 2vw 0;
+  width: 8vw;
+  background-color: rgb(28, 88, 199);
+}
+.red_dot {
+  color: red;
+}

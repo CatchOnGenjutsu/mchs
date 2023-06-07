@@ -30,6 +30,7 @@ import DuplShipsTicket from "./components/AdministrativeProcedures/DuplShipsTick
 import ShipsTicket from "./containers/AdministrativeProcedures/ShipsTicket/ShipsTicket";
 import ProvisionInformation from "./containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation";
 import StatementProvisionInformation from "./components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation";
+import Reports from "./components/StatisticsAnalytics/Reports/Reports";
 
 import {
   getDictionaryGimsSections,
@@ -174,8 +175,20 @@ function App() {
               element={<DecisionCard />}
             />
             <Route
-              path="/nsi/adminproc"
-              element={<AdministrativeProcedures />}
+              path="/provisioninformation"
+              element={<ProvisionInformation />}
+            />
+            <Route
+              path="/provisioninformation/individual/add"
+              element={<StatementProvisionInformation />}
+            />
+            <Route
+              path="/provisioninformation/entity/add"
+              element={<StatementProvisionInformation />}
+            />
+            <Route
+              path="/reports"
+              element={<Reports />}
             />
             <Route
               path="/nsi"
@@ -212,18 +225,6 @@ function App() {
             <Route
               path="/nsi/adminproc"
               element={<AdministrativeProcedures />}
-            />
-            <Route
-              path="/provisioninformation"
-              element={<ProvisionInformation />}
-            />
-            <Route
-              path="/provisioninformation/individual/add"
-              element={<StatementProvisionInformation />}
-            />
-            <Route
-              path="/provisioninformation/entity/add"
-              element={<StatementProvisionInformation />}
             />
           </Routes>
         </div>
