@@ -227,8 +227,8 @@ export const inputsRegInformChange = {
       { id: 0, value: "Все" },
       { id: 1, value: "Зарегистрировано" },
       { id: 2, value: "Отказано" },
-      { id:3,value: "К выдаче"} ,
-      { id:4,value: "АП завершена"} ,
+      { id: 3, value: "К выдаче" },
+      { id: 4, value: "АП завершена" },
     ],
   },
 };
@@ -372,6 +372,7 @@ export const inputsHeadersShipsTicket = {
       { id: 0, value: "Все" },
       { id: 3, value: "К выдаче" },
       { id: 8, value: "Выдан" },
+      { id: 2, value: "Отказано" },
     ],
   },
 };

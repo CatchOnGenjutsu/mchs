@@ -8,24 +8,18 @@
   background-color: rgba(72, 86, 97, 255);
   color: white;
 }
-
 .sidebar-list {
   margin: 0;
   padding-left: 0vw;
 }
-
 .sidebar-list-item {
   list-style-type: none;
-  /* text-decoration: none;
-  color: white;
-  text-decoration-color: #a1aabb; */
   padding: 0 0.5vw;
   margin: 0 0.2vw;
   font-weight: 400;
   font-size: 1.1em;
   user-select: none;
 }
-
 .sidebar-list-item:hover {
   text-decoration: none;
   color: rgb(0, 0, 0);
@@ -33,14 +27,6 @@
   box-sizing: border-box;
   border-radius: 0.2em;
   cursor: pointer;
-}
-.sidebar-nolist-item {
-  display: flex;
-  list-style-type: none;
-  text-decoration: none;
-  color: white;
-  text-decoration-color: #a1aabb;
-  user-select: none;
 }
 .sidebar-list-item:hover > a  {
   text-decoration: none;
@@ -50,16 +36,13 @@
   border-radius: 0.2em;
   cursor: pointer;
 }
-
 .sidebar-list-modal {
   margin: 0;
   padding-left: 0vw;
   display: flex;
   flex-direction: column;
 }
-
 .sidebar-list-item-modal {
-  /* border-bottom: 1px solid #a1aabb; */
   color: white;
   text-decoration: underline;
   text-decoration-color: #a1aabb;
@@ -70,7 +53,6 @@
   font-size: 1em;
   transition: 0.3s;
 }
-
 .sidebar-list-item-modal:hover {
   text-decoration: none;
   color: rgb(0, 0, 0);
@@ -79,17 +61,31 @@
   border-radius: 0.2em;
   cursor: pointer;
 }
-
-.react-link {
-  color: white;
+.sidebar-nolist-item {
+  display: block;
+  box-sizing: border-box;
+  padding: 0 0.5vw;
+  margin: 0 0.2vw;
+  font-weight: 400;
+  font-size: 1.1em;
   text-decoration: none;
+  color: white;
+  text-decoration-color: #a1aabb;
+  user-select: none;
+  transition: 0.3s;
 }
-
+.sidebar-nolist-item:hover {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  background-color: #a1aabb;
+  box-sizing: border-box;
+  border-radius: 0.2em;
+  cursor: pointer;
+}
 .rotated-image {
   transform: rotate(180deg);
   transition: 0.5s;
 }
-
 .colored {
   text-decoration: none;
   background-color: #a1aabb;
@@ -101,4 +97,5 @@
 
 .hide {
   display: none;
+  transition: 5s;
 }

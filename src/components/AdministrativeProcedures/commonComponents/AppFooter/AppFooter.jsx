@@ -5,6 +5,7 @@ import { addNewStatementData } from "../../../../redux/statementReducer/actionsS
 
 import { MAIN_URL, PORT, API_ADD_STATEMENT_FILE_DOWNLOAD ,API_DOWNLOAD_FILE_PROVISION_INFO,API_DOWNLOAD_FILE_MODIF} from "../../../../constants/constants";
 
+
 import styles from "./AppFooter.module.css";
 
 export default function AppFooter({ inputData, mode, updateNewData, handleFile }) {
@@ -31,6 +32,7 @@ export default function AppFooter({ inputData, mode, updateNewData, handleFile }
     switch (true) {
       case e.target.id === "file":
         if (e.target.files[0]) {
+          // console.log(e.target.files);
           handleFile(e.target.files[0]);
           // dispatch(addNewStatementData({ [`${e.target.id}`]: e.target.files[0] }));
         }
@@ -60,6 +62,7 @@ export default function AppFooter({ inputData, mode, updateNewData, handleFile }
           <Form.Control
             id="file"
             type="file"
+            // multiple={true}
             // isInvalid={!!errors[item.key]}
             accept=".doc,.docx,.pdf"
             onChange={(e) => {
@@ -77,12 +80,12 @@ export default function AppFooter({ inputData, mode, updateNewData, handleFile }
         </div>
       )}
       {data.fileId && (
-          <div className={styles.file_area}>
-            <p className="me-2">Файл заявления:</p>
-            <a href={`${MAIN_URL}${PORT}${downloadAPI}${data.fileId}`}>
-              {data.fileName}
-            </a>
-          </div>
+        <div className={styles.file_area}>
+          <p className="me-2">Файл заявления:</p>
+          <a href={`${MAIN_URL}${PORT}${downloadAPI}${data.fileId}`}>
+            {data.fileName}
+          </a>
+        </div>
       )}
       <Form.Group className={styles.header}>
         <Form.Label>Количество листов:</Form.Label>
