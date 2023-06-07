@@ -5,6 +5,7 @@ import InformationAboutIndividual from "../commonComponents/InformationAboutIndi
 import InformationAboutEntity from "../commonComponents/InformationAboutEntity/InformationAboutEntity"
 import InfoRepresentPerson from "../commonComponents/InfoRepresentPerson/InfoRepresentPerson";
 import AppFooter from "../commonComponents/AppFooter/AppFooter";
+import ResultModalWindow from "../commonComponents/ResultModalWindow/ResultModalWindow";
 
 
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,12 +14,27 @@ import {
   fieldPassportOptions,
 } from "../commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
 import {fieldLEInformOptions}from"../commonComponents/InformationAboutEntity/optionsInformationAboutEntity"
+import {
+    API_ADD_STATEMENT_PROVISION_INFORMATION,
+    API_GET_STATEMENT_PROVISION_INFORMATION,
+    MAIN_URL,
+    PORT
+} from "../../../constants/constants";
+import {clearNewStatement} from "../../../redux/statementReducer/actionsStatement";
+import {useDispatch} from "react-redux";
+import {ProgressBar} from "react-loader-spinner";
 function StatementProvisionInformation() {
     const location = useLocation();
-    const {idTypeStatement}=location.state
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {idTypeStatement,modeView,idStatement}=location.state
 
     const [file, setFile] = useState();
     const [errors, setErrors] = useState({});
+    const [showResultModal, setShowResultModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [registrationResult, setRegistrationResult] = useState("");
+    const [appId, setAppId] = useState(null);
     const [saveKey, setSaveKey] = useState(false);
     const [newData, setNewData] = useState({
        personType: idTypeStatement
@@ -29,11 +45,16 @@ function StatementProvisionInformation() {
 
 
     const updateNewData = (key, value) => {
+        console.log(key,value)
         newData[key] = value;
         setNewData({...newData})
     };
     const handleFile = (value) => {
       setFile(value);
+    };
+    const handleCloseApp = () => {
+        dispatch(clearNewStatement());
+        navigate(-1);
     };
     const handleErrors = () => {
       let newErrors = {};
@@ -51,6 +72,59 @@ function StatementProvisionInformation() {
         return false;
       }
     };
+    const handleSave = async (e) => {
+        if (!handleErrors()) {
+
+            const formData = new FormData();
+            if (file !== undefined) {
+                formData.append(`file`, file);
+            }
+            formData.append('data',JSON.stringify(newData))
+            const request = await fetch(MAIN_URL + PORT + API_ADD_STATEMENT_PROVISION_INFORMATION, {
+                method: "POST",
+                body: formData,
+            });
+            if (request.status !== 200) {
+                setShowResultModal(!showResultModal);
+                setRegistrationResult("error");
+            } else {
+                const response = await request.text();
+                setAppId(response);
+                setShowResultModal(!showResultModal);
+                setRegistrationResult("success");
+            }
+        }else {
+            setSaveKey(true);
+        }
+    }
+
+    useEffect(()=>{
+        async function fetchData() {
+            if(window.location.pathname.includes('/provisioninformation/statement')){
+                const responseStatement = await fetch(MAIN_URL+PORT+API_GET_STATEMENT_PROVISION_INFORMATION+String(idStatement))
+                const dataStatement =await responseStatement.json()
+                setNewData(dataStatement)
+            }
+            setIsLoading(false);
+        }
+        fetchData()
+    },[])
+
+    if(isLoading){
+        return (
+            <div className={'d-flex flex-column align-items-center'}>
+                <ProgressBar
+                    height="80"
+                    width="80"
+                    ariaLabel="progress-bar-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="progress-bar-wrapper"
+                    borderColor="#F4442E"
+                    barColor="#51E5FF"
+                />
+            </div>
+        )
+    }
     return (
         <>
         <div className={styles.caption}>
@@ -75,7 +149,7 @@ function StatementProvisionInformation() {
                   saveKey={saveKey}
                   handleErrors={handleErrors}
                   errors={errors}
-                //   mode={modeView?modeView:((idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':'')}
+                 mode={modeView}
               />
           ):(
               <InformationAboutEntity
@@ -84,7 +158,7 @@ function StatementProvisionInformation() {
                   saveKey={saveKey}
                   handleErrors={handleErrors}
                   errors={errors}
-                //   mode={modeView?modeView:((idTypeChangeStatement==='2'||idTypeChangeStatement==='3')?'view':'')}
+                  mode={modeView}
 
               />
           )
@@ -92,24 +166,23 @@ function StatementProvisionInformation() {
            <InfoRepresentPerson
               inputData={newData}
               updateNewData={updateNewData}
-              // mode={modeView}
+              mode={modeView}
               />
               <AppFooter
               inputData={newData}
               updateNewData={updateNewData}
               handleFile={handleFile}
-              // mode={modeView}
+              mode={modeView}
           />
           </Form>
           </div>
           <div className={styles.buttons_container}>
-        {!modeView && (<Button
+        <Button
             variant="primary"
             onClick={(e) => handleSave(e)}
-            disabled={newData.boatCardSpecmarksList.find(el=>el.msmLock===true) && idTypeChangeStatement==='2'}
         >
           Зарегистрировать
-        </Button>)}
+        </Button>
         <Button
             variant="danger"
             onClick={handleCloseApp}>
@@ -118,11 +191,11 @@ function StatementProvisionInformation() {
       </div>
       {showResultModal && (
           <ResultModalWindow
-              // appId={appId}
-              // show={showResultModal}
-              // setShow={setShowResultModal}
-              // result={registrationResult}
-              // handleCloseApp={handleCloseApp}
+              appId={appId}
+              show={showResultModal}
+              setShow={setShowResultModal}
+              result={registrationResult}
+              handleCloseApp={handleCloseApp}
           />
       )}
         </>

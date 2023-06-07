@@ -74,7 +74,6 @@ function IndividualStatement() {
         setRegistrationResult("error");
       } else {
         const response = await request.text();
-        console.log("response", response);
         setAppId(response);
         setShowResultModal(!showResultModal);
         setRegistrationResult("success");

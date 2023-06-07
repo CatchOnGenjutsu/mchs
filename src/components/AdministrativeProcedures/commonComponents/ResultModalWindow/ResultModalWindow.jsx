@@ -44,37 +44,19 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
               setHeaderText("Заявление успешно зарегистрировано");
               setMessageText("Регистрационный номер");
               break;
+            case path.includes("reginformationchanges"):
+              setHeaderText("Заявление успешно зарегистрировано");
+              setMessageText("Регистрационный номер");
+              break;
+            case path.includes("provisioninformation"):
+              setHeaderText("Заявление успешно зарегистрировано");
+              setMessageText("Регистрационный номер");
+              break;
             default:
               break;
           }
           break;
       }
-      // if (appId === "Denied") {
-      //   setHeaderText("Заявление на регистрацию судна отклонено");
-      // } else if (appId === "Refuse") {
-      //   setHeaderText("Заявление на выдачу дубликата отклонено");
-      // } else {
-      //   switch (true) {
-      //     case path.includes("dupshipsticket/decisioncard"):
-      //       setMessageText("Номер дубликата");
-      //       setHeaderText("Дубликат судового билета успешно выдан");
-      //       break;
-      //     case path.includes("smallboatsreg/decisioncard"):
-      //       setHeaderText("Судно успешно зарегистрировано");
-      //       setMessageText("Регистрационный номер");
-      //       break;
-      //     case path.includes("smallboatsreg"):
-      //       setHeaderText("Заявление успешно зарегистрировано");
-      //       setMessageText("Регистрационный номер");
-      //       break;
-      //     case path.includes("dupshipsticket"):
-      //       setHeaderText("Заявление успешно зарегистрировано");
-      //       setMessageText("Регистрационный номер");
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // }
     } else {
       switch (true) {
         case path.includes("decisioncard"):

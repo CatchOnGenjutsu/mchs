@@ -225,6 +225,10 @@ function App() {
                 path="/provisioninformation/entity/add"
                 element={<StatementProvisionInformation />}
             />
+            <Route
+                path="/provisioninformation/statement/:id"
+                element={<StatementProvisionInformation />}
+            />
           </Routes>
         </div>
       )}

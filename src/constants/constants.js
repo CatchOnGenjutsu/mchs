@@ -130,3 +130,6 @@ export const API_GET_SHIPS_TICKET_DATA = "issuanceBoatTicket/searchTicket";
 export const API_GET_SHIPS_TICKET_DECISION_INFO = "issuanceBoatTicket/confirmReg";
 
 export const API_GET_DATA_PROVISION_INFORMATION = "boatInfoApp/searchApp"
+export const API_ADD_STATEMENT_PROVISION_INFORMATION = "boatInfoApp/addStatement"
+export const API_GET_STATEMENT_PROVISION_INFORMATION = "boatInfoApp/getBoatInfo/"
+export const API_DOWNLOAD_FILE_PROVISION_INFO = "boatInfoApp/download/"

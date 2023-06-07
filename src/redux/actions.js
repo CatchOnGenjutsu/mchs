@@ -94,7 +94,7 @@ export function setSearchParams(id, value, url) {
         data: object,
       };
     }
-    case url = "provisioninformation":{
+    case url === "provisioninformation":{
       return {
         type: SET_SEARCH_PARAMS_PROVISION_INFORMATION,
         data: object,
