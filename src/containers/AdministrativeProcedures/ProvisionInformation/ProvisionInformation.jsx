@@ -40,7 +40,7 @@ function ProvisionInformation(props) {
                 id={statementId}
                 show={show}
                 setShow={setShow}
-                // data={dataStateRegInfChanges}
+                data={dataStateProvisionInf}
                 // appStatusId={statementId?dataStateRegInfChanges.find(el=>el.id.toString()===statementId).statusId:undefined}
             />
             <SearchTable

@@ -187,6 +187,10 @@ function App() {
               element={<StatementProvisionInformation />}
             />
             <Route
+              path="/provisioninformation/statement/:id"
+              element={<StatementProvisionInformation />}
+            />
+            <Route
               path="/reports"
               element={<Reports />}
             />

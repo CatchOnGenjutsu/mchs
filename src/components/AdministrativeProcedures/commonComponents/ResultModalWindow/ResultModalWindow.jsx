@@ -60,6 +60,14 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
               setHeaderText("Заявление успешно зарегистрировано");
               setMessageText("Регистрационный номер");
               break;
+            case path.includes("reginformationchanges"):
+              setHeaderText("Заявление успешно зарегистрировано");
+              setMessageText("Регистрационный номер");
+              break;
+            case path.includes("provisioninformation"):
+              setHeaderText("Заявление успешно зарегистрировано");
+              setMessageText("Регистрационный номер");
+              break;
             default:
               break;
           }
