@@ -35,6 +35,9 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
               break;
           }
           break;
+        case "register":
+          setHeaderText("Внесение изменений успешно выполнено");
+          break;
         default:
           switch (true) {
             case path.includes("/shipsticket/decisioncard"):
