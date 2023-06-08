@@ -5,9 +5,9 @@ import Select from "react-select";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import styles from "./Reports.module.css";
+import styles from "./InspectorWorkStat.module.css";
 
-export default function Reports() {
+export default function InspectorWorkStat() {
   const [data, setData] = useState({});
   const usersLib = useSelector((state) => {
     const { dictionaryReducer } = state;
