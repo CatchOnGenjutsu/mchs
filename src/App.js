@@ -191,6 +191,10 @@ function App() {
               element={<StatementProvisionInformation />}
             />
             <Route
+                path="/provisioninformation/decisioncard/:id"
+                element={<StatementProvisionInformation />}
+            />
+            <Route
               path="/reports"
               element={<Reports />}
             />
