@@ -1,38 +1,41 @@
 .content {
-  width: 100%;
+  /* align-self: center; */
+  margin-left: 30px;
+  width: 60%;
   height: 100%;
   padding: 6px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   column-gap: 15px;
   row-gap: 15px;
   font-weight: 500;
   grid-template-areas:
-    "CB AP LL"
-    "FO CO PP"
-    "RQ . .";
+    "WR QR"
+    "TAR CIR"
+    "PSR TR"
+    "GR .";
 }
 
-.box-classificationBoats {
-  grid-area: CB;
+.box-weeklyreport {
+  grid-area: WR;
 }
-.box-adminproc {
-  grid-area: AP;
+.box-quarterlyreport {
+  grid-area: QR;
 }
-.box-legislation {
-  grid-area: LL;
+.box-transportaccidentaeport {
+  grid-area: TAR;
 }
-.box-forms {
-  grid-area: FO;
+.box-certificateissuancereport {
+  grid-area: CIR;
 }
-.box-contacts {
-  grid-area: CO;
+.box-paidservicesreport {
+  grid-area: PSR;
 }
-.box-paidproc {
-  grid-area: PP;
+.box-trainingreport {
+  grid-area: TR;
 }
-.box-requisites {
-  grid-area: RQ;
+.box-graphs {
+  grid-area: GR;
 }
 
 .link_container {
@@ -40,7 +43,7 @@
   width: 300px;
   height: 95px;
   border-radius: 12px;
-  margin: 2em 3em;
+  margin: 2em 2em;
 }
 
 .link_container:hover {

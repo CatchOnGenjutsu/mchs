@@ -31,6 +31,7 @@ import ShipsTicket from "./containers/AdministrativeProcedures/ShipsTicket/Ships
 import ProvisionInformation from "./containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation";
 import StatementProvisionInformation from "./components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation";
 import InspectorWorkStat from "./components/StatisticsAnalytics/InspectorWorkStat/InspectorWorkStat";
+import Reports from "./components/StatisticsAnalytics/Reports/Reports/Reports";
 
 import {
   getDictionaryGimsSections,
@@ -197,6 +198,10 @@ function App() {
             <Route
               path="/inspectorworkstat"
               element={<InspectorWorkStat />}
+            />
+            <Route
+              path="/reports"
+              element={<Reports />}
             />
             <Route
               path="/nsi"
