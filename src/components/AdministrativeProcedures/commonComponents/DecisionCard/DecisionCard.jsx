@@ -451,7 +451,7 @@ export default function DecisionCard() {
         ) : (
           (window.location.pathname.includes("/shipsticket/decisioncard") ||
             window.location.pathname.includes("dupshipsticket/decisioncard")) &&
-          Number(data.boatCardStatus) !== 0 && (
+          data.boatCardStatus !== 0 && (
             <div
               className={styles.reg_button}
               id={"accept"}
