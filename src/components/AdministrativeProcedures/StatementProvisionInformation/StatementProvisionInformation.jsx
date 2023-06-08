@@ -98,9 +98,10 @@ function StatementProvisionInformation() {
         }
     }
 
+
     useEffect(()=>{
         async function fetchData() {
-            if(window.location.pathname.includes('/provisioninformation/statement')){
+            if(window.location.pathname.includes('/provisioninformation/')){
                 const responseStatement = await fetch(MAIN_URL+PORT+API_GET_STATEMENT_PROVISION_INFORMATION+String(idStatement))
                 const dataStatement =await responseStatement.json()
                 setNewData(dataStatement)
@@ -177,12 +178,15 @@ function StatementProvisionInformation() {
           </Form>
           </div>
           <div className={styles.buttons_container}>
-        <Button
-            variant="primary"
-            onClick={(e) => handleSave(e)}
-        >
-          Зарегистрировать
-        </Button>
+              {!modeView && (
+                  <Button
+                  variant="primary"
+                  onClick={(e) => handleSave(e)}
+              >
+                  Зарегистрировать
+              </Button>
+              )}
+
         <Button
             variant="danger"
             onClick={handleCloseApp}>

@@ -6,6 +6,10 @@ import {
 } from "../../../../constants/constants";
 
 import { getRayon, getGorod } from "../utilities";
+import {
+  fieldAddressOptions,
+  fieldPassportOptions
+} from "../InformationAboutIndividual/optionsForInformationAboutIndividual";
 
 export const optionInfoRepresentPersonSummary = {
   agentSurname: {
@@ -179,3 +183,27 @@ export const setOptionsGorodForRayon = async (id) => {
 
   optionInfoRepresentPersonAddress.agentGorodId.disabled = false;
 };
+export async function setOptions(id, key) {
+  switch (key) {
+    case "oblId": {
+      optionInfoRepresentPersonAddress.agentRayonId.selectOption = await getRayon(id);
+      optionInfoRepresentPersonAddress.agentRayonId.disabled = optionInfoRepresentPersonAddress.agentRayonId.selectOption.length ? false : true;
+      optionInfoRepresentPersonAddress.agentGorodId.selectOption = [];
+      optionInfoRepresentPersonAddress.agentGorodId.disabled = true;
+      return optionInfoRepresentPersonAddress;
+    }
+    case "rayonId": {
+      optionInfoRepresentPersonAddress.agentGorodId.selectOption = await getGorod(id);
+      optionInfoRepresentPersonAddress.agentGorodId.disabled = optionInfoRepresentPersonAddress.agentGorodId.selectOption.length ? false : true;
+      return optionInfoRepresentPersonAddress;
+    }
+    default:
+      return optionInfoRepresentPersonAddress;
+  }
+}
+export function getOptions() {
+  return {
+    passport: optionInfoRepresentPersonSummary,
+    address: optionInfoRepresentPersonAddress,
+  };
+}

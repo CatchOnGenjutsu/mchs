@@ -6,6 +6,8 @@ import {
   agentDoverennost,
   setOptionsRayonForOblast,
   setOptionsGorodForRayon,
+  setOptions,
+  getOptions
 } from "./optionInfoRepresentPerson";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 import { Form } from "react-bootstrap";
@@ -13,12 +15,17 @@ import Select from "react-select";
 
 import styles from "./InfoRepresentPerson.module.css";
 
+
 export default function InfoRepresentPerson({ inputData, mode, updateNewData }) {
   const selectRayonRef = useRef();
   const selectGorodRef = useRef();
   const selectOblRef = useRef();
   const selectDocTypeRef = useRef();
   const dispatch = useDispatch();
+  const [options, setoptions] = useState({
+    passport: optionInfoRepresentPersonSummary,
+    address: optionInfoRepresentPersonAddress,
+  });
 
   const newStatement = useSelector((state) => {
     const { statementReducer } = state;
@@ -67,7 +74,7 @@ export default function InfoRepresentPerson({ inputData, mode, updateNewData }) 
               break;
           }
           updateNewData(e.key, e.value);
-          if (!window.location.pathname.includes("reginformationchanges")) {
+          if (!window.location.pathname.includes("reginformationchanges") ) {
             dispatch(addNewStatementData({ [`${e.key}`]: e.value }));
           }
           break;
@@ -97,13 +104,23 @@ export default function InfoRepresentPerson({ inputData, mode, updateNewData }) 
     selectRayonRef.current.clearValue();
     selectGorodRef.current.clearValue();
     selectDocTypeRef.current.clearValue();
+    async function setOptionsForAdress() {
+      await setOptions(data["oblId"], "oblId");
+      await setOptions(data["rayonId"], "rayonId");
+      setoptions(getOptions);
+
+    }
+    if (window.location.pathname.includes("reginformationchanges") || window.location.pathname.includes("provisioninformation")) {
+      setOptionsForAdress();
+    }
   }, [inputData]);
+  console.log(options)
   return (
     <>
       <h3 className={styles.text_secondary}>Сведения о представителе заинтересованного лица</h3>
       <div className={styles.grids_container}>
         <div className={styles.container_summary}>
-          {Object.values(optionInfoRepresentPersonSummary).map((item) => {
+          {Object.values(options.passport).map((item) => {
             switch (item.type) {
               case "select":
                 return (
@@ -161,7 +178,7 @@ export default function InfoRepresentPerson({ inputData, mode, updateNewData }) 
           })}
         </div>
         <div className={styles.container_address}>
-          {Object.values(optionInfoRepresentPersonAddress).map((item) => {
+          {Object.values(options.address).map((item) => {
             switch (item.type) {
               case "select":
                 return (

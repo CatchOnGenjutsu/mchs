@@ -128,6 +128,14 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         });
         break;
       }
+      case pathName.includes("provisioninformation"): {
+        navigate(`./decisioncard/${id}`, {
+          state: { modeView: "view",
+            idStatement: id,
+            idTypeStatement: data.find((el) => String(el.id) === String(id)).personType, },
+        });
+        break;
+      }
       case pathName.includes("dupshipsticket"): {
         navigate(`./decisioncard/${id}`, {
           state: { mode: "view" },
