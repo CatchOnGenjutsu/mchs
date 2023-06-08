@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import Select from "react-select";
@@ -8,25 +8,92 @@ import Form from "react-bootstrap/Form";
 import styles from "./InspectorWorkStat.module.css";
 
 export default function InspectorWorkStat() {
-  const [data, setData] = useState({});
+  const [requestData, setRequestData] = useState({});
+  const [data, setData] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [saveKey, setSaveKey] = useState(false);
+  const date1Ref = useRef();
+  const date2Ref = useRef();
+  const inspectorRef = useRef();
+
   const usersLib = useSelector((state) => {
     const { dictionaryReducer } = state;
     return dictionaryReducer.usersLibrary;
   });
   const userLibValid = usersLib.map((item) => {
-    return { value: item.userid, label: item.name, key: "user" };
+    return { value: item.userid, label: item.name, key: "inspector" };
   });
 
+  const errorsFields = ["date1", "date2", "inspector"];
+
   const handleValue = (e) => {
-    e.target
-      ? setData(Object.assign(data, { [e.target.id]: e.target.value }))
-      : setData(Object.assign(data, { [e.key]: e.value }));
+    if (e) {
+      e.target
+        ? setRequestData(Object.assign(requestData, { [e.target.id]: e.target.value }))
+        : setRequestData(Object.assign(requestData, { [e.key]: e.value }));
+      if (saveKey) handleErrors();
+    }
   };
 
-  const handleSearchData = () => {
-    console.log(data);
+  const handleErrors = () => {
+    let newErrors = {};
+    errorsFields.forEach((elem) => {
+      if (!requestData[elem] || requestData[elem] === "") {
+        newErrors[elem] = "Заполните поле";
+      }
+    });
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return true;
+    } else {
+      setErrors({});
+      return false;
+    }
   };
-  console.log(userLibValid);
+
+  function setRef(key) {
+    switch (key) {
+      case "date1":
+        return date1Ref;
+      case "date2":
+        return date2Ref;
+      case "inspector":
+        return inspectorRef;
+      default:
+        return null;
+    }
+  }
+
+  const handleSearchData = async () => {
+    if (!handleErrors()) {
+      const request = await fetch(
+        "http://10.0.1.30:8082/repinspector/1?" +
+          new URLSearchParams({
+            ["date1"]: requestData.date1,
+            ["date2"]: requestData.date2,
+            ["inspector"]: requestData.inspector,
+          }),
+      );
+      if (request.status !== 200) {
+      } else {
+        const response = await request.json();
+        setData([...response]);
+      }
+    } else {
+      setSaveKey(true);
+    }
+  };
+
+  const handleClearData = () => {
+    setData([]);
+    date1Ref.current.value = "";
+    date2Ref.current.value = "";
+    inspectorRef.current.clearValue();
+    setRequestData(structuredClone({}));
+    setErrors({});
+    setSaveKey(false);
+  };
+
   return (
     <>
       <h2>Статистика работы инспектора</h2>
@@ -37,40 +104,60 @@ export default function InspectorWorkStat() {
               Период отчета с <span className={styles.red_dot}>*</span>
             </Form.Label>
             <Form.Control
+              ref={setRef("date1")}
               onChange={(e) => handleValue(e)}
-              id={"dataS"}
+              id={"date1"}
               className={`mb-2`}
               type="date"
+              isInvalid={!!errors.date1}
+              value={requestData.date1}
             />
+            <Form.Control.Feedback
+              className={styles.feedback}
+              type={"invalid"}>
+              {errors.date1}
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className={styles.input_element}>
             <Form.Label className={styles.label_text}>
               Период отчета по <span className={styles.red_dot}>*</span>
             </Form.Label>
             <Form.Control
+              ref={setRef("date2")}
               onChange={(e) => handleValue(e)}
-              id={"dataPo"}
+              id={"date2"}
               className={`mb-2`}
               type="date"
+              isInvalid={!!errors.date2}
+              value={requestData.date2}
             />
+            <Form.Control.Feedback
+              className={styles.feedback}
+              type={"invalid"}>
+              {errors.date2}
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className={styles.input_element}>
             <Form.Label className={styles.label_text}>
               Инспектор
-              {/* <span className={styles.red_dot}>*</span> */}
+              <span className={styles.red_dot}>*</span>
             </Form.Label>
             <Select
-              className={`basic-single mb-2 ${styles.search_select}`}
+              ref={setRef("inspector")}
+              className={`basic-single mb-2 ${styles.search_select} ${
+                !!errors.inspector ? styles.red_border : null
+              }`}
               classNamePrefix="select"
-              // data-id={item.key}
               onChange={(e) => handleValue(e)}
-              // defaultValue={item.selectOption[0]}
               isSearchable={true}
-              name="user"
-              options={usersLib.map((item) => {
-                return { value: item.userid, label: item.name, key: "user" };
-              })}
+              name="inspector"
+              value={userLibValid.find((item) => item.value === requestData.inspector)}
+              placeholder="Выберите"
+              options={userLibValid}
             />
+            {!!errors.inspector && <div className={styles.custom_feedback}>{errors.inspector}</div>}
+
+            <Form.Control.Feedback type={"invalid"}>{errors.inspector}</Form.Control.Feedback>
           </Form.Group>
         </div>
         <div className={styles.buttons_block}>
@@ -78,16 +165,37 @@ export default function InspectorWorkStat() {
             onClick={(e) => handleSearchData(e)}
             className={styles.button_element}
             variant="primary">
-            Найти &#128269;
+            Создать
           </Button>
           <Button
+            onClick={() => handleClearData()}
             className={styles.button_element}
-            variant="primary"
-            type="submit">
+            variant="outline-primary">
             Очистить
           </Button>
         </div>
       </Form>
+      {data.length !== 0 && (
+        <table>
+          <caption>Отчет по работе инспектора</caption>
+          <thead>
+            <tr>
+              <th>Параметр</th>
+              <th>Значение</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item) => {
+              return (
+                <tr>
+                  <td>{item.parameter}</td>
+                  <td>{item.value !== null ? item.value : "—"}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
     </>
   );
 }
