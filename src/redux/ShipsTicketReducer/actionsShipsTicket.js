@@ -70,14 +70,14 @@ export function getShipsTicketDecisionInfo(id, key) {
       console.log(response);
       const jsonData = {
         data: response,
-        boatCardAppEngList: response.boatCardAppEngList
-          ? response.boatCardAppEngList
+        boatCardAppEngList: response.boatCardAppEngDtoList
+          ? response.boatCardAppEngDtoList
           : response.boatCardModifEngDtoList,
-        boatCardAppDealsList: response.boatCardAppDealsList
-          ? response.boatCardAppDealsList
+        boatCardAppDealsList: response.boatCardAppDealDtoList
+          ? response.boatCardAppDealDtoList
           : response.boatCardModifDealsDtoList,
-        boatCardAppSpecMarkList: response.boatCardAppSpecMarkList
-          ? response.boatCardAppSpecMarkList
+        boatCardAppSpecMarkList: response.boatCardAppSmDtoList
+          ? response.boatCardAppSmDtoList
           : response.boatCardModifSmDtoList,
       };
       dispatch({

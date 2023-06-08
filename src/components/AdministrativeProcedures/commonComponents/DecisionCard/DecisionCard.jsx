@@ -411,7 +411,7 @@ export default function DecisionCard() {
             <Form.Control
               id={"tiketNumNew"}
               // isInvalid={!!errors[el.key]}
-              disabled={Number(data.boatCardStatus) === 0}
+              disabled={data.boatCardStatus === 0}
               type="text"
               value={newData.tiketNumNew}
               onChange={(e) => handleValue(e)}
@@ -429,8 +429,8 @@ export default function DecisionCard() {
             </Form.Label>
             <Form.Control
               id={"ticketDateNew"}
-              // isInvalid={!!errors[el.key]}
-              disabled={Number(data.boatCardStatus) === 0}
+              // isInvalid={!!errors[el.key]}ы
+              disabled={data.boatCardStatus === 0}
               type="date"
               value={newData.ticketDateNew}
               onChange={(e) => handleValue(e)}
