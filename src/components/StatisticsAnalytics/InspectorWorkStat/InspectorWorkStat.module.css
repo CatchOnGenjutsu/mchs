@@ -7,6 +7,11 @@
   border-radius: 6px;
   background: #D0E8FF;
 }
+.range_block {
+  color:rgb(220, 53, 69);
+  padding-left: 10px;
+  font-weight: 500;
+}
 .area_inputs {
   display: flex;
   flex-wrap: wrap;

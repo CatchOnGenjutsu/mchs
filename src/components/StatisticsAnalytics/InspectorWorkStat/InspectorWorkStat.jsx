@@ -12,6 +12,7 @@ export default function InspectorWorkStat() {
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
+  const [dataRangeError, setDataRangeError] = useState("");
   const date1Ref = useRef();
   const date2Ref = useRef();
   const inspectorRef = useRef();
@@ -32,6 +33,7 @@ export default function InspectorWorkStat() {
         ? setRequestData(Object.assign(requestData, { [e.target.id]: e.target.value }))
         : setRequestData(Object.assign(requestData, { [e.key]: e.value }));
       if (saveKey) handleErrors();
+      if (saveKey) handleDataRange();
     }
   };
 
@@ -51,6 +53,26 @@ export default function InspectorWorkStat() {
     }
   };
 
+  const handleDataRange = () => {
+    if (!!requestData.date1 && !!requestData.date2) {
+      switch (true) {
+        case Math.floor((new Date(requestData.date2) - new Date(requestData.date1)) / (1000 * 60 * 60 * 24)) >
+          365:
+          setDataRangeError("Максимальный промежуток запрашиваемого отчёта находится в пределах 1 года.");
+          return true;
+        case Math.floor((new Date(requestData.date2) - new Date(requestData.date1)) / (1000 * 60 * 60 * 24)) <
+          0:
+          setDataRangeError(
+            'Дата, установленная в "Период отчета по" не может быть меньше даты, установленной в "Период отчета с".',
+          );
+          return true;
+        default:
+          setDataRangeError("");
+          return false;
+      }
+    }
+  };
+
   function setRef(key) {
     switch (key) {
       case "date1":
@@ -65,7 +87,8 @@ export default function InspectorWorkStat() {
   }
 
   const handleSearchData = async () => {
-    if (!handleErrors()) {
+    setData([]);
+    if (!handleErrors() && !handleDataRange()) {
       const request = await fetch(
         "http://10.0.1.30:8082/repinspector/1?" +
           new URLSearchParams({
@@ -90,6 +113,7 @@ export default function InspectorWorkStat() {
     date2Ref.current.value = "";
     inspectorRef.current.clearValue();
     setRequestData(structuredClone({}));
+    setDataRangeError("");
     setErrors({});
     setSaveKey(false);
   };
@@ -98,6 +122,7 @@ export default function InspectorWorkStat() {
     <>
       <h2>Статистика работы инспектора</h2>
       <Form className={styles.form_inputs}>
+        {!!dataRangeError && <div className={styles.range_block}>{dataRangeError}</div>}
         <div className={styles.area_inputs}>
           <Form.Group className={styles.input_element}>
             <Form.Label className={styles.label_text}>
