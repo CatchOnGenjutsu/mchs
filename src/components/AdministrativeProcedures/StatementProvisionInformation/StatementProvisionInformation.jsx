@@ -28,7 +28,6 @@ function StatementProvisionInformation() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {idTypeStatement,modeView,idStatement}=location.state
-
     const [file, setFile] = useState();
     const [errors, setErrors] = useState({});
     const [showResultModal, setShowResultModal] = useState(false);
@@ -98,6 +97,15 @@ function StatementProvisionInformation() {
         }
     }
 
+    const handleButtonClick = async (e) =>{
+        if (e) {
+            switch (e.target.id) {
+                case "accept": {
+
+                }
+            }
+        }
+    }
 
     useEffect(()=>{
         async function fetchData() {
@@ -185,6 +193,24 @@ function StatementProvisionInformation() {
               >
                   Зарегистрировать
               </Button>
+              )}
+
+              {window.location.pathname.includes("provisioninformation/decisioncard") && (
+                 <>
+                     <div
+                         className={styles.reg_button}
+                         id={"accept"}
+                         onClick={(e) => handleButtonClick(e)}>
+                         Выгрузить файл
+                     </div>
+                     {/*<div*/}
+                     {/*    className={styles.decline_button}*/}
+                     {/*    id={"decline"}*/}
+                     {/*    onClick={(e) => handleButtonClick(e)}>*/}
+                     {/*    Отказать*/}
+                     {/*</div>*/}
+                 </>
+
               )}
 
         <Button
