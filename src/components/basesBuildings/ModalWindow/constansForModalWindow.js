@@ -22,10 +22,36 @@ export const optionsForModalWindow = {
             label:"Телефон эксплуатанта базы",
             type:'text'
         },
+        ownerOblast:{
+            key: "ownerOblast",
+            label: "Область",
+            type: "selectSearch",
+            isDisabled: false,
+            isSearchable: false,
+            options: [
+                { value: 1, label: "Брестская", key: "ownerOblId" },
+                { value: 2, label: "Витебская", key: "ownerOblId" },
+                { value: 3, label: "Гомельская", key: "ownerOblId" },
+                { value: 4, label: "Гродненская", key: "ownerOblId" },
+                { value: 6, label: "Минская", key: "ownerOblId" },
+                { value: 7, label: "Могилевская", key: "ownerOblId" },
+            ],
+        },
+        ownerRayon:{
+            key: "ownerRayon",
+            label: "Район",
+            type: "selectSearch",
+            isDisabled: true,
+            isSearchable: true,
+            options: [],
+        },
+
         ownerSection:{
             key: "section",
             label: "Участок",
-            type:'select',
+            type:'selectSearch',
+            isDisabled: true,
+            isSearchable: false,
             options:[]
         },
         location:{

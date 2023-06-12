@@ -15,7 +15,7 @@ import {
 } from "../commonComponents/InformationAboutIndividual/optionsForInformationAboutIndividual";
 import {fieldLEInformOptions}from"../commonComponents/InformationAboutEntity/optionsInformationAboutEntity"
 import {
-    API_ADD_STATEMENT_PROVISION_INFORMATION,
+    API_ADD_STATEMENT_PROVISION_INFORMATION, API_DOWNLOAD_FILEREPORT_PROVISION_INFO,
     API_GET_STATEMENT_PROVISION_INFORMATION,
     MAIN_URL,
     PORT
@@ -101,7 +101,16 @@ function StatementProvisionInformation() {
         if (e) {
             switch (e.target.id) {
                 case "accept": {
-
+                    const response = await  fetch(`${MAIN_URL}${PORT}${API_DOWNLOAD_FILEREPORT_PROVISION_INFO}${String(newData.id)}`)
+                    if(response.ok){
+                        const formData = await response.formData();
+                        const filePdf = formData.get('pdf');
+                        const fileUrl = URL.createObjectURL(filePdf);
+                        const link = document.createElement('a');
+                        link.href = fileUrl;
+                        link.download = filePdf.name;
+                        link.click()
+                    }
                 }
             }
         }

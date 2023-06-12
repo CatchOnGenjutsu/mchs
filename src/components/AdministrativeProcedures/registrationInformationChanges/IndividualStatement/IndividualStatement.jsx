@@ -144,7 +144,7 @@ function IndividualStatement() {
             regNum:reduxData.regNum,
             personType:reduxData.personType,
             tiketNum:reduxData.tiketNum,
-            cardDate:reduxData.cardDate,
+            ticketDate:reduxData.ticketDate,
             boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
             boatCardModifDealsList:reduxData.boatCardModifDealsList,
             appDate:new Date(),
@@ -216,7 +216,7 @@ function IndividualStatement() {
             regNum:reduxData.regNum,
             personType:reduxData.personType,
             tiketNum:reduxData.tiketNum,
-            cardDate:reduxData.cardDate,
+            ticketDate:reduxData.ticketDate,
             boatCardModifDealsList:reduxData.boatCardModifDealsList,
             boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
             boatVin:reduxData.boatVin,
@@ -287,7 +287,7 @@ function IndividualStatement() {
             regNum:reduxData.regNum,
             personType:reduxData.personType,
             tiketNum:reduxData.tiketNum,
-            cardDate:reduxData.cardDate,
+            ticketDate:reduxData.ticketDate,
             boatCardModifDealsList:reduxData.boatCardModifDealsList,
             boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
             boatVin:reduxData.boatVin,
@@ -374,7 +374,7 @@ function IndividualStatement() {
           regNum:dataBoatCard.regNum,
           personType:dataBoatCard.personType,
           tiketNum:dataBoatCard.tiketNum,
-          cardDate:dataBoatCard.cardDate,
+          ticketDate:dataBoatCard.ticketDate,
           boatCardSpecmarksList:dataBoatCard.boatCardSpecmarksList,
           boatLength:dataBoatCard.boatLength,
           boatWidth:dataBoatCard.boatWidth,
@@ -394,7 +394,7 @@ function IndividualStatement() {
     }
     fetchData()
   },[])
-console.log(newData)
+
   if(isLoading){
     return (
         <div className={'d-flex flex-column align-items-center'}>
@@ -463,7 +463,7 @@ console.log(newData)
           <Form.Group className={styles["header"]}>
             <Form.Label>Дата выдачи судового билета:</Form.Label>
             <Form.Control
-              value={newData.cardDate}
+              value={newData.ticketDate}
               type="text"
               readOnly={true}
               disabled={true}

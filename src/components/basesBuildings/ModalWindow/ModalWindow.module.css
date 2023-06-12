@@ -47,13 +47,19 @@
 .box-note{
     grid-area: Note;
 }
+.box-ownerOblast{
+    grid-area: OO;
+}
+.box-ownerRayon{
+    grid-area: OR;
+}
 .container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap:15px;
     grid-template-areas:
-    "S S . ."
     "OT OT . ."
+    "OO OR S ."
     "MN N SN ."
     "LN LN LN ."
     "AD AD OP ."
