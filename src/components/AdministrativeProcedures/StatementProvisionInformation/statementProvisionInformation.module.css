@@ -30,3 +30,42 @@
     display: flex;
     justify-content: space-around;
 }
+.decline_button {
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 150px;
+    height: 40px;
+    border: 1px solid #2EABFF;
+    box-shadow: 7px 7px 10px rgba(9, 9, 9, 0.18), -2px -2px 4px rgba(251, 252, 255, 0.1);
+    border-radius: 12px;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.decline_button:hover {
+    cursor: pointer;
+    border: 1px solid red;
+    background-color: #ffc4c481;
+    transition: 0.5s;
+    color: black;
+}
+.reg_button {
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 211px;
+    height: 40px;
+    background: #2eabff;
+    box-shadow: 7px 7px 10px rgba(9, 9, 9, 0.18), -2px -2px 5px rgba(251, 252, 255, 0.05);
+    border-radius: 12px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reg_button:hover {
+    cursor: pointer;
+    background-color: #1f86ca;
+    transition: 0.5s;
+}

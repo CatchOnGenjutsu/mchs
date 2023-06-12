@@ -45,6 +45,7 @@ import { setActiveItem } from "./components/Sidebar/sidebarSettings";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import DocumentPreview from "./components/AdministrativeProcedures/commonComponents/DocumentPreview/DocumentPreview";
 
 function App() {
   const dispatch = useDispatch();
@@ -239,6 +240,10 @@ function App() {
               path="/nsi/adminproc"
               element={<AdministrativeProcedures />}
             />
+            <Route
+                path="/test"
+                element={<DocumentPreview/>}
+              />
           </Routes>
         </div>
       )}
