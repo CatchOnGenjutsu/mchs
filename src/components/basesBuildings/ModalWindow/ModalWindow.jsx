@@ -4,10 +4,11 @@ import {Form,Button,Modal} from "react-bootstrap";
 import {optionsForModalWindow, setOptionsForModalWindow,optionsButton} from "./constansForModalWindow";
 import {useDispatch, useSelector} from "react-redux";
 import {addDataBasesBuildings,  editDataBasesBuildings} from "../../../redux/baseBuildingReducer/actionsBaseBuilding";
+import Select from "react-select";
 
 function ModalWindow({setShow,show,type,buildingId}) {
     const dispatch = useDispatch();
-    const [saveKey, setSaveKey] = useState(false)
+    // const [saveKey, setSaveKey] = useState(false)
 
     const dataFromStateBases = useSelector(state => {
         const {basesBuildingReducer} = state
@@ -83,6 +84,28 @@ function ModalWindow({setShow,show,type,buildingId}) {
             }
         } else return false
     }
+
+    async function handleChangeSelectSearch(event) {
+        if (event){
+            console.log(event)
+            switch (event.key) {
+                case "ownerOblId":{
+                    console.log("область")
+                    break;
+                }
+                case "ownerRayon":{
+                    console.log("район")
+                    break;
+                }
+                default:break;
+
+            }
+        }
+    }
+
+
+
+
     return (
         <Modal show={show} onHide={handleClose} size="xl">
             <Modal.Header closeButton >
@@ -104,6 +127,22 @@ function ModalWindow({setShow,show,type,buildingId}) {
                                     </Form.Select>
                                 </Form.Group>
                             )
+                        }else if(el.type==="selectSearch"){
+                            return (
+                                <Form.Group className={styles[`box-${el.key}`]}  >
+                                    <Form.Label>{el.label}</Form.Label>
+                                    <Select
+                                        onChange = {(e)=> handleChangeSelectSearch(e)}
+                                        placeholder="Выберите"
+                                        id={el.key}
+                                        isSearchable={el.isSearchable}
+                                        isDisabled = {el.isDisabled}
+                                        name={el.key}
+                                        options={el.options}
+                                    />
+                                </Form.Group>
+                            )
+
                         }else {
                             return (
                                 <Form.Group className={styles[`box-${el.key}`]}>

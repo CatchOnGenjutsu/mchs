@@ -134,5 +134,6 @@ export const API_GET_DATA_PROVISION_INFORMATION = "boatInfoApp/searchApp"
 export const API_ADD_STATEMENT_PROVISION_INFORMATION = "boatInfoApp/addStatement"
 export const API_GET_STATEMENT_PROVISION_INFORMATION = "boatInfoApp/getBoatInfo/"
 export const API_DOWNLOAD_FILE_PROVISION_INFO = "boatInfoApp/download/"
+export const API_DOWNLOAD_FILEREPORT_PROVISION_INFO = "boatInfoApp/report/"
 
 export const API_GET_WEEKLY_REPORT = "weeklyreport/reportWeeklyPdf"

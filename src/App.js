@@ -31,7 +31,7 @@ import ShipsTicket from "./containers/AdministrativeProcedures/ShipsTicket/Ships
 import ProvisionInformation from "./containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation";
 import StatementProvisionInformation from "./components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation";
 import InspectorWorkStat from "./components/StatisticsAnalytics/InspectorWorkStat/InspectorWorkStat";
-import Reports from "./components/StatisticsAnalytics/Reports/Reports/Reports";
+import Reports from "./containers/Reports/Reports";
 
 import {
   getDictionaryGimsSections,
@@ -45,7 +45,8 @@ import { setActiveItem } from "./components/Sidebar/sidebarSettings";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DocumentPreview from "./components/AdministrativeProcedures/commonComponents/DocumentPreview/DocumentPreview";
+import DocumentPreview from "./components/StatisticsAnalytics/Reports/commonComponents/DocumentPreview/DocumentPreview";
+import WeeklyReport from "./containers/WeeklyReport/WeeklyReport";
 
 function App() {
   const dispatch = useDispatch();
@@ -244,6 +245,10 @@ function App() {
                 path="/test"
                 element={<DocumentPreview/>}
               />
+            <Route
+                path="/reports/weeklyreport"
+                element={<WeeklyReport/>}
+            />
           </Routes>
         </div>
       )}
