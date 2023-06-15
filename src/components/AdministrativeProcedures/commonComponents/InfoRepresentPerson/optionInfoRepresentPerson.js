@@ -184,22 +184,32 @@ export const setOptionsGorodForRayon = async (id) => {
   optionInfoRepresentPersonAddress.agentGorodId.disabled = false;
 };
 export async function setOptions(id, key) {
+if(id){
   switch (key) {
-    case "oblId": {
+    case "agentOblId": {
       optionInfoRepresentPersonAddress.agentRayonId.selectOption = await getRayon(id);
+      optionInfoRepresentPersonAddress.agentRayonId.selectOption = optionInfoRepresentPersonAddress.agentRayonId.selectOption.map(el=>{
+        el.key="agentRayonId"
+        return el
+      })
       optionInfoRepresentPersonAddress.agentRayonId.disabled = optionInfoRepresentPersonAddress.agentRayonId.selectOption.length ? false : true;
       optionInfoRepresentPersonAddress.agentGorodId.selectOption = [];
       optionInfoRepresentPersonAddress.agentGorodId.disabled = true;
       return optionInfoRepresentPersonAddress;
     }
-    case "rayonId": {
+    case "agentRayonId": {
       optionInfoRepresentPersonAddress.agentGorodId.selectOption = await getGorod(id);
+      optionInfoRepresentPersonAddress.agentGorodId.selectOption = optionInfoRepresentPersonAddress.agentGorodId.selectOption.map(el=>{
+        el.key="agentGorodId"
+        return el
+      })
       optionInfoRepresentPersonAddress.agentGorodId.disabled = optionInfoRepresentPersonAddress.agentGorodId.selectOption.length ? false : true;
       return optionInfoRepresentPersonAddress;
     }
     default:
       return optionInfoRepresentPersonAddress;
   }
+}
 }
 export function getOptions() {
   return {

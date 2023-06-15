@@ -17,15 +17,16 @@ import styles from "./InfoRepresentPerson.module.css";
 
 
 export default function InfoRepresentPerson({ inputData, mode, updateNewData }) {
-  const selectRayonRef = useRef();
-  const selectGorodRef = useRef();
-  const selectOblRef = useRef();
+  const selectAgentRayonRef = useRef();
+  const selectAgentGorodRef = useRef();
+  const selectAgentOblRef = useRef();
   const selectDocTypeRef = useRef();
   const dispatch = useDispatch();
   const [options, setoptions] = useState({
     passport: optionInfoRepresentPersonSummary,
     address: optionInfoRepresentPersonAddress,
   });
+  const [prevTypeChangeStatement,setPrevTypeChangeStatement]= useState(null)
 
   const newStatement = useSelector((state) => {
     const { statementReducer } = state;
@@ -60,8 +61,8 @@ export default function InfoRepresentPerson({ inputData, mode, updateNewData }) 
         case Object.keys(e).includes("key"):
           switch (e.key) {
             case "agentOblId":
-              selectRayonRef.current.clearValue();
-              selectGorodRef.current.clearValue();
+              selectAgentRayonRef.current.clearValue();
+              selectAgentGorodRef.current.clearValue();
               updateNewData("agentGorodId", null);
               updateNewData("agentRayonId", null);
               await setOptionsRayonForOblast(e.value);
@@ -87,34 +88,38 @@ export default function InfoRepresentPerson({ inputData, mode, updateNewData }) 
   const setRef = (item) => {
     switch (item.key) {
       case "agentOblId":
-        return selectOblRef;
+        return selectAgentOblRef;
       case "agentRayonId":
-        return selectRayonRef;
+        return selectAgentRayonRef;
       case "agentGorodId":
-        return selectGorodRef;
+        return selectAgentGorodRef;
       case "agentDocType":
         return selectDocTypeRef;
       default:
         return null;
     }
   };
+
   useEffect(() => {
     setRerender(!rerender);
-    selectOblRef.current.clearValue();
-    selectRayonRef.current.clearValue();
-    selectGorodRef.current.clearValue();
-    selectDocTypeRef.current.clearValue();
-    async function setOptionsForAdress() {
-      await setOptions(data["oblId"], "oblId");
-      await setOptions(data["rayonId"], "rayonId");
-      setoptions(getOptions);
+    if(window.location.href.includes("reginformationchanges")&&data.changeType&&prevTypeChangeStatement!=data.changeType){
+      selectAgentOblRef.current.clearValue();
+      selectAgentRayonRef.current.clearValue();
+      selectAgentGorodRef.current.clearValue();
+      selectDocTypeRef.current.clearValue();
+      setPrevTypeChangeStatement(data.changeType)
+    }
 
+    async function setOptionsForAdress() {
+      await setOptions(data["agentOblId"], "agentOblId");
+      await setOptions(data["agentRayonId"], "agentRayonId");
+      setoptions(getOptions);
     }
     if (window.location.pathname.includes("reginformationchanges") || window.location.pathname.includes("provisioninformation")) {
       setOptionsForAdress();
     }
   }, [inputData]);
-  console.log(options)
+
   return (
     <>
       <h3 className={styles.text_secondary}>Сведения о представителе заинтересованного лица</h3>

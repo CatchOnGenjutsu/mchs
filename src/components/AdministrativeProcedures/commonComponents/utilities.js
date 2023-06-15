@@ -6,29 +6,45 @@ import {
   API_GET_BOAT_TYPES,
   API_GET_BOAT_VID,
   API_GET_BOAT_BODY,
-  API_GET_SA_CATEGORY
+  API_GET_SA_CATEGORY, API_GET_DICTIONARY_SECTION_FOR_RAYON
 } from "../../../constants/constants";
 
 export async function getRayon(id) {
-
-  const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_RAYON_FOR_OBL + id);
-  if(response.ok){
-    const result = await response.json();
-    return result.map((item) => {
-      return { value: item.id, label: item.name, key: "rayonId" };
-    });
-  }else return []
+  if(id){
+    const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_RAYON_FOR_OBL + id);
+    if(response.ok){
+      const result = await response.json();
+      return result.map((item) => {
+        return { value: item.id, label: item.name, key: "rayonId" };
+      });
+    }else return []
+  }
 
 }
 
 export async function getGorod(id) {
-  const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_GOROD_FOR_RAYON + id);
-  if(response.ok){
-    const result = await response.json();
-    return result.map((item) => {
-      return { value: item.id, label: item.name2, key: "gorodId" };
-    });
-  } else return []
+  if(id){
+    const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_GOROD_FOR_RAYON + id);
+    if(response.ok){
+      const result = await response.json();
+      return result.map((item) => {
+        return { value: item.id, label: item.name2, key: "gorodId" };
+      });
+    } else return []
+  }
+}
+ export async function getSection(id) {
+  if(id){
+    const response = await fetch(MAIN_URL + PORT + API_GET_DICTIONARY_SECTION_FOR_RAYON + id);
+    if(response.ok){
+      const result = await response.json();
+      const arrResult=[]
+      arrResult.push(result)
+      return arrResult.map((item) => {
+        return { value: item.sctId, label: item.sctName, key: "section" };
+      });
+    } else return []
+  }
 }
 
 export async function setOptionsTypesBoat() {

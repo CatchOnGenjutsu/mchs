@@ -20,7 +20,7 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
     infoEntity: fieldLEInformOptions,
     address: fieldAddressOptions,
   });
-
+  const [prevTypeChangeStatement,setPrevTypeChangeStatement]= useState(null)
   const newStatement = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.newStatement;
@@ -91,10 +91,12 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
     }
   }
   useEffect(() => {
-    setRerender(!rerender);
-    selectOblRef.current.clearValue();
-    selectRayonRef.current.clearValue();
-    selectGorodRef.current.clearValue();
+    if(window.location.href.includes("reginformationchanges")&&data.changeType&&prevTypeChangeStatement!=data.changeType){
+      selectOblRef.current.clearValue();
+      selectRayonRef.current.clearValue();
+      selectGorodRef.current.clearValue();
+      setPrevTypeChangeStatement(data.changeType)
+    }
     async function setOptionsForAdress() {
       await setOptions(data["oblId"], "oblId");
       await setOptions(data["rayonId"], "rayonId");
