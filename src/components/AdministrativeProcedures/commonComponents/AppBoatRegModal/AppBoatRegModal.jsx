@@ -131,6 +131,7 @@ export default function AppBoatRegModal({
               break;
             default:
               updateData(modalWindowInputs.keyTable, newData);
+              setShowModal(false);
           }
           break;
         default:
@@ -141,7 +142,6 @@ export default function AppBoatRegModal({
               }
               break;
             case "boatCardAppSmDtoList":
-              console.log(newData);
               dispatch(addNewSpecMarkApp(newData));
               break;
             case "boatCardAppDealsDtoList":

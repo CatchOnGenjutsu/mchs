@@ -118,7 +118,7 @@ function StatementProvisionInformation() {
 
     useEffect(()=>{
         async function fetchData() {
-            if(window.location.pathname.includes('/provisioninformation/')){
+            if(idStatement){
                 const responseStatement = await fetch(MAIN_URL+PORT+API_GET_STATEMENT_PROVISION_INFORMATION+String(idStatement))
                 const dataStatement =await responseStatement.json()
                 setNewData(dataStatement)
@@ -154,7 +154,7 @@ function StatementProvisionInformation() {
         <Form.Group className={styles["header"]}>
             <Form.Label>Субъект хозяйствования:</Form.Label>
             <Form.Control
-              value={newData.personType===1?"Физическое лицо":"Юридическое лицо"}
+              value={newData.personType==1?"Физическое лицо":"Юридическое лицо"}
               type="text"
               readOnly={true}
               disabled={true}

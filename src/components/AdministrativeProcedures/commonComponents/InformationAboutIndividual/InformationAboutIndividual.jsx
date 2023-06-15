@@ -17,6 +17,8 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
   const selectOblRef = useRef();
   const selectDocTypeRef = useRef();
   const dispatch = useDispatch();
+
+  const [prevTypeChangeStatement,setPrevTypeChangeStatement]= useState(null)
   const [options, setoptions] = useState({
     passport: fieldPassportOptions,
     address: fieldAddressOptions,
@@ -104,10 +106,13 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
 
   useEffect(() => {
     setRerender(!rerender);
-    selectOblRef.current.clearValue();
-    selectRayonRef.current.clearValue();
-    selectGorodRef.current.clearValue();
-    selectDocTypeRef.current.clearValue();
+    if(window.location.href.includes("reginformationchanges")&&data.changeType&&prevTypeChangeStatement!=data.changeType){
+      selectOblRef.current.clearValue();
+      selectRayonRef.current.clearValue();
+      selectGorodRef.current.clearValue();
+      selectDocTypeRef.current.clearValue();
+      setPrevTypeChangeStatement(data.changeType)
+    }
     async function setOptionsForAdress() {
       await setOptions(data["oblId"], "oblId");
       await setOptions(data["rayonId"], "rayonId");

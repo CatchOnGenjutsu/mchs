@@ -28,6 +28,7 @@ export function editDataBasesBuildings(building) {
 }
 
 export function addDataBasesBuildings(building) {
+  console.log(building)
   return async dispatch => {
   const response = await fetch(MAIN_URL + PORT + API_ADD_BASES_BUILDING, {
     method: "POST",

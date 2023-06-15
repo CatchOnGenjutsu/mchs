@@ -1,6 +1,6 @@
-export const optionsForModalWindow = {
+import {getRayon, getSection} from "../../AdministrativeProcedures/commonComponents/utilities";
 
-    optionsForInputLegalEntity:{
+export const optionsForModalWindow = {
         ownerType:{
             key:"ownerType",
             label:"Форма собственности",
@@ -24,31 +24,31 @@ export const optionsForModalWindow = {
         },
         ownerOblast:{
             key: "ownerOblast",
-            label: "Область",
+            label: "Область местонахождения базы",
             type: "selectSearch",
             isDisabled: false,
             isSearchable: false,
             options: [
-                { value: 1, label: "Брестская", key: "ownerOblId" },
-                { value: 2, label: "Витебская", key: "ownerOblId" },
-                { value: 3, label: "Гомельская", key: "ownerOblId" },
-                { value: 4, label: "Гродненская", key: "ownerOblId" },
-                { value: 6, label: "Минская", key: "ownerOblId" },
-                { value: 7, label: "Могилевская", key: "ownerOblId" },
+                { value: 1, label: "Брестская", key: "ownerOblast" },
+                { value: 2, label: "Витебская", key: "ownerOblast" },
+                { value: 3, label: "Гомельская", key: "ownerOblast" },
+                { value: 4, label: "Гродненская", key: "ownerOblast" },
+                { value: 6, label: "Минская", key: "ownerOblast" },
+                { value: 7, label: "Могилевская", key: "ownerOblast" },
             ],
         },
         ownerRayon:{
             key: "ownerRayon",
-            label: "Район",
+            label: "Район местонахождения базы",
             type: "selectSearch",
             isDisabled: true,
             isSearchable: true,
             options: [],
         },
 
-        ownerSection:{
+        section:{
             key: "section",
-            label: "Участок",
+            label: "Участок местонахождения базы",
             type:'selectSearch',
             isDisabled: true,
             isSearchable: false,
@@ -94,7 +94,6 @@ export const optionsForModalWindow = {
             label:"Примечание",
             type:'text'
         }
-    },
 }
 export const optionsButton = {
     add: 'Добавить новую базу',
@@ -102,7 +101,35 @@ export const optionsButton = {
     delete:'Удалить запись'
 }
 
-export const setOptionsForModalWindow = (ownerOptions,sectionOptions)=>{
-    optionsForModalWindow.optionsForInputLegalEntity.ownerType.options = ownerOptions
-    optionsForModalWindow.optionsForInputLegalEntity.ownerSection.options = sectionOptions
+export  const setOptionsForModalWindow = async (prop,field)=>{
+    if(prop){
+        switch (field) {
+            case "ownerType":{
+                optionsForModalWindow.ownerType.options = prop
+                break;
+            }
+            case "ownerOblast":{
+                    optionsForModalWindow.ownerRayon.options = await getRayon(prop)
+                    optionsForModalWindow.ownerRayon.options = optionsForModalWindow.ownerRayon.options.map(el=>{return {...el,key:"ownerRayon"}})
+                    optionsForModalWindow.ownerRayon.isDisabled = optionsForModalWindow.ownerRayon.options.length?false:true
+                    optionsForModalWindow.section.options = []
+                    optionsForModalWindow.section.isDisabled = true
+                break;
+            }
+            case "ownerRayon":{
+                optionsForModalWindow.section.options = await getSection(prop)
+                optionsForModalWindow.section.isDisabled = optionsForModalWindow.section.options.length?false:true
+                break;
+            }
+            default:break;
+
+        }
+    }else{
+        optionsForModalWindow.ownerRayon.options = []
+        optionsForModalWindow.ownerRayon.isDisabled = true
+        optionsForModalWindow.section.options = []
+        optionsForModalWindow.section.isDisabled = true
+    }
+
 }
+export const getOptionsForModalWindow = ()=> optionsForModalWindow
