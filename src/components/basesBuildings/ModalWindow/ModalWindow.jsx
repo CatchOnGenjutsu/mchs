@@ -98,6 +98,7 @@ function ModalWindow({setShow,show,type,buildingId}) {
             switch (event.key) {
                 case "ownerOblast":{
                     dataForm[event.key]=event.value
+                    dataForm["ownerRayon"] = undefined
                     setDataForm({...dataForm})
                     selectRayonRef.current.clearValue();
                     selectSectionRef.current.clearValue();
@@ -119,17 +120,16 @@ function ModalWindow({setShow,show,type,buildingId}) {
             }
         }
     }
-
-    useEffect(()=>{
-        setOptionsForModalWindow(optionsOwnerType,"ownerType")
-        setOptionsForModalWindow(undefined, "ownerOblast");
-        setOptionsForModalWindow(undefined, "ownerRayon");
+    async function setParamsForOptions() {
+       await setOptionsForModalWindow(optionsOwnerType,"ownerType")
+       await setOptionsForModalWindow(undefined, "ownerOblast");
+       await setOptionsForModalWindow(undefined, "ownerRayon");
 
         if(dataFromStateBases.length&&(type==='edit')){
             const data =dataFromStateBases.find(el=>el.parkId==buildingId)
             setDataForm(data)
         }
-        (async function setOptionsForAdress() {
+       await (async function setOptionsForAdress() {
             if(dataForm["ownerOblast"]){
                 await setOptionsForModalWindow(dataForm["ownerOblast"], "ownerOblast");
             }
@@ -138,6 +138,11 @@ function ModalWindow({setShow,show,type,buildingId}) {
             }
             setOptionsInput(Object.values(getOptionsForModalWindow()));
         })()
+
+    }
+
+    useEffect(()=>{
+       setParamsForOptions()
     },[dataForm])
 
     return (
