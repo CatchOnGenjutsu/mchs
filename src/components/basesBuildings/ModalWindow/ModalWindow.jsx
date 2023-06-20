@@ -99,6 +99,7 @@ function ModalWindow({setShow,show,type,buildingId}) {
                 case "ownerOblast":{
                     dataForm[event.key]=event.value
                     dataForm["ownerRayon"] = undefined
+                    dataForm["section"] = undefined
                     setDataForm({...dataForm})
                     selectRayonRef.current.clearValue();
                     selectSectionRef.current.clearValue();
@@ -106,6 +107,7 @@ function ModalWindow({setShow,show,type,buildingId}) {
                 }
                 case "ownerRayon":{
                     dataForm[event.key]=event.value
+                    dataForm["section"] = undefined
                     setDataForm({...dataForm})
                     selectSectionRef.current.clearValue();
                     break;

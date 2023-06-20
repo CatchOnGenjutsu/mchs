@@ -8,6 +8,7 @@ import {
 } from "../types";
 
 const initialState = {
+  isLoading:true,
   gimsSections: [],
   ownerType: [],
   nsiCheckStatus: [],
@@ -22,6 +23,7 @@ export const dictionaryReducer = (state = initialState, action) => {
     case GET_DICTIONARY_GIMS_SECTIONS:
       return (() => ({
         ...state,
+        isLoading: false,
         gimsSections: action.data.map(section => {
           return {
             id: section.sctId,

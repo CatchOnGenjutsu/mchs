@@ -49,6 +49,7 @@ import DocumentPreview from "./components/StatisticsAnalytics/Reports/commonComp
 import WeeklyReport from "./containers/WeeklyReport/WeeklyReport";
 
 function App() {
+
   const dispatch = useDispatch();
   const [isLogin, setIsLoginApp] = useState("");
 
@@ -61,7 +62,7 @@ function App() {
     dispatch(getAteLibrary());
     dispatch(getApplicationRegLibrary());
     // setActiveItem(window.location.pathname.split("/")[1]);
-  }, [window.location.pathname]);
+  }, [dispatch]);
 
   return (
     <Router>
