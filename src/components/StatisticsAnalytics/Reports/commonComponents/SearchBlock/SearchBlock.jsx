@@ -4,12 +4,11 @@ import styles from "./SearchBlock.module.css";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import {useSelector} from "react-redux";
-import {getOptionsForField} from "../../../../../containers/WeeklyReport/settingsForWeeklyReport";
 import Button from "react-bootstrap/Button";
 import { MAIN_URL, PORT_FOR_REPORT} from "../../../../../constants/constants";
 
 
-function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDFFile}) {
+function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDFFile,getOptionsForField}) {
     const [data,setData]=useState({})
     const [options,setOptions]=useState(Object.values(fields))
     const [errors, setErrors] = useState({});
@@ -196,7 +195,9 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
 
     useEffect(()=>{
         setOptionsForField(optionsSection,"optionsForSection")
+        handleClearData()
         setOptions(Object.values(getOptionsForField()))
+
     },[])
     return (
         <>

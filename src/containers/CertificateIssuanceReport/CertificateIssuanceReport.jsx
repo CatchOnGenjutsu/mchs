@@ -1,14 +1,16 @@
 import {useState} from 'react';
+import {useSelector} from "react-redux";
+import {ProgressBar} from "react-loader-spinner";
 import SearchBlock from "../../components/StatisticsAnalytics/Reports/commonComponents/SearchBlock/SearchBlock";
+import {
+    fieldsForSearchCertificate, getOptionsForField,
+    setOptionsForField
+} from "./settingsForCertificateIssuanceReport";
+import {API_GET_CERTIFICATE_REPORT} from "../../constants/constants";
 import DocumentPreview
     from "../../components/StatisticsAnalytics/Reports/commonComponents/DocumentPreview/DocumentPreview";
-import {fieldsForSearch,getOptionsForField,setOptionsForField} from "./settingsForWeeklyReport";
-import { ProgressBar } from "react-loader-spinner";
-import {useSelector} from "react-redux";
-import {API_GET_WEEKLY_REPORT} from "../../constants/constants";
 
-
-function WeeklyReport() {
+function CertificateIssuanceReport() {
     const isLoading = useSelector(state => state.dictionaryReducer.isLoading);
     const [ExcelFile,setExcelFile]=useState("")
     const [PDFFile,setPDFFile]=useState("")
@@ -29,21 +31,21 @@ function WeeklyReport() {
     }
     return (
         <>
-            <h2>Еженедельный отчет</h2>
+            <h2>Отчет по выдаче удостоверений</h2>
             <SearchBlock
-              fields = {fieldsForSearch}
-              setOptionsForField={setOptionsForField}
-              urlForReport = {API_GET_WEEKLY_REPORT}
-              setExcelFile = {setExcelFile}
-              setPDFFile={setPDFFile}
-              getOptionsForField={getOptionsForField}
+                fields = {fieldsForSearchCertificate}
+                setOptionsForField={setOptionsForField}
+                getOptionsForField={getOptionsForField}
+                urlForReport = {API_GET_CERTIFICATE_REPORT}
+                setExcelFile = {setExcelFile}
+                setPDFFile={setPDFFile}
             />
             <DocumentPreview
-            pdf={PDFFile}
-            excel={ExcelFile}
+                pdf={PDFFile}
+                excel={ExcelFile}
             />
         </>
     );
 }
 
-export default WeeklyReport;
+export default CertificateIssuanceReport;

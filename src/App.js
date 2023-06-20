@@ -41,12 +41,12 @@ import {
   getAteLibrary,
   getApplicationRegLibrary,
 } from "./redux/actions";
-import { setActiveItem } from "./components/Sidebar/sidebarSettings";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DocumentPreview from "./components/StatisticsAnalytics/Reports/commonComponents/DocumentPreview/DocumentPreview";
 import WeeklyReport from "./containers/WeeklyReport/WeeklyReport";
+import ReportTrafficAccidents from "./containers/ReportTrafficAccidents/ReportTrafficAccidents";
+import CertificateIssuanceReport from "./containers/CertificateIssuanceReport/CertificateIssuanceReport";
 
 function App() {
 
@@ -243,12 +243,16 @@ function App() {
               element={<AdministrativeProcedures />}
             />
             <Route
-                path="/test"
-                element={<DocumentPreview/>}
-              />
-            <Route
                 path="/reports/weeklyreport"
                 element={<WeeklyReport/>}
+            />
+            <Route
+                path="/reports/trafficaccidentsreport"
+                element={<ReportTrafficAccidents/>}
+            />
+            <Route
+                path="/reports/certificateissuancereport"
+                element={<CertificateIssuanceReport/>}
             />
           </Routes>
         </div>

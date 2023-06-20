@@ -8,7 +8,7 @@ export const ReportsSettings = [
     title: "Квартальный отчет",
   },
   {
-    id: "transportaccidentaeport",
+    id: "trafficaccidentsreport",
     title: "Отчет по транспортным аварийным случаям",
   },
   {

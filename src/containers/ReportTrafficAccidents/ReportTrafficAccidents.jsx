@@ -1,14 +1,13 @@
 import {useState} from 'react';
+import {useSelector} from "react-redux";
+import {ProgressBar} from "react-loader-spinner";
 import SearchBlock from "../../components/StatisticsAnalytics/Reports/commonComponents/SearchBlock/SearchBlock";
+import {fieldsForSearchAccidents, getOptionsForField, setOptionsForField} from "./settingsForReportTrafficAccidents";
+import {API_GET_TRAFFIC_ACCIDENTS_REPORT} from "../../constants/constants";
 import DocumentPreview
     from "../../components/StatisticsAnalytics/Reports/commonComponents/DocumentPreview/DocumentPreview";
-import {fieldsForSearch,getOptionsForField,setOptionsForField} from "./settingsForWeeklyReport";
-import { ProgressBar } from "react-loader-spinner";
-import {useSelector} from "react-redux";
-import {API_GET_WEEKLY_REPORT} from "../../constants/constants";
 
-
-function WeeklyReport() {
+function ReportTrafficAccidents() {
     const isLoading = useSelector(state => state.dictionaryReducer.isLoading);
     const [ExcelFile,setExcelFile]=useState("")
     const [PDFFile,setPDFFile]=useState("")
@@ -29,21 +28,21 @@ function WeeklyReport() {
     }
     return (
         <>
-            <h2>Еженедельный отчет</h2>
+            <h2>Отчет по транспортным аварийным случаям</h2>
             <SearchBlock
-              fields = {fieldsForSearch}
-              setOptionsForField={setOptionsForField}
-              urlForReport = {API_GET_WEEKLY_REPORT}
-              setExcelFile = {setExcelFile}
-              setPDFFile={setPDFFile}
-              getOptionsForField={getOptionsForField}
+                fields = {fieldsForSearchAccidents}
+                setOptionsForField={setOptionsForField}
+                getOptionsForField={getOptionsForField}
+                urlForReport = {API_GET_TRAFFIC_ACCIDENTS_REPORT}
+                setExcelFile = {setExcelFile}
+                setPDFFile={setPDFFile}
             />
             <DocumentPreview
-            pdf={PDFFile}
-            excel={ExcelFile}
+                pdf={PDFFile}
+                excel={ExcelFile}
             />
         </>
     );
 }
 
-export default WeeklyReport;
+export default ReportTrafficAccidents;
