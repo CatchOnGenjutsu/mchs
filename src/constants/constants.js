@@ -139,3 +139,5 @@ export const API_DOWNLOAD_FILE_PROVISION_INFO = "boatInfoApp/download/"
 export const API_DOWNLOAD_FILEREPORT_PROVISION_INFO = "boatInfoApp/report/"
 
 export const API_GET_WEEKLY_REPORT = "weeklyreport/reportWeeklyPdf"
+export const API_GET_TRAFFIC_ACCIDENTS_REPORT = "accidentreport/reportTransportAccidentExcelAndPdf"
+export const API_GET_CERTIFICATE_REPORT = "repdl/reportDIPdfAndExcel"
