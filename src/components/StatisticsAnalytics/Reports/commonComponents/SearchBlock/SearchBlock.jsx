@@ -76,8 +76,6 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                     debugger
                     const filePdf = formData.get('pdf');
                     const fileExcel = formData.get('excel');
-                    // const filePDFUrl = URL.createObjectURL(filePdf);
-                    // const fileExcelUrl = URL.createObjectURL(fileExcel);
                     setPDFFile(filePdf)
                     setExcelFile(fileExcel)
                 }else {console.error('Ошибка загрузки файла:');}
@@ -186,8 +184,8 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
         setOptionsForField(false,"oblast")
         setOptionsForField(false,"section")
         setOptions(Object.values(getOptionsForField()))
-        setUrlPDFFile("")
-        setUrlExcelFile("")
+        setPDFFile("")
+        setExcelFile("")
         setErrors({});
         setDataRangeError("");
         setSaveKey(false);
