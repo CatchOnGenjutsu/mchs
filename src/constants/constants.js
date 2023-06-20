@@ -2,6 +2,7 @@ export const MAIN_URL = "http://10.0.1.30";
 //10.0.1.30
 //http://192.168.70.81
 export const PORT = ":8080/";
+export const PORT_FOR_REPORT =":8082/"
 
 export const API_LOGIN = "";
 
