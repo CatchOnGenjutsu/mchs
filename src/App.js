@@ -47,6 +47,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import WeeklyReport from "./containers/WeeklyReport/WeeklyReport";
 import ReportTrafficAccidents from "./containers/ReportTrafficAccidents/ReportTrafficAccidents";
 import CertificateIssuanceReport from "./containers/CertificateIssuanceReport/CertificateIssuanceReport";
+import QuarterlyReport from "./containers/QuarterlyReport/QuarterlyReport";
 
 function App() {
 
@@ -253,6 +254,10 @@ function App() {
             <Route
                 path="/reports/certificateissuancereport"
                 element={<CertificateIssuanceReport/>}
+            />
+            <Route
+                path="/reports/quarterlyreport"
+                element={<QuarterlyReport/>}
             />
           </Routes>
         </div>
