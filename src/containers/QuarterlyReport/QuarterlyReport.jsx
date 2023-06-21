@@ -1,14 +1,13 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
+import {useSelector} from "react-redux";
+import {ProgressBar} from "react-loader-spinner";
 import SearchBlock from "../../components/StatisticsAnalytics/Reports/commonComponents/SearchBlock/SearchBlock";
+import {fieldsForSearchQuarterly, getOptionsForField, setOptionsForField} from "./settingsQuarterlyReport";
+import {API_GET_QUARTERLY_REPORT} from "../../constants/constants";
 import DocumentPreview
     from "../../components/StatisticsAnalytics/Reports/commonComponents/DocumentPreview/DocumentPreview";
-import {fieldsForSearch,getOptionsForField,setOptionsForField} from "./settingsForWeeklyReport";
-import { ProgressBar } from "react-loader-spinner";
-import {useSelector} from "react-redux";
-import {API_GET_QUARTERLY_REPORT} from "../../constants/constants";
 
-
-function WeeklyReport() {
+function QuarterlyReport() {
     const isLoading = useSelector(state => state.dictionaryReducer.isLoading);
     const [ExcelFile,setExcelFile]=useState("")
     const [PDFFile,setPDFFile]=useState("")
@@ -29,21 +28,21 @@ function WeeklyReport() {
     }
     return (
         <>
-            <h2>Еженедельный отчет</h2>
+            <h2>Квартальный отчет</h2>
             <SearchBlock
-              fields = {fieldsForSearch}
-              setOptionsForField={setOptionsForField}
-              urlForReport = {API_GET_QUARTERLY_REPORT}
-              setExcelFile = {setExcelFile}
-              setPDFFile={setPDFFile}
-              getOptionsForField={getOptionsForField}
+                fields = {fieldsForSearchQuarterly}
+                setOptionsForField={setOptionsForField}
+                urlForReport = {API_GET_QUARTERLY_REPORT }
+                setExcelFile = {setExcelFile}
+                setPDFFile={setPDFFile}
+                getOptionsForField={getOptionsForField}
             />
             <DocumentPreview
-            pdf={PDFFile}
-            excel={ExcelFile}
+                pdf={PDFFile}
+                excel={ExcelFile}
             />
         </>
     );
 }
 
-export default WeeklyReport;
+export default QuarterlyReport;
