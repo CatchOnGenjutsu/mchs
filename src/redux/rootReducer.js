@@ -10,7 +10,8 @@ import { tableReducer } from "./globalReducers/tableReducer";
 import { statementReducer } from "./statementReducer/statementReducer";
 import { DuplicateShipsTicketReducer } from "./DuplicateShipsTicketReducer/DuplicateShipsTicketReducer";
 import { ShipsTicketReducer } from "./ShipsTicketReducer/ShipsTicketReducer";
-import {provisionInformationReducer} from "./provisionInformationReducer/provisionInformationReducer";
+import { provisionInformationReducer } from "./provisionInformationReducer/provisionInformationReducer";
+import { TransportAccidentsReportReducer } from "./TransportAccidentsReportReducer/TransportAccidentsReportReducer";
 
 export const rootReducer = combineReducers({
   loginReducer,
@@ -25,4 +26,5 @@ export const rootReducer = combineReducers({
   DuplicateShipsTicketReducer,
   ShipsTicketReducer,
   provisionInformationReducer,
+  TransportAccidentsReportReducer,
 });

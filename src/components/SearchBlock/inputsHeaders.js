@@ -343,7 +343,9 @@ export const inputsHeadersShipsTicket = {
     value: "Отчество",
     type: "text",
   },
+  //Это что за хрень проверить
   appNum: {
+    //Это что за хрень проверить
     key: "regNum",
     value: "Рег. номер судна",
     type: "text",
@@ -425,6 +427,59 @@ export const inputsProvisionInformation = {
   },
 };
 
+export const inputsHeadersTransportAccidentsReport = {
+  section: {
+    key: "section",
+    value: "Участок",
+    type: "selectRayon",
+    selectOption: [{ value: 0, label: "Все", key: "section" }],
+  },
+  fio: {
+    key: "fio",
+    value: "ФИО судовладельца",
+    type: "text",
+  },
+  regNum: {
+    key: "regNum",
+    value: "Регистрационный номер судна",
+    type: "text",
+  },
+  vid: {
+    key: "vid",
+    value: "Вид транспортного аварийного случая",
+    type: "selectRayon",
+    selectOption: [
+      { value: 0, label: "Авария", key: "vid" },
+      { value: 1, label: "Инцендент", key: "vid" },
+    ],
+  },
+  dateS: {
+    key: "dateS",
+    value: "Дата с",
+    type: "date",
+  },
+  datePo: {
+    key: "datePo",
+    value: "Дата по",
+    type: "date",
+  },
+  alco: {
+    key: "alco",
+    value: "Алкогольное опьянение",
+    type: "selectRayon",
+    selectOption: [
+      { value: 0, label: "Все", key: "alco" },
+      { value: 1, label: "Да", key: "alco" },
+      { value: 2, label: "Нет", key: "alco" },
+    ],
+  },
+  accidentPlace: {
+    key: "accidentPlace",
+    value: "Место траспортного аварийного случая",
+    type: "text",
+  },
+};
+
 export const setOptionsForInputs = (nsiCheckStatusOptions) => {
   if (inputsHeadersBasesBuildings.checkStatus.selectOption.length === 1) {
     inputsHeadersBasesBuildings.checkStatus.selectOption.push(...nsiCheckStatusOptions);
@@ -456,6 +511,11 @@ export const setOptionsForInputsATE = (inputsOptions, path) => {
     case "shipsticket":
       if (inputsHeadersShipsTicket.section.selectOption.length === 1) {
         inputsHeadersShipsTicket.section.selectOption.push(...inputsOptions);
+      }
+      break;
+    case "transportaccidents":
+      if (inputsHeadersTransportAccidentsReport.section.selectOption.length === 1) {
+        inputsHeadersTransportAccidentsReport.section.selectOption.push(...inputsOptions);
       }
       break;
   }

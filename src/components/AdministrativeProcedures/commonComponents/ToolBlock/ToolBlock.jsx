@@ -22,9 +22,25 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
 
   const buttonsNames = {
     openBtnText: "Просмотр РК",
-    addBtnText: window.location.pathname.includes("searchboatcard") ? "Выбрать" : "Добавить заявление",
+    addBtnText: (() => {
+      switch (true) {
+        case window.location.pathname.includes("searchboatcard"):
+          return "Выбрать";
+        case window.location.pathname.includes("transportaccidents"):
+          return "Добавить транспортный аварийный случай";
+        default:
+          return "Добавить заявление";
+      }
+    })(),
     viewBtnText: "Просмотр",
-    editBtnText: "Взять в работу",
+    editBtnText: (() => {
+      switch (true) {
+        case window.location.pathname.includes("transportaccidents"):
+          return "Редактировать";
+        default:
+          return "Взять в работу";
+      }
+    })(),
   };
 
   const handleButtonOpen = async (event) => {
@@ -130,9 +146,11 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
       }
       case pathName.includes("provisioninformation"): {
         navigate(`./decisioncard/${id}`, {
-          state: { modeView: "view",
+          state: {
+            modeView: "view",
             idStatement: id,
-            idTypeStatement: data.find((el) => String(el.id) === String(id)).personType, },
+            idTypeStatement: data.find((el) => String(el.id) === String(id)).personType,
+          },
         });
         break;
       }
@@ -157,7 +175,7 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
     }
   };
   useEffect(() => {
-    console.log(id)
+    console.log(id);
     switch (true) {
       case pathName === "smallboatsreg":
         setOpenBtn(false);
@@ -196,6 +214,12 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         setEditBtn(false);
         break;
       case pathName === "provisioninformation":
+        setOpenBtn(false);
+        setAddBtn(true);
+        setViewBtn(true);
+        setEditBtn(true);
+        break;
+      case pathName === "transportaccidents":
         setOpenBtn(false);
         setAddBtn(true);
         setViewBtn(true);

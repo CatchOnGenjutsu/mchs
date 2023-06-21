@@ -32,6 +32,7 @@ import ProvisionInformation from "./containers/AdministrativeProcedures/Provisio
 import StatementProvisionInformation from "./components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation";
 import InspectorWorkStat from "./components/StatisticsAnalytics/InspectorWorkStat/InspectorWorkStat";
 import Reports from "./containers/Reports/Reports";
+import TransportAccidentsReport from "./containers/TransportAccidentsReport/TransportAccidentsReport";
 
 import {
   getDictionaryGimsSections,
@@ -49,7 +50,6 @@ import ReportTrafficAccidents from "./containers/ReportTrafficAccidents/ReportTr
 import CertificateIssuanceReport from "./containers/CertificateIssuanceReport/CertificateIssuanceReport";
 
 function App() {
-
   const dispatch = useDispatch();
   const [isLogin, setIsLoginApp] = useState("");
 
@@ -243,16 +243,20 @@ function App() {
               element={<AdministrativeProcedures />}
             />
             <Route
-                path="/reports/weeklyreport"
-                element={<WeeklyReport/>}
+              path="/transportaccidents"
+              element={<TransportAccidentsReport />}
             />
             <Route
-                path="/reports/trafficaccidentsreport"
-                element={<ReportTrafficAccidents/>}
+              path="/reports/weeklyreport"
+              element={<WeeklyReport />}
             />
             <Route
-                path="/reports/certificateissuancereport"
-                element={<CertificateIssuanceReport/>}
+              path="/reports/trafficaccidentsreport"
+              element={<ReportTrafficAccidents />}
+            />
+            <Route
+              path="/reports/certificateissuancereport"
+              element={<CertificateIssuanceReport />}
             />
           </Routes>
         </div>

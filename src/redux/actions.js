@@ -23,6 +23,7 @@ import {
   SET_SEARCH_PARAMS_BOATS_DUP_SHIP_TICKET,
   SET_SEARCH_PARAMS_PROVISION_INFORMATION,
   SET_SEARCH_PARAMS_SHIPS_TICKET,
+  SET_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
 } from "./types";
 import {
   MAIN_URL,
@@ -74,6 +75,7 @@ export function setSortState(data) {
 }
 export function setSearchParams(id, value, url) {
   url = new URL(url).pathname.slice(1);
+  console.log(url);
   let object = { [`${id}`]: value };
   switch (true) {
     case url.includes("smallboatsreg"): {
@@ -109,6 +111,12 @@ export function setSearchParams(id, value, url) {
     case url === "shipsticket": {
       return {
         type: SET_SEARCH_PARAMS_SHIPS_TICKET,
+        data: object,
+      };
+    }
+    case url === "transportaccidents": {
+      return {
+        type: SET_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
         data: object,
       };
     }
