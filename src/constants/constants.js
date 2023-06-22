@@ -141,5 +141,6 @@ export const API_DOWNLOAD_FILEREPORT_PROVISION_INFO = "boatInfoApp/report/";
 export const API_GET_WEEKLY_REPORT = "weeklyreport/reportWeeklyPdf";
 export const API_GET_TRAFFIC_ACCIDENTS_REPORT = "accidentreport/reportTransportAccidentExcelAndPdf";
 export const API_GET_CERTIFICATE_REPORT = "repdl/reportDIPdfAndExcel";
+export const API_GET_QUARTERLY_REPORT = "repquarter/quarterReport";
 
 export const API_GET_TRANSPORT_ACCIDENT_LIST_SEARCH = "boatincidents/search";

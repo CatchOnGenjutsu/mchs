@@ -463,6 +463,11 @@ export const inputsHeadersTransportAccidentsReport = {
       { value: 2, label: "Инцендент", key: "incidentType" },
     ],
   },
+  incidentPlace: {
+    key: "incidentPlace",
+    value: "Место траспортного аварийного случая",
+    type: "text",
+  },
   date1: {
     key: "date1",
     value: "Дата с",
@@ -481,11 +486,6 @@ export const inputsHeadersTransportAccidentsReport = {
       { value: true, label: "Да", key: "driverDrunk" },
       { value: false, label: "Нет", key: "driverDrunk" },
     ],
-  },
-  incidentPlace: {
-    key: "incidentPlace",
-    value: "Место траспортного аварийного случая",
-    type: "text",
   },
 };
 

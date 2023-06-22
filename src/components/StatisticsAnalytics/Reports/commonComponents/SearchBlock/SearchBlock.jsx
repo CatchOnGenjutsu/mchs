@@ -20,6 +20,8 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
     const date2Ref = useRef();
     const sectionRef = useRef();
     const oblastRef = useRef();
+    const quarterRef =useRef();
+    const yearRef = useRef()
 
     let optionsSection = useSelector(state => state.dictionaryReducer.gimsSections)
     optionsSection = optionsSection.map((el)=>{
@@ -43,6 +45,10 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                 return sectionRef
             case  "oblast":
                 return oblastRef
+            case "year":
+                return yearRef
+            case "quarter":
+                return quarterRef
             default:
                 return null;
         }
@@ -148,6 +154,10 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                             data[`${e.target.id}`]=""
                             date2Ref.current.value="";
                         }
+                        if(e.target.id==="year"){
+                            console.log(e.target.value)
+                            data[`${e.target.id}`]=e.target.value
+                        }
                         setData(data)
                     }
                     break
@@ -175,11 +185,17 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
 
     const handleClearData = () => {
         debugger
-         date1Ref.current.value = "";
-         date2Ref.current.value = "";
+        if(!window.location.href.includes("reports/quarterlyreport")){
+            date1Ref.current.value = "";
+            date2Ref.current.value = "";
+            setOptionsForField(true,"date2")
+        }else {
+            yearRef.current.value = "";
+            quarterRef.current.clearValue();
+        }
+
          sectionRef.current.clearValue();
          oblastRef.current.clearValue();
-        setOptionsForField(true,"date2")
         setOptionsForField(false,"oblast")
         setOptionsForField(false,"section")
         setOptions(Object.values(getOptionsForField()))
@@ -205,6 +221,32 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                 {!!dataRangeError && <div className={styles.range_block}>{dataRangeError}</div>}
                 <div className={`d-flex`}>
                     {options.map((field)=>{
+                        if(field.type==="number")
+                            return (
+                                <Form.Group className={styles.input_element}>
+                                    <Form.Label className={styles.label_text}>
+                                        {field.label}
+                                        {field.required && <span className={styles.red_dot}>*</span>}
+                                    </Form.Label>
+                                    <Form.Control
+                                        id={field.key}
+                                        ref={setRef(field)}
+                                        disabled={field.disabled}
+                                        value={data[`${field.key}`]}
+                                        onChange={(e)=>{handleChangeData(e)}}
+                                        type={field.type}
+                                        min={1900} // Минимальное значение года
+                                        max={2200} // Максимальное значение года
+                                        className={`mb-2`}
+                                        isInvalid={!!errors[`${field.key}`]}
+                                    />
+                                    <Form.Control.Feedback
+                                        className={styles.feedback}
+                                        type={"invalid"}>
+                                        {errors[`${field.key}`]}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            )
                         if(field.type==="date")
                             return (
                                 <Form.Group className={styles.input_element}>
@@ -247,6 +289,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                                     <Form.Control.Feedback type={"invalid"}>{errors[`${field.key}`]}</Form.Control.Feedback>
                                 </Form.Group>
                             )
+
                     })}
                 </div>
                 <div className={styles.buttons_block}>
