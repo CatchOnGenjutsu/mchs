@@ -2,7 +2,7 @@ export const MAIN_URL = "http://10.0.1.30";
 //10.0.1.30
 //http://192.168.70.81
 export const PORT = ":8080/";
-export const PORT_FOR_REPORT =":8082/"
+export const PORT_FOR_REPORT = ":8082/";
 
 export const API_LOGIN = "";
 
@@ -43,7 +43,7 @@ export const API_GET_ATE_LIBRARY = "static/info/gimsSections";
 export const API_GET_APP_REG_STATUS_LIBRARY = "static/info/boatCardStatus";
 export const API_GET_DICTIONARY_RAYON_FOR_OBL = "directory/getRayonByOblast/";
 export const API_GET_DICTIONARY_GOROD_FOR_RAYON = "directory/getGorodByRayon/";
-export const API_GET_DICTIONARY_SECTION_FOR_RAYON = "directory/getGimsSectionDistrictByRayon/"
+export const API_GET_DICTIONARY_SECTION_FOR_RAYON = "directory/getGimsSectionDistrictByRayon/";
 export const API_LICENSE_CANCELLATION = "boats/license/changeLicenseDateEnd/";
 
 export const API_ADD_NEW_BOAT_DEAL = "boats/saveBoatDeals/";
@@ -132,12 +132,14 @@ export const API_GET_SHIPS_TICKET_DECISION_INFO = "issuanceBoatTicket/confirmReg
 export const API_ACCEPT_SHIPS_TICKET = "issuanceBoatTicket/saveBoatCardAppDup";
 export const API_DECLINE_SHIPS_TICKET = "issuanceBoatTicket/refuseApp";
 
-export const API_GET_DATA_PROVISION_INFORMATION = "boatInfoApp/searchApp"
-export const API_ADD_STATEMENT_PROVISION_INFORMATION = "boatInfoApp/addStatement"
-export const API_GET_STATEMENT_PROVISION_INFORMATION = "boatInfoApp/getBoatInfo/"
-export const API_DOWNLOAD_FILE_PROVISION_INFO = "boatInfoApp/download/"
-export const API_DOWNLOAD_FILEREPORT_PROVISION_INFO = "boatInfoApp/report/"
+export const API_GET_DATA_PROVISION_INFORMATION = "boatInfoApp/searchApp";
+export const API_ADD_STATEMENT_PROVISION_INFORMATION = "boatInfoApp/addStatement";
+export const API_GET_STATEMENT_PROVISION_INFORMATION = "boatInfoApp/getBoatInfo/";
+export const API_DOWNLOAD_FILE_PROVISION_INFO = "boatInfoApp/download/";
+export const API_DOWNLOAD_FILEREPORT_PROVISION_INFO = "boatInfoApp/report/";
 
-export const API_GET_WEEKLY_REPORT = "weeklyreport/reportWeeklyPdf"
-export const API_GET_TRAFFIC_ACCIDENTS_REPORT = "accidentreport/reportTransportAccidentExcelAndPdf"
-export const API_GET_CERTIFICATE_REPORT = "repdl/reportDIPdfAndExcel"
+export const API_GET_WEEKLY_REPORT = "weeklyreport/reportWeeklyPdf";
+export const API_GET_TRAFFIC_ACCIDENTS_REPORT = "accidentreport/reportTransportAccidentExcelAndPdf";
+export const API_GET_CERTIFICATE_REPORT = "repdl/reportDIPdfAndExcel";
+
+export const API_GET_TRANSPORT_ACCIDENT_LIST_SEARCH = "boatincidents/search";

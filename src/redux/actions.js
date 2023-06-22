@@ -24,10 +24,12 @@ import {
   SET_SEARCH_PARAMS_PROVISION_INFORMATION,
   SET_SEARCH_PARAMS_SHIPS_TICKET,
   SET_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
+  GET_DATA_BY_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
 } from "./types";
 import {
   MAIN_URL,
   PORT,
+  PORT_FOR_REPORT,
   API_LOGIN,
   API_GET_BOATS_LIST_SEARCH,
   API_GET_LICENSE_LIST_SEARCH,
@@ -40,6 +42,7 @@ import {
   API_GET_BOATS_REG_LIST_SEARCH,
   API_REG_INFORM_CHANGE,
   API_GET_DICTIONARY_RAYON_FOR_OBL,
+  API_GET_TRANSPORT_ACCIDENT_LIST_SEARCH,
 } from "../constants/constants";
 
 export function getLoginToken(data) {
@@ -75,7 +78,7 @@ export function setSortState(data) {
 }
 export function setSearchParams(id, value, url) {
   url = new URL(url).pathname.slice(1);
-  console.log(url);
+  // console.log(url);
   let object = { [`${id}`]: value };
   switch (true) {
     case url.includes("smallboatsreg"): {
@@ -345,3 +348,35 @@ export function getApplicationRegLibrary() {
 //     const response = awa
 //   }
 // }
+
+export function getDataTransportAccidentBySearchParams(params) {
+  const queryParams = Object.entries(params)
+    .map((item) => {
+      if (item[1] !== "") {
+        return `${item[0]}=${item[1]}`;
+      }
+    })
+    .filter((item) => item !== undefined)
+    .join("&");
+  return async (dispatch) => {
+    const request = await fetch(
+      MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_LIST_SEARCH + "?" + queryParams,
+    );
+    const response = await request.json();
+    for (let item of response) {
+      item["sctName"] = item.section.sctName;
+      item["incidentDate"] = item.incidentDate.slice(0, 10).split("-").reverse().join(".");
+      if (item.ownerSurname && item.ownerName && item.ownerMidname) {
+        const owner = `${item.ownerSurname} ${item.ownerName} ${item.ownerMidname}`;
+        item["owner"] = owner;
+      }
+      item["incidentType"] = item.incidentType === 1 ? "Авария" : "Инцендент";
+      item["deadTotal"] = item.deadAdult + item.deadChildren + item.deadDrunk;
+    }
+    console.log(response);
+    dispatch({
+      type: GET_DATA_BY_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
+      data: response,
+    });
+  };
+}

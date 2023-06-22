@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 
 import SearchBlock from "../../components/SearchBlock/SearchBlock";
 import ToolBlock from "../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
+import { MemoSearchTable } from "../../components/SearchTable/SearchTable";
 
 import {
   inputsHeadersTransportAccidentsReport,
   setOptionsForInputsATE,
 } from "../../components/SearchBlock/inputsHeaders";
+import { TRANSPORT_ACCIDENT_COLUMNS } from "../../components/SearchTable/TablesColumns";
 
 export default function TransportAccidentsReport() {
   const [show, setShow] = useState(false);
@@ -30,6 +32,12 @@ export default function TransportAccidentsReport() {
     });
   });
   setOptionsForInputsATE(dataOptionsForSelectATEValidated, document.location.pathname.slice(1));
+
+  const dataFromStateTransportAccidents = useSelector((state) => {
+    const { TransportAccidentsReportReducer } = state;
+    return TransportAccidentsReportReducer.data;
+  });
+
   return (
     <div>
       <h2>Учет транспортных аварийных случаев с участием маломерных судов</h2>
@@ -44,12 +52,12 @@ export default function TransportAccidentsReport() {
         setShow={setShow}
         // viewBtnDisIn={!Boolean(appId)}
       />
-      {/* <MemoSearchTable
-        setId={handleAppId}
-        setStatusId={handleAppStatusId}
-        headerColumns={SMALLBOATS_ADMIN_COLUMNS}
-        dataFromState={dataFromStateBoatsReg}
-      /> */}
+      <MemoSearchTable
+        // setId={handleAppId}
+        // setStatusId={handleAppStatusId}
+        headerColumns={TRANSPORT_ACCIDENT_COLUMNS}
+        dataFromState={dataFromStateTransportAccidents}
+      />
       {/* {show && (
         <ModalWindow
           show={show}

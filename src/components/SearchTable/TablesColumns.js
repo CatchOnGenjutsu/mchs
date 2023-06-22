@@ -244,3 +244,46 @@ export const PRIVISION_INFORMATION_COLUMNS = [
     accessor: "statusName",
   },
 ];
+
+export const TRANSPORT_ACCIDENT_COLUMNS = [
+  {
+    Header: "Участок",
+    accessor: "sctName",
+  },
+  {
+    Header: "Дата",
+    accessor: "incidentDate",
+  },
+  {
+    Header: "Место транспортного аварийного случая",
+    accessor: "incidentPlace",
+  },
+  {
+    Header: "Судовладелец",
+    accessor: "owner",
+  },
+  {
+    Header: "Регистрационный номер",
+    accessor: "boatRegNum",
+  },
+  {
+    Header: "Причина",
+    accessor: "incidentReasons",
+  },
+  {
+    Header: "Вид транспортного аварийного случая",
+    accessor: "incidentType",
+  },
+  {
+    Header: "Количество спасенных",
+    accessor: "saveNum",
+  },
+  {
+    Header: "Количество погибших",
+    accessor: "deadTotal",
+  },
+  {
+    Header: "Погибших в состоянии алкогольного опьянения",
+    accessor: "deadDrunk",
+  },
+];

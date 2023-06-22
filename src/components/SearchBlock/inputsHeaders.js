@@ -434,47 +434,56 @@ export const inputsHeadersTransportAccidentsReport = {
     type: "selectRayon",
     selectOption: [{ value: 0, label: "Все", key: "section" }],
   },
-  fio: {
-    key: "fio",
-    value: "ФИО судовладельца",
+  ownerSurname: {
+    key: "ownerSurname",
+    value: "Фамилия судовладельца",
     type: "text",
   },
-  regNum: {
-    key: "regNum",
+  ownerName: {
+    key: "ownerName",
+    value: "Имя судовладельца",
+    type: "text",
+  },
+  ownerMidname: {
+    key: "ownerMidname",
+    value: "Отчество судовладельца",
+    type: "text",
+  },
+  boatRegNum: {
+    key: "boatRegNum",
     value: "Регистрационный номер судна",
     type: "text",
   },
-  vid: {
-    key: "vid",
+  incidentType: {
+    key: "incidentType",
     value: "Вид транспортного аварийного случая",
     type: "selectRayon",
     selectOption: [
-      { value: 0, label: "Авария", key: "vid" },
-      { value: 1, label: "Инцендент", key: "vid" },
+      { value: 1, label: "Авария", key: "incidentType" },
+      { value: 2, label: "Инцендент", key: "incidentType" },
     ],
   },
-  dateS: {
-    key: "dateS",
+  date1: {
+    key: "date1",
     value: "Дата с",
     type: "date",
   },
-  datePo: {
-    key: "datePo",
+  date2: {
+    key: "date2",
     value: "Дата по",
     type: "date",
   },
-  alco: {
-    key: "alco",
+  driverDrunk: {
+    key: "driverDrunk",
     value: "Алкогольное опьянение",
     type: "selectRayon",
     selectOption: [
-      { value: 0, label: "Все", key: "alco" },
-      { value: 1, label: "Да", key: "alco" },
-      { value: 2, label: "Нет", key: "alco" },
+      { value: true, label: "Да", key: "driverDrunk" },
+      { value: false, label: "Нет", key: "driverDrunk" },
     ],
   },
-  accidentPlace: {
-    key: "accidentPlace",
+  incidentPlace: {
+    key: "incidentPlace",
     value: "Место траспортного аварийного случая",
     type: "text",
   },

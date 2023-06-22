@@ -10,6 +10,7 @@ import {
   getDataCertificatesBySearchParams,
   getDataBasesBuildingBySearchParams,
   getDataBoatsRegBySearchParams,
+  getDataTransportAccidentBySearchParams,
 } from "../../redux/actions";
 import {
   getDataRegInfChangeBySearchParams,
@@ -20,7 +21,7 @@ import { getDataDupShipsTicketBySearchParams } from "../../redux/DuplicateShipsT
 import { getDataShipsTicketBySearchParams } from "../../redux/ShipsTicketReducer/actionsShipsTicket";
 
 import styles from "./SearchBlock.module.css";
-import {getDataProvisionInformationBySearchParams} from "../../redux/provisionInformationReducer/actionProvisionInformation";
+import { getDataProvisionInformationBySearchParams } from "../../redux/provisionInformationReducer/actionProvisionInformation";
 
 export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
   const dispatch = useDispatch();
@@ -70,6 +71,10 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
   const searchParamsProvisionInformation = useSelector((state) => {
     const { provisionInformationReducer } = state;
     return provisionInformationReducer.searchParams;
+  });
+  const searchParamsTransportAccidents = useSelector((state) => {
+    const { TransportAccidentsReportReducer } = state;
+    return TransportAccidentsReportReducer.searchParams;
   });
 
   const handleValue = (e) => {
@@ -122,7 +127,10 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
         dispatch(getDataBasesBuildingBySearchParams(searchParamsFromStateBasesBuilding));
         break;
       }
-
+      case e.target.baseURI.includes("transportaccidents"): {
+        dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
+        break;
+      }
       default:
     }
   };
