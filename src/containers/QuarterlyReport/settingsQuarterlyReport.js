@@ -5,7 +5,7 @@ export const fieldsForSearchQuarterly = {
         type: "selectSearch",
         disabled: false,
         search:false,
-        required: false,
+        required: true,
         options: [
             {value: 1, label: "1", key: "quarter"},
             {value: 2, label: "2", key: "quarter"},

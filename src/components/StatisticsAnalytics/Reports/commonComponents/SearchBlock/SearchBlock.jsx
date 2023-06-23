@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import { MAIN_URL, PORT_FOR_REPORT} from "../../../../../constants/constants";
 
 
-function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDFFile,getOptionsForField}) {
+function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDFFile,getOptionsForField,setLoader}) {
     const [data,setData]=useState({})
     const [options,setOptions]=useState(Object.values(fields))
     const [errors, setErrors] = useState({});
@@ -21,7 +21,13 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
     const sectionRef = useRef();
     const oblastRef = useRef();
     const quarterRef =useRef();
-    const yearRef = useRef()
+    const yearRef = useRef();
+    const customStyles = {
+        control: (provided) => ({
+            ...provided,
+            border: '1px solid #dc3545',
+        }),
+    };
 
     let optionsSection = useSelector(state => state.dictionaryReducer.gimsSections)
     optionsSection = optionsSection.map((el)=>{
@@ -68,15 +74,15 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
             return false;
         }
     };
-
+    console.log(errors,errorsFields)
     const handleGetReport = ()=> {
-        if (!handleErrors()){
+        if (!handleErrors()&& compareDate()){
             const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
-
+            setLoader(true)
             const getFile = async ()=>{
                 const response = await fetch(`${MAIN_URL + PORT_FOR_REPORT+urlForReport}?${queryString}`)
                 if(response.ok){
-                    debugger
+                    setLoader(false)
                     const formData = await response.formData();
                     debugger
                     const filePdf = formData.get('pdf');
@@ -92,74 +98,25 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
         }
     }
 
-    const compareDate = (event)=>{
+    const compareDate = ()=>{
 
-        if(event.target.id==="date1"&&!event.target.value){
-            setOptionsForField(true,"date2")
-            data.date1=""
-            data.date2=""
-            setOptions(Object.values(getOptionsForField()))
-            return false
-        }
-        if(event.target.id==="date2"&&!event.target.value){
-            data.date2=""
-            date2Ref.current.value = "";
-            setOptionsForField(false,"date2")
-            setOptions(Object.values(getOptionsForField()))
-            return false
-        }
-        if(event.target.id==="date1" && !data.date2){
-            setOptionsForField(false,"date2")
-            setOptions(Object.values(getOptionsForField()))
-            return true
-        }
-        if(event.target.id==="date1" && data.date2){
-            let date2 = new Date(data.date2)
-            if(event.target.valueAsNumber<date2){
-                setDataRangeError("")
-                return true
-            }else{
-                date1Ref.current.value="";
+        switch (true) {
+            case (new Date(data.date1)>new Date(data.date2)):
                 setDataRangeError(
                     'Дата, установленная в "Период отчета c" не может быть больше даты, установленной в "Период отчета по".',
                 );
                 return false
-            }
-        }
-        if(event.target.id==="date2" && data.date1){
-            let date1 = new Date(data.date1)
-            if(event.target.valueAsNumber>date1){
-                setDataRangeError("")
+            default:setDataRangeError("")
                 return true
-            }
-            else{
-                date2Ref.current.value="";
-                setDataRangeError(
-                    'Дата, установленная в "Период отчета по" не может быть меньше даты, установленной в "Период отчета с".',
-                );
-                return false
-            }
         }
     }
     const handleChangeData = (e)=>{
         if(e){
             switch (true) {
                 case Object.keys(e).includes("target"):{
-                    if(compareDate(e)){
-                        data[`${e.target.id}`] = e.target.value
-                        const newData = {...data}
-                        setData(newData)
-                    }else{
-                        if(e.target.id==="date2" && !data.date2){
-                            data[`${e.target.id}`]=""
-                            date2Ref.current.value="";
-                        }
-                        if(e.target.id==="year"){
-                            console.log(e.target.value)
-                            data[`${e.target.id}`]=e.target.value
-                        }
-                        setData(data)
-                    }
+                    data[`${e.target.id}`]=e.target.value
+                    const newData = {...data}
+                    setData(newData)
                     break
                 }
                 case Object.keys(e).includes("key"):{
@@ -171,6 +128,9 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                     }
                     if(e.key==="oblast"){
                         setOptionsForField(true,"section")
+                    }
+                    if(e.key==="periodGraph"){
+                        setOptionsForField(true,"periodGraph")
                     }
                     setData(newData)
                     break
@@ -184,11 +144,13 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
     }
 
     const handleClearData = () => {
-        debugger
+        if(window.location.href.includes("reports/graphs")){
+
+            return
+        }
         if(!window.location.href.includes("reports/quarterlyreport")){
             date1Ref.current.value = "";
             date2Ref.current.value = "";
-            setOptionsForField(true,"date2")
         }else {
             yearRef.current.value = "";
             quarterRef.current.clearValue();
@@ -210,7 +172,9 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
     console.log(data)
 
     useEffect(()=>{
-        setOptionsForField(optionsSection,"optionsForSection")
+        if(!window.location.href.includes("reports/graphs")){
+            setOptionsForField(optionsSection,"optionsForSection")
+        }
         handleClearData()
         setOptions(Object.values(getOptionsForField()))
 
@@ -277,16 +241,21 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                                 <Form.Group className={styles.input_element}>
                                     <Form.Label className={styles.label_text}>
                                         {field.label}
+                                        {field.required && <span className={styles.red_dot}>*</span>}
+
                                     </Form.Label>
                                     <Select
                                         ref={setRef(field)}
+                                        isMulti = {field.multi}
                                         onChange ={(e)=>{handleChangeData(e)}}
                                         isSearchable = {field.search}
                                         isDisabled = {field.disabled}
                                         placeholder="Выберите"
                                         options={field.options}
+                                        className={styles.max_width_select}
+                                        styles={!!errors[field.key]?customStyles:""}
                                     />
-                                    <Form.Control.Feedback type={"invalid"}>{errors[`${field.key}`]}</Form.Control.Feedback>
+                                    {!!errors[field.key] && (<Form.Label className={styles.error}>{errors[field.key]}</Form.Label>)}
                                 </Form.Group>
                             )
 
