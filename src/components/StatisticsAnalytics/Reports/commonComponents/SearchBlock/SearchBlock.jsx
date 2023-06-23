@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import { MAIN_URL, PORT_FOR_REPORT} from "../../../../../constants/constants";
 
 
-function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDFFile,getOptionsForField,setLoader}) {
+function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDFFile,setDocsFile,getOptionsForField,setLoader}) {
     const [data,setData]=useState({})
     const [options,setOptions]=useState(Object.values(fields))
     const [errors, setErrors] = useState({});
@@ -22,6 +22,8 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
     const oblastRef = useRef();
     const quarterRef =useRef();
     const yearRef = useRef();
+    const typeGraphRef = useRef();
+    const periodGraphRef = useRef();
     const customStyles = {
         control: (provided) => ({
             ...provided,
@@ -55,6 +57,10 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                 return yearRef
             case "quarter":
                 return quarterRef
+            case "graph":
+                return typeGraphRef
+            case "periodGraph":
+                return periodGraphRef
             default:
                 return null;
         }
@@ -62,7 +68,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
     const handleErrors = () => {
         let newErrors = {};
         errorsFields.forEach((elem) => {
-            if (!data[elem] || data[elem] === "") {
+            if (!data[elem] || data[elem] === "" || data[elem].length<1) {
                 newErrors[elem] = "Заполните поле";
             }
         });
@@ -76,8 +82,15 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
     };
     console.log(errors,errorsFields)
     const handleGetReport = ()=> {
+        debugger
         if (!handleErrors()&& compareDate()){
-            const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
+            let queryString = ""
+            if(window.location.href.includes("reports/graphs")){
+                queryString = data.graph.map(el=> "graph="+encodeURIComponent(el.value)).join('&')
+            }else{
+                queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
+            }
+
             setLoader(true)
             const getFile = async ()=>{
                 const response = await fetch(`${MAIN_URL + PORT_FOR_REPORT+urlForReport}?${queryString}`)
@@ -87,8 +100,10 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                     debugger
                     const filePdf = formData.get('pdf');
                     const fileExcel = formData.get('excel');
+                    const docsFile = formData.get('doc')
                     setPDFFile(filePdf)
                     setExcelFile(fileExcel)
+                    setDocsFile(docsFile)
                 }else {console.error('Ошибка загрузки файла:');}
             }
             getFile()
@@ -99,20 +114,21 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
     }
 
     const compareDate = ()=>{
-
-        switch (true) {
-            case (new Date(data.date1)>new Date(data.date2)):
-                setDataRangeError(
-                    'Дата, установленная в "Период отчета c" не может быть больше даты, установленной в "Период отчета по".',
-                );
-                return false
-            default:setDataRangeError("")
-                return true
+        if(data.date1 && data.date2){
+            switch (true) {
+                case (new Date(data.date1)>new Date(data.date2)):
+                    setDataRangeError(
+                        'Дата, установленная в "Период отчета c" не может быть больше даты, установленной в "Период отчета по".',
+                    );
+                    return false
+                default:setDataRangeError("")
+                    return true
+            }
         }
+        return true
     }
     const handleChangeData = (e)=>{
-        debugger
-        console.log(typeof e)
+
         if(e){
             switch (true) {
                 case Object.keys(e).includes("target"):{
@@ -122,6 +138,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                     break
                 }
                 case Array.isArray(e):{
+                    data["graph"] = e
                     const newData = {...data}
                     setData(newData)
                     break
@@ -153,7 +170,17 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
 
     const handleClearData = () => {
         if(window.location.href.includes("reports/graphs")){
-
+            typeGraphRef.current.clearValue()
+            periodGraphRef.current.clearValue()
+            setOptions(Object.values(getOptionsForField()))
+            // setLoader(false)
+            setPDFFile("")
+            setDocsFile("")
+            setExcelFile("")
+            setErrors({});
+            setDataRangeError("");
+            setSaveKey(false);
+            setData({})
             return
         }
         if(!window.location.href.includes("reports/quarterlyreport")){
@@ -171,6 +198,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
         setOptions(Object.values(getOptionsForField()))
         setLoader(false)
         setPDFFile("")
+        setDocsFile("")
         setExcelFile("")
         setErrors({});
         setDataRangeError("");

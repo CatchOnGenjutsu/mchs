@@ -11,7 +11,7 @@ export const fieldsForSearchQuarterly = {
             {value: 2, label: "2", key: "quarter"},
             {value: 3, label: "3", key: "quarter"},
             {value: 4, label: "4", key: "quarter"},
-            {value: 0, label: "Год", key: "quarter"},
+            {value: 5, label: "Год", key: "quarter"},
         ],
     },
     year: {
