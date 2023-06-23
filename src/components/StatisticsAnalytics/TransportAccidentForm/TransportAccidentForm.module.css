@@ -9,7 +9,7 @@
   grid-template-areas:
     "BS . . . . ."
     "BI . . . . ."
-    "BRN BV BT BN BN ."
+    "BRN BRN BV BT BN BN"
     "ID IT IP IP IP IR "
     "OS ON OM OB OW ."
     "DS DN DM DB DW DD";
@@ -26,7 +26,7 @@
   grid-template-areas:
     "BS . . . . ."
     "BI . . . . ."
-    "BRN BV BT BN BN ."
+    "BRN BRN BV BT BN BN"
     "ID IT IP IP IP IR "
     "LN LU . . . ."
     "DS DN DM DB DW DD";
@@ -42,6 +42,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.form_group_flex_reg_num {
+  display: flex;
+  align-items: flex-end;
   justify-content: flex-start;
   margin-bottom: 10px;
 }
@@ -176,6 +182,24 @@
   background-color: #1f86ca;
   transition: 0.5s;
 }
+.save_button {
+  margin-top: 15px;
+  margin-left: 15px;
+  width: 220px;
+  height: 40px;
+  background: #2eabff;
+  box-shadow: 7px 7px 10px rgba(9, 9, 9, 0.18), -2px -2px 5px rgba(251, 252, 255, 0.05);
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.save_button:hover {
+  cursor: pointer;
+  background-color: #1f86ca;
+  transition: 0.5s;
+}
 
 .close_button {
   margin-top: 15px;
@@ -197,4 +221,22 @@
   background-color: #ffc4c481;
   transition: 0.5s;
   color: black;
+}
+.search_button {
+  margin-top: 15px;
+  margin-left: 25px;
+  width: 150px;
+  height: 38px;
+  background: #2eabff;
+  box-shadow: 7px 7px 10px rgba(9, 9, 9, 0.18), -2px -2px 5px rgba(251, 252, 255, 0.05);
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search_button:hover {
+  cursor: pointer;
+  background-color: #1f86ca;
+  transition: 0.5s;
 }

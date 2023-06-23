@@ -442,17 +442,14 @@ export const setOptionsForInputsUsers = (inputsOptions, path) => {
 };
 
 export function setOptionsForBoat(types, kinds, path) {
-  switch (true) {
-    case path.includes("individual"):
-      TransportAccidentFormSettingsIndividual.boatType.options = types;
-      TransportAccidentFormSettingsIndividual.boatVid.options = kinds;
-      return TransportAccidentFormSettingsIndividual;
-    case path.includes("entity"):
-      TransportAccidentFormSettingsEntity.boatType.options = types;
-      TransportAccidentFormSettingsEntity.boatVid.options = kinds;
-      return TransportAccidentFormSettingsEntity;
-    default:
-      break;
+  TransportAccidentFormSettingsIndividual.boatType.options = types;
+  TransportAccidentFormSettingsIndividual.boatVid.options = kinds;
+  TransportAccidentFormSettingsEntity.boatType.options = types;
+  TransportAccidentFormSettingsEntity.boatVid.options = kinds;
+  if (path.includes("individual")) {
+    return TransportAccidentFormSettingsIndividual;
+  } else {
+    return TransportAccidentFormSettingsEntity;
   }
   // fieldBoatOptions.bodyMaterial.options = materials;
   // fieldBoatOptions.saCategory.options = saCategory;

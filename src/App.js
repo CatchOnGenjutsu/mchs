@@ -258,6 +258,10 @@ function App() {
               element={<TransportAccidentForm />}
             />
             <Route
+              path="/transportaccidents/accident/:id"
+              element={<TransportAccidentForm />}
+            />
+            <Route
               path="/reports/weeklyreport"
               element={<WeeklyReport />}
             />
@@ -274,8 +278,8 @@ function App() {
               element={<QuarterlyReport />}
             />
             <Route
-                path="/reports/graphs"
-                element={<GraphsReport/>}
+              path="/reports/graphs"
+              element={<GraphsReport />}
             />
           </Routes>
         </div>

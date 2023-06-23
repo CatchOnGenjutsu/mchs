@@ -14,10 +14,19 @@ import { TRANSPORT_ACCIDENT_COLUMNS } from "../../components/SearchTable/TablesC
 
 export default function TransportAccidentsReport() {
   const [show, setShow] = useState(false);
-  const [accidentsId, setAccidentsId] = useState(null);
+  const [accidentId, setAccidentId] = useState(null);
+  const [accidentStatus, setAccidentsStatus] = useState(null);
+
+  const handleAccidentId = (value) => {
+    // appId === value ? setAppId(null) : setAppId(value);
+    setAccidentId(value);
+  };
+  const handleAccidentsStatus = (value) => {
+    setAccidentsStatus(value);
+  };
 
   const handleSearchButton = () => {
-    setAccidentsId(null);
+    setAccidentId(null);
   };
   const dataOptionsForSelectATE = useSelector((state) => {
     const { dictionaryReducer } = state;
@@ -47,14 +56,14 @@ export default function TransportAccidentsReport() {
         handleSearchButton={handleSearchButton}
       />
       <ToolBlock
-        id={accidentsId}
-        // appStatusId={appStatusId}
+        id={accidentId}
+        appStatusId={accidentStatus}
         show={show}
         setShow={setShow}
       />
       <MemoSearchTable
-        // setId={handleAppId}
-        // setStatusId={handleAppStatusId}
+        setId={handleAccidentId}
+        setStatusId={handleAccidentsStatus}
         headerColumns={TRANSPORT_ACCIDENT_COLUMNS}
         dataFromState={dataFromStateTransportAccidents}
       />

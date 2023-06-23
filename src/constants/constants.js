@@ -144,3 +144,5 @@ export const API_GET_CERTIFICATE_REPORT = "repdl/reportDIPdfAndExcel";
 export const API_GET_QUARTERLY_REPORT = "repquarter/quarterReport";
 
 export const API_GET_TRANSPORT_ACCIDENT_LIST_SEARCH = "boatincidents/search";
+export const API_FIND_BOAT_INFO_BY_REGNUM = "boatincidents/getByRegNum/";
+export const API_FIND_BOAT_INFO_BY_ID = "boatincidents/getByRegNum/";

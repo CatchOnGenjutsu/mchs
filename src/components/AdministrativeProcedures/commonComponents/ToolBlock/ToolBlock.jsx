@@ -137,6 +137,12 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         });
         break;
       }
+      case pathName.includes("transportaccidents"): {
+        navigate(`./accident/${id}`, {
+          state: { mode: "view" },
+        });
+        break;
+      }
     }
   };
 
@@ -255,7 +261,6 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         )}
         {addBtn && (
           <>
-            {" "}
             <button
               id={`add`}
               title={buttonsNames.addBtnText}
@@ -303,6 +308,8 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
                       return Number(appStatusId) !== 1 ? true : false;
                     case window.location.pathname.includes("shipsticket"):
                       return Number(appStatusId) !== 3 ? true : false;
+                    case window.location.pathname.includes("transportaccidents"):
+                      return appStatusId === "true" ? true : false;
                     default:
                       break;
                   }

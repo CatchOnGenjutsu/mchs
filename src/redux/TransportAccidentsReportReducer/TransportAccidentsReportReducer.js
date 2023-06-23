@@ -4,6 +4,8 @@ import {
   ADD_NEW_CULPRIT,
   ADD_NEW_INJURED,
   DELETE_NEW_NOTE_ACCIDENT,
+  ADD_NEW_ACCIDENT_DATA,
+  CLEAR_ACCIDENT_DATA,
 } from "../types";
 
 import { v4 as uuidv4 } from "uuid";
@@ -24,7 +26,7 @@ const initialState = {
   },
   culpritsList: [],
   injuredsList: [],
-  // newAppDupl: {},
+  newAccidentData: {},
   // personType: null,
   // boatCardAppEngList: [],
   // boatCardAppSpecMarkList: [],
@@ -71,15 +73,18 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
         default:
           return state;
       }
-    // case GET_SHIPS_TICKET_DECISION_INFO:
-    //   return (() => ({
-    //     ...state,
-    //     appDecisionData: action.data.data,
-    //     boatCardAppEngList: [...action.data.boatCardAppEngList],
-    //     boatCardAppDealsList: [...action.data.boatCardAppDealsList],
-    //     boatCardAppSpecMarkList: [...action.data.boatCardAppSpecMarkList],
-    //   }))();
-
+    case ADD_NEW_ACCIDENT_DATA:
+      return (() => ({
+        ...state,
+        newAccidentData: { ...state.newAccidentData, ...action.data },
+      }))();
+    case CLEAR_ACCIDENT_DATA:
+      return (() => ({
+        ...state,
+        newAccidentData: action.data,
+        culpritsList: [],
+        injuredsList: [],
+      }))();
     default:
       return state;
   }

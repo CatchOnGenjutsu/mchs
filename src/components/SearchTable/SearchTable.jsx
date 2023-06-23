@@ -96,7 +96,13 @@ export default function SearchTable({ setId, setStatusId, setTableKey, headerCol
         setId(id);
         break;
       }
+      case e.target.baseURI.includes("transportaccidents"): {
+        setStatusId(e.currentTarget.dataset.status);
+        setId(id);
+        break;
+      }
       default:
+        break;
     }
   };
   return (
@@ -131,6 +137,8 @@ export default function SearchTable({ setId, setStatusId, setTableKey, headerCol
                     window.location.pathname.includes("dupshipsticket") ||
                     window.location.pathname.includes("shipsticket")
                       ? row.original.statusId
+                      : window.location.pathname.includes("transportaccidents")
+                      ? row.original.locked
                       : null
                   }
                   data-tablekey={window.location.pathname.includes("shipsticket") ? row.original.key : null}
