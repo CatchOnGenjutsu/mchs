@@ -1,4 +1,4 @@
-.grid_container {
+.grid_container_individual {
   background-color: #e5e4e2;
   padding: 11px;
   width: 100%;
@@ -12,6 +12,23 @@
     "BRN BV BT BN . ."
     "ID IT IP IP IP IR "
     "OS ON OM OB OW ."
+    "DS DN DM DB DW DD";
+    align-items: baseline;
+}
+.grid_container_entity {
+  background-color: #e5e4e2;
+  padding: 11px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+  grid-template-areas:
+    "BS . . . . ."
+    "BI . . . . ."
+    "BRN BV BT BN . ."
+    "ID IT IP IP IP IR "
+    "LN LU . . . ."
     "DS DN DM DB DW DD";
     align-items: baseline;
 }
@@ -97,4 +114,40 @@
 }
 .box-driverDrunk {
   grid-area: DD;
+}
+.box-leName {
+  grid-area: LN;
+}
+.box-leUnp {
+  grid-area: LU;
+}
+.grid_container_footer {
+  background-color: #e5e4e2;
+  padding: 11px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+  grid-template-areas:
+    "INT DA DDD DC SN NO";
+    align-items: baseline;
+}
+.box-incidentType {
+  grid-area: INT;
+}
+.box-deadAdult {
+  grid-area: DA;
+}
+.box-deadDrunk {
+  grid-area: DDD;
+}
+.box-deadChildren {
+  grid-area: DC;
+}
+.box-saveNum {
+  grid-area: SN;
+}
+.box-note {
+  grid-area: NO;
 }

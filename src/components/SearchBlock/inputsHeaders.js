@@ -459,6 +459,7 @@ export const inputsHeadersTransportAccidentsReport = {
     value: "Вид транспортного аварийного случая",
     type: "selectRayon",
     selectOption: [
+      { value: 0, label: "Все", key: "incidentType" },
       { value: 1, label: "Авария", key: "incidentType" },
       { value: 2, label: "Инцендент", key: "incidentType" },
     ],
@@ -483,6 +484,7 @@ export const inputsHeadersTransportAccidentsReport = {
     value: "Алкогольное опьянение",
     type: "selectRayon",
     selectOption: [
+      { value: 0, label: "Все", key: "driverDrunk" },
       { value: true, label: "Да", key: "driverDrunk" },
       { value: false, label: "Нет", key: "driverDrunk" },
     ],

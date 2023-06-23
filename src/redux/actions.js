@@ -352,7 +352,7 @@ export function getApplicationRegLibrary() {
 export function getDataTransportAccidentBySearchParams(params) {
   const queryParams = Object.entries(params)
     .map((item) => {
-      if (item[1] !== "") {
+      if (item[1] !== "" && item[1] !== 0) {
         return `${item[0]}=${item[1]}`;
       }
     })
