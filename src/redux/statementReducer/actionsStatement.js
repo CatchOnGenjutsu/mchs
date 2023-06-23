@@ -167,7 +167,6 @@ export function addNewSpecMarkApp(newMark) {
 }
 
 export function deleteNewNote(data) {
-  console.log(data);
   return {
     type: DELETE_NEW_NOTE_APP,
     data: data,

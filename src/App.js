@@ -33,6 +33,7 @@ import StatementProvisionInformation from "./components/AdministrativeProcedures
 import InspectorWorkStat from "./components/StatisticsAnalytics/InspectorWorkStat/InspectorWorkStat";
 import Reports from "./containers/Reports/Reports";
 import TransportAccidentsReport from "./containers/TransportAccidentsReport/TransportAccidentsReport";
+import TransportAccidentForm from "./components/StatisticsAnalytics/TransportAccidentForm/TransportAccidentForm";
 
 import {
   getDictionaryGimsSections,
@@ -248,6 +249,14 @@ function App() {
               element={<TransportAccidentsReport />}
             />
             <Route
+              path="/transportaccidents/add/individual"
+              element={<TransportAccidentForm />}
+            />
+            <Route
+              path="/transportaccidents/add/entity"
+              element={<TransportAccidentForm />}
+            />
+            <Route
               path="/reports/weeklyreport"
               element={<WeeklyReport />}
             />
@@ -260,8 +269,8 @@ function App() {
               element={<CertificateIssuanceReport />}
             />
             <Route
-                path="/reports/quarterlyreport"
-                element={<QuarterlyReport/>}
+              path="/reports/quarterlyreport"
+              element={<QuarterlyReport />}
             />
           </Routes>
         </div>

@@ -3,8 +3,16 @@ import styles from "./TableAppBoatReg.module.css";
 import { useState, useEffect } from "react";
 import AppBoatRegModal from "../AppBoatRegModal/AppBoatRegModal";
 import { deleteNewNote } from "../../../../redux/statementReducer/actionsStatement";
+import { deleteNewNoteAccident } from "../../../../redux/TransportAccidentsReportReducer/actionsTransportAccidentsReport";
 
-export default function TableAppBoatReg({ updateData, tableOptions, mainData,dataForTable, typeTable, mode }) {
+export default function TableAppBoatReg({
+  updateData,
+  tableOptions,
+  mainData,
+  dataForTable,
+  typeTable,
+  mode,
+}) {
   const [showModal, setShowModal] = useState(false);
   const [modalWindowInputs, setModalWindowInputs] = useState(null);
   const dispatch = useDispatch();
@@ -17,9 +25,14 @@ export default function TableAppBoatReg({ updateData, tableOptions, mainData,dat
     const { DuplicateShipsTicketReducer } = state;
     return DuplicateShipsTicketReducer[typeTable];
   });
-  const dataShipsTcket = useSelector((state) => {
+  const dataShipsTicket = useSelector((state) => {
     const { ShipsTicketReducer } = state;
     return ShipsTicketReducer[typeTable];
+  });
+
+  const dataTransportAccidents = useSelector((state) => {
+    const { TransportAccidentsReportReducer } = state;
+    return TransportAccidentsReportReducer[typeTable];
   });
 
   const data = !!dataForTable
@@ -28,7 +41,9 @@ export default function TableAppBoatReg({ updateData, tableOptions, mainData,dat
     ? [...dataReg]
     : window.location.pathname.includes("dupshipsticket")
     ? [...dataDuplicate]
-    : [...dataShipsTcket];
+    : window.location.pathname.includes("transportaccidents")
+    ? [...dataTransportAccidents]
+    : [...dataShipsTicket];
 
   const handleAddNotes = (e) => {
     e.preventDefault();
@@ -50,23 +65,39 @@ export default function TableAppBoatReg({ updateData, tableOptions, mainData,dat
             id: e.target.id,
             type: "boatCardAppEngDtoList",
           };
+          dispatch(deleteNewNote(noteForDelete));
           break;
         case "boatCardAppSmDtoList":
           noteForDelete = {
             id: e.target.id,
             type: "boatCardAppSmDtoList",
           };
+          dispatch(deleteNewNote(noteForDelete));
           break;
         case "boatCardAppDealsDtoList":
           noteForDelete = {
             id: e.target.id,
             type: "boatCardAppDealsDtoList",
           };
+          dispatch(deleteNewNote(noteForDelete));
+          break;
+        case "culpritsList":
+          noteForDelete = {
+            id: e.target.id,
+            type: "culpritsList",
+          };
+          dispatch(deleteNewNoteAccident(noteForDelete));
+          break;
+        case "injuredsList":
+          noteForDelete = {
+            id: e.target.id,
+            type: "injuredsList",
+          };
+          dispatch(deleteNewNoteAccident(noteForDelete));
           break;
         default:
           break;
       }
-      dispatch(deleteNewNote(noteForDelete));
     } else {
       updateData(tableOptions.keyTable, e.target.id, "delete");
     }
@@ -128,6 +159,8 @@ export default function TableAppBoatReg({ updateData, tableOptions, mainData,dat
                             </button>
                           </td>
                         );
+                      } else if (item.key === "culpritDrunk" || item.key === "injuredDrunk") {
+                        return <td>{elem[`${item.key}`] === 1 ? "Да" : "Нет"}</td>;
                       } else {
                         return <td>{elem[`${item.key}`]}</td>;
                       }

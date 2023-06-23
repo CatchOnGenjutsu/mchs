@@ -1,7 +1,12 @@
 import {
   SET_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
   GET_DATA_BY_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
+  ADD_NEW_CULPRIT,
+  ADD_NEW_INJURED,
+  DELETE_NEW_NOTE_ACCIDENT,
 } from "../types";
+
+import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   data: [],
@@ -17,6 +22,8 @@ const initialState = {
     driverDrunk: false,
     incidentPlace: "",
   },
+  culpritsList: [],
+  injuredsList: [],
   // newAppDupl: {},
   // personType: null,
   // boatCardAppEngList: [],
@@ -26,7 +33,6 @@ const initialState = {
 };
 
 export const TransportAccidentsReportReducer = (state = initialState, action) => {
-  console.log(action.data);
   switch (action.type) {
     case SET_SEARCH_PARAMS_TRANSPORT_ACCIDENTS:
       return (() => ({
@@ -38,7 +44,33 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
         ...state,
         data: [...action.data],
       }))();
-
+    case ADD_NEW_CULPRIT:
+      action.data["innerId"] = uuidv4();
+      return (() => ({
+        ...state,
+        culpritsList: [action.data, ...state.culpritsList],
+      }))();
+    case ADD_NEW_INJURED:
+      action.data["innerId"] = uuidv4();
+      return (() => ({
+        ...state,
+        injuredsList: [action.data, ...state.injuredsList],
+      }))();
+    case DELETE_NEW_NOTE_ACCIDENT:
+      switch (action.data.type) {
+        case "culpritsList":
+          return (() => ({
+            ...state,
+            culpritsList: [...state.culpritsList.filter((item) => item.innerId !== action.data.id)],
+          }))();
+        case "injuredsList":
+          return (() => ({
+            ...state,
+            injuredsList: [...state.injuredsList.filter((item) => item.innerId !== action.data.id)],
+          }))();
+        default:
+          return state;
+      }
     // case GET_SHIPS_TICKET_DECISION_INFO:
     //   return (() => ({
     //     ...state,

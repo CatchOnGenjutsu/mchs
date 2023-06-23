@@ -7,6 +7,10 @@ import {
   addNewSpecMarkApp,
   addNewDealApp,
 } from "../../../../redux/statementReducer/actionsStatement";
+import {
+  addNewCulprit,
+  addNewInjured,
+} from "../../../../redux/TransportAccidentsReportReducer/actionsTransportAccidentsReport";
 
 export default function AppBoatRegModal({
   updateData,
@@ -147,6 +151,12 @@ export default function AppBoatRegModal({
             case "boatCardAppDealsDtoList":
               dispatch(addNewDealApp(newData));
               break;
+            case "culpritsList":
+              dispatch(addNewCulprit(newData));
+              break;
+            case "injuredsList":
+              dispatch(addNewInjured(newData));
+              break;
             default:
               setShowModal(false);
               setNewData({});
@@ -179,6 +189,12 @@ export default function AppBoatRegModal({
         setNewData({ msmLock: true });
         input = document.querySelector("#locked");
         input.toggleAttribute("checked");
+        break;
+      case "culpritsList":
+        setNewData({ culpritDrunk: 1 });
+        break;
+      case "injuredsList":
+        setNewData({ injuredDrunk: 1 });
         break;
       default:
         break;

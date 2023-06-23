@@ -97,6 +97,10 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         setShow(true);
         break;
       }
+      case pathName.includes("transportaccidents"): {
+        setShow(true);
+        break;
+      }
     }
   };
   const handleButtonView = async (event) => {

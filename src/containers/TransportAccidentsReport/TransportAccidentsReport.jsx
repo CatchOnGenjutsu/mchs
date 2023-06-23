@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import SearchBlock from "../../components/SearchBlock/SearchBlock";
 import ToolBlock from "../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
+import ModalWindow from "../../components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow";
 import { MemoSearchTable } from "../../components/SearchTable/SearchTable";
 
 import {
@@ -50,7 +51,6 @@ export default function TransportAccidentsReport() {
         // appStatusId={appStatusId}
         show={show}
         setShow={setShow}
-        // viewBtnDisIn={!Boolean(appId)}
       />
       <MemoSearchTable
         // setId={handleAppId}
@@ -58,12 +58,12 @@ export default function TransportAccidentsReport() {
         headerColumns={TRANSPORT_ACCIDENT_COLUMNS}
         dataFromState={dataFromStateTransportAccidents}
       />
-      {/* {show && (
+      {show && (
         <ModalWindow
           show={show}
           setShow={setShow}
         />
-      )} */}
+      )}
     </div>
   );
 }

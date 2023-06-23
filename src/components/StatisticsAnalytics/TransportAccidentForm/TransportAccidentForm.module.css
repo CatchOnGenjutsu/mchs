@@ -1,0 +1,100 @@
+.grid_container {
+  background-color: #e5e4e2;
+  padding: 11px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 15px;
+  grid-template-areas:
+    "BS . . . . ."
+    "BI . . . . ."
+    "BRN BV BT BN . ."
+    "ID IT IP IP IP IR "
+    "OS ON OM OB OW ."
+    "DS DN DM DB DW DD";
+    align-items: baseline;
+}
+.form_group_flex_inline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.form_group_flex_column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.form_label {
+  margin: 0 10px 0 0;
+}
+
+.input_element {
+  width: 200px;
+}
+.box-section {
+  grid-area: BS;
+}
+.box-inspector {
+  grid-area: BI;
+}
+.box-boatRegNum {
+  grid-area: BRN;
+}
+.box-boatVid {
+  grid-area: BV;
+}
+.box-boatType {
+  grid-area: BT;
+}
+.box-boatName {
+  grid-area: BN;
+}
+.box-incidentDate {
+  grid-area: ID;
+}
+.box-incidentTime {
+  grid-area: IT;
+}
+.box-incidentPlace {
+  grid-area: IP;
+}
+.box-incidentReasons {
+  grid-area: IR;
+}
+.box-ownerSurname {
+  grid-area: OS;
+}
+.box-ownerName {
+  grid-area: ON;
+}
+.box-ownerMidname {
+  grid-area: OM;
+}
+.box-ownerBirthDate {
+  grid-area: OB;
+}
+.box-ownerWorkplace {
+  grid-area: OW;
+}
+.box-driverSurname {
+  grid-area: DS;
+}
+.box-driverName {
+  grid-area: DN;
+}
+.box-driverMidname {
+  grid-area: DM;
+}
+.box-driverBirthDate {
+  grid-area: DB;
+}
+.box-driverWorkplace {
+  grid-area: DW;
+}
+.box-driverDrunk {
+  grid-area: DD;
+}
