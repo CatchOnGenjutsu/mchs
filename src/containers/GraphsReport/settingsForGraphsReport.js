@@ -18,7 +18,7 @@ export const fieldsForSearchGraphs = {
         type: "selectSearch",
         disabled: false,
         search:false,
-        required: false,
+        required: true,
         visible: true,
         multi: true,
         options: [
