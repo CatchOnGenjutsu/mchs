@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {useSelector} from "react-redux";
 import {ProgressBar} from "react-loader-spinner";
 import SearchBlock from "../../components/StatisticsAnalytics/Reports/commonComponents/SearchBlock/SearchBlock";
@@ -12,6 +12,7 @@ import DocumentPreview
 
 function CertificateIssuanceReport() {
     const isLoading = useSelector(state => state.dictionaryReducer.isLoading);
+    const [loader,setLoader]=useState(false)
     const [ExcelFile,setExcelFile]=useState("")
     const [PDFFile,setPDFFile]=useState("")
     if(isLoading){
@@ -39,11 +40,25 @@ function CertificateIssuanceReport() {
                 urlForReport = {API_GET_CERTIFICATE_REPORT}
                 setExcelFile = {setExcelFile}
                 setPDFFile={setPDFFile}
+                setLoader = {setLoader}
             />
             <DocumentPreview
                 pdf={PDFFile}
                 excel={ExcelFile}
             />
+            {loader &&(
+                <div className={'d-flex flex-column align-items-center'}>
+                    <ProgressBar
+                        height="80"
+                        width="80"
+                        ariaLabel="progress-bar-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="progress-bar-wrapper"
+                        borderColor="#F4442E"
+                        barColor="#51E5FF"
+                    />
+                </div>
+            )}
         </>
     );
 }

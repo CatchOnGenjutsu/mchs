@@ -111,12 +111,20 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
         }
     }
     const handleChangeData = (e)=>{
+        debugger
+        console.log(typeof e)
         if(e){
             switch (true) {
                 case Object.keys(e).includes("target"):{
                     data[`${e.target.id}`]=e.target.value
                     const newData = {...data}
                     setData(newData)
+                    break
+                }
+                case Array.isArray(e):{
+                    const newData = {...data}
+                    setData(newData)
+                    break
                     break
                 }
                 case Object.keys(e).includes("key"):{
@@ -161,6 +169,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
         setOptionsForField(false,"oblast")
         setOptionsForField(false,"section")
         setOptions(Object.values(getOptionsForField()))
+        setLoader(false)
         setPDFFile("")
         setExcelFile("")
         setErrors({});
