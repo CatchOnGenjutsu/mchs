@@ -10,7 +10,7 @@ import DocumentPreview
 function QuarterlyReport() {
     const isLoading = useSelector(state => state.dictionaryReducer.isLoading);
     const [loader,setLoader]=useState(false)
-
+    const [DocsFile,setDocsFile]=useState("")
     const [ExcelFile,setExcelFile]=useState("")
     const [PDFFile,setPDFFile]=useState("")
     if(isLoading){
@@ -35,6 +35,7 @@ function QuarterlyReport() {
                 fields = {fieldsForSearchQuarterly}
                 setOptionsForField={setOptionsForField}
                 urlForReport = {API_GET_QUARTERLY_REPORT }
+                setDocsFile = {setDocsFile}
                 setExcelFile = {setExcelFile}
                 setPDFFile={setPDFFile}
                 getOptionsForField={getOptionsForField}

@@ -142,5 +142,6 @@ export const API_GET_WEEKLY_REPORT = "weeklyreport/reportWeeklyPdf";
 export const API_GET_TRAFFIC_ACCIDENTS_REPORT = "accidentreport/reportTransportAccidentExcelAndPdf";
 export const API_GET_CERTIFICATE_REPORT = "repdl/reportDIPdfAndExcel";
 export const API_GET_QUARTERLY_REPORT = "repquarter/quarterReport";
+export const API_GET_FIVEYEARS_GRAPH_REPORT ="graph/downloadDocReport";
 
 export const API_GET_TRANSPORT_ACCIDENT_LIST_SEARCH = "boatincidents/search";
