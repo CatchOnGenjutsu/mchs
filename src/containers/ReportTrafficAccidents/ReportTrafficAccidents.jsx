@@ -12,8 +12,9 @@ import DocumentPreview from "../../components/StatisticsAnalytics/Reports/common
 
 function ReportTrafficAccidents() {
   const isLoading = useSelector((state) => state.dictionaryReducer.isLoading);
-  const [ExcelFile, setExcelFile] = useState("");
-  const [PDFFile, setPDFFile] = useState("");
+    const [DocsFile,setDocsFile]=useState("")
+    const [ExcelFile,setExcelFile]=useState("")
+    const [PDFFile,setPDFFile]=useState("")
   const [loader,setLoader]=useState(false)
 
     if (isLoading) {
@@ -39,7 +40,8 @@ function ReportTrafficAccidents() {
         setOptionsForField={setOptionsForField}
         getOptionsForField={getOptionsForField}
         urlForReport={API_GET_TRAFFIC_ACCIDENTS_REPORT}
-        setExcelFile={setExcelFile}
+        setDocsFile = {setDocsFile}
+        setExcelFile = {setExcelFile}
         setPDFFile={setPDFFile}
         setLoader = {setLoader}
       />

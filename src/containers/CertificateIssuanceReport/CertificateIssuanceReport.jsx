@@ -13,6 +13,7 @@ import DocumentPreview
 function CertificateIssuanceReport() {
     const isLoading = useSelector(state => state.dictionaryReducer.isLoading);
     const [loader,setLoader]=useState(false)
+    const [DocsFile,setDocsFile]=useState("")
     const [ExcelFile,setExcelFile]=useState("")
     const [PDFFile,setPDFFile]=useState("")
     if(isLoading){
@@ -38,6 +39,7 @@ function CertificateIssuanceReport() {
                 setOptionsForField={setOptionsForField}
                 getOptionsForField={getOptionsForField}
                 urlForReport = {API_GET_CERTIFICATE_REPORT}
+                setDocsFile = {setDocsFile}
                 setExcelFile = {setExcelFile}
                 setPDFFile={setPDFFile}
                 setLoader = {setLoader}

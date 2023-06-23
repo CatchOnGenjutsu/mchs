@@ -10,6 +10,7 @@ import {API_GET_WEEKLY_REPORT} from "../../constants/constants";
 
 function WeeklyReport() {
     const isLoading = useSelector(state => state.dictionaryReducer.isLoading);
+    const [DocsFile,setDocsFile]=useState("")
     const [ExcelFile,setExcelFile]=useState("")
     const [PDFFile,setPDFFile]=useState("")
     const [loader,setLoader]=useState(false)
@@ -36,6 +37,7 @@ function WeeklyReport() {
               fields = {fieldsForSearch}
               setOptionsForField={setOptionsForField}
               urlForReport = {API_GET_WEEKLY_REPORT}
+              setDocsFile = {setDocsFile}
               setExcelFile = {setExcelFile}
               setPDFFile={setPDFFile}
               getOptionsForField={getOptionsForField}
