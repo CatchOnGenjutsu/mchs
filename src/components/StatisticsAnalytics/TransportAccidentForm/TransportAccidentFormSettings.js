@@ -102,7 +102,7 @@ export const TransportAccidentFormSettings = {
   },
   ownerBirthDate: {
     key: "ownerBirthDate",
-    value: "Дата рождения судовладельца",
+    value: "Дата рождения",
     type: "date",
     flexDirection: "column",
   },
@@ -132,7 +132,7 @@ export const TransportAccidentFormSettings = {
   },
   driverBirthDate: {
     key: "driverBirthDate",
-    value: "Дата рождения судоводителя",
+    value: "Дата рождения",
     type: "date",
     flexDirection: "column",
   },
@@ -160,25 +160,25 @@ export const culpritsListOptions = {
   caption: "Сведения о виновниках",
   nameColumn: [
     {
-      value: "Фамилия виновника",
+      value: "Фамилия",
       key: "culpritSurname",
       type: "text",
       neededInModal: true,
     },
     {
-      value: "Имя виновника",
+      value: "Имя",
       key: "culpritName",
       type: "text",
       neededInModal: true,
     },
     {
-      value: "Отчество виновника",
+      value: "Отчество",
       key: "culpritMidname",
       type: "text",
       neededInModal: true,
     },
     {
-      value: "Дата рождения виновника",
+      value: "Дата рождения",
       key: "culpritBirthDate",
       type: "date",
       neededInModal: true,
@@ -206,25 +206,25 @@ export const injuredsListOptions = {
   caption: "Сведения о постарадавших",
   nameColumn: [
     {
-      value: "Фамилия постадавшего",
+      value: "Фамилия",
       key: "injuredSurname",
       type: "text",
       neededInModal: true,
     },
     {
-      value: "Имя постадавшего",
+      value: "Имя",
       key: "injuredName",
       type: "text",
       neededInModal: true,
     },
     {
-      value: "Отчество постадавшего",
+      value: "Отчество",
       key: "injuredMidname",
       type: "text",
       neededInModal: true,
     },
     {
-      value: "Дата рождения постадавшего",
+      value: "Дата рождения",
       key: "injuredBirthDate",
       type: "date",
       neededInModal: true,
