@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
-import {useSelector} from "react-redux";
-import {ProgressBar} from "react-loader-spinner";
 import SearchBlock from "../../components/StatisticsAnalytics/Reports/commonComponents/SearchBlock/SearchBlock";
-import {fieldsForSearchQuarterly, getOptionsForField, setOptionsForField} from "./settingsQuarterlyReport";
+import {
+    fieldsForSearchGraphs,
+    getOptionsForField,
+    setOptionsForField
+} from "./settingsForGraphsReport";
 import {API_GET_QUARTERLY_REPORT} from "../../constants/constants";
 import DocumentPreview
     from "../../components/StatisticsAnalytics/Reports/commonComponents/DocumentPreview/DocumentPreview";
+import {useSelector} from "react-redux";
+import {ProgressBar} from "react-loader-spinner";
 
-function QuarterlyReport() {
+function GraphsReport() {
     const isLoading = useSelector(state => state.dictionaryReducer.isLoading);
-    const [loader,setLoader]=useState(false)
-
     const [ExcelFile,setExcelFile]=useState("")
     const [PDFFile,setPDFFile]=useState("")
     if(isLoading){
@@ -30,35 +32,22 @@ function QuarterlyReport() {
     }
     return (
         <>
-            <h2>Квартальный отчет</h2>
+            <h2>Графики</h2>
             <SearchBlock
-                fields = {fieldsForSearchQuarterly}
+                fields = {fieldsForSearchGraphs}
                 setOptionsForField={setOptionsForField}
                 urlForReport = {API_GET_QUARTERLY_REPORT }
                 setExcelFile = {setExcelFile}
                 setPDFFile={setPDFFile}
                 getOptionsForField={getOptionsForField}
-                setLoader = {setLoader}
             />
             <DocumentPreview
                 pdf={PDFFile}
                 excel={ExcelFile}
             />
-            {loader &&(
-                <div className={'d-flex flex-column align-items-center'}>
-                    <ProgressBar
-                        height="80"
-                        width="80"
-                        ariaLabel="progress-bar-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="progress-bar-wrapper"
-                        borderColor="#F4442E"
-                        barColor="#51E5FF"
-                    />
-                </div>
-            )}
         </>
+
     );
 }
 
-export default QuarterlyReport;
+export default GraphsReport;

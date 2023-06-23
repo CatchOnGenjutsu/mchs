@@ -72,7 +72,6 @@ function ModalWindow({setShow,show,type,buildingId}) {
     const editErrors = (buttonType)=>{
         if(buttonType==='save'){
             const {ownerLeName,ownerAddress,ownerPhone,location,responPosition,responFio,ownerOblast,ownerRayon,section}=dataForm
-            console.log(ownerOblast,!ownerRayon,!section)
             const newErrors={}
             if(!ownerOblast || ownerOblast==='') newErrors.ownerOblast = 'Заполните область местонахождения базы'
             if(!ownerRayon || ownerRayon==='') newErrors.ownerRayon = 'Заполните район местонахождения базы'

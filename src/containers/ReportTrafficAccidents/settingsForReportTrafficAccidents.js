@@ -10,7 +10,7 @@ export const fieldsForSearchAccidents = {
         key: "date2",
         label: "Период отчета по",
         type: "date",
-        disabled: true,
+        disabled: false,
         required: true
     },
     section: {
@@ -53,10 +53,6 @@ export const setOptionsForField = (prop,field)=>{
         }
         case "oblast":{
             fieldsForSearchAccidents.oblast.disabled =prop
-            break;
-        }
-        case "date2":{
-            fieldsForSearchAccidents.date2.disabled =prop
             break;
         }
         default:break;

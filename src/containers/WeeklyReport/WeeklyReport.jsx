@@ -5,7 +5,7 @@ import DocumentPreview
 import {fieldsForSearch,getOptionsForField,setOptionsForField} from "./settingsForWeeklyReport";
 import { ProgressBar } from "react-loader-spinner";
 import {useSelector} from "react-redux";
-import {API_GET_QUARTERLY_REPORT} from "../../constants/constants";
+import {API_GET_WEEKLY_REPORT} from "../../constants/constants";
 
 
 function WeeklyReport() {
@@ -33,7 +33,7 @@ function WeeklyReport() {
             <SearchBlock
               fields = {fieldsForSearch}
               setOptionsForField={setOptionsForField}
-              urlForReport = {API_GET_QUARTERLY_REPORT}
+              urlForReport = {API_GET_WEEKLY_REPORT}
               setExcelFile = {setExcelFile}
               setPDFFile={setPDFFile}
               getOptionsForField={getOptionsForField}

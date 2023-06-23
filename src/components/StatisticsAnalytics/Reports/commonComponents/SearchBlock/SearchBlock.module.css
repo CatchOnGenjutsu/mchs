@@ -53,3 +53,12 @@
     font-weight: 500;
     user-select: none;
 }
+.max_width_select{
+    max-width: 500px;
+}
+.error{
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: #dc3545;
+}
