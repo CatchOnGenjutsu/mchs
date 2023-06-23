@@ -187,6 +187,33 @@ export default function TransportAccidentForm() {
           }
         })}
       </div>
+      <div className={styles.buttons_container}>
+        {mode === "add" && (
+          <>
+            <div
+              className={styles.add_button}
+              id={"add"}
+              // onClick={(e) => handleButtonClick(e)}
+            >
+              Сохранить
+            </div>
+            <div
+              className={styles.add_button}
+              id={"add"}
+              // onClick={(e) => handleButtonClick(e)}
+            >
+              Сформировать дело
+            </div>
+          </>
+        )}
+        <div
+          className={styles.close_button}
+          id={"close"}
+          // onClick={(e) => handleButtonClick(e)}
+        >
+          Закрыть
+        </div>
+      </div>
     </>
   );
 }
