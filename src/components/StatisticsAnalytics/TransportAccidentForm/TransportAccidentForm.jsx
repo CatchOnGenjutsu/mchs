@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import Select from "react-select";
+import { ProgressBar } from "react-loader-spinner";
 
 import TableAppBoatReg from "../../AdministrativeProcedures/commonComponents/TablesAppBoatReg/TableAppBoatReg";
 
 import {
-  TransportAccidentFormSettingsIndividual,
-  TransportAccidentFormSettingsEntity,
   culpritsListOptions,
   injuredsListOptions,
   TransportAccidentFormSettingsFooter,
@@ -30,6 +29,7 @@ import {
   findBoatInfoByRegNum,
   clearAccidentData,
   getAccidentInfoById,
+  saveTransportAccident,
 } from "../../../redux/TransportAccidentsReportReducer/actionsTransportAccidentsReport";
 
 import styles from "./TransportAccidentForm.module.css";
@@ -41,6 +41,7 @@ export default function TransportAccidentForm() {
   const navigate = useNavigate();
 
   const [transportAccidentFormSettings, setTransportAccidentFormSettings] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const dataOptionsForSelectATE = useSelector((state) => {
     const { dictionaryReducer } = state;
@@ -52,22 +53,31 @@ export default function TransportAccidentForm() {
     dataOptionsForSelectATEValidated.push({
       value: item.sctId,
       label: item.sctName,
-      key: "section",
+      key: "sectionId",
     });
   });
-
-  setOptionsForInputsATE(dataOptionsForSelectATEValidated, window.location.pathname);
 
   const usersLib = useSelector((state) => {
     const { dictionaryReducer } = state;
     return dictionaryReducer.usersLibrary;
   });
 
-  setOptionsForInputsUsers(usersLib, window.location.pathname);
-
   const newAccidentData = useSelector((state) => {
     const { TransportAccidentsReportReducer } = state;
     return TransportAccidentsReportReducer.newAccidentData;
+  });
+  const culpritsList = useSelector((state) => {
+    const { TransportAccidentsReportReducer } = state;
+    return TransportAccidentsReportReducer.culpritsList;
+  });
+  const injuredsList = useSelector((state) => {
+    const { TransportAccidentsReportReducer } = state;
+    return TransportAccidentsReportReducer.injuredsList;
+  });
+
+  const personType = useSelector((state) => {
+    const { TransportAccidentsReportReducer } = state;
+    return TransportAccidentsReportReducer.personType;
   });
 
   const handleValue = (e) => {
@@ -96,6 +106,9 @@ export default function TransportAccidentForm() {
             dispatch(findBoatInfoByRegNum(newAccidentData.boatRegNum));
           }
           break;
+        case "save":
+          dispatch(saveTransportAccident(newAccidentData, culpritsList, injuredsList));
+          break;
         case "close":
           dispatch(clearAccidentData());
           navigate("/transportaccidents");
@@ -113,53 +126,112 @@ export default function TransportAccidentForm() {
       // const materialsBodyBoat = await setOptionsBodyBoat();
       // const saCategory = await setOptionsSaCategory();
       setTransportAccidentFormSettings(setOptionsForBoat(typesBoat, kindsBoat, window.location.pathname));
+      if (mode === "view") {
+        const pathArray = window.location.pathname.split("/");
+        const id = pathArray[pathArray.length - 1];
+        dispatch(getAccidentInfoById(id));
+      } else {
+        setTransportAccidentFormSettings(
+          setOptionsForInputsATE(dataOptionsForSelectATEValidated, window.location.pathname),
+        );
+        setTransportAccidentFormSettings(setOptionsForInputsUsers(usersLib, window.location.pathname));
+        setIsLoading(false);
+      }
     })();
-    if (mode === "view") {
-      const pathArray = window.location.pathname.split("/");
-      const id = pathArray[pathArray.length - 1];
-      dispatch(getAccidentInfoById(id));
-    }
   }, []);
+  useEffect(() => {
+    if (mode === "view") {
+      setTransportAccidentFormSettings(setOptionsForInputsATE(dataOptionsForSelectATEValidated, personType));
+      setTransportAccidentFormSettings(setOptionsForInputsUsers(usersLib, personType));
+    }
+    if (personType !== "") {
+      setIsLoading(false);
+    }
+  }, [personType]);
   return (
     <>
-      <h2>Добавить РК аварийного случая</h2>
-      <div
-        className={
-          window.location.pathname.includes("individual")
-            ? styles.grid_container_individual
-            : styles.grid_container_entity
-        }>
-        {Object.values(transportAccidentFormSettings).length !== 0 &&
-          Object.values(transportAccidentFormSettings).map((item) => {
-            switch (item.type) {
-              case "select":
-                return (
-                  <Form.Group
-                    className={`${styles[`box-${item.key}`]} ${
-                      styles[`form_group_flex_${item.flexDirection}`]
-                    }`}>
-                    <Form.Label className={styles.form_label}>{item.value}</Form.Label>
-                    <Select
-                      // ref={setRef(item)}
-                      className={styles.input_element}
-                      onChange={(e) => handleValue(e)}
-                      classNamePrefix="select"
-                      placeholder="Выберите"
-                      id={item.key}
-                      // value={item.selectOption.find((item) => item.value === data[item.key])}
-                      isDisabled={item.disabled || mode === "view" ? true : false}
-                      isSearchable={item.isSearchable}
-                      name={item.key}
-                      options={item.options}
-                      defaultValue={item.defaultValue}
-                    />
-                  </Form.Group>
-                );
-              default:
-                if (item.key === "boatRegNum") {
+      {isLoading ? (
+        <div className={`d-flex flex-column align-items-center `}>
+          <ProgressBar
+            height="80"
+            width="80"
+            ariaLabel="progress-bar-loading"
+            wrapperStyle={{}}
+            wrapperClass="progress-bar-wrapper"
+            borderColor="#F4442E"
+            barColor="#51E5FF"
+          />
+        </div>
+      ) : (
+        <>
+          <h2>Добавить РК аварийного случая</h2>
+          <div
+            className={
+              window.location.pathname.includes("individual") || personType === "individual"
+                ? styles.grid_container_individual
+                : styles.grid_container_entity
+            }>
+            {Object.values(transportAccidentFormSettings).map((item) => {
+              switch (item.type) {
+                case "select":
                   return (
-                    <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex_reg_num}`}>
-                      <div className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
+                    <Form.Group
+                      className={`${styles[`box-${item.key}`]} ${
+                        styles[`form_group_flex_${item.flexDirection}`]
+                      }`}>
+                      <Form.Label className={styles.form_label}>{item.value}</Form.Label>
+                      <Select
+                        // ref={setRef(item)}
+                        className={styles.input_element}
+                        onChange={(e) => handleValue(e)}
+                        classNamePrefix="select"
+                        placeholder="Выберите"
+                        id={item.key}
+                        value={item.options.find((item) => {
+                          return item.value === newAccidentData[item.key];
+                        })}
+                        // isDisabled={item.disabled || mode === "view" ? true : false}
+                        isSearchable={item.isSearchable}
+                        name={item.key}
+                        options={item.options}
+                        defaultValue={item.defaultValue}
+                      />
+                    </Form.Group>
+                  );
+                default:
+                  if (item.key === "boatRegNum") {
+                    return (
+                      <Form.Group
+                        className={`${styles[`box-${item.key}`]} ${styles.form_group_flex_reg_num}`}>
+                        <div className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
+                          <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
+                          <Form.Control
+                            // className={
+                            //   !halfControls.includes(item.key)
+                            //     ? styles.half_controls
+                            //     : styles.wide_controls
+                            // }
+                            id={item.key}
+                            defaultValue={item.defaultValue}
+                            readOnly={item.readOnly || mode === "view"}
+                            disabled={mode === "view" ? true : false}
+                            type={item.type}
+                            value={newAccidentData[item.key]}
+                            onChange={(e) => handleValue(e)}
+                          />
+                        </div>
+
+                        <div
+                          className={styles.search_button}
+                          id={"search"}
+                          onClick={(e) => handleButtonClick(e)}>
+                          Найти
+                        </div>
+                      </Form.Group>
+                    );
+                  } else {
+                    return (
+                      <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
                         <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
                         <Form.Control
                           // className={
@@ -172,20 +244,54 @@ export default function TransportAccidentForm() {
                           readOnly={item.readOnly || mode === "view"}
                           disabled={mode === "view" ? true : false}
                           type={item.type}
-                          // value={data[item.key]}
+                          value={newAccidentData[item.key]}
                           onChange={(e) => handleValue(e)}
                         />
-                      </div>
-
-                      <div
-                        className={styles.search_button}
-                        id={"search"}
-                        onClick={(e) => handleButtonClick(e)}>
-                        Найти
-                      </div>
+                      </Form.Group>
+                    );
+                  }
+              }
+            })}
+          </div>
+          <TableAppBoatReg
+            typeTable={"culpritsList"}
+            tableOptions={culpritsListOptions}
+            mode={mode}
+            // data={boatCardAppEngList}
+          />
+          <TableAppBoatReg
+            typeTable={"injuredsList"}
+            tableOptions={injuredsListOptions}
+            mode={mode}
+            // data={boatCardAppEngList}
+          />
+          <div className={styles.grid_container_footer}>
+            {Object.values(TransportAccidentFormSettingsFooter).map((item) => {
+              switch (item.type) {
+                case "select":
+                  return (
+                    <Form.Group
+                      className={`${styles[`box-${item.key}`]} ${
+                        styles[`form_group_flex_${item.flexDirection}`]
+                      }`}>
+                      <Form.Label className={styles.form_label}>{item.value}</Form.Label>
+                      <Select
+                        // ref={setRef(item)}
+                        className={styles.input_element}
+                        onChange={(e) => handleValue(e)}
+                        classNamePrefix="select"
+                        placeholder="Выберите"
+                        id={item.key}
+                        value={item.options.find((item) => item.value === newAccidentData[item.key])}
+                        isDisabled={item.disabled || mode === "view" ? true : false}
+                        isSearchable={item.isSearchable}
+                        name={item.key}
+                        options={item.options}
+                        defaultValue={item.defaultValue}
+                      />
                     </Form.Group>
                   );
-                } else {
+                default:
                   return (
                     <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
                       <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
@@ -200,102 +306,41 @@ export default function TransportAccidentForm() {
                         readOnly={item.readOnly || mode === "view"}
                         disabled={mode === "view" ? true : false}
                         type={item.type}
-                        // value={data[item.key]}
+                        value={newAccidentData[item.key]}
                         onChange={(e) => handleValue(e)}
                       />
                     </Form.Group>
                   );
-                }
-            }
-          })}
-      </div>
-      <TableAppBoatReg
-        typeTable={"culpritsList"}
-        tableOptions={culpritsListOptions}
-        mode={mode}
-        // data={boatCardAppEngList}
-      />
-      <TableAppBoatReg
-        typeTable={"injuredsList"}
-        tableOptions={injuredsListOptions}
-        mode={mode}
-        // data={boatCardAppEngList}
-      />
-      <div className={styles.grid_container_footer}>
-        {Object.values(TransportAccidentFormSettingsFooter).map((item) => {
-          switch (item.type) {
-            case "select":
-              return (
-                <Form.Group
-                  className={`${styles[`box-${item.key}`]} ${
-                    styles[`form_group_flex_${item.flexDirection}`]
-                  }`}>
-                  <Form.Label className={styles.form_label}>{item.value}</Form.Label>
-                  <Select
-                    // ref={setRef(item)}
-                    className={styles.input_element}
-                    onChange={(e) => handleValue(e)}
-                    classNamePrefix="select"
-                    placeholder="Выберите"
-                    id={item.key}
-                    // value={item.selectOption.find((item) => item.value === data[item.key])}
-                    isDisabled={item.disabled || mode === "view" ? true : false}
-                    isSearchable={item.isSearchable}
-                    name={item.key}
-                    options={item.options}
-                    defaultValue={item.defaultValue}
-                  />
-                </Form.Group>
-              );
-            default:
-              return (
-                <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
-                  <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
-                  <Form.Control
-                    // className={
-                    //   !halfControls.includes(item.key)
-                    //     ? styles.half_controls
-                    //     : styles.wide_controls
-                    // }
-                    id={item.key}
-                    defaultValue={item.defaultValue}
-                    readOnly={item.readOnly || mode === "view"}
-                    disabled={mode === "view" ? true : false}
-                    type={item.type}
-                    // value={data[item.key]}
-                    onChange={(e) => handleValue(e)}
-                  />
-                </Form.Group>
-              );
-          }
-        })}
-      </div>
-      <div className={styles.buttons_container}>
-        {mode === "add" && (
-          <>
+              }
+            })}
+          </div>
+          <div className={styles.buttons_container}>
+            {mode === "add" && (
+              <>
+                <div
+                  className={styles.add_button}
+                  id={"save"}
+                  onClick={(e) => handleButtonClick(e)}>
+                  Сохранить
+                </div>
+                <div
+                  className={styles.save_button}
+                  id={"add"}
+                  // onClick={(e) => handleButtonClick(e)}
+                >
+                  Сформировать дело
+                </div>
+              </>
+            )}
             <div
-              className={styles.add_button}
-              id={"add"}
-              // onClick={(e) => handleButtonClick(e)}
-            >
-              Сохранить
+              className={styles.close_button}
+              id={"close"}
+              onClick={(e) => handleButtonClick(e)}>
+              Закрыть
             </div>
-            <div
-              className={styles.save_button}
-              id={"add"}
-              // onClick={(e) => handleButtonClick(e)}
-            >
-              Сформировать дело
-            </div>
-          </>
-        )}
-        <div
-          className={styles.close_button}
-          id={"close"}
-          onClick={(e) => handleButtonClick(e)}>
-          Закрыть
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

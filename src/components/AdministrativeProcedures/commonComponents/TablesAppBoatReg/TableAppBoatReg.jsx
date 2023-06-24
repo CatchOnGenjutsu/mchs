@@ -159,7 +159,7 @@ export default function TableAppBoatReg({
                             </button>
                           </td>
                         );
-                      } else if (item.key === "culpritDrunk" || item.key === "injuredDrunk") {
+                      } else if (item.key === "drunk") {
                         return <td>{elem[`${item.key}`] === 1 ? "Да" : "Нет"}</td>;
                       } else {
                         return <td>{elem[`${item.key}`]}</td>;

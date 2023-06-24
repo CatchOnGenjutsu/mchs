@@ -83,7 +83,7 @@ export default function AppBoatRegModal({
     } else {
       newData[e.target.dataset.id] = e.currentTarget.value;
     }
-    console.log(e.target.dataset.id);
+    // console.log(e.target.dataset.id);
     if (saveKey) handleErrors();
   };
 
@@ -191,10 +191,10 @@ export default function AppBoatRegModal({
         input.toggleAttribute("checked");
         break;
       case "culpritsList":
-        setNewData({ culpritDrunk: 1 });
+        setNewData({ drunk: 1 });
         break;
       case "injuredsList":
-        setNewData({ injuredDrunk: 1 });
+        setNewData({ drunk: 1 });
         break;
       default:
         break;

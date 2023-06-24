@@ -6,6 +6,8 @@ import {
   DELETE_NEW_NOTE_ACCIDENT,
   ADD_NEW_ACCIDENT_DATA,
   CLEAR_ACCIDENT_DATA,
+  GET_TRANSPORT_ACCIDENT_INFO,
+  GET_BOAT_INFO_BY_REGNUM,
 } from "../types";
 
 import { v4 as uuidv4 } from "uuid";
@@ -27,7 +29,7 @@ const initialState = {
   culpritsList: [],
   injuredsList: [],
   newAccidentData: {},
-  // personType: null,
+  personType: "",
   // boatCardAppEngList: [],
   // boatCardAppSpecMarkList: [],
   // boatCardAppDealsList: [],
@@ -84,6 +86,17 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
         newAccidentData: action.data,
         culpritsList: [],
         injuredsList: [],
+      }))();
+    case GET_TRANSPORT_ACCIDENT_INFO:
+      return (() => ({
+        ...state,
+        newAccidentData: { ...state.newAccidentData, ...action.data.responseMain },
+        personType: action.data.personType,
+      }))();
+    case GET_BOAT_INFO_BY_REGNUM:
+      return (() => ({
+        ...state,
+        newAccidentData: { ...state.newAccidentData, ...action.data },
       }))();
     default:
       return state;

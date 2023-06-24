@@ -1,17 +1,21 @@
 export const TransportAccidentFormSettingsIndividual = {
-  section: {
-    key: "section",
+  sectionId: {
+    key: "sectionId",
     value: "Участок",
     type: "select",
     flexDirection: "inline",
-    options: [{ value: 0, label: "Все", key: "section" }],
+    options: [
+      // { value: 0, label: "Все", key: "section" }
+    ],
   },
-  inspector: {
-    key: "inspector",
+  inspectorId: {
+    key: "inspectorId",
     value: "Инспектор",
     type: "select",
     flexDirection: "inline",
-    options: [{ value: 0, label: "", key: "inspector" }],
+    options: [
+      // { value: 0, label: "", key: "inspectorId" }
+    ],
   },
   boatRegNum: {
     key: "boatRegNum",
@@ -19,8 +23,8 @@ export const TransportAccidentFormSettingsIndividual = {
     type: "text",
     flexDirection: "column",
   },
-  boatVid: {
-    key: "boatVid",
+  boatVidId: {
+    key: "boatVidId",
     value: "Вид маломерного судна",
     type: "select",
     flexDirection: "column",
@@ -30,8 +34,8 @@ export const TransportAccidentFormSettingsIndividual = {
     disabled: false,
     required: true,
   },
-  boatType: {
-    key: "boatType",
+  boatTypeId: {
+    key: "boatTypeId",
     value: "Тип маломерного судна",
     type: "select",
     flexDirection: "column",
@@ -145,19 +149,23 @@ export const TransportAccidentFormSettingsIndividual = {
 };
 
 export const TransportAccidentFormSettingsEntity = {
-  section: {
-    key: "section",
+  sectionId: {
+    key: "sectionId",
     value: "Участок",
     type: "select",
     flexDirection: "inline",
-    options: [{ value: 0, label: "Все", key: "section" }],
+    options: [
+      // { value: 0, label: "Все", key: "section" }
+    ],
   },
-  inspector: {
-    key: "inspector",
+  inspectorId: {
+    key: "inspectorId",
     value: "Инспектор",
     type: "select",
     flexDirection: "inline",
-    options: [{ value: 0, label: "", key: "inspector" }],
+    options: [
+      // { value: 0, label: "", key: "inspector" }
+    ],
   },
   boatRegNum: {
     key: "boatRegNum",
@@ -165,8 +173,8 @@ export const TransportAccidentFormSettingsEntity = {
     type: "text",
     flexDirection: "column",
   },
-  boatVid: {
-    key: "boatVid",
+  boatVidId: {
+    key: "boatVidId",
     value: "Вид маломерного судна",
     type: "select",
     flexDirection: "column",
@@ -176,8 +184,8 @@ export const TransportAccidentFormSettingsEntity = {
     disabled: false,
     required: true,
   },
-  boatType: {
-    key: "boatType",
+  boatTypeId: {
+    key: "boatTypeId",
     value: "Тип маломерного судна",
     type: "select",
     flexDirection: "column",
@@ -278,41 +286,41 @@ export const culpritsListOptions = {
   nameColumn: [
     {
       value: "Фамилия",
-      key: "culpritSurname",
+      key: "surname",
       type: "text",
       neededInModal: true,
     },
     {
       value: "Имя",
-      key: "culpritName",
+      key: "name",
       type: "text",
       neededInModal: true,
     },
     {
       value: "Отчество",
-      key: "culpritMidname",
+      key: "midname",
       type: "text",
       neededInModal: true,
     },
     {
       value: "Дата рождения",
-      key: "culpritBirthDate",
+      key: "birthDate",
       type: "date",
       neededInModal: true,
     },
     {
       value: "Место работы",
-      key: "culpritWorkplace",
+      key: "workplace",
       type: "text",
       neededInModal: true,
     },
     {
       value: "Агкогольное опьянение",
-      key: "culpritDrunk",
+      key: "drunk",
       type: "select",
       selectOptions: [
-        { value: 1, label: "Да", key: "engtype" },
-        { value: 2, label: "Нет", key: "engtype" },
+        { value: true, label: "Да", key: "drunk" },
+        { value: false, label: "Нет", key: "drunk" },
       ],
       neededInModal: true,
     },
@@ -324,41 +332,41 @@ export const injuredsListOptions = {
   nameColumn: [
     {
       value: "Фамилия",
-      key: "injuredSurname",
+      key: "surname",
       type: "text",
       neededInModal: true,
     },
     {
       value: "Имя",
-      key: "injuredName",
+      key: "name",
       type: "text",
       neededInModal: true,
     },
     {
       value: "Отчество",
-      key: "injuredMidname",
+      key: "midname",
       type: "text",
       neededInModal: true,
     },
     {
       value: "Дата рождения",
-      key: "injuredBirthDate",
+      key: "birthDate",
       type: "date",
       neededInModal: true,
     },
     {
       value: "Место работы",
-      key: "injuredWorkplace",
+      key: "workplace",
       type: "text",
       neededInModal: true,
     },
     {
       value: "Агкогольное опьянение",
-      key: "injuredDrunk",
+      key: "drunk",
       type: "select",
       selectOptions: [
-        { value: 1, label: "Да", key: "engtype" },
-        { value: 2, label: "Нет", key: "engtype" },
+        { value: true, label: "Да", key: "drunk" },
+        { value: false, label: "Нет", key: "drunk" },
       ],
       neededInModal: true,
     },
@@ -369,8 +377,8 @@ export const TransportAccidentFormSettingsFooter = {
   incidentType: {
     key: "incidentType",
     value: "Вид транспортного аварийного случая",
-    type: "selectRayon",
-    selectOption: [
+    type: "select",
+    options: [
       { value: 1, label: "Авария", key: "incidentType" },
       { value: 2, label: "Инцендент", key: "incidentType" },
     ],
@@ -390,7 +398,7 @@ export const TransportAccidentFormSettingsFooter = {
   deadChildren: {
     key: "deadChildren",
     value: "Количество погибших детей",
-    type: "date",
+    type: "text",
     flexDirection: "column",
   },
   saveNum: {
@@ -408,44 +416,68 @@ export const TransportAccidentFormSettingsFooter = {
 };
 
 export const setOptionsForInputsATE = (inputsOptions, path) => {
+  console.log(path);
   switch (true) {
     case path.includes("individual"):
-      if (TransportAccidentFormSettingsIndividual.section.options.length === 1) {
-        TransportAccidentFormSettingsIndividual.section.options.push(...inputsOptions);
+      if (TransportAccidentFormSettingsIndividual.sectionId.options.length === 0) {
+        TransportAccidentFormSettingsIndividual.sectionId.options.push(...inputsOptions);
       }
       break;
     case path.includes("entity"):
-      if (TransportAccidentFormSettingsEntity.section.options.length === 1) {
-        TransportAccidentFormSettingsEntity.section.options.push(...inputsOptions);
+      if (TransportAccidentFormSettingsEntity.sectionId.options.length === 0) {
+        TransportAccidentFormSettingsEntity.sectionId.options.push(...inputsOptions);
       }
       break;
     default:
       break;
+  }
+  if (path.includes("individual")) {
+    return TransportAccidentFormSettingsIndividual;
+  } else {
+    return TransportAccidentFormSettingsEntity;
   }
 };
 
 export const setOptionsForInputsUsers = (inputsOptions, path) => {
   switch (true) {
     case path.includes("individual"):
-      TransportAccidentFormSettingsIndividual.inspector.options = inputsOptions.map((item) => {
-        return { value: item.userid, label: item.name, key: "inspector" };
+      TransportAccidentFormSettingsIndividual.inspectorId.options = inputsOptions.map((item) => {
+        return { value: item.userid, label: item.name, key: "inspectorId" };
       });
       break;
     case path.includes("entity"):
-      TransportAccidentFormSettingsEntity.inspector.options = inputsOptions.map((item) => {
-        return { value: item.userid, label: item.name, key: "inspector" };
+      TransportAccidentFormSettingsEntity.inspectorId.options = inputsOptions.map((item) => {
+        return { value: item.userid, label: item.name, key: "inspectorId" };
       });
       break;
     default:
       break;
   }
+  if (path.includes("individual")) {
+    return TransportAccidentFormSettingsIndividual;
+  } else {
+    return TransportAccidentFormSettingsEntity;
+  }
 };
 
 export function setOptionsForBoat(types, kinds, path) {
-  TransportAccidentFormSettingsIndividual.boatType.options = types;
-  TransportAccidentFormSettingsIndividual.boatVid.options = kinds;
-  TransportAccidentFormSettingsEntity.boatType.options = types;
-  TransportAccidentFormSettingsEntity.boatVid.options = kinds;
+  TransportAccidentFormSettingsIndividual.boatTypeId.options = types.map((item) => {
+    item.key = "boatTypeId";
+    return item;
+  });
+  TransportAccidentFormSettingsIndividual.boatVidId.options = kinds.map((item) => {
+    item.key = "boatVidId";
+    return item;
+  });
+  TransportAccidentFormSettingsEntity.boatTypeId.options = types.map((item) => {
+    item.key = "boatTypeId";
+    return item;
+  });
+  TransportAccidentFormSettingsEntity.boatVidId.options = kinds.map((item) => {
+    item.key = "boatVidId";
+    return item;
+  });
+  console.log(new Date().toISOString());
   if (path.includes("individual")) {
     return TransportAccidentFormSettingsIndividual;
   } else {

@@ -58,19 +58,19 @@
 .input_element {
   width: 200px;
 }
-.box-section {
+.box-sectionId {
   grid-area: BS;
 }
-.box-inspector {
+.box-inspectorId {
   grid-area: BI;
 }
 .box-boatRegNum {
   grid-area: BRN;
 }
-.box-boatVid {
+.box-boatVidId {
   grid-area: BV;
 }
-.box-boatType {
+.box-boatTypeId {
   grid-area: BT;
 }
 .box-boatName {
