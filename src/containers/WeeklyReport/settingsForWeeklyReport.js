@@ -4,6 +4,7 @@ export const fieldsForSearch = {
         label: "Период отчета с",
         type: "date",
         disabled: false,
+        hidden:false,
         required: true
     },
     date2: {
@@ -11,6 +12,7 @@ export const fieldsForSearch = {
         label: "Период отчета по",
         type: "date",
         disabled: false,
+        hidden:false,
         required: true
     },
     section: {
@@ -19,6 +21,7 @@ export const fieldsForSearch = {
         type: "selectSearch",
         disabled: false,
         required: false,
+        hidden:false,
         search:true,
         options:[]
     },
@@ -28,6 +31,7 @@ export const fieldsForSearch = {
         type: "selectSearch",
         disabled: false,
         search:false,
+        hidden:false,
         required: false,
         options: [
             {value: 1, label: "Брестская", key: "oblast"},

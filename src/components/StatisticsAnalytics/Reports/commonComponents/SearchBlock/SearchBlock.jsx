@@ -6,6 +6,7 @@ import Select from "react-select";
 import {useSelector} from "react-redux";
 import Button from "react-bootstrap/Button";
 import { MAIN_URL, PORT_FOR_REPORT} from "../../../../../constants/constants";
+import { month1 } from '../../../../../containers/GraphsReport/optionsForTypeGraph';
 
 
 function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDFFile,setDocsFile,getOptionsForField,setLoader}) {
@@ -24,6 +25,8 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
     const yearRef = useRef();
     const typeGraphRef = useRef();
     const periodGraphRef = useRef();
+
+
     const customStyles = {
         control: (provided) => ({
             ...provided,
@@ -60,7 +63,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
             case "graph":
                 return typeGraphRef
             case "periodGraph":
-                return periodGraphRef
+                return periodGraphRef  
             default:
                 return null;
         }
@@ -80,13 +83,17 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
             return false;
         }
     };
-    console.log(errors,errorsFields)
     const handleGetReport = ()=> {
-        debugger
         if (!handleErrors()&& compareDate()){
             let queryString = ""
             if(window.location.href.includes("reports/graphs")){
                 queryString = data.graph.map(el=> "graph="+encodeURIComponent(el.value)).join('&')
+                if(data.month1 && data.month2){
+                    queryString+=`&month1=${data.month1}&month2=${data.month2}`
+                    urlForReport = urlForReport[1]
+                }else{
+                    urlForReport = urlForReport[0]
+                }
             }else{
                 queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
             }
@@ -97,7 +104,6 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                 if(response.ok){
                     setLoader(false)
                     const formData = await response.formData();
-                    debugger
                     const filePdf = formData.get('pdf');
                     const fileExcel = formData.get('excel');
                     const docsFile = formData.get('doc')
@@ -125,6 +131,17 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                     return true
             }
         }
+        if(data.month1 && data.month2){
+            switch (true) {
+                case (data.month1>data.month2):
+                    setDataRangeError(
+                        'Месяц, установленный в "Месяц c" не может быть больше месяца, установленный в "Месяц по".',
+                    );
+                    return false
+                default:setDataRangeError("")
+                    return true
+            }
+        }
         return true
     }
     const handleChangeData = (e)=>{
@@ -145,7 +162,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                     break
                 }
                 case Object.keys(e).includes("key"):{
-                    debugger
+        
                     data[`${e.key}`]= e.value
                     const newData = {...data}
                     if(e.key==="section"){
@@ -155,7 +172,14 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                         setOptionsForField(true,"section")
                     }
                     if(e.key==="periodGraph"){
-                        setOptionsForField(true,"periodGraph")
+                        setOptionsForField(e.value,"periodGraph")
+                        delete newData.month1
+                        delete newData.month2
+                        delete newData.graph
+                        typeGraphRef.current.clearValue()
+                        setPDFFile("")
+                        setDocsFile("")
+                
                     }
                     setData(newData)
                     break
@@ -167,13 +191,14 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
         }
 
     }
-
+    console.log(data,errorsFields)
     const handleClearData = () => {
         if(window.location.href.includes("reports/graphs")){
             typeGraphRef.current.clearValue()
             periodGraphRef.current.clearValue()
+            setOptionsForField(0,"periodGraph")
             setOptions(Object.values(getOptionsForField()))
-            // setLoader(false)
+        
             setPDFFile("")
             setDocsFile("")
             setExcelFile("")
@@ -206,7 +231,6 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
         setData({})
 
     }
-    console.log(data)
 
     useEffect(()=>{
         if(!window.location.href.includes("reports/graphs")){
@@ -222,7 +246,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                 {!!dataRangeError && <div className={styles.range_block}>{dataRangeError}</div>}
                 <div className={`d-flex`}>
                     {options.map((field)=>{
-                        if(field.type==="number")
+                        if(field.type==="number" && !field.hidden)
                             return (
                                 <Form.Group className={styles.input_element}>
                                     <Form.Label className={styles.label_text}>
@@ -248,7 +272,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             )
-                        if(field.type==="date")
+                        if(field.type==="date" && !field.hidden)
                             return (
                                 <Form.Group className={styles.input_element}>
                                     <Form.Label className={styles.label_text}>
@@ -273,7 +297,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                                 </Form.Group>
 
                             )
-                        if (field.type==="selectSearch")
+                        if (field.type==="selectSearch" && !field.hidden)
                             return (
                                 <Form.Group className={styles.input_element}>
                                     <Form.Label className={styles.label_text}>
@@ -291,6 +315,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                                         options={field.options}
                                         className={styles.max_width_select}
                                         styles={!!errors[field.key]?customStyles:""}
+                                        isHidden={field.hidden}
                                     />
                                     {!!errors[field.key] && (<Form.Label className={styles.error}>{errors[field.key]}</Form.Label>)}
                                 </Form.Group>

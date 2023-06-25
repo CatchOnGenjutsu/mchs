@@ -4,14 +4,16 @@ export const fieldsForSearchCertificate = {
         label: "Период отчета с",
         type: "date",
         disabled: false,
-        required: true
+        required: true,
+        hidden:false,
     },
     date2: {
         key: "date2",
         label: "Период отчета по",
         type: "date",
         disabled: false,
-        required: true
+        required: true,
+        hidden:false,
     },
     section: {
         key: "section",
@@ -20,7 +22,8 @@ export const fieldsForSearchCertificate = {
         disabled: false,
         required: false,
         search:true,
-        options:[]
+        options:[],
+        hidden:false,
     },
     oblast: {
         key: "oblast",
@@ -37,6 +40,7 @@ export const fieldsForSearchCertificate = {
             {value: 6, label: "Минская", key: "oblast"},
             {value: 7, label: "Могилевская", key: "oblast"},
         ],
+        hidden:false,
     },
 }
 
