@@ -5,7 +5,7 @@ import {
     getOptionsForField,
     setOptionsForField
 } from "./settingsForGraphsReport";
-import {API_GET_FIVEYEARS_GRAPH_REPORT} from "../../constants/constants";
+import {API_GET_FIVEYEARS_GRAPH_REPORT,API_GET_MONTH_GRAPH_REPORT} from "../../constants/constants";
 import DocumentPreview
     from "../../components/StatisticsAnalytics/Reports/commonComponents/DocumentPreview/DocumentPreview";
 import {useSelector} from "react-redux";
@@ -38,7 +38,7 @@ function GraphsReport() {
             <SearchBlock
                 fields = {fieldsForSearchGraphs}
                 setOptionsForField={setOptionsForField}
-                urlForReport = {API_GET_FIVEYEARS_GRAPH_REPORT }
+                urlForReport = {[API_GET_FIVEYEARS_GRAPH_REPORT,API_GET_MONTH_GRAPH_REPORT] }
                 setDocsFile = {setDocsFile}
                 setExcelFile = {setExcelFile}
                 setPDFFile={setPDFFile}
