@@ -225,14 +225,14 @@ export const TransportAccidentFormSettingsEntity = {
     type: "text",
     flexDirection: "column",
   },
-  leName: {
-    key: "leName",
+  ownerLename: {
+    key: "ownerLename",
     value: "Наименование судовладельца",
     type: "text",
     flexDirection: "column",
   },
-  leUnp: {
-    key: "leUnp",
+  ownerLeUnp: {
+    key: "ownerLeUnp",
     value: "УНП судовладельца",
     type: "text",
     flexDirection: "column",

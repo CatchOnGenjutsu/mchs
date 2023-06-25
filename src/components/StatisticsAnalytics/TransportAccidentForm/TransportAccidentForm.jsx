@@ -107,7 +107,13 @@ export default function TransportAccidentForm() {
           }
           break;
         case "save":
-          dispatch(saveTransportAccident(newAccidentData, culpritsList, injuredsList));
+          if (mode === "add") {
+            dispatch(saveTransportAccident(newAccidentData, culpritsList, injuredsList));
+          } else if (mode === "edit") {
+            const pathArray = window.location.pathname.split("/");
+            const id = pathArray[pathArray.length - 1];
+            dispatch(saveTransportAccident(newAccidentData, culpritsList, injuredsList, id));
+          }
           break;
         case "close":
           dispatch(clearAccidentData());
@@ -126,7 +132,7 @@ export default function TransportAccidentForm() {
       // const materialsBodyBoat = await setOptionsBodyBoat();
       // const saCategory = await setOptionsSaCategory();
       setTransportAccidentFormSettings(setOptionsForBoat(typesBoat, kindsBoat, window.location.pathname));
-      if (mode === "view") {
+      if (mode === "view" || mode === "edit") {
         const pathArray = window.location.pathname.split("/");
         const id = pathArray[pathArray.length - 1];
         dispatch(getAccidentInfoById(id));
@@ -140,7 +146,7 @@ export default function TransportAccidentForm() {
     })();
   }, []);
   useEffect(() => {
-    if (mode === "view") {
+    if (mode === "view" || mode === "edit") {
       setTransportAccidentFormSettings(setOptionsForInputsATE(dataOptionsForSelectATEValidated, personType));
       setTransportAccidentFormSettings(setOptionsForInputsUsers(usersLib, personType));
     }
@@ -190,7 +196,7 @@ export default function TransportAccidentForm() {
                         value={item.options.find((item) => {
                           return item.value === newAccidentData[item.key];
                         })}
-                        // isDisabled={item.disabled || mode === "view" ? true : false}
+                        isDisabled={item.disabled || mode === "view" ? true : false}
                         isSearchable={item.isSearchable}
                         name={item.key}
                         options={item.options}
@@ -315,7 +321,7 @@ export default function TransportAccidentForm() {
             })}
           </div>
           <div className={styles.buttons_container}>
-            {mode === "add" && (
+            {mode !== "view" && (
               <>
                 <div
                   className={styles.add_button}

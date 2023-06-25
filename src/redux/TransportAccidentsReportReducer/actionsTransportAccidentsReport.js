@@ -16,6 +16,8 @@ import {
   API_SAVE_TRANSPORT_ACCIDENT_MAIN_INFO,
   API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO,
   API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO,
+  API_GET_TRANSPORT_ACCIDENT_VICTIMS_INFO,
+  API_GET_TRANSPORT_ACCIDENT_CAUSERS_INFO,
 } from "../../constants/constants";
 
 export function addNewCulprit(newCulprit) {
@@ -100,63 +102,130 @@ export function getAccidentInfoById(id) {
     const requestMain = await fetch(
       MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_LIST_SEARCH + "/" + id,
     );
-    const responseMain = await requestMain.json();
-    responseMain.incidentTime = responseMain.incidentDate.slice(11, 19);
-    responseMain.incidentDate = responseMain.incidentDate.slice(0, 10);
-    responseMain.boatVid = responseMain.boatVid.id;
-    responseMain.boatType = responseMain.boatType.btcode;
-    const personType = responseMain.nameLe ? "entity" : "individual";
-    const data = { responseMain: responseMain, personType: personType };
-    dispatch({
-      type: GET_TRANSPORT_ACCIDENT_INFO,
-      data: data,
-    });
+    if (requestMain.status === 200) {
+      const responseMain = await requestMain.json();
+      responseMain.incidentTime = responseMain.incidentDate.slice(11, 19);
+      responseMain.incidentDate = responseMain.incidentDate.slice(0, 10);
+      responseMain.boatVid = responseMain.boatVid.id;
+      responseMain.boatType = responseMain.boatType.btcode;
+      const personType = responseMain.ownerLename ? "entity" : "individual";
+      const requestCulprits = await fetch(
+        MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_VICTIMS_INFO + responseMain.id,
+      );
+      const requestInjureds = await fetch(
+        MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_CAUSERS_INFO + responseMain.id,
+      );
+      const responseCulprits = await requestCulprits.json();
+      const responseInjureds = await requestInjureds.json();
+      const data = {
+        responseMain: responseMain,
+        personType: personType,
+        culpritsList: responseCulprits,
+        injuredsList: responseInjureds,
+      };
+      dispatch({
+        type: GET_TRANSPORT_ACCIDENT_INFO,
+        data: data,
+      });
+    }
   };
 }
 
-export function saveTransportAccident(data, culpritsList, injuredsList) {
+export function saveTransportAccident(data, culpritsList, injuredsList, id) {
   data.incidentDate = `${data.incidentDate} ${data.incidentTime}.000`;
   delete data.incidentTime;
   data.createDate = new Date().toISOString().split("T").join(" ").slice(0, -1);
   data.locked = false;
-  return async (dispatch) => {
-    const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_MAIN_INFO, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    if (request.status === 200) {
-      const response = await request.json();
-      for (let item of culpritsList) {
-        item.drunk = item.drunk === "true" ? true : false;
-        item.incidentId = response.id;
-        delete item.innerId;
-        item.birthDate = new Date(item.birthDate).getTime();
-        const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO, {
+  if (!!id) {
+    return async (dispatch) => {
+      const request = await fetch(
+        MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_MAIN_INFO + "/" + id,
+        {
           headers: {
             "Content-Type": "application/json",
           },
           method: "POST",
-          body: JSON.stringify(item),
-        });
+          body: JSON.stringify(data),
+        },
+      );
+      if (request.status === 200) {
+        const response = await request.json();
+        // for (let item of culpritsList) {
+        //   item.drunk = item.drunk === "true" ? true : false;
+        //   item.incidentId = response.id;
+        //   delete item.innerId;
+        //   item.birthDate = new Date(item.birthDate).getTime();
+        //   const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO, {
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     method: "POST",
+        //     body: JSON.stringify(item),
+        //   });
+        // }
+        // for (let item of injuredsList) {
+        //   item.drunk = item.drunk === "true" ? true : false;
+        //   item.incidentId = response.id;
+        //   delete item.innerId;
+        //   delete item.drunk;
+        //   item.birthDate = new Date(item.birthDate).getTime();
+        //   const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO, {
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     method: "POST",
+        //     body: JSON.stringify(item),
+        //   });
+        // }
+        console.log(response);
       }
-      for (let item of injuredsList) {
-        item.drunk = item.drunk === "true" ? true : false;
-        item.incidentId = response.id;
-        delete item.innerId;
-        delete item.drunk;
-        item.birthDate = new Date(item.birthDate).getTime();
-        const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO, {
-          headers: {
-            "Content-Type": "application/json",
+    };
+  } else {
+    return async (dispatch) => {
+      const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_MAIN_INFO, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      if (request.status === 200) {
+        const response = await request.json();
+        for (let item of culpritsList) {
+          item.drunk = item.drunk === "true" ? true : false;
+          item.incidentId = response.id;
+          delete item.innerId;
+          item.birthDate = new Date(item.birthDate).getTime();
+        }
+        const requestCulprits = await fetch(
+          MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(culpritsList),
           },
-          method: "POST",
-          body: JSON.stringify(item),
-        });
+        );
+        for (let item of injuredsList) {
+          item.drunk = item.drunk === "true" ? true : false;
+          item.incidentId = response.id;
+          delete item.innerId;
+          delete item.drunk;
+          item.birthDate = new Date(item.birthDate).getTime();
+        }
+        const requestInjureds = await fetch(
+          MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(injuredsList),
+          },
+        );
+        console.log(response);
       }
-      console.log(response);
-    }
-  };
+    };
+  }
 }

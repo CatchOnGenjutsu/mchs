@@ -149,4 +149,6 @@ export const API_FIND_BOAT_INFO_BY_REGNUM = "boatincidents/getByRegNum/";
 export const API_FIND_BOAT_INFO_BY_ID = "boatincidents/getByRegNum/";
 export const API_SAVE_TRANSPORT_ACCIDENT_MAIN_INFO = "boatincidents/saveIncident";
 export const API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO = "boatincidents/saveVictims";
-export const API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO = "boatincidents/getCausers";
+export const API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO = "boatincidents/saveCausers";
+export const API_GET_TRANSPORT_ACCIDENT_VICTIMS_INFO = "boatincidents/getVictims/";
+export const API_GET_TRANSPORT_ACCIDENT_CAUSERS_INFO = "boatincidents/getCausers/";

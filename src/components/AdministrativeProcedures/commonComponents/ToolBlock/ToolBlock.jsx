@@ -182,6 +182,12 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         });
         break;
       }
+      case pathName.includes("transportaccidents"): {
+        navigate(`./accident/${id}`, {
+          state: { mode: "edit" },
+        });
+        break;
+      }
     }
   };
   useEffect(() => {

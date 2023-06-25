@@ -121,10 +121,10 @@
 .box-driverDrunk {
   grid-area: DD;
 }
-.box-leName {
+.box-ownerLename {
   grid-area: LN;
 }
-.box-leUnp {
+.box-ownerLeUnp {
   grid-area: LU;
 }
 .grid_container_footer {
