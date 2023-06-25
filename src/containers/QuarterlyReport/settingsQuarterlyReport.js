@@ -6,6 +6,7 @@ export const fieldsForSearchQuarterly = {
         disabled: false,
         search:false,
         required: true,
+        hidden:false,
         options: [
             {value: 1, label: "1", key: "quarter"},
             {value: 2, label: "2", key: "quarter"},
@@ -20,6 +21,7 @@ export const fieldsForSearchQuarterly = {
         type: "number",
         defaultValue: new Date().getFullYear().toString(),
         disabled: false,
+        hidden:false,
         required: true
     },
     section: {
@@ -28,6 +30,7 @@ export const fieldsForSearchQuarterly = {
         type: "selectSearch",
         disabled: false,
         required: false,
+        hidden:false,
         search:true,
         options:[]
     },
@@ -38,6 +41,7 @@ export const fieldsForSearchQuarterly = {
         disabled: false,
         search:false,
         required: false,
+        hidden:false,
         options: [
             {value: 1, label: "Брестская", key: "oblast"},
             {value: 2, label: "Витебская", key: "oblast"},
