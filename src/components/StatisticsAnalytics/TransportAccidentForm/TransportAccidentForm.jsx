@@ -8,8 +8,8 @@ import { ProgressBar } from "react-loader-spinner";
 import TableAppBoatReg from "../../AdministrativeProcedures/commonComponents/TablesAppBoatReg/TableAppBoatReg";
 
 import {
-  culpritsListOptions,
-  injuredsListOptions,
+  causersListOptions,
+  victimsListOptions,
   TransportAccidentFormSettingsFooter,
   setOptionsForInputsATE,
   setOptionsForInputsUsers,
@@ -31,6 +31,8 @@ import {
   getAccidentInfoById,
   saveTransportAccident,
 } from "../../../redux/TransportAccidentsReportReducer/actionsTransportAccidentsReport";
+
+import { getDataTransportAccidentBySearchParams } from "../../../redux/actions";
 
 import styles from "./TransportAccidentForm.module.css";
 
@@ -66,18 +68,23 @@ export default function TransportAccidentForm() {
     const { TransportAccidentsReportReducer } = state;
     return TransportAccidentsReportReducer.newAccidentData;
   });
-  const culpritsList = useSelector((state) => {
+  const causersList = useSelector((state) => {
     const { TransportAccidentsReportReducer } = state;
-    return TransportAccidentsReportReducer.culpritsList;
+    return TransportAccidentsReportReducer.causersList;
   });
-  const injuredsList = useSelector((state) => {
+  const victimsList = useSelector((state) => {
     const { TransportAccidentsReportReducer } = state;
-    return TransportAccidentsReportReducer.injuredsList;
+    return TransportAccidentsReportReducer.victimsList;
   });
 
   const personType = useSelector((state) => {
     const { TransportAccidentsReportReducer } = state;
     return TransportAccidentsReportReducer.personType;
+  });
+
+  const searchParamsTransportAccidents = useSelector((state) => {
+    const { TransportAccidentsReportReducer } = state;
+    return TransportAccidentsReportReducer.searchParams;
   });
 
   const handleValue = (e) => {
@@ -108,17 +115,33 @@ export default function TransportAccidentForm() {
           break;
         case "save":
           if (mode === "add") {
-            dispatch(saveTransportAccident(newAccidentData, culpritsList, injuredsList));
+            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList));
           } else if (mode === "edit") {
             const pathArray = window.location.pathname.split("/");
             const id = pathArray[pathArray.length - 1];
-            dispatch(saveTransportAccident(newAccidentData, culpritsList, injuredsList, id));
+            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id));
           }
+          dispatch(clearAccidentData());
+          navigate("/transportaccidents");
+          dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
+          break;
+        case "form":
+          const formKey = "form";
+          if (mode === "add") {
+            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, formKey));
+          } else if (mode === "edit") {
+            const pathArray = window.location.pathname.split("/");
+            const id = pathArray[pathArray.length - 1];
+            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id, formKey));
+          }
+          dispatch(clearAccidentData());
+          navigate("/transportaccidents");
+          dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
           break;
         case "close":
           dispatch(clearAccidentData());
           navigate("/transportaccidents");
-        // dispatch(getDataBoatsRegBySearchParams(searchParamsFromStateBoatsReg));
+          dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
         default:
           break;
       }
@@ -138,9 +161,7 @@ export default function TransportAccidentForm() {
         setTransportAccidentFormSettings(
           setOptionsForInputsATE(dataOptionsForSelectATEValidated, window.location.pathname),
         );
-
         setTransportAccidentFormSettings(setOptionsForInputsUsers(usersLib, window.location.pathname));
-        // console.log(transportAccidentFormSettings);
         setIsLoading(false);
       }
     })();
@@ -212,11 +233,6 @@ export default function TransportAccidentForm() {
                         <div className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
                           <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
                           <Form.Control
-                            // className={
-                            //   !halfControls.includes(item.key)
-                            //     ? styles.half_controls
-                            //     : styles.wide_controls
-                            // }
                             id={item.key}
                             defaultValue={item.defaultValue}
                             readOnly={item.readOnly || mode === "view"}
@@ -241,11 +257,6 @@ export default function TransportAccidentForm() {
                       <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
                         <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
                         <Form.Control
-                          // className={
-                          //   !halfControls.includes(item.key)
-                          //     ? styles.half_controls
-                          //     : styles.wide_controls
-                          // }
                           id={item.key}
                           defaultValue={item.defaultValue}
                           readOnly={item.readOnly || mode === "view"}
@@ -261,16 +272,14 @@ export default function TransportAccidentForm() {
             })}
           </div>
           <TableAppBoatReg
-            typeTable={"culpritsList"}
-            tableOptions={culpritsListOptions}
+            typeTable={"causersList"}
+            tableOptions={causersListOptions}
             mode={mode}
-            // data={boatCardAppEngList}
           />
           <TableAppBoatReg
-            typeTable={"injuredsList"}
-            tableOptions={injuredsListOptions}
+            typeTable={"victimsList"}
+            tableOptions={victimsListOptions}
             mode={mode}
-            // data={boatCardAppEngList}
           />
           <div className={styles.grid_container_footer}>
             {Object.values(TransportAccidentFormSettingsFooter).map((item) => {
@@ -303,11 +312,6 @@ export default function TransportAccidentForm() {
                     <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
                       <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
                       <Form.Control
-                        // className={
-                        //   !halfControls.includes(item.key)
-                        //     ? styles.half_controls
-                        //     : styles.wide_controls
-                        // }
                         id={item.key}
                         defaultValue={item.defaultValue}
                         readOnly={item.readOnly || mode === "view"}
@@ -332,9 +336,8 @@ export default function TransportAccidentForm() {
                 </div>
                 <div
                   className={styles.save_button}
-                  id={"add"}
-                  // onClick={(e) => handleButtonClick(e)}
-                >
+                  id={"form"}
+                  onClick={(e) => handleButtonClick(e)}>
                   Сформировать дело
                 </div>
               </>

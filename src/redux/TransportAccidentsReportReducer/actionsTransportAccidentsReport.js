@@ -50,12 +50,12 @@ export function deleteNewNoteAccident(innerData) {
     return async (dispatch) => {
       let request;
       switch (innerData.type) {
-        case "injuredsList":
+        case "victimsList":
           request = await fetch(
             MAIN_URL + PORT_FOR_REPORT + API_DELETE_TRANSPORT_ACCIDENT_VICTIMS_INFO + innerData.id,
           );
           break;
-        case "culpritsList":
+        case "causersList":
           request = await fetch(
             MAIN_URL + PORT_FOR_REPORT + API_DELETE_TRANSPORT_ACCIDENT_CAUSERS_INFO + innerData.id,
           );
@@ -143,19 +143,19 @@ export function getAccidentInfoById(id) {
       responseMain.boatVidId = responseMain.boatVid.id;
       responseMain.boatTypeId = responseMain.boatType.btcode;
       const personType = responseMain.ownerLename ? "entity" : "individual";
-      const requestCulprits = await fetch(
+      const requestVictims = await fetch(
         MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_VICTIMS_INFO + responseMain.id,
       );
-      const requestInjureds = await fetch(
+      const requestCausers = await fetch(
         MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_CAUSERS_INFO + responseMain.id,
       );
-      const responseCulprits = await requestCulprits.json();
-      const responseInjureds = await requestInjureds.json();
+      const responseCausers = await requestCausers.json();
+      const responseVictims = await requestVictims.json();
       const data = {
         responseMain: responseMain,
         personType: personType,
-        culpritsList: responseCulprits,
-        injuredsList: responseInjureds,
+        causersList: responseCausers,
+        victimsList: responseVictims,
       };
       dispatch({
         type: GET_TRANSPORT_ACCIDENT_INFO,
@@ -165,10 +165,10 @@ export function getAccidentInfoById(id) {
   };
 }
 
-export function saveTransportAccident(data, culpritsList, injuredsList, id) {
-  console.log(id);
-  data.incidentDate = `${data.incidentDate} ${data.incidentTime}.000`;
-  delete data.incidentTime;
+export function saveTransportAccident(newAccidentData, causersList, victimsList, id, formKey) {
+  console.log(newAccidentData);
+  newAccidentData.incidentDate = `${newAccidentData.incidentDate} ${newAccidentData.incidentTime}.000`;
+  delete newAccidentData.incidentTime;
   const optionsDate = {
     year: "numeric",
     month: "2-digit",
@@ -177,78 +177,89 @@ export function saveTransportAccident(data, culpritsList, injuredsList, id) {
     minute: "2-digit",
     second: "2-digit",
   };
-  data.createDate = `${new Date()
+  newAccidentData.createDate = `${new Date()
     .toLocaleString("en-GB", optionsDate)
     .slice(0, 10)
     .split("/")
     .reverse()
     .join("-")} ${new Date().toLocaleString("en-GB", optionsDate).slice(12, 20) + ".000"}`;
-  data.locked = false;
+  if (formKey === "form") {
+    newAccidentData.locked = true;
+  } else {
+    newAccidentData.locked = false;
+  }
   if (!!id) {
     return async (dispatch) => {
-      console.log(data);
-      delete data.inspector;
-      delete data.section;
-      delete data.boatType;
-      delete data.boatVid;
-      if (data.ownerMidname === null) {
-        delete data.ownerMidname;
+      delete newAccidentData.inspector;
+      delete newAccidentData.section;
+      delete newAccidentData.boatType;
+      delete newAccidentData.boatVid;
+      if (newAccidentData.ownerMidname === null) {
+        delete newAccidentData.ownerMidname;
       }
-      if (data.ownerName === null) {
-        delete data.ownerName;
+      if (newAccidentData.ownerName === null) {
+        delete newAccidentData.ownerName;
       }
-      if (data.ownerSurname === null) {
-        delete data.ownerSurname;
+      if (newAccidentData.ownerSurname === null) {
+        delete newAccidentData.ownerSurname;
       }
-      if (data.ownerWorkplace === null) {
-        delete data.ownerWorkplace;
+      if (newAccidentData.ownerWorkplace === null) {
+        delete newAccidentData.ownerWorkplace;
       }
-      if (data.ownerBirthDate === null) {
-        delete data.ownerBirthDate;
+      if (newAccidentData.ownerBirthDate === null) {
+        delete newAccidentData.ownerBirthDate;
       }
-      if (data.ownerLeUnp === null) {
-        delete data.ownerLeUnp;
+      if (newAccidentData.ownerLeUnp === null) {
+        delete newAccidentData.ownerLeUnp;
       }
-      if (data.ownerLename === null) {
-        delete data.ownerLename;
+      if (newAccidentData.ownerLename === null) {
+        delete newAccidentData.ownerLename;
       }
-      console.log(data);
       const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_MAIN_INFO, {
         headers: {
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(newAccidentData),
       });
       if (request.status === 200) {
         const response = await request.json();
-        // for (let item of culpritsList) {
-        //   item.drunk = item.drunk === "true" ? true : false;
-        //   item.incidentId = response.id;
-        //   delete item.innerId;
-        //   item.birthDate = new Date(item.birthDate).getTime();
-        //   const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO, {
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify(item),
-        //   });
-        // }
-        // for (let item of injuredsList) {
-        //   item.drunk = item.drunk === "true" ? true : false;
-        //   item.incidentId = response.id;
-        //   delete item.innerId;
-        //   delete item.drunk;
-        //   item.birthDate = new Date(item.birthDate).getTime();
-        //   const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO, {
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify(item),
-        //   });
-        // }
+        for (let item of causersList) {
+          item.drunk = item.drunk === "true" || item.drunk === true ? true : false;
+          item.incidentId = response.id;
+          if (item.hasOwnProperty("innerId")) {
+            delete item.innerId;
+          }
+          item.birthDate = new Date(item.birthDate).getTime();
+        }
+        const requestCausers = await fetch(
+          MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(causersList),
+          },
+        );
+        for (let item of victimsList) {
+          item.drunk = item.drunk === "true" || item.drunk === true ? true : false;
+          item.incidentId = response.id;
+          if (item.hasOwnProperty("innerId")) {
+            delete item.innerId;
+          }
+          item.birthDate = new Date(item.birthDate).getTime();
+        }
+        const requestVictims = await fetch(
+          MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(victimsList),
+          },
+        );
         console.log(response);
       }
     };
@@ -259,41 +270,44 @@ export function saveTransportAccident(data, culpritsList, injuredsList, id) {
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(newAccidentData),
       });
       if (request.status === 200) {
         const response = await request.json();
-        for (let item of culpritsList) {
-          item.drunk = item.drunk === "true" ? true : false;
+        for (let item of causersList) {
+          item.drunk = item.drunk === "true" || item.drunk === true ? true : false;
           item.incidentId = response.id;
-          delete item.innerId;
+          if (item.hasOwnProperty("innerId")) {
+            delete item.innerId;
+          }
           item.birthDate = new Date(item.birthDate).getTime();
         }
-        const requestCulprits = await fetch(
-          MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify(culpritsList),
-          },
-        );
-        for (let item of injuredsList) {
-          item.drunk = item.drunk === "true" ? true : false;
-          item.incidentId = response.id;
-          delete item.innerId;
-          delete item.drunk;
-          item.birthDate = new Date(item.birthDate).getTime();
-        }
-        const requestInjureds = await fetch(
+        const requestCausers = await fetch(
           MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO,
           {
             headers: {
               "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify(injuredsList),
+            body: JSON.stringify(causersList),
+          },
+        );
+        for (let item of victimsList) {
+          item.drunk = item.drunk === "true" || item.drunk === true ? true : false;
+          item.incidentId = response.id;
+          if (item.hasOwnProperty("innerId")) {
+            delete item.innerId;
+          }
+          item.birthDate = new Date(item.birthDate).getTime();
+        }
+        const requestVictims = await fetch(
+          MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(victimsList),
           },
         );
         console.log(response);

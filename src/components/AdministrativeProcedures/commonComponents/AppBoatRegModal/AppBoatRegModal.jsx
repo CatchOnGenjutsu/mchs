@@ -151,10 +151,10 @@ export default function AppBoatRegModal({
             case "boatCardAppDealsDtoList":
               dispatch(addNewDealApp(newData));
               break;
-            case "culpritsList":
+            case "causersList":
               dispatch(addNewCulprit(newData));
               break;
-            case "injuredsList":
+            case "victimsList":
               dispatch(addNewInjured(newData));
               break;
             default:
@@ -190,10 +190,10 @@ export default function AppBoatRegModal({
         input = document.querySelector("#locked");
         input.toggleAttribute("checked");
         break;
-      case "culpritsList":
+      case "causersList":
         setNewData({ drunk: true });
         break;
-      case "injuredsList":
+      case "victimsList":
         setNewData({ drunk: true });
         break;
       default:

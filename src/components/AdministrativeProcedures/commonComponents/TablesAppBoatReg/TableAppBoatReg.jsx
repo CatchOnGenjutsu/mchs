@@ -81,18 +81,20 @@ export default function TableAppBoatReg({
           };
           dispatch(deleteNewNote(noteForDelete));
           break;
-        case "culpritsList":
+        case "causersList":
+          console.log(e.target.id);
           noteForDelete = {
             id: e.target.id,
-            type: "culpritsList",
+            type: "causersList",
             mode: mode,
           };
           dispatch(deleteNewNoteAccident(noteForDelete));
           break;
-        case "injuredsList":
+        case "victimsList":
+          console.log(e.target.id);
           noteForDelete = {
             id: e.target.id,
-            type: "injuredsList",
+            type: "victimsList",
             mode: mode,
           };
           dispatch(deleteNewNoteAccident(noteForDelete));

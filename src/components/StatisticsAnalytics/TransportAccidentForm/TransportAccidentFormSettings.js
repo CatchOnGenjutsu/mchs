@@ -280,8 +280,8 @@ export const TransportAccidentFormSettingsEntity = {
   },
 };
 
-export const culpritsListOptions = {
-  keyTable: "culpritsList",
+export const causersListOptions = {
+  keyTable: "causersList",
   caption: "Сведения о виновниках",
   nameColumn: [
     {
@@ -326,8 +326,8 @@ export const culpritsListOptions = {
     },
   ],
 };
-export const injuredsListOptions = {
-  keyTable: "injuredsList",
+export const victimsListOptions = {
+  keyTable: "victimsList",
   caption: "Сведения о постарадавших",
   nameColumn: [
     {
