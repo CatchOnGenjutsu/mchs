@@ -116,7 +116,8 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
     case GET_BOAT_INFO_BY_REGNUM:
       return (() => ({
         ...state,
-        newAccidentData: { ...state.newAccidentData, ...action.data },
+        newAccidentData: { ...state.newAccidentData, ...action.data.data },
+        personType: action.data.personType,
       }))();
     default:
       return state;

@@ -89,20 +89,27 @@ export function findBoatInfoByRegNum(regNum) {
           data.boatVidId = Object.values(response.boatVid).length > 0 ? response.boatVid.id : null;
           data.boatTypeId = Object.values(response.boatType).length > 0 ? response.boatType.btcode : null;
           data.boatName = response.boatName ? response.boatName : "";
+          let personType;
           if (Object.values(response.ownerType).length > 0) {
             if (response.ownerType.ptcode === 2) {
               data.ownerLename = response.leName;
               data.ownerLeUnp = response.leUnp;
+              personType = "entity";
             } else {
               data.ownerSurname = response.ownerSurname;
               data.ownerName = response.ownerName;
               data.ownerMidname = response.ownerMidname;
               data.ownerBirthDate = response.ownerBirthDate;
+              personType = "individual";
             }
           }
+          const allData = {
+            data: data,
+            personType: personType,
+          };
           dispatch({
             type: GET_BOAT_INFO_BY_REGNUM,
-            data: data,
+            data: allData,
           });
         }
       } catch (error) {
@@ -140,9 +147,23 @@ export function getAccidentInfoById(id) {
       const responseMain = await requestMain.json();
       responseMain.incidentTime = responseMain.incidentDate.slice(11, 19);
       responseMain.incidentDate = responseMain.incidentDate.slice(0, 10);
-      responseMain.boatVidId = responseMain.boatVid.id;
-      responseMain.boatTypeId = responseMain.boatType.btcode;
-      const personType = responseMain.ownerLename ? "entity" : "individual";
+      if (!!responseMain.boatVidId) {
+        responseMain.boatVidId = responseMain.boatVid.id;
+      }
+      if (!!responseMain.boatTypeId) {
+        responseMain.boatTypeId = responseMain.boatType.btcode;
+      }
+      let personType;
+      if (
+        !!responseMain.ownerLename ||
+        !!responseMain.ownerSurname ||
+        !!responseMain.ownerName ||
+        !!responseMain.ownerMidname
+      ) {
+        personType = responseMain.ownerLename ? "entity" : "individual";
+      } else {
+        personType = "individual";
+      }
       const requestVictims = await fetch(
         MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_VICTIMS_INFO + responseMain.id,
       );
