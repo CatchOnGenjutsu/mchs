@@ -380,24 +380,24 @@ export const liftedArrestsTableColumns = [
 
 export const noteShipBookTableColumns = [
   {
-    id: "noteShipBook",
+    id: "boatActions",
     value: "Дата",
-    key: "date",
+    key: "actDate",
   },
   {
-    id: "noteShipBook",
+    id: "boatActions",
     value: "Орган",
-    key: "agency",
+    key: "actOrg",
   },
   {
-    id: "noteShipBook",
+    id: "boatActions",
     value: "Должностное лицо, внесшее изменение",
-    key: "officer",
+    key: "inspector",
   },
   {
-    id: "noteShipBook",
+    id: "boatActions",
     value: "Какой раздел редактировался",
-    key: "section",
+    key: "actNote",
   },
 ];
 
