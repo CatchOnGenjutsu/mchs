@@ -84,12 +84,12 @@ export async function setOptionsSaCategory() {
 //     return result.map(item=>{ return {value:item.matcode,label:item.matname}})
 // }
 
-export function setReadOptionForInputs(options,readFields) {
-    readFields.forEach(field=>{
-        options[field].readOnly = true
-        options[field].disabled = true
-
-    })
-}
+// export function setReadOptionForInputs(options,readFields) {
+//     readFields.forEach(field=>{
+//         options[field].readOnly = true
+//         options[field].disabled = true
+//
+//     })
+// }
 
 
