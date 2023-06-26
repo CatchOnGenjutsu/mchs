@@ -145,7 +145,10 @@ export function getAccidentInfoById(id) {
     );
     if (requestMain.status === 200) {
       const responseMain = await requestMain.json();
-      responseMain.incidentTime = responseMain.incidentDate.slice(11, 19);
+      responseMain.incidentTime =
+        responseMain.incidentDate.slice(11, 19) === "00:00:00.000"
+          ? ""
+          : responseMain.incidentDate.slice(11, 19);
       responseMain.incidentDate = responseMain.incidentDate.slice(0, 10);
       if (!!responseMain.boatVidId) {
         responseMain.boatVidId = responseMain.boatVid.id;
@@ -188,7 +191,11 @@ export function getAccidentInfoById(id) {
 
 export function saveTransportAccident(newAccidentData, causersList, victimsList, id, formKey) {
   console.log(newAccidentData);
-  newAccidentData.incidentDate = `${newAccidentData.incidentDate} ${newAccidentData.incidentTime}.000`;
+  if (!!newAccidentData.incidentTime) {
+    newAccidentData.incidentDate = `${newAccidentData.incidentDate} ${newAccidentData.incidentTime}.000`;
+  } else {
+    newAccidentData.incidentDate = `${newAccidentData.incidentDate} 00:00:00.000`;
+  }
   delete newAccidentData.incidentTime;
   const optionsDate = {
     year: "numeric",
