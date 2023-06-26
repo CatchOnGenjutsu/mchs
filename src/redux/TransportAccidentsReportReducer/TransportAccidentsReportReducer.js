@@ -61,11 +61,20 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
         injuredsList: [action.data, ...state.injuredsList],
       }))();
     case DELETE_NEW_NOTE_ACCIDENT:
+      console.log(action.data);
       switch (action.data.type) {
         case "culpritsList":
           return (() => ({
             ...state,
-            culpritsList: [...state.culpritsList.filter((item) => item.innerId !== action.data.id)],
+            culpritsList: [
+              ...state.culpritsList.filter((item) => {
+                if (item.hasOwnProperty("id")) {
+                  if (Number(item.id) !== Number(action.data.id)) return item;
+                } else if (item.hasOwnProperty("innerId")) {
+                  if (item.innerId !== action.data.id) return item;
+                }
+              }),
+            ],
           }))();
         case "injuredsList":
           return (() => ({

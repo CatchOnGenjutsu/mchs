@@ -18,7 +18,14 @@ import {
   API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO,
   API_GET_TRANSPORT_ACCIDENT_VICTIMS_INFO,
   API_GET_TRANSPORT_ACCIDENT_CAUSERS_INFO,
+  API_DELETE_TRANSPORT_ACCIDENT_VICTIMS_INFO,
+  API_DELETE_TRANSPORT_ACCIDENT_CAUSERS_INFO,
 } from "../../constants/constants";
+
+import {
+  TransportAccidentFormSettingsIndividual,
+  TransportAccidentFormSettingsEntity,
+} from "../../components/StatisticsAnalytics/TransportAccidentForm/TransportAccidentFormSettings";
 
 export function addNewCulprit(newCulprit) {
   return {
@@ -32,11 +39,38 @@ export function addNewInjured(newInjured) {
     data: newInjured,
   };
 }
-export function deleteNewNoteAccident(data) {
-  return {
-    type: DELETE_NEW_NOTE_ACCIDENT,
-    data: data,
-  };
+export function deleteNewNoteAccident(innerData) {
+  if (innerData.mode === "add") {
+    return {
+      type: DELETE_NEW_NOTE_ACCIDENT,
+      data: innerData,
+    };
+  }
+  if (innerData.mode === "edit") {
+    return async (dispatch) => {
+      let request;
+      switch (innerData.type) {
+        case "injuredsList":
+          request = await fetch(
+            MAIN_URL + PORT_FOR_REPORT + API_DELETE_TRANSPORT_ACCIDENT_VICTIMS_INFO + innerData.id,
+          );
+          break;
+        case "culpritsList":
+          request = await fetch(
+            MAIN_URL + PORT_FOR_REPORT + API_DELETE_TRANSPORT_ACCIDENT_CAUSERS_INFO + innerData.id,
+          );
+          break;
+        default:
+          break;
+      }
+      if (request.status === 200) {
+        dispatch({
+          type: DELETE_NEW_NOTE_ACCIDENT,
+          data: innerData,
+        });
+      }
+    };
+  }
 }
 export function addNewAccidentData(data) {
   return {
@@ -52,13 +86,13 @@ export function findBoatInfoByRegNum(regNum) {
         const response = await request.json();
         if (Object.values(response).length > 0) {
           const data = {};
-          data.boatVid = Object.values(response.boatVid).length > 0 ? response.boatVid.id : null;
-          data.boatType = Object.values(response.boatType).length > 0 ? response.boatType.btcode : null;
+          data.boatVidId = Object.values(response.boatVid).length > 0 ? response.boatVid.id : null;
+          data.boatTypeId = Object.values(response.boatType).length > 0 ? response.boatType.btcode : null;
           data.boatName = response.boatName ? response.boatName : "";
           if (Object.values(response.ownerType).length > 0) {
             if (response.ownerType.ptcode === 2) {
-              data.leName = response.leName;
-              data.leUnp = response.leUnp;
+              data.ownerLename = response.leName;
+              data.ownerLeUnp = response.leUnp;
             } else {
               data.ownerSurname = response.ownerSurname;
               data.ownerName = response.ownerName;
@@ -76,8 +110,8 @@ export function findBoatInfoByRegNum(regNum) {
         data.boatVid = null;
         data.boatType = null;
         data.boatName = "";
-        data.leName = "";
-        data.leUnp = "";
+        data.ownerLename = "";
+        data.ownerLeUnp = "";
         data.ownerSurname = "";
         data.ownerName = "";
         data.ownerMidname = "";
@@ -106,8 +140,8 @@ export function getAccidentInfoById(id) {
       const responseMain = await requestMain.json();
       responseMain.incidentTime = responseMain.incidentDate.slice(11, 19);
       responseMain.incidentDate = responseMain.incidentDate.slice(0, 10);
-      responseMain.boatVid = responseMain.boatVid.id;
-      responseMain.boatType = responseMain.boatType.btcode;
+      responseMain.boatVidId = responseMain.boatVid.id;
+      responseMain.boatTypeId = responseMain.boatType.btcode;
       const personType = responseMain.ownerLename ? "entity" : "individual";
       const requestCulprits = await fetch(
         MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_VICTIMS_INFO + responseMain.id,
@@ -132,22 +166,60 @@ export function getAccidentInfoById(id) {
 }
 
 export function saveTransportAccident(data, culpritsList, injuredsList, id) {
+  console.log(id);
   data.incidentDate = `${data.incidentDate} ${data.incidentTime}.000`;
   delete data.incidentTime;
-  data.createDate = new Date().toISOString().split("T").join(" ").slice(0, -1);
+  const optionsDate = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  };
+  data.createDate = `${new Date()
+    .toLocaleString("en-GB", optionsDate)
+    .slice(0, 10)
+    .split("/")
+    .reverse()
+    .join("-")} ${new Date().toLocaleString("en-GB", optionsDate).slice(12, 20) + ".000"}`;
   data.locked = false;
   if (!!id) {
     return async (dispatch) => {
-      const request = await fetch(
-        MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_MAIN_INFO + "/" + id,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify(data),
+      console.log(data);
+      delete data.inspector;
+      delete data.section;
+      delete data.boatType;
+      delete data.boatVid;
+      if (data.ownerMidname === null) {
+        delete data.ownerMidname;
+      }
+      if (data.ownerName === null) {
+        delete data.ownerName;
+      }
+      if (data.ownerSurname === null) {
+        delete data.ownerSurname;
+      }
+      if (data.ownerWorkplace === null) {
+        delete data.ownerWorkplace;
+      }
+      if (data.ownerBirthDate === null) {
+        delete data.ownerBirthDate;
+      }
+      if (data.ownerLeUnp === null) {
+        delete data.ownerLeUnp;
+      }
+      if (data.ownerLename === null) {
+        delete data.ownerLename;
+      }
+      console.log(data);
+      const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_SAVE_TRANSPORT_ACCIDENT_MAIN_INFO, {
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        method: "POST",
+        body: JSON.stringify(data),
+      });
       if (request.status === 200) {
         const response = await request.json();
         // for (let item of culpritsList) {

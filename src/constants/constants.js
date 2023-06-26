@@ -153,3 +153,5 @@ export const API_SAVE_TRANSPORT_ACCIDENT_VICTIMS_INFO = "boatincidents/saveVicti
 export const API_SAVE_TRANSPORT_ACCIDENT_CAUSERS_INFO = "boatincidents/saveCausers";
 export const API_GET_TRANSPORT_ACCIDENT_VICTIMS_INFO = "boatincidents/getVictims/";
 export const API_GET_TRANSPORT_ACCIDENT_CAUSERS_INFO = "boatincidents/getCausers/";
+export const API_DELETE_TRANSPORT_ACCIDENT_VICTIMS_INFO = "boatincidents/deleteVictims/";
+export const API_DELETE_TRANSPORT_ACCIDENT_CAUSERS_INFO = "boatincidents/deleteCausers/";

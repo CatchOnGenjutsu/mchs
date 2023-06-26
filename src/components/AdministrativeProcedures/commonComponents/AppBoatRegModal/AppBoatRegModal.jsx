@@ -191,10 +191,10 @@ export default function AppBoatRegModal({
         input.toggleAttribute("checked");
         break;
       case "culpritsList":
-        setNewData({ drunk: 1 });
+        setNewData({ drunk: true });
         break;
       case "injuredsList":
-        setNewData({ drunk: 1 });
+        setNewData({ drunk: true });
         break;
       default:
         break;

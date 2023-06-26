@@ -85,6 +85,7 @@ export default function TableAppBoatReg({
           noteForDelete = {
             id: e.target.id,
             type: "culpritsList",
+            mode: mode,
           };
           dispatch(deleteNewNoteAccident(noteForDelete));
           break;
@@ -92,6 +93,7 @@ export default function TableAppBoatReg({
           noteForDelete = {
             id: e.target.id,
             type: "injuredsList",
+            mode: mode,
           };
           dispatch(deleteNewNoteAccident(noteForDelete));
           break;
@@ -117,75 +119,80 @@ export default function TableAppBoatReg({
           </tr>
         </thead>
         <tbody>
-          {data.map((elem) => {
-            return (
-              <tr>
-                {tableOptions.nameColumn.map((item) => {
-                  switch (item.type) {
-                    case "checkbox":
-                      return (
-                        <td>
-                          <input
-                            type="checkbox"
-                            className={styles.checkbox}
-                            checked={elem.asmLock || elem.msmLock}
-                            disabled
-                          />
-                        </td>
-                      );
-                    case "date":
-                      // console.log(item);
-                      // console.log(elem);
-                      return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
-                    // return <td>{elem[`${item.key}`].split("-").reverse().join(".")}</td>;
-                    default:
-                      if (item.key === "engtype") {
-                        // console.log(item.key);
-                        // console.log(elem);
-                        return <td>{elem[`${item.key}`] === 1 ? "Бензиновый" : "Электрический"}</td>;
-                      } else if (
-                        item.key === "dateRegEnd" &&
-                        mode !== "view" &&
-                        Boolean(elem["dateReg"]) &&
-                        !Boolean(elem[`${item.key}`])
-                      ) {
+          {data.length > 0 &&
+            data.map((elem) => {
+              return (
+                <tr>
+                  {tableOptions.nameColumn.map((item) => {
+                    switch (item.type) {
+                      case "checkbox":
                         return (
                           <td>
-                            <button
-                              className={`${styles["button_remove_engine"]} `}
-                              id={elem.engid}
-                              onClick={(e) => removeEngine(e)}>
-                              снять
-                            </button>
+                            <input
+                              type="checkbox"
+                              className={styles.checkbox}
+                              checked={elem.asmLock || elem.msmLock}
+                              disabled
+                            />
                           </td>
                         );
-                      } else if (item.key === "drunk") {
-                        return <td>{elem[`${item.key}`] === 1 ? "Да" : "Нет"}</td>;
-                      } else {
-                        return <td>{elem[`${item.key}`]}</td>;
-                      }
-                  }
-                })}
-                {data.length > 0 && mode !== "view" && (
-                  <td className={styles.edit__column}>
-                    {elem.hasOwnProperty("innerId") ? (
-                      <button
-                        className={`${styles.delete__buttons} btn btn-danger`}
-                        // data-tabletype={documentsTableColumns.keyTable}
-                        // data-docname={elem.docname}
-                        // data-doctype="file"
-                        id={elem.innerId}
-                        onClick={(e) => handleDeleteNote(e)}>
-                        &#10006;
-                      </button>
-                    ) : (
-                      ""
-                    )}
-                  </td>
-                )}
-              </tr>
-            );
-          })}
+                      case "date":
+                        // console.log(item);
+                        // console.log(elem);
+                        return <td>{new Date(elem[`${item.key}`]).toLocaleDateString()}</td>;
+                      // return <td>{elem[`${item.key}`].split("-").reverse().join(".")}</td>;
+                      default:
+                        if (item.key === "engtype") {
+                          // console.log(item.key);
+                          // console.log(elem);
+                          return <td>{elem[`${item.key}`] === 1 ? "Бензиновый" : "Электрический"}</td>;
+                        } else if (
+                          item.key === "dateRegEnd" &&
+                          mode !== "view" &&
+                          Boolean(elem["dateReg"]) &&
+                          !Boolean(elem[`${item.key}`])
+                        ) {
+                          return (
+                            <td>
+                              <button
+                                className={`${styles["button_remove_engine"]} `}
+                                id={elem.engid}
+                                onClick={(e) => removeEngine(e)}>
+                                снять
+                              </button>
+                            </td>
+                          );
+                        } else if (item.key === "drunk") {
+                          return (
+                            <td>
+                              {elem[`${item.key}`] === "true" || elem[`${item.key}`] === true ? "Да" : "Нет"}
+                            </td>
+                          );
+                        } else {
+                          return <td>{elem[`${item.key}`]}</td>;
+                        }
+                    }
+                  })}
+                  {data.length > 0 && mode !== "view" && (
+                    <td className={styles.edit__column}>
+                      {elem.hasOwnProperty("innerId") || elem.hasOwnProperty("id") ? (
+                        <button
+                          className={`${styles.delete__buttons} btn btn-danger`}
+                          // data-tabletype={documentsTableColumns.keyTable}
+                          // data-docname={elem.docname}
+                          // data-doctype="file"
+                          id={elem.innerId || elem.id}
+                          onClick={(e) => handleDeleteNote(e)}>
+                          &#10006;
+                        </button>
+                      ) : (
+                        ""
+                      )}
+                    </td>
+                  )}
+                </tr>
+              );
+            })}
         </tbody>
       </table>
       {mode !== "view" && (

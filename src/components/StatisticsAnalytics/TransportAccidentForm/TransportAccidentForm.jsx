@@ -129,8 +129,6 @@ export default function TransportAccidentForm() {
     (async () => {
       const typesBoat = await setOptionsTypesBoat();
       const kindsBoat = await setOptionsVidBoat();
-      // const materialsBodyBoat = await setOptionsBodyBoat();
-      // const saCategory = await setOptionsSaCategory();
       setTransportAccidentFormSettings(setOptionsForBoat(typesBoat, kindsBoat, window.location.pathname));
       if (mode === "view" || mode === "edit") {
         const pathArray = window.location.pathname.split("/");
@@ -140,7 +138,9 @@ export default function TransportAccidentForm() {
         setTransportAccidentFormSettings(
           setOptionsForInputsATE(dataOptionsForSelectATEValidated, window.location.pathname),
         );
+
         setTransportAccidentFormSettings(setOptionsForInputsUsers(usersLib, window.location.pathname));
+        // console.log(transportAccidentFormSettings);
         setIsLoading(false);
       }
     })();
@@ -226,13 +226,14 @@ export default function TransportAccidentForm() {
                             onChange={(e) => handleValue(e)}
                           />
                         </div>
-
-                        <div
-                          className={styles.search_button}
-                          id={"search"}
-                          onClick={(e) => handleButtonClick(e)}>
-                          Найти
-                        </div>
+                        {mode !== "view" && (
+                          <div
+                            className={styles.search_button}
+                            id={"search"}
+                            onClick={(e) => handleButtonClick(e)}>
+                            Найти
+                          </div>
+                        )}
                       </Form.Group>
                     );
                   } else {
