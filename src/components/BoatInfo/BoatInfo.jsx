@@ -624,20 +624,19 @@ export default function BoatInfo(props) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            {noteShipBookTableColumns.map((item) => {
-              return (
-                <td>
-                  {Object.keys(boatInfoFromState).length !== 0
-                    ? boatInfoFromState[`${item.id}`] !== undefined &&
-                      boatInfoFromState[`${item.id}`] !== null
-                      ? boatInfoFromState[`${item.id}`][`${item.key}`]
-                      : "—"
-                    : null}
-                </td>
-              );
-            })}
-          </tr>
+        {boatInfoFromState.boatActions && boatInfoFromState.boatActions.map(el=>{
+          return(
+              <tr>
+                {noteShipBookTableColumns.map((item) => {
+                  return (
+                      <td>
+                        {el[`${item.key}`]?el[`${item.key}`] : "—"}
+                      </td>
+                  );
+                })}
+              </tr>
+          )
+        })}
         </tbody>
       </table>
       <table className={`${styles["secondary-table"]}`}>
