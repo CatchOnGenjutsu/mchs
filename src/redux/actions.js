@@ -364,16 +364,22 @@ export function getDataTransportAccidentBySearchParams(params) {
     );
     const response = await request.json();
     for (let item of response) {
-      item["sctName"] = item.section.sctName;
-      item["incidentDate"] = item.incidentDate.slice(0, 10).split("-").reverse().join(".");
+      if (!!item.section && item.section !== null) {
+        item["sctName"] = item.section.sctName;
+      }
+      if (!!item.incidentDate && item.incidentDate !== null) {
+        item["incidentDate"] = item.incidentDate.slice(0, 10).split("-").reverse().join(".");
+      }
+
       if (item.ownerSurname && item.ownerName && item.ownerMidname) {
         const owner = `${item.ownerSurname} ${item.ownerName} ${item.ownerMidname}`;
         item["owner"] = owner;
       }
-      item["incidentType"] = item.incidentType === 1 ? "Авария" : "Инцендент";
-      item["deadTotal"] = item.deadAdult + item.deadChildren + item.deadDrunk;
+      if (!!item.incidentType && item.incidentType !== null) {
+        item["incidentType"] = item.incidentType === 1 ? "Авария" : "Инцендент";
+      }
+      item["deadTotal"] = item.deadAdult + item.deadChildren;
     }
-    console.log(response);
     dispatch({
       type: GET_DATA_BY_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
       data: response,

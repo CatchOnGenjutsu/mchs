@@ -315,7 +315,7 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
                     case window.location.pathname.includes("shipsticket"):
                       return Number(appStatusId) !== 3 ? true : false;
                     case window.location.pathname.includes("transportaccidents"):
-                      return appStatusId === "true" ? true : false;
+                      return appStatusId === "true" || appStatusId === true ? true : false;
                     default:
                       break;
                   }

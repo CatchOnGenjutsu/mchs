@@ -26,8 +26,8 @@ const initialState = {
     driverDrunk: 0,
     incidentPlace: "",
   },
-  culpritsList: [],
-  injuredsList: [],
+  causersList: [],
+  victimsList: [],
   newAccidentData: {},
   personType: "",
   // boatCardAppEngList: [],
@@ -52,22 +52,22 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
       action.data["innerId"] = uuidv4();
       return (() => ({
         ...state,
-        culpritsList: [action.data, ...state.culpritsList],
+        causersList: [action.data, ...state.causersList],
       }))();
     case ADD_NEW_INJURED:
       action.data["innerId"] = uuidv4();
       return (() => ({
         ...state,
-        injuredsList: [action.data, ...state.injuredsList],
+        victimsList: [action.data, ...state.victimsList],
       }))();
     case DELETE_NEW_NOTE_ACCIDENT:
       console.log(action.data);
       switch (action.data.type) {
-        case "culpritsList":
+        case "causersList":
           return (() => ({
             ...state,
-            culpritsList: [
-              ...state.culpritsList.filter((item) => {
+            causersList: [
+              ...state.causersList.filter((item) => {
                 if (item.hasOwnProperty("id")) {
                   if (Number(item.id) !== Number(action.data.id)) return item;
                 } else if (item.hasOwnProperty("innerId")) {
@@ -76,10 +76,18 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
               }),
             ],
           }))();
-        case "injuredsList":
+        case "victimsList":
           return (() => ({
             ...state,
-            injuredsList: [...state.injuredsList.filter((item) => item.innerId !== action.data.id)],
+            victimsList: [
+              ...state.victimsList.filter((item) => {
+                if (item.hasOwnProperty("id")) {
+                  if (Number(item.id) !== Number(action.data.id)) return item;
+                } else if (item.hasOwnProperty("innerId")) {
+                  if (item.innerId !== action.data.id) return item;
+                }
+              }),
+            ],
           }))();
         default:
           return state;
@@ -93,21 +101,23 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
       return (() => ({
         ...state,
         newAccidentData: action.data,
-        culpritsList: [],
-        injuredsList: [],
+        causersList: [],
+        victimsList: [],
+        personType: "",
       }))();
     case GET_TRANSPORT_ACCIDENT_INFO:
       return (() => ({
         ...state,
         newAccidentData: { ...state.newAccidentData, ...action.data.responseMain },
         personType: action.data.personType,
-        culpritsList: action.data.culpritsList,
-        injuredsList: action.data.injuredsList,
+        causersList: action.data.causersList,
+        victimsList: action.data.victimsList,
       }))();
     case GET_BOAT_INFO_BY_REGNUM:
       return (() => ({
         ...state,
-        newAccidentData: { ...state.newAccidentData, ...action.data },
+        newAccidentData: { ...state.newAccidentData, ...action.data.data },
+        personType: action.data.personType,
       }))();
     default:
       return state;
