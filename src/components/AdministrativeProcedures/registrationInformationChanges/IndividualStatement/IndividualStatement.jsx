@@ -498,7 +498,7 @@ function IndividualStatement() {
           {(idTypeChangeStatement !== "1" && idTypeChangeStatement !== "4") ? (
             <InformationAboutBoat
               dataBoat = {newData}
-              fieldStatus={readStatusForInputField}
+              // fieldStatus={readStatusForInputField}
               updateNewData={updateNewData}
               saveKey={saveKey}
               handleErrors={handleErrors}

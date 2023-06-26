@@ -60,7 +60,7 @@ function InformationAboutBoat({ fieldStatus, updateNewData, saveKey, handleError
 
   useEffect(() => {
     (async () => {
-      setReadOptionForInputs(fieldBoatOptions, fieldStatus);
+      // setReadOptionForInputs(fieldBoatOptions, fieldStatus);
       const typesBoat = await setOptionsTypesBoat();
       const kindsBoat = await setOptionsVidBoat();
       const materialsBodyBoat = await setOptionsBodyBoat();

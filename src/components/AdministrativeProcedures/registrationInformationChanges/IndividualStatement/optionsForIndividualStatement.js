@@ -123,4 +123,4 @@ export const boatCardModifDealsDtoList = {
     ],
 };
 
-export const readStatusForInputField = ["boatVin","boatYear","boatType","boatVid","bodyMaterial"]
+// export const readStatusForInputField = ["boatVin","boatYear","boatType","boatVid","bodyMaterial"]
