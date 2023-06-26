@@ -461,12 +461,12 @@ export const inputsHeadersTransportAccidentsReport = {
     selectOption: [
       { value: 0, label: "Все", key: "incidentType" },
       { value: 1, label: "Авария", key: "incidentType" },
-      { value: 2, label: "Инцендент", key: "incidentType" },
+      { value: 2, label: "Инциндент", key: "incidentType" },
     ],
   },
   incidentPlace: {
     key: "incidentPlace",
-    value: "Место траспортного аварийного случая",
+    value: "Место транспортного аварийного случая",
     type: "text",
   },
   date1: {

@@ -155,3 +155,7 @@ export const API_GET_TRANSPORT_ACCIDENT_VICTIMS_INFO = "boatincidents/getVictims
 export const API_GET_TRANSPORT_ACCIDENT_CAUSERS_INFO = "boatincidents/getCausers/";
 export const API_DELETE_TRANSPORT_ACCIDENT_VICTIMS_INFO = "boatincidents/deleteVictims/";
 export const API_DELETE_TRANSPORT_ACCIDENT_CAUSERS_INFO = "boatincidents/deleteCausers/";
+export const API_ADD_TRANSPORT_ACCIDENT_FILE = "incident/file/uploadfile";
+export const API_GET_TRANSPORT_ACCIDENT_FILELIST = "incident/file/filelist/";
+export const API_DOWNLOAD_TRANSPORT_ACCIDENT_FILE = "incident/file/download/";
+export const API_DELETE_TRANSPORT_ACCIDENT_FILE = "incident/file/delete/";

@@ -6,6 +6,7 @@ import {
   CLEAR_ACCIDENT_DATA,
   GET_TRANSPORT_ACCIDENT_INFO,
   GET_BOAT_INFO_BY_REGNUM,
+  DELETE_ACCIDENT_FILE,
 } from "../types";
 
 import {
@@ -20,6 +21,9 @@ import {
   API_GET_TRANSPORT_ACCIDENT_CAUSERS_INFO,
   API_DELETE_TRANSPORT_ACCIDENT_VICTIMS_INFO,
   API_DELETE_TRANSPORT_ACCIDENT_CAUSERS_INFO,
+  API_ADD_TRANSPORT_ACCIDENT_FILE,
+  API_GET_TRANSPORT_ACCIDENT_FILELIST,
+  API_DELETE_TRANSPORT_ACCIDENT_FILE,
 } from "../../constants/constants";
 
 import {
@@ -78,6 +82,7 @@ export function addNewAccidentData(data) {
     data: data,
   };
 }
+
 export function findBoatInfoByRegNum(regNum) {
   return async (dispatch) => {
     const request = await fetch(MAIN_URL + PORT_FOR_REPORT + API_FIND_BOAT_INFO_BY_REGNUM + regNum);
@@ -137,6 +142,24 @@ export function clearAccidentData() {
     data: {},
   };
 }
+export function deleteAccidentFile(id, filename) {
+  return async (dispatch) => {
+    const request = await fetch(
+      MAIN_URL + PORT_FOR_REPORT + API_DELETE_TRANSPORT_ACCIDENT_FILE + id + "/" + filename,
+      {
+        method: "POST",
+      },
+    );
+    if (request.status === 200) {
+      const deleteId = await request.text();
+      console.log(deleteId);
+      dispatch({
+        type: DELETE_ACCIDENT_FILE,
+        data: deleteId,
+      });
+    }
+  };
+}
 
 export function getAccidentInfoById(id) {
   return async (dispatch) => {
@@ -173,13 +196,18 @@ export function getAccidentInfoById(id) {
       const requestCausers = await fetch(
         MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_CAUSERS_INFO + responseMain.id,
       );
+      const requestFiles = await fetch(
+        MAIN_URL + PORT_FOR_REPORT + API_GET_TRANSPORT_ACCIDENT_FILELIST + responseMain.id,
+      );
       const responseCausers = await requestCausers.json();
       const responseVictims = await requestVictims.json();
+      const responseFiles = await requestFiles.json();
       const data = {
         responseMain: responseMain,
         personType: personType,
         causersList: responseCausers,
         victimsList: responseVictims,
+        fileList: responseFiles,
       };
       dispatch({
         type: GET_TRANSPORT_ACCIDENT_INFO,
@@ -189,7 +217,8 @@ export function getAccidentInfoById(id) {
   };
 }
 
-export function saveTransportAccident(newAccidentData, causersList, victimsList, id, formKey) {
+export function saveTransportAccident(newAccidentData, causersList, victimsList, id, formKey, fileList) {
+  console.log(fileList);
   console.log(newAccidentData);
   if (!!newAccidentData.incidentTime) {
     newAccidentData.incidentDate = `${newAccidentData.incidentDate} ${newAccidentData.incidentTime}.000`;
@@ -288,6 +317,19 @@ export function saveTransportAccident(newAccidentData, causersList, victimsList,
             body: JSON.stringify(victimsList),
           },
         );
+        if (Object.values(fileList).length > 0) {
+          for (let item of fileList) {
+            const formData = new FormData();
+            formData.append("file", item);
+            const request = await fetch(
+              MAIN_URL + PORT_FOR_REPORT + API_ADD_TRANSPORT_ACCIDENT_FILE + `?refidId=${response.id}`,
+              {
+                method: "POST",
+                body: formData,
+              },
+            );
+          }
+        }
         console.log(response);
       }
     };
@@ -338,6 +380,19 @@ export function saveTransportAccident(newAccidentData, causersList, victimsList,
             body: JSON.stringify(victimsList),
           },
         );
+        if (Object.values(fileList).length > 0) {
+          for (let item of fileList) {
+            const formData = new FormData();
+            formData.append("file", item);
+            const request = await fetch(
+              MAIN_URL + PORT_FOR_REPORT + API_ADD_TRANSPORT_ACCIDENT_FILE + `?refidId=${response.id}`,
+              {
+                method: "POST",
+                body: formData,
+              },
+            );
+          }
+        }
         console.log(response);
       }
     };

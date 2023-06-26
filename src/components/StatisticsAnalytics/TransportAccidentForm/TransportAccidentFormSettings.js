@@ -380,7 +380,7 @@ export const TransportAccidentFormSettingsFooter = {
     type: "select",
     options: [
       { value: 1, label: "Авария", key: "incidentType" },
-      { value: 2, label: "Инцендент", key: "incidentType" },
+      { value: 2, label: "Инциндент", key: "incidentType" },
     ],
   },
   deadAdult: {
@@ -416,7 +416,6 @@ export const TransportAccidentFormSettingsFooter = {
 };
 
 export const setOptionsForInputsATE = (inputsOptions, path) => {
-  console.log(path);
   switch (true) {
     case path.includes("individual"):
       if (TransportAccidentFormSettingsIndividual.sectionId.options.length === 0) {
@@ -477,7 +476,6 @@ export function setOptionsForBoat(types, kinds, path) {
     item.key = "boatVidId";
     return item;
   });
-  console.log(new Date().toISOString());
   if (path.includes("individual")) {
     return TransportAccidentFormSettingsIndividual;
   } else {

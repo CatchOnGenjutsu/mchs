@@ -30,7 +30,16 @@ import {
   clearAccidentData,
   getAccidentInfoById,
   saveTransportAccident,
+  deleteAccidentFile,
 } from "../../../redux/TransportAccidentsReportReducer/actionsTransportAccidentsReport";
+
+import trash_box from "../../../resourсes/trash_box.svg";
+
+import {
+  MAIN_URL,
+  PORT_FOR_REPORT,
+  API_DOWNLOAD_TRANSPORT_ACCIDENT_FILE,
+} from "../../../constants/constants";
 
 import { getDataTransportAccidentBySearchParams } from "../../../redux/actions";
 
@@ -44,6 +53,9 @@ export default function TransportAccidentForm() {
 
   const [transportAccidentFormSettings, setTransportAccidentFormSettings] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [fileList, setFileList] = useState([]);
+  // const [files, setFiles] = useState([]);
+  // let files
 
   const dataOptionsForSelectATE = useSelector((state) => {
     const { dictionaryReducer } = state;
@@ -86,13 +98,25 @@ export default function TransportAccidentForm() {
     const { TransportAccidentsReportReducer } = state;
     return TransportAccidentsReportReducer.searchParams;
   });
+  const fileListFromState = useSelector((state) => {
+    const { TransportAccidentsReportReducer } = state;
+    return TransportAccidentsReportReducer.fileList;
+  });
 
   const handleValue = (e) => {
     if (e) {
       switch (true) {
         case Object.keys(e).includes("target"):
           // updateNewData(e.target.id, e.currentTarget.value);
-          dispatch(addNewAccidentData({ [`${e.target.id}`]: e.target.value }));
+          if (e.target.id !== "file") {
+            dispatch(addNewAccidentData({ [`${e.target.id}`]: e.target.value }));
+          } else {
+            if (e.target.files) {
+              setFileList(e.target.files);
+            }
+            console.log(e.target.files);
+            console.log(fileList);
+          }
           break;
         case Object.keys(e).includes("key"):
           // updateNewData(e.key, e.value);
@@ -115,11 +139,21 @@ export default function TransportAccidentForm() {
           break;
         case "save":
           if (mode === "add") {
-            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList));
+            if (Object.values(fileList).length > 0) {
+              dispatch(
+                saveTransportAccident(newAccidentData, causersList, victimsList, null, null, fileList),
+              );
+            } else {
+              dispatch(saveTransportAccident(newAccidentData, causersList, victimsList));
+            }
           } else if (mode === "edit") {
             const pathArray = window.location.pathname.split("/");
             const id = pathArray[pathArray.length - 1];
-            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id));
+            if (Object.values(fileList).length > 0) {
+              dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id, null, fileList));
+            } else {
+              dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id));
+            }
           }
           dispatch(clearAccidentData());
           navigate("/transportaccidents");
@@ -128,7 +162,7 @@ export default function TransportAccidentForm() {
         case "form":
           const formKey = "form";
           if (mode === "add") {
-            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, formKey));
+            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, null, formKey));
           } else if (mode === "edit") {
             const pathArray = window.location.pathname.split("/");
             const id = pathArray[pathArray.length - 1];
@@ -142,11 +176,18 @@ export default function TransportAccidentForm() {
           dispatch(clearAccidentData());
           navigate("/transportaccidents");
           dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
+          break;
+        case "delete":
+          dispatch(deleteAccidentFile(newAccidentData.id, e.target.dataset.docname));
+          dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
+          break;
         default:
           break;
       }
     }
   };
+
+  const files = fileList ? [...fileList] : [];
 
   useEffect(() => {
     (async () => {
@@ -271,16 +312,20 @@ export default function TransportAccidentForm() {
               }
             })}
           </div>
-          <TableAppBoatReg
-            typeTable={"causersList"}
-            tableOptions={causersListOptions}
-            mode={mode}
-          />
-          <TableAppBoatReg
-            typeTable={"victimsList"}
-            tableOptions={victimsListOptions}
-            mode={mode}
-          />
+          <div className={styles.gray_background}>
+            <TableAppBoatReg
+              typeTable={"causersList"}
+              tableOptions={causersListOptions}
+              mode={mode}
+            />
+          </div>
+          <div className={styles.gray_background}>
+            <TableAppBoatReg
+              typeTable={"victimsList"}
+              tableOptions={victimsListOptions}
+              mode={mode}
+            />
+          </div>
           <div className={styles.grid_container_footer}>
             {Object.values(TransportAccidentFormSettingsFooter).map((item) => {
               switch (item.type) {
@@ -325,6 +370,50 @@ export default function TransportAccidentForm() {
               }
             })}
           </div>
+          {mode !== "view" && (
+            <div className={styles.gray_background}>
+              <Form.Group className={`${styles.form_group_flex_file}`}>
+                <Form.Label className={`${styles.form_label}`}>Приложения</Form.Label>
+                <Form.Control
+                  id={"file"}
+                  type={"file"}
+                  multiple
+                  // value={newAccidentData[item.key]}
+                  onChange={(e) => handleValue(e)}
+                />
+              </Form.Group>
+            </div>
+          )}
+          <div className={styles.gray_background}>
+            {files.map((item) => {
+              return <div>{item.name}</div>;
+            })}
+          </div>
+          {fileListFromState.length > 0 && (
+            <div className={styles.gray_background}>
+              <h3 className={styles.text_secondary}>Приложения</h3>
+              {fileListFromState.map((item) => {
+                return (
+                  <div className={styles.link_container}>
+                    <a
+                      href={`${MAIN_URL}${PORT_FOR_REPORT}${API_DOWNLOAD_TRANSPORT_ACCIDENT_FILE}${item.docid}`}>
+                      {item.docname}
+                    </a>
+                    {mode !== "view" && (
+                      <img
+                        className={styles.trash_box}
+                        src={trash_box}
+                        alt="Удалить"
+                        id="delete"
+                        data-docname={item.docname}
+                        onClick={(e) => handleButtonClick(e)}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
           <div className={styles.buttons_container}>
             {mode !== "view" && (
               <>

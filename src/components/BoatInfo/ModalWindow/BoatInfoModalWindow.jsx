@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addNewBoatInfo,
-  editBoatInfo,
-} from "../../../redux/smallBoatsReducer/actionsSmallBoats";
+import { addNewBoatInfo, editBoatInfo } from "../../../redux/smallBoatsReducer/actionsSmallBoats";
 
 import styles from "./BoatInfoModalWindow.module.css";
 
@@ -33,9 +30,7 @@ export default function BoatInfoModalWindow({
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
 
-  const errorsFields = modalWindowInputs.nameColumn
-    .map((item) => Object.values(item))
-    .map((elem) => elem[2]);
+  const errorsFields = modalWindowInputs.nameColumn.map((item) => Object.values(item)).map((elem) => elem[2]);
 
   // const [removeArrestData, setRemoveArrestData] = useState(
   //   modalWindowInputs.keyTable === "removeBoatArrestsTableColumns" ? structuredClone(dataForEdit) : {}
@@ -132,16 +127,13 @@ export default function BoatInfoModalWindow({
         case "documentsTableColumns":
           const formData = new FormData();
           formData.append("file", file);
+          console.log(formData);
           switch (fileType) {
             case "file":
-              dispatch(
-                addNewBoatInfo(formData, boatIdModal, "documentsTableColumns", false),
-              );
+              dispatch(addNewBoatInfo(formData, boatIdModal, "documentsTableColumns", false));
               break;
             case "signature":
-              dispatch(
-                addNewBoatInfo(formData, boatIdModal, "documentsTableColumns", true),
-              );
+              dispatch(addNewBoatInfo(formData, boatIdModal, "documentsTableColumns", true));
               break;
             default:
               break;
@@ -230,11 +222,7 @@ export default function BoatInfoModalWindow({
       <Modal.Body>
         <Form id="form">
           {modalWindowInputs.nameColumn.map((item) => {
-            if (
-              item.key !== "isActiv" &&
-              item.key !== "docdate" &&
-              item.key !== "docname"
-            ) {
+            if (item.key !== "isActiv" && item.key !== "docdate" && item.key !== "docname") {
               switch (item.type) {
                 case "date":
                   return (
@@ -249,9 +237,7 @@ export default function BoatInfoModalWindow({
                           handleChange(e);
                         }}
                       />
-                      <Form.Control.Feedback type={"invalid"}>
-                        {errors[item.key]}
-                      </Form.Control.Feedback>
+                      <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
                     </Form.Group>
                   );
                 case "file":
@@ -268,9 +254,7 @@ export default function BoatInfoModalWindow({
                           handleChange(e);
                         }}
                       />
-                      <Form.Control.Feedback type={"invalid"}>
-                        {errors[item.key]}
-                      </Form.Control.Feedback>
+                      <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
                     </Form.Group>
                   );
                 case "checkbox":
@@ -315,9 +299,7 @@ export default function BoatInfoModalWindow({
                           handleChange(e);
                         }}
                       />
-                      <Form.Control.Feedback type={"invalid"}>
-                        {errors[item.key]}
-                      </Form.Control.Feedback>
+                      <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
                     </Form.Group>
                   );
               }

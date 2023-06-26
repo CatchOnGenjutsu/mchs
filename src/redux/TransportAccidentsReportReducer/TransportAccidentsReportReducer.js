@@ -8,6 +8,7 @@ import {
   CLEAR_ACCIDENT_DATA,
   GET_TRANSPORT_ACCIDENT_INFO,
   GET_BOAT_INFO_BY_REGNUM,
+  DELETE_ACCIDENT_FILE,
 } from "../types";
 
 import { v4 as uuidv4 } from "uuid";
@@ -30,6 +31,7 @@ const initialState = {
   victimsList: [],
   newAccidentData: {},
   personType: "",
+  fileList: [],
   // boatCardAppEngList: [],
   // boatCardAppSpecMarkList: [],
   // boatCardAppDealsList: [],
@@ -104,6 +106,12 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
         causersList: [],
         victimsList: [],
         personType: "",
+        fileList: [],
+      }))();
+    case DELETE_ACCIDENT_FILE:
+      return (() => ({
+        ...state,
+        fileList: [...state.fileList.filter((item) => Number(item.docid) !== Number(action.data))],
       }))();
     case GET_TRANSPORT_ACCIDENT_INFO:
       return (() => ({
@@ -112,6 +120,7 @@ export const TransportAccidentsReportReducer = (state = initialState, action) =>
         personType: action.data.personType,
         causersList: action.data.causersList,
         victimsList: action.data.victimsList,
+        fileList: action.data.fileList,
       }))();
     case GET_BOAT_INFO_BY_REGNUM:
       return (() => ({

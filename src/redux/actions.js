@@ -376,7 +376,7 @@ export function getDataTransportAccidentBySearchParams(params) {
         item["owner"] = owner;
       }
       if (!!item.incidentType && item.incidentType !== null) {
-        item["incidentType"] = item.incidentType === 1 ? "Авария" : "Инцендент";
+        item["incidentType"] = item.incidentType === 1 ? "Авария" : "Инциндент";
       }
       item["deadTotal"] = item.deadAdult + item.deadChildren;
     }
