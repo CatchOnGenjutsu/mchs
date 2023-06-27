@@ -168,10 +168,11 @@ export function getAccidentInfoById(id) {
     );
     if (requestMain.status === 200) {
       const responseMain = await requestMain.json();
+      console.log(responseMain.incidentDate.slice(11, 23));
       responseMain.incidentTime =
-        responseMain.incidentDate.slice(11, 19) === "00:00:00.000"
+        responseMain.incidentDate.slice(11, 23) === "00:00:00.000"
           ? ""
-          : responseMain.incidentDate.slice(11, 19);
+          : responseMain.incidentDate.slice(11, 23);
       responseMain.incidentDate = responseMain.incidentDate.slice(0, 10);
       if (!!responseMain.boatVidId) {
         responseMain.boatVidId = responseMain.boatVid.id;
@@ -221,7 +222,7 @@ export function saveTransportAccident(newAccidentData, causersList, victimsList,
   console.log(fileList);
   console.log(newAccidentData);
   if (!!newAccidentData.incidentTime) {
-    newAccidentData.incidentDate = `${newAccidentData.incidentDate} ${newAccidentData.incidentTime}.000`;
+    newAccidentData.incidentDate = `${newAccidentData.incidentDate} ${newAccidentData.incidentTime}:00.000`;
   } else {
     newAccidentData.incidentDate = `${newAccidentData.incidentDate} 00:00:00.000`;
   }
@@ -317,7 +318,7 @@ export function saveTransportAccident(newAccidentData, causersList, victimsList,
             body: JSON.stringify(victimsList),
           },
         );
-        if (Object.values(fileList).length > 0) {
+        if (!!fileList && Object.values(fileList).length > 0) {
           for (let item of fileList) {
             const formData = new FormData();
             formData.append("file", item);

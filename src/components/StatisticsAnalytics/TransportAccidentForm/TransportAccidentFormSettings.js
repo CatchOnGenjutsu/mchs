@@ -60,7 +60,7 @@ export const TransportAccidentFormSettingsIndividual = {
   incidentTime: {
     key: "incidentTime",
     value: "Время аварийного случая",
-    type: "text",
+    type: "time",
     flexDirection: "column",
   },
   incidentPlace: {
@@ -137,7 +137,7 @@ export const TransportAccidentFormSettingsIndividual = {
   },
   driverDrunk: {
     key: "driverDrunk",
-    value: "Агкогольное опьянение",
+    value: "Алкогольное опьянение",
     type: "select",
     isSearchable: false,
     options: [
@@ -210,7 +210,7 @@ export const TransportAccidentFormSettingsEntity = {
   incidentTime: {
     key: "incidentTime",
     value: "Время аварийного случая",
-    type: "text",
+    type: "time",
     flexDirection: "column",
   },
   incidentPlace: {
@@ -269,7 +269,7 @@ export const TransportAccidentFormSettingsEntity = {
   },
   driverDrunk: {
     key: "driverDrunk",
-    value: "Агкогольное опьянение",
+    value: "Алкогольное опьянение",
     type: "select",
     isSearchable: false,
     options: [
@@ -315,7 +315,7 @@ export const causersListOptions = {
       neededInModal: true,
     },
     {
-      value: "Агкогольное опьянение",
+      value: "Алкогольное опьянение",
       key: "drunk",
       type: "select",
       selectOptions: [
@@ -361,7 +361,7 @@ export const victimsListOptions = {
       neededInModal: true,
     },
     {
-      value: "Агкогольное опьянение",
+      value: "Алкогольное опьянение",
       key: "drunk",
       type: "select",
       selectOptions: [
@@ -391,7 +391,7 @@ export const TransportAccidentFormSettingsFooter = {
   },
   deadDrunk: {
     key: "deadDrunk",
-    value: "Количество погибших в состоянии алкогольного опьянения",
+    value: "Количество погибших в состоянии алкогольного опьянения (в том числе)",
     type: "text",
     flexDirection: "column",
   },

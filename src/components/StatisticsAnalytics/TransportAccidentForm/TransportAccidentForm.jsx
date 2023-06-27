@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import Select from "react-select";
 import { ProgressBar } from "react-loader-spinner";
+import TimePicker from "@semcore/ui/time-picker";
 
 import TableAppBoatReg from "../../AdministrativeProcedures/commonComponents/TablesAppBoatReg/TableAppBoatReg";
 
