@@ -380,7 +380,7 @@ export const TransportAccidentFormSettingsFooter = {
     type: "select",
     options: [
       { value: 1, label: "Авария", key: "incidentType" },
-      { value: 2, label: "Инциндент", key: "incidentType" },
+      { value: 2, label: "Инцидент", key: "incidentType" },
     ],
   },
   deadAdult: {

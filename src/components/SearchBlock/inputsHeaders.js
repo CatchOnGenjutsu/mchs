@@ -461,7 +461,7 @@ export const inputsHeadersTransportAccidentsReport = {
     selectOption: [
       { value: 0, label: "Все", key: "incidentType" },
       { value: 1, label: "Авария", key: "incidentType" },
-      { value: 2, label: "Инциндент", key: "incidentType" },
+      { value: 2, label: "Инцидент", key: "incidentType" },
     ],
   },
   incidentPlace: {
