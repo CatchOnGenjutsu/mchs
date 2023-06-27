@@ -9,7 +9,7 @@ import { MAIN_URL, PORT_FOR_REPORT} from "../../../../../constants/constants";
 import { month1 } from '../../../../../containers/GraphsReport/optionsForTypeGraph';
 
 
-function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDFFile,setDocsFile,getOptionsForField,setLoader}) {
+function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDFFile,setDocsFile,getOptionsForField,setLoader,setDataFotShortReport}) {
     const [data,setData]=useState({})
     const [options,setOptions]=useState(Object.values(fields))
     const [errors, setErrors] = useState({});
@@ -112,7 +112,22 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
                     setDocsFile(docsFile)
                 }else {console.error('Ошибка загрузки файла:');}
             }
-            getFile()
+
+            const getData = async ()=>{
+                const response = await fetch(`${MAIN_URL + PORT_FOR_REPORT+urlForReport}?${queryString}`)
+                if(response.ok){
+                    setLoader(false)
+                    const responseData = await response.json();
+                    setDataFotShortReport({data:responseData,date1:data.date1,date2:data.date2})
+
+                }else {console.error('Ошибка загрузки файла:');}
+            }
+            if(window.location.href.includes("reports/shortreport")){
+                getData()
+            }else {
+                getFile()
+            }
+
         }
         else {
             setSaveKey(true);
@@ -191,7 +206,6 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
         }
 
     }
-    console.log(data,errorsFields)
     const handleClearData = () => {
         if(window.location.href.includes("reports/graphs")){
             typeGraphRef.current.clearValue()
@@ -208,6 +222,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
             setData({})
             return
         }
+
         if(!window.location.href.includes("reports/quarterlyreport")){
             date1Ref.current.value = "";
             date2Ref.current.value = "";
@@ -215,9 +230,15 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
             yearRef.current.value = "";
             quarterRef.current.clearValue();
         }
+        if(window.location.href.includes("reports/shortreport")){
+            date1Ref.current.value = "";
+            date2Ref.current.value = "";
+            setDataFotShortReport([])
+        }else {
+            sectionRef.current.clearValue();
+            oblastRef.current.clearValue();
+        }
 
-         sectionRef.current.clearValue();
-         oblastRef.current.clearValue();
         setOptionsForField(false,"oblast")
         setOptionsForField(false,"section")
         setOptions(Object.values(getOptionsForField()))

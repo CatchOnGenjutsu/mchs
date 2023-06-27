@@ -130,9 +130,15 @@ function IndividualStatement() {
     }
 
   };
-  const handleCloseApp = () => {
+  const handleCloseApp = (e) => {
+    console.log(e)
+    if(e){
+      navigate(-2)
+    }else {
+      navigate(-1);
+    }
     dispatch(clearNewStatement());
-    navigate(-1);
+
   };
   const handleTypeChangeStatement = (e)=>{
     setIdTypeChangeStatement(e.currentTarget.value)
