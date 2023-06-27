@@ -75,7 +75,11 @@ function ModalWindow({ setShow, show, idBoadCard }) {
       aria-labelledby="contained-modal-title-vcenter"
       centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Выбор вида заявителя</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {window.location.pathname.includes("transportaccidents")
+            ? "Выбор вида судовладельца"
+            : "Выбор вида заявителя"}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <nav className={`d-flex`}>
