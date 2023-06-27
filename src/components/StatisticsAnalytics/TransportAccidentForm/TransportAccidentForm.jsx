@@ -245,6 +245,11 @@ export default function TransportAccidentForm() {
       setIsLoading(false);
     }
   }, [personType]);
+  useEffect(() => {
+    if (Object.values(newAccidentData).length !== 0) {
+      setDataForErrors(structuredClone(newAccidentData));
+    }
+  }, [newAccidentData]);
   return (
     <>
       {isLoading ? (
