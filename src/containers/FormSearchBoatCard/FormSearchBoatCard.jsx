@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import styles from "./FormSearchBoatCard.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import SearchBlock from "../../components/SearchBlock/SearchBlock";
 import SearchTable from "../../components/SearchTable/SearchTable";
@@ -38,12 +39,14 @@ function FormSearchBoatCard() {
   useEffect(()=>{dispatch(getDataRegInfChangeBoatCardsBySearchParams(stateRegInfChanges.searchParamsBoatCards));},[])
   return (
     <>
-      <h2>Поиск маломерного судна для подачи заявления</h2>
         <Button
+            className={`btn btn-danger btn-sm ${styles.custom}`}
             variant="danger"
             onClick={handleCloseApp}>
             Вернуться к заявлениям
         </Button>
+      <h2>Поиск маломерного судна для подачи заявления</h2>
+
       <SearchBlock inputsHeaders={Object.values(inputsFindBoatToChange)} />
       <ToolBlock
         id={boatCardId}

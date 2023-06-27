@@ -26,7 +26,7 @@ const DocumentPreview = ({pdf,excel,docs}) => {
                 onClick={(e) => handleExportButton(e)}
                 className={styles.button_element}
                 variant="primary">
-                Экспорт в документ
+                Экспортировать
             </Button>
         )}
             {pdf && (
