@@ -270,3 +270,6 @@
 .trash_box:hover{
   cursor: pointer;
 }
+.red_dot {
+  color: red;
+}

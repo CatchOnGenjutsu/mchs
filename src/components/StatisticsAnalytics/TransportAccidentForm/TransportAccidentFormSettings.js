@@ -53,7 +53,7 @@ export const TransportAccidentFormSettingsIndividual = {
   },
   incidentDate: {
     key: "incidentDate",
-    value: "Дата аварийного случая*",
+    value: "Дата аварийного случая",
     type: "date",
     flexDirection: "column",
   },
@@ -65,7 +65,7 @@ export const TransportAccidentFormSettingsIndividual = {
   },
   incidentPlace: {
     key: "incidentPlace",
-    value: "Место аварийного случая *",
+    value: "Место аварийного случая",
     type: "text",
     flexDirection: "column",
   },
@@ -203,7 +203,7 @@ export const TransportAccidentFormSettingsEntity = {
   },
   incidentDate: {
     key: "incidentDate",
-    value: "Дата аварийного случая*",
+    value: "Дата аварийного случая",
     type: "date",
     flexDirection: "column",
   },
@@ -215,7 +215,7 @@ export const TransportAccidentFormSettingsEntity = {
   },
   incidentPlace: {
     key: "incidentPlace",
-    value: "Место аварийного случая *",
+    value: "Место аварийного случая",
     type: "text",
     flexDirection: "column",
   },

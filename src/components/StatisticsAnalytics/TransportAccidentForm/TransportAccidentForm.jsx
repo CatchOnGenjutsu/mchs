@@ -54,8 +54,11 @@ export default function TransportAccidentForm() {
   const [transportAccidentFormSettings, setTransportAccidentFormSettings] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [fileList, setFileList] = useState([]);
-  // const [files, setFiles] = useState([]);
-  // let files
+  const [errors, setErrors] = useState({});
+  const [saveKey, setSaveKey] = useState(false);
+  const [dataForErrors, setDataForErrors] = useState({});
+
+  const errorsFields = ["incidentDate", "incidentPlace"];
 
   const dataOptionsForSelectATE = useSelector((state) => {
     const { dictionaryReducer } = state;
@@ -103,29 +106,45 @@ export default function TransportAccidentForm() {
     return TransportAccidentsReportReducer.fileList;
   });
 
+  const handleErrors = () => {
+    let newErrors = {};
+    errorsFields.forEach((elem) => {
+      if (!dataForErrors[elem] || dataForErrors[elem] === "") {
+        newErrors[elem] = "Заполните поле";
+      }
+    });
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      console.log(newErrors);
+      return true;
+    } else {
+      setErrors({});
+      return false;
+    }
+  };
+
   const handleValue = (e) => {
     if (e) {
       switch (true) {
         case Object.keys(e).includes("target"):
-          // updateNewData(e.target.id, e.currentTarget.value);
           if (e.target.id !== "file") {
+            if (e.target.id === "incidentDate" || e.target.id === "incidentPlace") {
+              dataForErrors[e.target.id] = e.target.value;
+            }
             dispatch(addNewAccidentData({ [`${e.target.id}`]: e.target.value }));
           } else {
             if (e.target.files) {
               setFileList(e.target.files);
             }
-            console.log(e.target.files);
-            console.log(fileList);
           }
           break;
         case Object.keys(e).includes("key"):
-          // updateNewData(e.key, e.value);
           dispatch(addNewAccidentData({ [`${e.key}`]: e.value }));
           break;
         default:
           break;
       }
-      // if (saveKey) handleErrors();
+      if (saveKey) handleErrors();
     }
   };
 
@@ -138,39 +157,49 @@ export default function TransportAccidentForm() {
           }
           break;
         case "save":
-          if (mode === "add") {
-            if (Object.values(fileList).length > 0) {
-              dispatch(
-                saveTransportAccident(newAccidentData, causersList, victimsList, null, null, fileList),
-              );
-            } else {
-              dispatch(saveTransportAccident(newAccidentData, causersList, victimsList));
+          if (!handleErrors()) {
+            if (mode === "add") {
+              if (Object.values(fileList).length > 0) {
+                dispatch(
+                  saveTransportAccident(newAccidentData, causersList, victimsList, null, null, fileList),
+                );
+              } else {
+                dispatch(saveTransportAccident(newAccidentData, causersList, victimsList));
+              }
+            } else if (mode === "edit") {
+              const pathArray = window.location.pathname.split("/");
+              const id = pathArray[pathArray.length - 1];
+              if (Object.values(fileList).length > 0) {
+                dispatch(
+                  saveTransportAccident(newAccidentData, causersList, victimsList, id, null, fileList),
+                );
+              } else {
+                dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id));
+              }
             }
-          } else if (mode === "edit") {
-            const pathArray = window.location.pathname.split("/");
-            const id = pathArray[pathArray.length - 1];
-            if (Object.values(fileList).length > 0) {
-              dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id, null, fileList));
-            } else {
-              dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id));
-            }
+            dispatch(clearAccidentData());
+            navigate("/transportaccidents");
+            dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
+          } else {
+            setSaveKey(true);
           }
-          dispatch(clearAccidentData());
-          navigate("/transportaccidents");
-          dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
           break;
         case "form":
-          const formKey = "form";
-          if (mode === "add") {
-            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, null, formKey));
-          } else if (mode === "edit") {
-            const pathArray = window.location.pathname.split("/");
-            const id = pathArray[pathArray.length - 1];
-            dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id, formKey));
+          if (!handleErrors()) {
+            const formKey = "form";
+            if (mode === "add") {
+              dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, null, formKey));
+            } else if (mode === "edit") {
+              const pathArray = window.location.pathname.split("/");
+              const id = pathArray[pathArray.length - 1];
+              dispatch(saveTransportAccident(newAccidentData, causersList, victimsList, id, formKey));
+            }
+            dispatch(clearAccidentData());
+            navigate("/transportaccidents");
+            dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
+          } else {
+            setSaveKey(true);
           }
-          dispatch(clearAccidentData());
-          navigate("/transportaccidents");
-          dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
           break;
         case "close":
           dispatch(clearAccidentData());
@@ -296,16 +325,24 @@ export default function TransportAccidentForm() {
                   } else {
                     return (
                       <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
-                        <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
+                        <Form.Label className={`${styles.form_label}`}>
+                          {item.value}
+                          {(item.key === "incidentDate" || item.key === "incidentPlace") &&
+                            mode !== "view" && <span className={styles.red_dot}>*</span>}
+                        </Form.Label>
                         <Form.Control
                           id={item.key}
                           defaultValue={item.defaultValue}
                           readOnly={item.readOnly || mode === "view"}
                           disabled={mode === "view" ? true : false}
                           type={item.type}
+                          isInvalid={mode !== "view" && !!errors[item.key] ? true : false}
                           value={newAccidentData[item.key]}
                           onChange={(e) => handleValue(e)}
                         />
+                        {(item.key === "incidentDate" || item.key === "incidentPlace") && (
+                          <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
+                        )}
                       </Form.Group>
                     );
                   }
@@ -353,20 +390,50 @@ export default function TransportAccidentForm() {
                     </Form.Group>
                   );
                 default:
-                  return (
-                    <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
-                      <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
-                      <Form.Control
-                        id={item.key}
-                        defaultValue={item.defaultValue}
-                        readOnly={item.readOnly || mode === "view"}
-                        disabled={mode === "view" ? true : false}
-                        type={item.type}
-                        value={newAccidentData[item.key]}
-                        onChange={(e) => handleValue(e)}
-                      />
-                    </Form.Group>
-                  );
+                  if (item.key === "deadDrunk") {
+                    return (
+                      <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
+                        <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
+                        <Form.Control
+                          id={item.key}
+                          isInvalid={(() => {
+                            const adult =
+                              !newAccidentData["deadAdult"] || newAccidentData["deadAdult"] === ""
+                                ? 0
+                                : Number(newAccidentData["deadAdult"]);
+                            const children =
+                              !newAccidentData["deadChildren"] || newAccidentData["deadChildren"] === ""
+                                ? 0
+                                : Number(newAccidentData["deadChildren"]);
+                            if (adult + children < Number(newAccidentData["deadDrunk"])) {
+                              return true;
+                            } else {
+                              return false;
+                            }
+                          })()}
+                          readOnly={item.readOnly || mode === "view"}
+                          disabled={mode === "view" ? true : false}
+                          type={item.type}
+                          value={newAccidentData[item.key]}
+                          onChange={(e) => handleValue(e)}
+                        />
+                      </Form.Group>
+                    );
+                  } else {
+                    return (
+                      <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
+                        <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
+                        <Form.Control
+                          id={item.key}
+                          readOnly={item.readOnly || mode === "view"}
+                          disabled={mode === "view" ? true : false}
+                          type={item.type}
+                          value={newAccidentData[item.key]}
+                          onChange={(e) => handleValue(e)}
+                        />
+                      </Form.Group>
+                    );
+                  }
               }
             })}
           </div>
