@@ -51,6 +51,7 @@ import ReportTrafficAccidents from "./containers/ReportTrafficAccidents/ReportTr
 import CertificateIssuanceReport from "./containers/CertificateIssuanceReport/CertificateIssuanceReport";
 import QuarterlyReport from "./containers/QuarterlyReport/QuarterlyReport";
 import GraphsReport from "./containers/GraphsReport/GraphsReport";
+import ShortReport from "./containers/ShortReport/ShortReport";
 
 function App() {
   const dispatch = useDispatch();
@@ -280,6 +281,10 @@ function App() {
             <Route
               path="/reports/graphs"
               element={<GraphsReport />}
+            />
+            <Route
+                path="/reports/shortreport"
+                element={<ShortReport />}
             />
           </Routes>
         </div>

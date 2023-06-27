@@ -27,4 +27,8 @@ export const ReportsSettings = [
     id: "graphs",
     title: "Графики",
   },
+  {
+    id: "shortreport",
+    title: "Краткий отчет",
+  },
 ];

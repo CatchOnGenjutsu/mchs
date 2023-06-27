@@ -90,9 +90,9 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
     }
   }, []);
 
-  const handleClose = () => {
+  const handleClose = (e) => {
     if (result === "success") {
-      handleCloseApp();
+      handleCloseApp(e);
     } else {
       setShow(false);
     }
@@ -100,7 +100,7 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
   return (
     <Modal
       show={show}
-      onHide={() => handleClose()}
+      onHide={(e) => handleClose(e)}
       aria-labelledby="contained-modal-title-vcenter"
       centered>
       <Modal.Header closeButton>
@@ -119,7 +119,7 @@ export default function ResultModalWindow({ show, setShow, result, appId, handle
       )}
 
       <Modal.Footer>
-        <Button onClick={() => handleClose()}>Закрыть</Button>
+        <Button onClick={(e) => handleClose(e)}>Закрыть</Button>
       </Modal.Footer>
     </Modal>
   );
