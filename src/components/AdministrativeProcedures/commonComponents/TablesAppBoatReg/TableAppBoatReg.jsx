@@ -179,7 +179,7 @@ export default function TableAppBoatReg({
                     <td className={styles.edit__column}>
                       {elem.hasOwnProperty("innerId") || elem.hasOwnProperty("id") ? (
                         <button
-                          className={`${styles.delete__buttons} btn btn-danger`}
+                          className={`btn btn-danger ${styles.delete__buttons}`}
                           // data-tabletype={documentsTableColumns.keyTable}
                           // data-docname={elem.docname}
                           // data-doctype="file"

@@ -219,8 +219,6 @@ export function getAccidentInfoById(id) {
 }
 
 export function saveTransportAccident(newAccidentData, causersList, victimsList, id, formKey, fileList) {
-  console.log(fileList);
-  console.log(newAccidentData);
   if (!!newAccidentData.incidentTime) {
     newAccidentData.incidentDate = `${newAccidentData.incidentDate} ${newAccidentData.incidentTime}:00.000`;
   } else {

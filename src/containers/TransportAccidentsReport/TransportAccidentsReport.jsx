@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import SearchBlock from "../../components/SearchBlock/SearchBlock";
 import ToolBlock from "../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
@@ -12,10 +12,13 @@ import {
 } from "../../components/SearchBlock/inputsHeaders";
 import { TRANSPORT_ACCIDENT_COLUMNS } from "../../components/SearchTable/TablesColumns";
 
+import { getDataTransportAccidentBySearchParams } from "../../redux/actions";
+
 export default function TransportAccidentsReport() {
   const [show, setShow] = useState(false);
   const [accidentId, setAccidentId] = useState(null);
   const [accidentStatus, setAccidentsStatus] = useState(null);
+  const dispatch = useDispatch();
 
   const handleAccidentId = (value) => {
     // appId === value ? setAppId(null) : setAppId(value);
@@ -47,6 +50,13 @@ export default function TransportAccidentsReport() {
     const { TransportAccidentsReportReducer } = state;
     return TransportAccidentsReportReducer.data;
   });
+  const searchParamsTransportAccidents = useSelector((state) => {
+    const { TransportAccidentsReportReducer } = state;
+    return TransportAccidentsReportReducer.searchParams;
+  });
+  useEffect(() => {
+    dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
+  }, []);
 
   return (
     <div>
