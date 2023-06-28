@@ -62,3 +62,6 @@
     font-size: .875em;
     color: #dc3545;
 }
+[id=header-bar]{
+    display: none;
+}
