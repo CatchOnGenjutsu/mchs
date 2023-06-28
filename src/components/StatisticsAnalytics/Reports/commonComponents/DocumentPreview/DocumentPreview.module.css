@@ -2,3 +2,6 @@
     margin: 1em 2vw 0;
     width: 8vw;
 }
+[id=header-bar]{
+    display: none!important;
+}
