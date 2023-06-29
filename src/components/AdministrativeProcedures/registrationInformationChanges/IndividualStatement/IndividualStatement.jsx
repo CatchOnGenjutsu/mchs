@@ -581,7 +581,7 @@ function IndividualStatement() {
         </Button>)}
         <Button
             variant="danger"
-            onClick={handleCloseApp}>
+            onClick={()=>{handleCloseApp()}}>
           Закрыть
         </Button>
       </div>

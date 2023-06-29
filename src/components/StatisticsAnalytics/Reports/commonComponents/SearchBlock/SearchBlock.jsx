@@ -265,7 +265,7 @@ function SearchBlock({fields,setOptionsForField,urlForReport,setExcelFile,setPDF
         <>
             <Form className={styles.form_inputs}>
                 {!!dataRangeError && <div className={styles.range_block}>{dataRangeError}</div>}
-                <div className={`d-flex`}>
+                <div className={`d-flex flex-wrap`}>
                     {options.map((field)=>{
                         if(field.type==="number" && !field.hidden)
                             return (

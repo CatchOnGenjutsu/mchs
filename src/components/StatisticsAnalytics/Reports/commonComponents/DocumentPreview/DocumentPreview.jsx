@@ -30,10 +30,14 @@ const DocumentPreview = ({pdf,excel,docs}) => {
             </Button>
         )}
             {pdf && (
-                <DocViewer
-                    documents={[{ uri: URL.createObjectURL(pdf),fileName: pdf.name.replace(/\.[^/.]+$/, '') }]}
-                    pluginRenderers={DocViewerRenderers}
-                />
+                <>
+                    <h5>{pdf.name.replace(/\.[^/.]+$/, '')}</h5>
+                    <DocViewer
+                        documents={[{ uri: URL.createObjectURL(pdf),fileName: pdf.name }]}
+                        pluginRenderers={DocViewerRenderers}
+                    />
+                </>
+
             )}
 
         </>
