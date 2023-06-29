@@ -7,8 +7,7 @@
   column-gap: 15px;
   row-gap: 15px;
   grid-template-areas:
-    "BS . . . . ."
-    "BI . . . . ."
+    "PT PT BS BI  . ."
     "BRN BRN BV BT BN BN"
     "ID IT IP IP IP IR "
     "OS ON OM OB OW ."
@@ -24,25 +23,14 @@
   column-gap: 15px;
   row-gap: 15px;
   grid-template-areas:
-    "BS . . . . ."
-    "BI . . . . ."
+    "PT PT BS BI  . ."
     "BRN BRN BV BT BN BN"
     "ID IT IP IP IP IR "
     "LN LU . . . ."
     "DS DN DM DB DW DD";
     align-items: baseline;
 }
-.form_group_flex_inline {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-}
-.form_group_flex_column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+.form_group {
   margin-bottom: 10px;
 }
 .form_group_flex_reg_num {
@@ -64,7 +52,7 @@
 }
 
 .input_element {
-  width: 200px;
+  width: 100%;
 }
 .box-sectionId {
   grid-area: BS;
@@ -134,6 +122,14 @@
 }
 .box-ownerLeUnp {
   grid-area: LU;
+}
+.box-personType{ 
+  grid-area: PT;
+}
+.personType_input {
+  min-width: max-content;
+  background-color: white !important;
+ flex-grow: 0;
 }
 .grid_container_footer {
   background-color: #e5e4e2;

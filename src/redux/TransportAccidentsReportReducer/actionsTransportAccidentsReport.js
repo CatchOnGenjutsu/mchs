@@ -392,7 +392,6 @@ export function saveTransportAccident(newAccidentData, causersList, victimsList,
             );
           }
         }
-        console.log(response);
       }
     };
   }

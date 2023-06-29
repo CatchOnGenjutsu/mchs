@@ -14,14 +14,12 @@ import {
   setOptionsForInputsATE,
   setOptionsForInputsUsers,
   setOptionsForBoat,
+  setOptionsForPersonType,
 } from "./TransportAccidentFormSettings";
 
 import {
   setOptionsTypesBoat,
   setOptionsVidBoat,
-  setOptionsBodyBoat,
-  setReadOptionForInputs,
-  setOptionsSaCategory,
 } from "../../AdministrativeProcedures/commonComponents/utilities";
 
 import {
@@ -46,17 +44,19 @@ import { getDataTransportAccidentBySearchParams } from "../../../redux/actions";
 import styles from "./TransportAccidentForm.module.css";
 
 export default function TransportAccidentForm() {
-  const location = useLocation();
-  const { mode } = location.state;
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [transportAccidentFormSettings, setTransportAccidentFormSettings] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [fileList, setFileList] = useState([]);
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
   const [dataForErrors, setDataForErrors] = useState({});
+  const [localPersonType, setLocalPersonType] = useState("individual");
+  const [localData, setLocalData] = useState({});
+
+  const location = useLocation();
+  const { mode } = location.state;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const errorsFields = ["incidentDate", "incidentPlace"];
 
@@ -106,6 +106,14 @@ export default function TransportAccidentForm() {
     return TransportAccidentsReportReducer.fileList;
   });
 
+  const handlePersonType = (e) => {
+    if (e) {
+      dispatch(clearAccidentData());
+      setLocalPersonType(e.target.value);
+      setTransportAccidentFormSettings(setOptionsForPersonType(e.target.value));
+    }
+  };
+
   const handleErrors = () => {
     let newErrors = {};
     errorsFields.forEach((elem) => {
@@ -139,6 +147,7 @@ export default function TransportAccidentForm() {
           }
           break;
         case Object.keys(e).includes("key"):
+          dataForErrors[e.key] = e.value;
           dispatch(addNewAccidentData({ [`${e.key}`]: e.value }));
           break;
         default:
@@ -222,29 +231,44 @@ export default function TransportAccidentForm() {
     (async () => {
       const typesBoat = await setOptionsTypesBoat();
       const kindsBoat = await setOptionsVidBoat();
-      setTransportAccidentFormSettings(setOptionsForBoat(typesBoat, kindsBoat, window.location.pathname));
+      setTransportAccidentFormSettings(setOptionsForBoat(typesBoat, kindsBoat, localPersonType));
       if (mode === "view" || mode === "edit") {
         const pathArray = window.location.pathname.split("/");
         const id = pathArray[pathArray.length - 1];
         dispatch(getAccidentInfoById(id));
-      } else {
-        setTransportAccidentFormSettings(
-          setOptionsForInputsATE(dataOptionsForSelectATEValidated, window.location.pathname),
-        );
-        setTransportAccidentFormSettings(setOptionsForInputsUsers(usersLib, window.location.pathname));
-        setIsLoading(false);
       }
     })();
   }, []);
+
   useEffect(() => {
-    if (mode === "view" || mode === "edit") {
+    if ((mode === "view" || mode === "edit") && personType !== "") {
+      setLocalPersonType(personType);
       setTransportAccidentFormSettings(setOptionsForInputsATE(dataOptionsForSelectATEValidated, personType));
       setTransportAccidentFormSettings(setOptionsForInputsUsers(usersLib, personType));
+    } else if (mode === "add" && personType !== "") {
+      setLocalPersonType(personType);
+      setTransportAccidentFormSettings(setOptionsForPersonType(personType));
     }
     if (personType !== "") {
       setIsLoading(false);
     }
   }, [personType]);
+
+  useEffect(() => {
+    if (usersLib.length !== 0) {
+      setTransportAccidentFormSettings(setOptionsForInputsUsers(usersLib, localPersonType));
+    }
+  }, [usersLib]);
+
+  useEffect(() => {
+    if (Object.values(dataOptionsForSelectATEValidated).length !== 0) {
+      setTransportAccidentFormSettings(
+        setOptionsForInputsATE(dataOptionsForSelectATEValidated, localPersonType),
+      );
+    }
+    setIsLoading(false);
+  }, [dataOptionsForSelectATEValidated]);
+
   useEffect(() => {
     if (Object.values(newAccidentData).length !== 0) {
       setDataForErrors(structuredClone(newAccidentData));
@@ -269,29 +293,50 @@ export default function TransportAccidentForm() {
           <h2>Добавить РК аварийного случая</h2>
           <div
             className={
-              window.location.pathname.includes("individual") || personType === "individual"
+              localPersonType === "individual"
                 ? styles.grid_container_individual
                 : styles.grid_container_entity
             }>
+            <Form.Group className={`${styles[`box-personType`]} ${styles.form_group}`}>
+              <Form.Label className={styles.form_label}>Вид судовладельца</Form.Label>
+              <Form.Select
+                id={"localPersonType"}
+                type="select"
+                disabled={mode === "view"}
+                className={styles.personType_input}
+                onChange={(e) => handlePersonType(e)}
+                value={localPersonType}>
+                <option
+                  data-id={"localPersonType"}
+                  value={"individual"}>
+                  Физическое лицо
+                </option>
+                <option
+                  data-id={"localPersonType"}
+                  value={"entity"}>
+                  Юридическое лицо
+                </option>
+              </Form.Select>
+            </Form.Group>
             {Object.values(transportAccidentFormSettings).map((item) => {
               switch (item.type) {
                 case "select":
                   return (
-                    <Form.Group
-                      className={`${styles[`box-${item.key}`]} ${
-                        styles[`form_group_flex_${item.flexDirection}`]
-                      }`}>
+                    <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group}`}>
                       <Form.Label className={styles.form_label}>{item.value}</Form.Label>
                       <Select
-                        // ref={setRef(item)}
                         className={styles.input_element}
                         onChange={(e) => handleValue(e)}
                         classNamePrefix="select"
                         placeholder="Выберите"
                         id={item.key}
-                        value={item.options.find((item) => {
-                          return item.value === newAccidentData[item.key];
-                        })}
+                        value={
+                          newAccidentData[item.key]
+                            ? item.options.find((item) => {
+                                return item.value === newAccidentData[item.key];
+                              })
+                            : null
+                        }
                         isDisabled={item.disabled || mode === "view" ? true : false}
                         isSearchable={item.isSearchable}
                         name={item.key}
@@ -305,7 +350,7 @@ export default function TransportAccidentForm() {
                     return (
                       <Form.Group
                         className={`${styles[`box-${item.key}`]} ${styles.form_group_flex_reg_num}`}>
-                        <div className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
+                        <div>
                           <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
                           <Form.Control
                             id={item.key}
@@ -313,7 +358,7 @@ export default function TransportAccidentForm() {
                             readOnly={item.readOnly || mode === "view"}
                             disabled={mode === "view" ? true : false}
                             type={item.type}
-                            value={newAccidentData[item.key]}
+                            value={newAccidentData[item.key] ? newAccidentData[item.key] : ""}
                             onChange={(e) => handleValue(e)}
                           />
                         </div>
@@ -329,7 +374,7 @@ export default function TransportAccidentForm() {
                     );
                   } else {
                     return (
-                      <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
+                      <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group}`}>
                         <Form.Label className={`${styles.form_label}`}>
                           {item.value}
                           {(item.key === "incidentDate" || item.key === "incidentPlace") &&
@@ -342,7 +387,7 @@ export default function TransportAccidentForm() {
                           disabled={mode === "view" ? true : false}
                           type={item.type}
                           isInvalid={mode !== "view" && !!errors[item.key] ? true : false}
-                          value={newAccidentData[item.key]}
+                          value={newAccidentData[item.key] ? newAccidentData[item.key] : ""}
                           onChange={(e) => handleValue(e)}
                         />
                         {(item.key === "incidentDate" || item.key === "incidentPlace") && (
@@ -373,19 +418,21 @@ export default function TransportAccidentForm() {
               switch (item.type) {
                 case "select":
                   return (
-                    <Form.Group
-                      className={`${styles[`box-${item.key}`]} ${
-                        styles[`form_group_flex_${item.flexDirection}`]
-                      }`}>
+                    <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group}`}>
                       <Form.Label className={styles.form_label}>{item.value}</Form.Label>
                       <Select
-                        // ref={setRef(item)}
                         className={styles.input_element}
                         onChange={(e) => handleValue(e)}
                         classNamePrefix="select"
                         placeholder="Выберите"
                         id={item.key}
-                        value={item.options.find((item) => item.value === newAccidentData[item.key])}
+                        value={
+                          newAccidentData[item.key]
+                            ? item.options.find((item) => {
+                                return item.value === newAccidentData[item.key];
+                              })
+                            : null
+                        }
                         isDisabled={item.disabled || mode === "view" ? true : false}
                         isSearchable={item.isSearchable}
                         name={item.key}
@@ -397,7 +444,7 @@ export default function TransportAccidentForm() {
                 default:
                   if (item.key === "deadDrunk") {
                     return (
-                      <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
+                      <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group}`}>
                         <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
                         <Form.Control
                           id={item.key}
@@ -419,21 +466,21 @@ export default function TransportAccidentForm() {
                           readOnly={item.readOnly || mode === "view"}
                           disabled={mode === "view" ? true : false}
                           type={item.type}
-                          value={newAccidentData[item.key]}
+                          value={newAccidentData[item.key] ? newAccidentData[item.key] : ""}
                           onChange={(e) => handleValue(e)}
                         />
                       </Form.Group>
                     );
                   } else {
                     return (
-                      <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group_flex}`}>
+                      <Form.Group className={`${styles[`box-${item.key}`]} ${styles.form_group}`}>
                         <Form.Label className={`${styles.form_label}`}>{item.value}</Form.Label>
                         <Form.Control
                           id={item.key}
                           readOnly={item.readOnly || mode === "view"}
                           disabled={mode === "view" ? true : false}
                           type={item.type}
-                          value={newAccidentData[item.key]}
+                          value={newAccidentData[item.key] ? newAccidentData[item.key] : ""}
                           onChange={(e) => handleValue(e)}
                         />
                       </Form.Group>
@@ -450,7 +497,6 @@ export default function TransportAccidentForm() {
                   id={"file"}
                   type={"file"}
                   multiple
-                  // value={newAccidentData[item.key]}
                   onChange={(e) => handleValue(e)}
                 />
               </Form.Group>

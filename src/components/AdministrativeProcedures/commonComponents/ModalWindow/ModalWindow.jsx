@@ -46,22 +46,6 @@ function ModalWindow({ setShow, show, idBoadCard }) {
             break;
         }
         break;
-      case pathName.includes("transportaccidents"):
-        switch (e.target.dataset.key) {
-          case "individual":
-            navigate("./add/individual", {
-              state: { type: "individual", mode: "add" },
-            });
-            break;
-          case "entity":
-            navigate("./add/entity", {
-              state: { type: "entity", mode: "add" },
-            });
-            break;
-          default:
-            break;
-        }
-        break;
       default:
         break;
     }

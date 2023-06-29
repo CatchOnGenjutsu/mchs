@@ -416,19 +416,11 @@ export const TransportAccidentFormSettingsFooter = {
 };
 
 export const setOptionsForInputsATE = (inputsOptions, path) => {
-  switch (true) {
-    case path.includes("individual"):
-      if (TransportAccidentFormSettingsIndividual.sectionId.options.length === 0) {
-        TransportAccidentFormSettingsIndividual.sectionId.options.push(...inputsOptions);
-      }
-      break;
-    case path.includes("entity"):
-      if (TransportAccidentFormSettingsEntity.sectionId.options.length === 0) {
-        TransportAccidentFormSettingsEntity.sectionId.options.push(...inputsOptions);
-      }
-      break;
-    default:
-      break;
+  if (TransportAccidentFormSettingsIndividual.sectionId.options.length === 0) {
+    TransportAccidentFormSettingsIndividual.sectionId.options.push(...inputsOptions);
+  }
+  if (TransportAccidentFormSettingsEntity.sectionId.options.length === 0) {
+    TransportAccidentFormSettingsEntity.sectionId.options.push(...inputsOptions);
   }
   if (path.includes("individual")) {
     return TransportAccidentFormSettingsIndividual;
@@ -438,20 +430,14 @@ export const setOptionsForInputsATE = (inputsOptions, path) => {
 };
 
 export const setOptionsForInputsUsers = (inputsOptions, path) => {
-  switch (true) {
-    case path.includes("individual"):
-      TransportAccidentFormSettingsIndividual.inspectorId.options = inputsOptions.map((item) => {
-        return { value: item.userid, label: item.name, key: "inspectorId" };
-      });
-      break;
-    case path.includes("entity"):
-      TransportAccidentFormSettingsEntity.inspectorId.options = inputsOptions.map((item) => {
-        return { value: item.userid, label: item.name, key: "inspectorId" };
-      });
-      break;
-    default:
-      break;
-  }
+  TransportAccidentFormSettingsIndividual.inspectorId.options = inputsOptions.map((item) => {
+    return { value: item.userid, label: item.name, key: "inspectorId" };
+  });
+
+  TransportAccidentFormSettingsEntity.inspectorId.options = inputsOptions.map((item) => {
+    return { value: item.userid, label: item.name, key: "inspectorId" };
+  });
+
   if (path.includes("individual")) {
     return TransportAccidentFormSettingsIndividual;
   } else {
@@ -483,4 +469,12 @@ export function setOptionsForBoat(types, kinds, path) {
   }
   // fieldBoatOptions.bodyMaterial.options = materials;
   // fieldBoatOptions.saCategory.options = saCategory;
+}
+
+export function setOptionsForPersonType(personType) {
+  if (personType === "individual") {
+    return TransportAccidentFormSettingsIndividual;
+  } else {
+    return TransportAccidentFormSettingsEntity;
+  }
 }

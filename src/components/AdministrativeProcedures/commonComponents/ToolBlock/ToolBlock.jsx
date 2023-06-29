@@ -98,6 +98,9 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         break;
       }
       case pathName.includes("transportaccidents"): {
+        navigate("./add", {
+          state: { mode: "add" },
+        });
         setShow(true);
         break;
       }

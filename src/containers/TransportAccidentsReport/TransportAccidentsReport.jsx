@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import SearchBlock from "../../components/SearchBlock/SearchBlock";
 import ToolBlock from "../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
-import ModalWindow from "../../components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow";
 import { MemoSearchTable } from "../../components/SearchTable/SearchTable";
 
 import {
@@ -77,12 +76,6 @@ export default function TransportAccidentsReport() {
         headerColumns={TRANSPORT_ACCIDENT_COLUMNS}
         dataFromState={dataFromStateTransportAccidents}
       />
-      {show && (
-        <ModalWindow
-          show={show}
-          setShow={setShow}
-        />
-      )}
     </div>
   );
 }

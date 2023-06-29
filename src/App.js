@@ -251,11 +251,7 @@ function App() {
               element={<TransportAccidentsReport />}
             />
             <Route
-              path="/transportaccidents/add/individual"
-              element={<TransportAccidentForm />}
-            />
-            <Route
-              path="/transportaccidents/add/entity"
+              path="/transportaccidents/add"
               element={<TransportAccidentForm />}
             />
             <Route
@@ -283,8 +279,8 @@ function App() {
               element={<GraphsReport />}
             />
             <Route
-                path="/reports/shortreport"
-                element={<ShortReport />}
+              path="/reports/shortreport"
+              element={<ShortReport />}
             />
           </Routes>
         </div>
