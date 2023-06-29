@@ -247,16 +247,16 @@ export const PRIVISION_INFORMATION_COLUMNS = [
 
 export const TRANSPORT_ACCIDENT_COLUMNS = [
   {
-    Header: "Участок",
-    accessor: "sctName",
-  },
-  {
     Header: "Дата",
     accessor: "incidentDate",
   },
   {
     Header: "Место транспортного аварийного случая",
     accessor: "incidentPlace",
+  },
+  {
+    Header: "Участок",
+    accessor: "sctName",
   },
   {
     Header: "Судовладелец",
