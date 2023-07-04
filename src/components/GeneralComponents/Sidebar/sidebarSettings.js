@@ -17,7 +17,7 @@ export const sidebarSettings = {
     listModal: [
       { title: "Регистрация маломерных судов", id: "smallboatsreg" },
       { title: "Регистрация изменений сведений", id: "reginformationchanges" },
-      { title: "Техническое освидетельствование судов", id: "" },
+      { title: "Техническое освидетельствование судов", id: "techexamination" },
       { title: "Выдача судового билета", id: "shipsticket" },
       { title: "Выдача дубликата судового билета", id: "dupshipsticket" },
       { title: "Выдача (обмен) удостоверений", id: "" },

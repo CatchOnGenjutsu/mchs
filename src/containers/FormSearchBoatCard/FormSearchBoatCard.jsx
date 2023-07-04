@@ -22,7 +22,7 @@ function FormSearchBoatCard() {
   const [boatCardId, setBoatCardId] = useState(null);
   const [addBtnDis, setAddBtnDis] = useState(true);
   const handleBoatCardId = (value) => {
-    console.log(value);
+    // console.log(value);
     setBoatCardId(value);
   };
 

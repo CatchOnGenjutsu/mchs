@@ -16,6 +16,7 @@ import RegistrationInformationChanges from "./containers/AdministrativeProcedure
 import FormSearchBoatCard from "./containers/FormSearchBoatCard/FormSearchBoatCard";
 import IndividualStatement from "./components/AdministrativeProcedures/registrationInformationChanges/IndividualStatement/IndividualStatement";
 import DecisionCard from "./components/AdministrativeProcedures/commonComponents/DecisionCard/DecisionCard";
+import TechnicalExaminationContainer from "./containers/AdministrativeProcedures/TechnicalExaminationContainer/TechnicalExaminationContainer";
 import NSI from "./containers/NSI/NSI";
 import ClassificationBoats from "./components/NSI/ClassificationBoats/ClassificationBoats";
 import Legislation from "./components/NSI/Legislation/Legislation";
@@ -34,12 +35,12 @@ import InspectorWorkStat from "./components/StatisticsAnalytics/InspectorWorkSta
 import Reports from "./containers/StatisticsContainers/Reports/Reports";
 import TransportAccidentsReport from "./containers/StatisticsContainers/TransportAccidentsReport/TransportAccidentsReport";
 import TransportAccidentForm from "./components/StatisticsAnalytics/TransportAccidentForm/TransportAccidentForm";
-import WeeklyReport from "./containers/WeeklyReport/WeeklyReport";
-import ReportTrafficAccidents from "./containers/ReportTrafficAccidents/ReportTrafficAccidents";
-import CertificateIssuanceReport from "./containers/CertificateIssuanceReport/CertificateIssuanceReport";
-import QuarterlyReport from "./containers/QuarterlyReport/QuarterlyReport";
-import GraphsReport from "./containers/GraphsReport/GraphsReport";
-import ShortReport from "./containers/ShortReport/ShortReport";
+import WeeklyReport from "./containers/StatisticsContainers/WeeklyReport/WeeklyReport";
+import ReportTrafficAccidents from "./containers/StatisticsContainers/ReportTrafficAccidents/ReportTrafficAccidents";
+import CertificateIssuanceReport from "./containers/StatisticsContainers/CertificateIssuanceReport/CertificateIssuanceReport";
+import QuarterlyReport from "./containers/StatisticsContainers/QuarterlyReport/QuarterlyReport";
+import GraphsReport from "./containers/StatisticsContainers/GraphsReport/GraphsReport";
+import ShortReport from "./containers/StatisticsContainers/ShortReport/ShortReport";
 
 import {
   getDictionaryGimsSections,
@@ -201,6 +202,14 @@ function App() {
             <Route
               path="/provisioninformation/decisioncard/:id"
               element={<StatementProvisionInformation />}
+            />
+            <Route
+              path="techexamination"
+              element={<TechnicalExaminationContainer />}
+            />
+            <Route
+              path="/techexamination/searchboatcard"
+              element={<FormSearchBoatCard />}
             />
             <Route
               path="/inspectorworkstat"

@@ -491,6 +491,56 @@ export const inputsHeadersTransportAccidentsReport = {
   },
 };
 
+export const inputsTechnicalExamination = {
+  ownerSurname: {
+    key: "ownerSurname",
+    value: "Фамилия",
+    type: "text",
+  },
+  ownerName: {
+    key: "ownerName",
+    value: "Имя",
+    type: "text",
+  },
+  ownerMidname: {
+    key: "ownerMidname",
+    value: "Отчество",
+    type: "text",
+  },
+  appNum: {
+    key: "appNum",
+    value: "Рег. номер заявления",
+    type: "text",
+  },
+  leName: {
+    key: "leName",
+    value: "Наименование организации",
+    type: "text",
+  },
+  leUnp: {
+    key: "leUnp",
+    value: "УНП",
+    type: "text",
+  },
+  section: {
+    key: "section",
+    value: "Участок",
+    type: "selectRayon",
+    selectOption: [{ value: 0, label: "Все", key: "section" }],
+  },
+  status: {
+    key: "status",
+    value: "Статус",
+    type: "select",
+    selectOption: [
+      { id: 0, value: "Все" },
+      { id: 5, value: "МС Годное" },
+      { id: 6, value: "МС Негодное" },
+      { id: 7, value: "Устранение замечаний" },
+    ],
+  },
+};
+
 export const setOptionsForInputs = (nsiCheckStatusOptions) => {
   if (inputsHeadersBasesBuildings.checkStatus.selectOption.length === 1) {
     inputsHeadersBasesBuildings.checkStatus.selectOption.push(...nsiCheckStatusOptions);
@@ -527,6 +577,11 @@ export const setOptionsForInputsATE = (inputsOptions, path) => {
     case "transportaccidents":
       if (inputsHeadersTransportAccidentsReport.section.selectOption.length === 1) {
         inputsHeadersTransportAccidentsReport.section.selectOption.push(...inputsOptions);
+      }
+      break;
+    case "techexamination":
+      if (inputsTechnicalExamination.section.selectOption.length === 1) {
+        inputsTechnicalExamination.section.selectOption.push(...inputsOptions);
       }
       break;
   }

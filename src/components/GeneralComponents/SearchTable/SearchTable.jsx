@@ -103,6 +103,10 @@ export default function SearchTable({ setId, setStatusId, setTableKey, headerCol
         setId(id);
         break;
       }
+      case e.target.baseURI.includes("techexamination/searchboatcard"): {
+        setId(id);
+        break;
+      }
       default:
         break;
     }
@@ -137,7 +141,8 @@ export default function SearchTable({ setId, setStatusId, setTableKey, headerCol
                   data-status={
                     window.location.pathname.includes("smallboatsreg") ||
                     window.location.pathname.includes("dupshipsticket") ||
-                    window.location.pathname.includes("shipsticket")
+                    window.location.pathname.includes("shipsticket") ||
+                    window.location.pathname.includes("techexamination")
                       ? row.original.statusId
                       : window.location.pathname.includes("transportaccidents")
                       ? row.original.locked

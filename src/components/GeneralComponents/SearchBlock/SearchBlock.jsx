@@ -20,6 +20,7 @@ import {
 import { getDataDupShipsTicketBySearchParams } from "../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
 import { getDataShipsTicketBySearchParams } from "../../../redux/ShipsTicketReducer/actionsShipsTicket";
 import { getDataProvisionInformationBySearchParams } from "../../../redux/provisionInformationReducer/actionProvisionInformation";
+import { getDataTechExamBySearchParams } from "../../../redux/TechnicalExaminationReducer/actionsTechnicalExamination";
 
 import styles from "./SearchBlock.module.css";
 
@@ -76,6 +77,10 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
     const { TransportAccidentsReportReducer } = state;
     return TransportAccidentsReportReducer.searchParams;
   });
+  const searchParamsTechnicalExamination = useSelector((state) => {
+    const { TechnicalExaminationReducer } = state;
+    return TechnicalExaminationReducer.searchParams;
+  });
 
   const handleValue = (e) => {
     e.target
@@ -93,7 +98,8 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
         break;
       }
       case urlPath === "reginformationchanges/searchboatcard" ||
-        urlPath === "dupshipsticket/searchboatcard": {
+        urlPath === "dupshipsticket/searchboatcard" ||
+        urlPath === "dupshipsticket/techexamination": {
         dispatch(getDataRegInfChangeBoatCardsBySearchParams(stateRegInfChanges.searchParamsBoatCards));
         break;
       }
@@ -129,6 +135,10 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
       }
       case e.target.baseURI.includes("transportaccidents"): {
         dispatch(getDataTransportAccidentBySearchParams(searchParamsTransportAccidents));
+        break;
+      }
+      case urlPath === "techexamination": {
+        dispatch(getDataTechExamBySearchParams(searchParamsTechnicalExamination));
         break;
       }
       default:

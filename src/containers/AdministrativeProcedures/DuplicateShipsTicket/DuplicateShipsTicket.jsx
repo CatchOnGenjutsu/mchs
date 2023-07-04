@@ -8,8 +8,7 @@ import ToolBlock from "../../../components/AdministrativeProcedures/commonCompon
 import {
   inputsHeadersDuplicateShipsTicket,
   setOptionsForInputsATE,
-} from "../../../components/SearchBlock/inputsHeaders";
-
+} from "../../../components/GeneralComponents/SearchBlock/inputsHeaders";
 import { getDataDupShipsTicketBySearchParams } from "../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
 
 import { SMALLBOATS_ADMIN_COLUMNS } from "../../../components/GeneralComponents/SearchTable/TablesColumns";

@@ -104,6 +104,10 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         setShow(true);
         break;
       }
+      case pathName.includes("techexamination"): {
+        navigate("searchboatcard");
+        break;
+      }
     }
   };
   const handleButtonView = async (event) => {
@@ -239,6 +243,18 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         setEditBtn(true);
         break;
       case pathName === "transportaccidents":
+        setOpenBtn(false);
+        setAddBtn(true);
+        setViewBtn(true);
+        setEditBtn(true);
+        break;
+      case pathName === "techexamination":
+        setOpenBtn(false);
+        setAddBtn(true);
+        setViewBtn(true);
+        setEditBtn(true);
+        break;
+      case pathName === "techexamination/searchboatcard":
         setOpenBtn(false);
         setAddBtn(true);
         setViewBtn(true);

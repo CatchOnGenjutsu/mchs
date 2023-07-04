@@ -32,10 +32,6 @@ const initialState = {
   newAccidentData: {},
   personType: "",
   fileList: [],
-  // boatCardAppEngList: [],
-  // boatCardAppSpecMarkList: [],
-  // boatCardAppDealsList: [],
-  // appDecisionData: {},
 };
 
 export const TransportAccidentsReportReducer = (state = initialState, action) => {

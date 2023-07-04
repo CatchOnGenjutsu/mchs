@@ -25,6 +25,7 @@ import {
   SET_SEARCH_PARAMS_SHIPS_TICKET,
   SET_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
   GET_DATA_BY_SEARCH_PARAMS_TRANSPORT_ACCIDENTS,
+  SET_SEARCH_PARAMS_TECH_EXAM,
 } from "./types";
 import {
   MAIN_URL,
@@ -145,6 +146,12 @@ export function setSearchParams(id, value, url) {
     case url.includes("basesbuilding"): {
       return {
         type: SET_SEARCH_PARAMS_BASES_BUILDING,
+        data: object,
+      };
+    }
+    case url.includes("techexamination"): {
+      return {
+        type: SET_SEARCH_PARAMS_TECH_EXAM,
         data: object,
       };
     }

@@ -12,6 +12,7 @@ import { DuplicateShipsTicketReducer } from "./DuplicateShipsTicketReducer/Dupli
 import { ShipsTicketReducer } from "./ShipsTicketReducer/ShipsTicketReducer";
 import { provisionInformationReducer } from "./provisionInformationReducer/provisionInformationReducer";
 import { TransportAccidentsReportReducer } from "./TransportAccidentsReportReducer/TransportAccidentsReportReducer";
+import { TechnicalExaminationReducer } from "./TechnicalExaminationReducer/TechnicalExaminationReducer";
 
 export const rootReducer = combineReducers({
   loginReducer,
@@ -27,4 +28,5 @@ export const rootReducer = combineReducers({
   ShipsTicketReducer,
   provisionInformationReducer,
   TransportAccidentsReportReducer,
+  TechnicalExaminationReducer,
 });

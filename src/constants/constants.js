@@ -144,7 +144,7 @@ export const API_GET_CERTIFICATE_REPORT = "repdl/reportDIPdfAndExcel";
 export const API_GET_QUARTERLY_REPORT = "repquarter/quarterReport";
 export const API_GET_FIVEYEARS_GRAPH_REPORT = "graph/downloadDocReport";
 export const API_GET_MONTH_GRAPH_REPORT = "graph/downloadDocReportGraph2";
-export const API_GET_SHORT_REPORT = "shortreport/1"
+export const API_GET_SHORT_REPORT = "shortreport/1";
 
 export const API_GET_TRANSPORT_ACCIDENT_LIST_SEARCH = "boatincidents/search";
 export const API_FIND_BOAT_INFO_BY_REGNUM = "boatincidents/getByRegNum/";
@@ -160,3 +160,5 @@ export const API_ADD_TRANSPORT_ACCIDENT_FILE = "incident/file/uploadfile";
 export const API_GET_TRANSPORT_ACCIDENT_FILELIST = "incident/file/filelist/";
 export const API_DOWNLOAD_TRANSPORT_ACCIDENT_FILE = "incident/file/download/";
 export const API_DELETE_TRANSPORT_ACCIDENT_FILE = "incident/file/delete/";
+
+export const API_GET_TECH_EXAM_LIST_SEARCH = "boatToApp/searchApp";

@@ -287,3 +287,37 @@ export const TRANSPORT_ACCIDENT_COLUMNS = [
     accessor: "deadDrunk",
   },
 ];
+export const TECHNICAL_EXAMINATON_COLUMNS = [
+  {
+    Header: "Рег. номер заявления",
+    accessor: "appNum",
+  },
+  {
+    Header: "Дата регистрации заявления",
+    accessor: "appDate",
+  },
+  {
+    Header: "ФИО",
+    accessor: "fio",
+  },
+  {
+    Header: "Ид. номер заявителя",
+    accessor: "ownerPersNum",
+  },
+  {
+    Header: "Наим. организации",
+    accessor: "leName",
+  },
+  {
+    Header: "УНП",
+    accessor: "leUnp",
+  },
+  {
+    Header: "Участок",
+    accessor: "sctName",
+  },
+  {
+    Header: "Статус заявления",
+    accessor: "statusName",
+  },
+];
