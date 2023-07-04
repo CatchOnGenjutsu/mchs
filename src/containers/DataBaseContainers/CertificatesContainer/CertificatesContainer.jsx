@@ -1,10 +1,11 @@
 import React from "react";
-import { inputsHeadersCertificates } from "../../../components/SearchBlock/inputsHeaders";
-import { useDispatch, useSelector } from "react-redux";
-import { SERTIFICATES_COLUMNS } from "../../../components/SearchTable/TablesColumns";
+import { useSelector } from "react-redux";
 
-import SearchTable from "../../../components/SearchTable/SearchTable";
-import SearchBlock from "../../../components/SearchBlock/SearchBlock";
+import SearchBlock from "../../../components/GeneralComponents/SearchBlock/SearchBlock";
+import SearchTable from "../../../components/GeneralComponents/SearchTable/SearchTable";
+
+import { CERTIFICATES_COLUMNS } from "../../../components/GeneralComponents/SearchTable/TablesColumns";
+import { inputsHeadersCertificates } from "../../../components/GeneralComponents/SearchBlock/inputsHeaders";
 
 export default function Certificates() {
   const dataFromStateCer = useSelector((state) => {
@@ -23,7 +24,7 @@ export default function Certificates() {
       <SearchBlock inputsHeaders={Object.values(inputsHeadersCertificates)} />
       <SearchTable
         // setId={handleLicenseId}
-        headerColumns={SERTIFICATES_COLUMNS}
+        headerColumns={CERTIFICATES_COLUMNS}
         dataFromState={dataFromStateCer}
       />
     </div>

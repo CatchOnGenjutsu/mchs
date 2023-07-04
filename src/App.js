@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import LoginPage from "./components/LoginPage/LoginPage";
+import LoginPage from "./components/GeneralComponents/LoginPage/LoginPage";
 import SmallBoats from "./containers/DataBaseContainers/SmallBoats/SmallBoats";
 import Certificates from "./containers/DataBaseContainers/CertificatesContainer/CertificatesContainer";
 import BasesBuildings from "./containers/DataBaseContainers/BasesBuildings/BasesBuildings";
 import BoatInfo from "./components/DataBaseComponents/BoatInfo/BoatInfo";
 import Certificate from "./components/DataBaseComponents/Certificate/Certificate";
 import Header from "./components/GeneralComponents/Header/Header";
-import Sidebar from "./components/Sidebar/Sidebar";
+import Sidebar from "./components/GeneralComponents/Sidebar/Sidebar";
 import SmallBoatsRegistration from "./containers/AdministrativeProcedures/SmallBoatsRegistration/SmallBoatsRegistration";
 import AppBoatReg from "./components/AdministrativeProcedures/AppBoatReg/AppBoatReg";
 import RegistrationInformationChanges from "./containers/AdministrativeProcedures/RegistrationInformationChanges/RegistrationInformationChanges";
@@ -32,8 +32,14 @@ import ProvisionInformation from "./containers/AdministrativeProcedures/Provisio
 import StatementProvisionInformation from "./components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation";
 import InspectorWorkStat from "./components/StatisticsAnalytics/InspectorWorkStat/InspectorWorkStat";
 import Reports from "./containers/StatisticsContainers/Reports/Reports";
-import TransportAccidentsReport from "./containers/TransportAccidentsReport/TransportAccidentsReport";
+import TransportAccidentsReport from "./containers/StatisticsContainers/TransportAccidentsReport/TransportAccidentsReport";
 import TransportAccidentForm from "./components/StatisticsAnalytics/TransportAccidentForm/TransportAccidentForm";
+import WeeklyReport from "./containers/WeeklyReport/WeeklyReport";
+import ReportTrafficAccidents from "./containers/ReportTrafficAccidents/ReportTrafficAccidents";
+import CertificateIssuanceReport from "./containers/CertificateIssuanceReport/CertificateIssuanceReport";
+import QuarterlyReport from "./containers/QuarterlyReport/QuarterlyReport";
+import GraphsReport from "./containers/GraphsReport/GraphsReport";
+import ShortReport from "./containers/ShortReport/ShortReport";
 
 import {
   getDictionaryGimsSections,
@@ -46,12 +52,6 @@ import {
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import WeeklyReport from "./containers/WeeklyReport/WeeklyReport";
-import ReportTrafficAccidents from "./containers/ReportTrafficAccidents/ReportTrafficAccidents";
-import CertificateIssuanceReport from "./containers/CertificateIssuanceReport/CertificateIssuanceReport";
-import QuarterlyReport from "./containers/QuarterlyReport/QuarterlyReport";
-import GraphsReport from "./containers/GraphsReport/GraphsReport";
-import ShortReport from "./containers/ShortReport/ShortReport";
 
 function App() {
   const dispatch = useDispatch();

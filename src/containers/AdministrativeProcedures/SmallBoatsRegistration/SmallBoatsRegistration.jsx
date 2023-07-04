@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SearchBlock from "../../../components/SearchBlock/SearchBlock";
-import { MemoSearchTable } from "../../../components/SearchTable/SearchTable";
-import { SMALLBOATS_ADMIN_COLUMNS } from "../../../components/SearchTable/TablesColumns";
+
+import SearchBlock from "../../../components/GeneralComponents/SearchBlock/SearchBlock";
+import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
+import { MemoSearchTable } from "../../../components/GeneralComponents/SearchTable/SearchTable";
 import ModalWindow from "../../../components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow";
+
+import { SMALLBOATS_ADMIN_COLUMNS } from "../../../components/GeneralComponents/SearchTable/TablesColumns";
 import {
   inputsHeadersSmallBoatsRegistration,
   setOptionsForInputsATE,
-} from "../../../components/SearchBlock/inputsHeaders";
+} from "../../../components/GeneralComponents/SearchBlock/inputsHeaders";
 import { getDataBoatsRegBySearchParams } from "../../../redux/actions";
-import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
 
 export default function SmallBoatsRegistration() {
   const [show, setShow] = useState(false);

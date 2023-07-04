@@ -29,7 +29,7 @@ export const SMALLBOATS_COLUMNS = [
   },
 ];
 
-export const SERTIFICATES_COLUMNS = [
+export const CERTIFICATES_COLUMNS = [
   {
     Header: "Номер удостоверения",
     accessor: "licenseNum",
@@ -210,7 +210,7 @@ export const SHIPS_TICKET_COLUMNS = [
   },
 ];
 
-export const PRIVISION_INFORMATION_COLUMNS = [
+export const PROVISION_INFORMATION_COLUMNS = [
   {
     Header: "Рег. номер заявления",
     accessor: "appNum",

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import SearchBlock from "../../../components/SearchBlock/SearchBlock.jsx";
-import SearchTable from "../../../components/SearchTable/SearchTable.jsx";
+import SearchBlock from "../../../components/GeneralComponents/SearchBlock/SearchBlock";
+import SearchTable from "../../../components/GeneralComponents/SearchTable/SearchTable";
+
 import { clearBoatCardInfo } from "../../../redux/smallBoatsReducer/actionsSmallBoats.js";
-import { SMALLBOATS_COLUMNS } from "../../../components/SearchTable/TablesColumns.js";
-import { inputsHeadersSmallBoats } from "../../../components/SearchBlock/inputsHeaders.js";
+import { SMALLBOATS_COLUMNS } from "../../../components/GeneralComponents/SearchTable/TablesColumns";
+import { inputsHeadersSmallBoats } from "../../../components/GeneralComponents/SearchBlock/inputsHeaders";
 
 import styles from "./SmallBoats.module.css";
 

@@ -11,17 +11,17 @@ import {
   getDataBasesBuildingBySearchParams,
   getDataBoatsRegBySearchParams,
   getDataTransportAccidentBySearchParams,
-} from "../../redux/actions";
+} from "../../../redux/actions";
 import {
   getDataRegInfChangeBySearchParams,
   getDataRegInfChangeBoatCardsBySearchParams,
-} from "../../redux/RegistrationInformationChangesReducer/actionRegInfChanges";
+} from "../../../redux/RegistrationInformationChangesReducer/actionRegInfChanges";
 
-import { getDataDupShipsTicketBySearchParams } from "../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
-import { getDataShipsTicketBySearchParams } from "../../redux/ShipsTicketReducer/actionsShipsTicket";
+import { getDataDupShipsTicketBySearchParams } from "../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
+import { getDataShipsTicketBySearchParams } from "../../../redux/ShipsTicketReducer/actionsShipsTicket";
+import { getDataProvisionInformationBySearchParams } from "../../../redux/provisionInformationReducer/actionProvisionInformation";
 
 import styles from "./SearchBlock.module.css";
-import { getDataProvisionInformationBySearchParams } from "../../redux/provisionInformationReducer/actionProvisionInformation";
 
 export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
   const dispatch = useDispatch();

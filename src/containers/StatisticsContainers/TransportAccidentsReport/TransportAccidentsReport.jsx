@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import SearchBlock from "../../components/SearchBlock/SearchBlock";
-import ToolBlock from "../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
-import { MemoSearchTable } from "../../components/SearchTable/SearchTable";
+import SearchBlock from "../../../components/GeneralComponents/SearchBlock/SearchBlock";
+import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
+import { MemoSearchTable } from "../../../components/GeneralComponents/SearchTable/SearchTable";
 
 import {
   inputsHeadersTransportAccidentsReport,
   setOptionsForInputsATE,
-} from "../../components/SearchBlock/inputsHeaders";
-import { TRANSPORT_ACCIDENT_COLUMNS } from "../../components/SearchTable/TablesColumns";
+} from "../../../components/GeneralComponents/SearchBlock/inputsHeaders";
+import { TRANSPORT_ACCIDENT_COLUMNS } from "../../../components/GeneralComponents/SearchTable/TablesColumns";
 
-import { getDataTransportAccidentBySearchParams } from "../../redux/actions";
+import { getDataTransportAccidentBySearchParams } from "../../../redux/actions";
 
 export default function TransportAccidentsReport() {
   const [show, setShow] = useState(false);

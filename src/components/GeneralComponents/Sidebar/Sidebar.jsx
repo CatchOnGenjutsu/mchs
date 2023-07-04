@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { sidebarSettings } from "./sidebarSettings";
-import { clearNewStatement } from "../../redux/statementReducer/actionsStatement";
+import { clearNewStatement } from "../../../redux/statementReducer/actionsStatement";
 
 import { v4 as uuidv4 } from "uuid";
 

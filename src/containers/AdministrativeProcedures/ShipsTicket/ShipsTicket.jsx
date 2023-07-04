@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import SearchBlock from "../../../components/SearchBlock/SearchBlock";
+import SearchBlock from "../../../components/GeneralComponents/SearchBlock/SearchBlock";
 import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
-import { MemoSearchTable } from "../../../components/SearchTable/SearchTable";
+import { MemoSearchTable } from "../../../components/GeneralComponents/SearchTable/SearchTable";
 
-import { inputsHeadersShipsTicket } from "../../../components/SearchBlock/inputsHeaders";
-import { SHIPS_TICKET_COLUMNS } from "../../../components/SearchTable/TablesColumns";
+import { inputsHeadersShipsTicket } from "../../../components/GeneralComponents/SearchBlock/inputsHeaders";
+import { SHIPS_TICKET_COLUMNS } from "../../../components/GeneralComponents/SearchTable/TablesColumns";
 
-import { setOptionsForInputsATE } from "../../../components/SearchBlock/inputsHeaders";
+import { setOptionsForInputsATE } from "../../../components/StatisticsAnalytics/TransportAccidentForm/TransportAccidentFormSettings";
 
 export default function ShipsTicket() {
   const [show, setShow] = useState(false);

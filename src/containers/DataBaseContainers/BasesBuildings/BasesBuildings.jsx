@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import SearchBlock from "../../../components/SearchBlock/SearchBlock";
+import SearchBlock from "../../../components/GeneralComponents/SearchBlock/SearchBlock";
 import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
-import ModalWindow from "../../../components/DataBaseComponents/basesBuildings/ModalWindow/ModalWindow";
+import { MemoSearchTable } from "../../../components/GeneralComponents/SearchTable/SearchTable";
+import ModalWindow from "../../../components/AdministrativeProcedures/commonComponents/ModalWindow/ModalWindow";
 
-import { BUILDING_COLUMNS } from "../../../components/SearchTable/TablesColumns";
-import { MemoSearchTable } from "../../../components/SearchTable/SearchTable";
+import { BUILDING_COLUMNS } from "../../../components/GeneralComponents/SearchTable/TablesColumns";
 import {
   inputsHeadersBasesBuildings,
   setOptionsForInputs,
-} from "../../../components/SearchBlock/inputsHeaders";
+} from "../../../components/GeneralComponents/SearchBlock/inputsHeaders";
 
 export default function BasesBuildings() {
   const checkMeaning = (property) => (property ? property : "");

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import SearchBlock from "../../../components/SearchBlock/SearchBlock";
-import SearchTable from "../../../components/SearchTable/SearchTable";
+import SearchBlock from "../../../components/GeneralComponents/SearchBlock/SearchBlock";
+import SearchTable from "../../../components/GeneralComponents/SearchTable/SearchTable";
 import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
 
 import {
@@ -12,7 +12,7 @@ import {
 
 import { getDataDupShipsTicketBySearchParams } from "../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
 
-import { SMALLBOATS_ADMIN_COLUMNS } from "../../../components/SearchTable/TablesColumns";
+import { SMALLBOATS_ADMIN_COLUMNS } from "../../../components/GeneralComponents/SearchTable/TablesColumns";
 
 export default function DuplicateShipsTicket() {
   const [statementId, setStatementId] = useState(null);

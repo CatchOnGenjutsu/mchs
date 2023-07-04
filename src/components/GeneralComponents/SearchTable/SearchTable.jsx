@@ -1,12 +1,14 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useTable, useSortBy, usePagination } from "react-table";
 import { useDispatch, useSelector } from "react-redux";
-import { getBoatCardInfo } from "../../redux/smallBoatsReducer/actionsSmallBoats";
-import { setSortState } from "../../redux/actions";
-import { getLicenseById } from "../../redux/certificateReducer/actionsCertificate";
-import { getBoatRegInfo } from "../../redux/SmallBoatsRegReducer/actionsSmallBoatsReg";
-import styles from "./SearchTable.module.css";
 import { useNavigate } from "react-router-dom";
+
+import { getBoatCardInfo } from "../../../redux/smallBoatsReducer/actionsSmallBoats";
+import { setSortState } from "../../../redux/actions";
+import { getLicenseById } from "../../../redux/certificateReducer/actionsCertificate";
+import { getBoatRegInfo } from "../../../redux/SmallBoatsRegReducer/actionsSmallBoatsReg";
+
+import styles from "./SearchTable.module.css";
 
 export default function SearchTable({ setId, setStatusId, setTableKey, headerColumns, dataFromState }) {
   const dispatch = useDispatch();
