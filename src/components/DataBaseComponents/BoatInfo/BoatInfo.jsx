@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BoatInfoModalWindow from "./ModalWindow/BoatInfoModalWindow";
+
 import {
   getBoatCardInfo,
   clearBoatCardInfo,
   deleteBoatInfo,
-} from "../../redux/smallBoatsReducer/actionsSmallBoats";
+} from "../../../redux/smallBoatsReducer/actionsSmallBoats";
 import { v4 as uuidv4 } from "uuid";
 
 import {
@@ -25,7 +26,7 @@ import {
   documentsTableColumns,
 } from "./infoTablesColumns";
 
-import { MAIN_URL, PORT, API_ADD_BOAT_INFO_DOCS_DOWNLOAD } from "../../constants/constants";
+import { MAIN_URL, PORT, API_ADD_BOAT_INFO_DOCS_DOWNLOAD } from "../../../constants/constants";
 
 import styles from "./BoatInfo.module.css";
 
@@ -624,19 +625,16 @@ export default function BoatInfo(props) {
           </tr>
         </thead>
         <tbody>
-        {boatInfoFromState.boatActions && boatInfoFromState.boatActions.map(el=>{
-          return(
-              <tr>
-                {noteShipBookTableColumns.map((item) => {
-                  return (
-                      <td>
-                        {el[`${item.key}`]?el[`${item.key}`] : "—"}
-                      </td>
-                  );
-                })}
-              </tr>
-          )
-        })}
+          {boatInfoFromState.boatActions &&
+            boatInfoFromState.boatActions.map((el) => {
+              return (
+                <tr>
+                  {noteShipBookTableColumns.map((item) => {
+                    return <td>{el[`${item.key}`] ? el[`${item.key}`] : "—"}</td>;
+                  })}
+                </tr>
+              );
+            })}
         </tbody>
       </table>
       <table className={`${styles["secondary-table"]}`}>

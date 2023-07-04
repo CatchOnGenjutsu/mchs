@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import CertificateModalWindow from "./ModalWindow/CertificateModalWindow";
 
-import { getDataCertificatesBySearchParams } from "../../redux/actions";
-import { getLicenseById } from "../../redux/certificateReducer/actionsCertificate";
-import { addNewSpecialMark, revokeLicense } from "../../redux/certificateReducer/actionsCertificate";
+import { getDataCertificatesBySearchParams } from "../../../redux/actions";
+import {
+  getLicenseById,
+  addNewSpecialMark,
+  revokeLicense,
+} from "../../../redux/certificateReducer/actionsCertificate";
 
 import { v4 as uuidv4 } from "uuid";
 import {

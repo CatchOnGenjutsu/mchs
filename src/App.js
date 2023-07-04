@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "./components/LoginPage/LoginPage";
-import SmallBoats from "./containers/SmallBoats/SmallBoats";
-import Certificates from "./containers/CertificatesComponent/Certificates";
-import BasesBuildings from "./containers/BasesBuildings/BasesBuildings";
-import BoatInfo from "./components/BoatInfo/BoatInfo";
-import Certificate from "./components/Certificate/Certificate";
+import SmallBoats from "./containers/DataBaseContainers/SmallBoats/SmallBoats";
+import Certificates from "./containers/DataBaseContainers/CertificatesContainer/CertificatesContainer";
+import BasesBuildings from "./containers/DataBaseContainers/BasesBuildings/BasesBuildings";
+import BoatInfo from "./components/DataBaseComponents/BoatInfo/BoatInfo";
+import Certificate from "./components/DataBaseComponents/Certificate/Certificate";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SmallBoatsRegistration from "./containers/AdministrativeProcedures/SmallBoatsRegistration/SmallBoatsRegistration";

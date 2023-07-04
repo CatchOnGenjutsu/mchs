@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import SearchBlock from '../../components/SearchBlock/SearchBlock.jsx';
-import SearchTable from '../../components/SearchTable/SearchTable.jsx';
-import BoatInfo from '../../components/BoatInfo/BoatInfo.jsx';
-import { clearBoatCardInfo } from '../../redux/smallBoatsReducer/actionsSmallBoats';
-import { SMALLBOATS_COLUMNS } from '../../components/SearchTable/TablesColumns';
-import { inputsHeadersSmallBoats } from '../../components/SearchBlock/inputsHeaders.js';
+import SearchBlock from "../../../components/SearchBlock/SearchBlock.jsx";
+import SearchTable from "../../../components/SearchTable/SearchTable.jsx";
+import { clearBoatCardInfo } from "../../../redux/smallBoatsReducer/actionsSmallBoats.js";
+import { SMALLBOATS_COLUMNS } from "../../../components/SearchTable/TablesColumns.js";
+import { inputsHeadersSmallBoats } from "../../../components/SearchBlock/inputsHeaders.js";
 
-
-import styles from './SmallBoats.module.css';
+import styles from "./SmallBoats.module.css";
 
 export default function SmallBoats() {
   const dispatch = useDispatch();
 
-
-  const [boatId, setBoatId] = useState('');
-
+  const [boatId, setBoatId] = useState("");
 
   const handleClearBoatInfo = () => {
     dispatch(clearBoatCardInfo());
@@ -35,7 +31,7 @@ export default function SmallBoats() {
 
   return (
     <>
-      <div className={boatId !== '' ? styles.hidden : ''}>
+      <div className={boatId !== "" ? styles.hidden : ""}>
         <h2>База данных маломерных судов</h2>
         <SearchBlock inputsHeaders={Object.values(inputsHeadersSmallBoats)} />
         <SearchTable

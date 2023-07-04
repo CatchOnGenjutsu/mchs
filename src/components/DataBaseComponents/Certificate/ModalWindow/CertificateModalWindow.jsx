@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addNewSpecialMark,
-  addNewConfMark,
-} from "../../../redux/certificateReducer/actionsCertificate";
+
+import { addNewSpecialMark, addNewConfMark } from "../../../../redux/certificateReducer/actionsCertificate";
 
 export default function CertificateModalWindow({
   licenseIdModal,
@@ -29,9 +27,7 @@ export default function CertificateModalWindow({
   const [errors, setErrors] = useState({});
   const [saveKey, setSaveKey] = useState(false);
 
-  const errorsFields = modalWindowInputs.nameColumn
-    .map((item) => Object.values(item))
-    .map((elem) => elem[2]);
+  const errorsFields = modalWindowInputs.nameColumn.map((item) => Object.values(item)).map((elem) => elem[2]);
 
   // useEffect(() => {
   // }, []);
@@ -51,15 +47,9 @@ export default function CertificateModalWindow({
         newData.confiscation.note = "";
         if (newData.confDuration && newData.confDate) {
           let newEndDate = new Date(newData.confDate);
-          newEndDate.setFullYear(
-            newEndDate.getFullYear() + Number(newData.confDuration),
-          );
+          newEndDate.setFullYear(newEndDate.getFullYear() + Number(newData.confDuration));
           newEndDate.setDate(newEndDate.getDate() - 1);
-          newData.confDateEnd = newEndDate
-            .toLocaleDateString()
-            .split(".")
-            .reverse()
-            .join("-");
+          newData.confDateEnd = newEndDate.toLocaleDateString().split(".").reverse().join("-");
         }
         setNewData(newData);
         if (saveKey) handleErrors();
@@ -75,17 +65,15 @@ export default function CertificateModalWindow({
           newData.confiscation.name = "Изъятие";
           newData.confiscation.note = "";
         } else {
-          newData.userid = usersLib.find(
-            (item) => item.userid == e.target.value,
-          );
+          newData.userid = usersLib.find((item) => item.userid == e.target.value);
         }
         setNewData(newData);
         if (saveKey) handleErrors();
         break;
       case "boatDrivingLicenseSpecmarksList":
-        newData.markDate = `${new Date()
+        newData.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
           .toISOString()
-          .slice(0, 10)} ${new Date().toISOString().slice(11, 23)}`;
+          .slice(11, 23)}`;
         newData[e.currentTarget.dataset.id] = e.currentTarget.value;
         setNewData(structuredClone(newData));
         if (saveKey) handleErrors();
@@ -106,9 +94,9 @@ export default function CertificateModalWindow({
           dispatch(addNewConfMark(newData, licenseIdModal));
           break;
         case "boatDrivingLicenseSpecmarksList":
-          newData.markDate = `${new Date()
+          newData.markDate = `${new Date().toISOString().slice(0, 10)} ${new Date()
             .toISOString()
-            .slice(0, 10)} ${new Date().toISOString().slice(11, 23)}`;
+            .slice(11, 23)}`;
           newData.licenseId = licenseIdModal;
           setNewData(structuredClone(newData));
           if (newData.mark !== "") {
@@ -207,9 +195,7 @@ export default function CertificateModalWindow({
                         handleChange(e);
                       }}
                     />
-                    <Form.Control.Feedback type={"invalid"}>
-                      {errors[item.key]}
-                    </Form.Control.Feedback>
+                    <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
                   </Form.Group>
                 );
               case "confDate":
@@ -224,9 +210,7 @@ export default function CertificateModalWindow({
                         handleChange(e);
                       }}
                     />
-                    <Form.Control.Feedback type={"invalid"}>
-                      {errors[item.key]}
-                    </Form.Control.Feedback>
+                    <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
                   </Form.Group>
                 );
               case "confDuration":
@@ -241,9 +225,7 @@ export default function CertificateModalWindow({
                         handleChange(e);
                       }}
                     />
-                    <Form.Control.Feedback type={"invalid"}>
-                      {errors[item.key]}
-                    </Form.Control.Feedback>
+                    <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
                   </Form.Group>
                 );
 
@@ -265,9 +247,7 @@ export default function CertificateModalWindow({
                         handleChange(e);
                       }}
                     />
-                    <Form.Control.Feedback type={"invalid"}>
-                      {errors[item.key]}
-                    </Form.Control.Feedback>
+                    <Form.Control.Feedback type={"invalid"}>{errors[item.key]}</Form.Control.Feedback>
                   </Form.Group>
                 );
             }

@@ -1,4 +1,4 @@
-import { optionsForModalWindow } from "../basesBuildings/ModalWindow/constansForModalWindow";
+// import { optionsForModalWindow } from "../basesBuildings/ModalWindow/constansForModalWindow";
 
 export const inputsHeadersSmallBoats = {
   ownerSurname: {
