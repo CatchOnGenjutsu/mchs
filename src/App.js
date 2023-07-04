@@ -8,7 +8,7 @@ import Certificates from "./containers/DataBaseContainers/CertificatesContainer/
 import BasesBuildings from "./containers/DataBaseContainers/BasesBuildings/BasesBuildings";
 import BoatInfo from "./components/DataBaseComponents/BoatInfo/BoatInfo";
 import Certificate from "./components/DataBaseComponents/Certificate/Certificate";
-import Header from "./components/Header/Header";
+import Header from "./components/GeneralComponents/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SmallBoatsRegistration from "./containers/AdministrativeProcedures/SmallBoatsRegistration/SmallBoatsRegistration";
 import AppBoatReg from "./components/AdministrativeProcedures/AppBoatReg/AppBoatReg";
@@ -31,7 +31,7 @@ import ShipsTicket from "./containers/AdministrativeProcedures/ShipsTicket/Ships
 import ProvisionInformation from "./containers/AdministrativeProcedures/ProvisionInformation/ProvisionInformation";
 import StatementProvisionInformation from "./components/AdministrativeProcedures/StatementProvisionInformation/StatementProvisionInformation";
 import InspectorWorkStat from "./components/StatisticsAnalytics/InspectorWorkStat/InspectorWorkStat";
-import Reports from "./containers/Reports/Reports";
+import Reports from "./containers/StatisticsContainers/Reports/Reports";
 import TransportAccidentsReport from "./containers/TransportAccidentsReport/TransportAccidentsReport";
 import TransportAccidentForm from "./components/StatisticsAnalytics/TransportAccidentForm/TransportAccidentForm";
 
