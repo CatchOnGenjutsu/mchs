@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import SearchBlock from "../../../components/GeneralComponents/SearchBlock/SearchBlock";
 import SearchTable from "../../../components/GeneralComponents/SearchTable/SearchTable";
 import ToolBlock from "../../../components/AdministrativeProcedures/commonComponents/ToolBlock/ToolBlock";
@@ -10,10 +10,12 @@ import {
   setOptionsForInputsATE,
 } from "../../../components/GeneralComponents/SearchBlock/inputsHeaders";
 import { PROVISION_INFORMATION_COLUMNS } from "../../../components/GeneralComponents/SearchTable/TablesColumns";
+import { getDataProvisionInformationBySearchParams } from "../../../redux/provisionInformationReducer/actionProvisionInformation";
 
 function ProvisionInformation(props) {
   const [statementId, setStatementId] = useState(null);
   const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
   const dataOptionsForSelectATE = useSelector((state) => {
     const { dictionaryReducer } = state;
     return dictionaryReducer.ateLibrary;
@@ -34,6 +36,13 @@ function ProvisionInformation(props) {
     const { provisionInformationReducer } = state;
     return provisionInformationReducer.data;
   });
+  const searchParamsProvisionInformation = useSelector((state) => {
+    const { provisionInformationReducer } = state;
+    return provisionInformationReducer.searchParams;
+  });
+  useEffect(() => {
+    dispatch(getDataProvisionInformationBySearchParams(searchParamsProvisionInformation));
+  }, []);
   return (
     <>
       <h2>Предоставление информации о судне</h2>
