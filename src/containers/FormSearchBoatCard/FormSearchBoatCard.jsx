@@ -11,6 +11,7 @@ import ModalWindow from "../../components/AdministrativeProcedures/commonCompone
 import { inputsFindBoatToChange } from "../../components/GeneralComponents/SearchBlock/inputsHeaders";
 import { COLUMNS_FORM_SEARCH_BOAT_CARDS } from "../../components/GeneralComponents/SearchTable/TablesColumns";
 import { getDataRegInfChangeBoatCardsBySearchParams } from "../../redux/RegistrationInformationChangesReducer/actionRegInfChanges";
+import { getDataTechExamBoatCardsBySearchParams } from "../../redux/TechnicalExaminationReducer/actionsTechnicalExamination";
 import { clearNewStatement } from "../../redux/statementReducer/actionsStatement";
 
 import styles from "./FormSearchBoatCard.module.css";
@@ -26,7 +27,7 @@ function FormSearchBoatCard() {
     setBoatCardId(value);
   };
 
-  const dataBoatCards = useSelector((state) => {
+  const dataBoatCardsRegInfChange = useSelector((state) => {
     const { registrationInformationChangesReducer } = state;
     return registrationInformationChangesReducer.dataBoatCards;
   });
@@ -34,13 +35,28 @@ function FormSearchBoatCard() {
     const { registrationInformationChangesReducer } = state;
     return registrationInformationChangesReducer;
   });
+
+  const dataBoatCardsTechExam = useSelector((state) => {
+    const { TechnicalExaminationReducer } = state;
+    return TechnicalExaminationReducer.dataBoatCards;
+  });
+  const searchParamsTechnicalExamination = useSelector((state) => {
+    const { TechnicalExaminationReducer } = state;
+    return TechnicalExaminationReducer;
+  });
   const handleCloseApp = () => {
     // dispatch(clearNewStatement());
     navigate(-1);
   };
 
   useEffect(() => {
-    dispatch(getDataRegInfChangeBoatCardsBySearchParams(stateRegInfChanges.searchParamsBoatCards));
+    if (window.location.pathname === "/techexamination/searchboatcard") {
+      dispatch(
+        getDataTechExamBoatCardsBySearchParams(searchParamsTechnicalExamination.searchParamsBoatCards),
+      );
+    } else {
+      dispatch(getDataRegInfChangeBoatCardsBySearchParams(stateRegInfChanges.searchParamsBoatCards));
+    }
   }, []);
   return (
     <>
@@ -55,13 +71,21 @@ function FormSearchBoatCard() {
       <SearchBlock inputsHeaders={Object.values(inputsFindBoatToChange)} />
       <ToolBlock
         id={boatCardId}
-        data={dataBoatCards}
+        data={
+          window.location.pathname.includes("techexamination/searchboatcard")
+            ? dataBoatCardsTechExam
+            : dataBoatCardsRegInfChange
+        }
         setShow={setShow}
         addBtnDisIn={!Boolean(boatCardId)}
       />
       <SearchTable
         setId={handleBoatCardId}
-        dataFromState={dataBoatCards}
+        dataFromState={
+          window.location.pathname.includes("techexamination/searchboatcard")
+            ? dataBoatCardsTechExam
+            : dataBoatCardsRegInfChange
+        }
         headerColumns={COLUMNS_FORM_SEARCH_BOAT_CARDS}
       />
       {show && (

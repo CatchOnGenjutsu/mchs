@@ -20,7 +20,10 @@ import {
 import { getDataDupShipsTicketBySearchParams } from "../../../redux/DuplicateShipsTicketReducer/actionsDuplicateShipsTicket";
 import { getDataShipsTicketBySearchParams } from "../../../redux/ShipsTicketReducer/actionsShipsTicket";
 import { getDataProvisionInformationBySearchParams } from "../../../redux/provisionInformationReducer/actionProvisionInformation";
-import { getDataTechExamBySearchParams } from "../../../redux/TechnicalExaminationReducer/actionsTechnicalExamination";
+import {
+  getDataTechExamBySearchParams,
+  getDataTechExamBoatCardsBySearchParams,
+} from "../../../redux/TechnicalExaminationReducer/actionsTechnicalExamination";
 
 import styles from "./SearchBlock.module.css";
 
@@ -79,7 +82,7 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
   });
   const searchParamsTechnicalExamination = useSelector((state) => {
     const { TechnicalExaminationReducer } = state;
-    return TechnicalExaminationReducer.searchParams;
+    return TechnicalExaminationReducer;
   });
 
   const handleValue = (e) => {
@@ -98,8 +101,7 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
         break;
       }
       case urlPath === "reginformationchanges/searchboatcard" ||
-        urlPath === "dupshipsticket/searchboatcard" ||
-        urlPath === "dupshipsticket/techexamination": {
+        urlPath === "dupshipsticket/searchboatcard": {
         dispatch(getDataRegInfChangeBoatCardsBySearchParams(stateRegInfChanges.searchParamsBoatCards));
         break;
       }
@@ -138,8 +140,13 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
         break;
       }
       case urlPath === "techexamination": {
-        dispatch(getDataTechExamBySearchParams(searchParamsTechnicalExamination));
+        dispatch(getDataTechExamBySearchParams(searchParamsTechnicalExamination.searchParams));
         break;
+      }
+      case urlPath === "techexamination/searchboatcard": {
+        dispatch(
+          getDataTechExamBoatCardsBySearchParams(searchParamsTechnicalExamination.searchParamsBoatCards),
+        );
       }
       default:
     }
@@ -201,7 +208,7 @@ export default function SearchBlock({ inputsHeaders, handleSearchButton }) {
                   // </Form.Control> */}
                 )}
                 {item.description !== undefined ? (
-                  <Form.Text className={styles["description-text"]}>{item.description}</Form.Text>
+                  <Form.Text className={styles.description_text}>{item.description}</Form.Text>
                 ) : null}
               </Form.Group>
             );

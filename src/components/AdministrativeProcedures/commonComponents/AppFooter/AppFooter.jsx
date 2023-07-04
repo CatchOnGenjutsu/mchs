@@ -3,13 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
 
-import { MAIN_URL, PORT, API_ADD_STATEMENT_FILE_DOWNLOAD ,API_DOWNLOAD_FILE_PROVISION_INFO,API_DOWNLOAD_FILE_MODIF} from "../../../../constants/constants";
-
+import {
+  MAIN_URL,
+  PORT,
+  API_ADD_STATEMENT_FILE_DOWNLOAD,
+  API_DOWNLOAD_FILE_PROVISION_INFO,
+  API_DOWNLOAD_FILE_MODIF,
+} from "../../../../constants/constants";
 
 import styles from "./AppFooter.module.css";
 
 export default function AppFooter({ inputData, mode, updateNewData, handleFile }) {
-  const downloadAPI = window.location.pathname.includes("provisioninformation")?API_DOWNLOAD_FILE_PROVISION_INFO:API_DOWNLOAD_FILE_MODIF
+  const downloadAPI = window.location.pathname.includes("provisioninformation")
+    ? API_DOWNLOAD_FILE_PROVISION_INFO
+    : API_DOWNLOAD_FILE_MODIF;
   const [newInfo, setNewInfo] = useState({
     appDate: new Date().toLocaleDateString().split(".").reverse().join("-"),
   });
@@ -38,9 +45,11 @@ export default function AppFooter({ inputData, mode, updateNewData, handleFile }
         }
         break;
       default:
-        if (window.location.pathname.includes("reginformationchanges") || window.location.pathname.includes("provisioninformation") ) {
+        if (
+          window.location.pathname.includes("reginformationchanges") ||
+          window.location.pathname.includes("provisioninformation")
+        ) {
           updateNewData(e.target.id, e.currentTarget.value);
-
         } else {
           if (window.location.pathname.includes("dupshipsticket")) {
             updateNewData(e.target.id, e.currentTarget.value);
@@ -82,9 +91,7 @@ export default function AppFooter({ inputData, mode, updateNewData, handleFile }
       {data.fileId && (
         <div className={styles.file_area}>
           <p className="me-2">Файл заявления:</p>
-          <a href={`${MAIN_URL}${PORT}${downloadAPI}${data.fileId}`}>
-            {data.fileName}
-          </a>
+          <a href={`${MAIN_URL}${PORT}${downloadAPI}${data.fileId}`}>{data.fileName}</a>
         </div>
       )}
       <Form.Group className={styles.header}>
@@ -117,7 +124,13 @@ export default function AppFooter({ inputData, mode, updateNewData, handleFile }
         <Form.Label>Дата подачи заявления:</Form.Label>
         <Form.Control
           id="appDate"
-          value={data.appDate}
+          value={
+            !!data.appDate
+              ? data.appDate.includes(".")
+                ? data.appDate.split(".").reverse().join("-")
+                : data.appDate
+              : null
+          }
           type="date"
           readOnly={mode === "view"}
           disabled={mode === "view" ? true : false}
