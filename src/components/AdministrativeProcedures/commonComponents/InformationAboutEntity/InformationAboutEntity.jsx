@@ -1,4 +1,4 @@
-import { useState, useRef,useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import styles from "./informationAboutEntity.module.css";
@@ -6,7 +6,7 @@ import {
   fieldLEInformOptions,
   fieldAddressOptions,
   setOptions,
-  getOptions
+  getOptions,
 } from "./optionsInformationAboutEntity";
 import Select from "react-select";
 import { addNewStatementData } from "../../../../redux/statementReducer/actionsStatement";
@@ -20,7 +20,7 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
     infoEntity: fieldLEInformOptions,
     address: fieldAddressOptions,
   });
-  const [prevTypeChangeStatement,setPrevTypeChangeStatement]= useState(null)
+  const [prevTypeChangeStatement, setPrevTypeChangeStatement] = useState(null);
   const newStatement = useSelector((state) => {
     const { statementReducer } = state;
     return statementReducer.newStatement;
@@ -29,11 +29,17 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
     const { DuplicateShipsTicketReducer } = state;
     return DuplicateShipsTicketReducer.newAppDupl;
   });
+  const newAppTechExam = useSelector((state) => {
+    const { TechnicalExaminationReducer } = state;
+    return TechnicalExaminationReducer.newAppTechExam;
+  });
   const [rerender, setRerender] = useState(false);
   const data = !!inputData
     ? { ...inputData }
     : window.location.pathname.includes("dupshipsticket")
     ? { ...newAppDupl }
+    : window.location.pathname.includes("techexamination")
+    ? { ...newAppTechExam }
     : { ...newStatement };
 
   async function handleChangeSelectSearch(event) {
@@ -91,11 +97,15 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
     }
   }
   useEffect(() => {
-    if(window.location.href.includes("reginformationchanges")&&data.changeType&&prevTypeChangeStatement!=data.changeType){
+    if (
+      window.location.href.includes("reginformationchanges") &&
+      data.changeType &&
+      prevTypeChangeStatement != data.changeType
+    ) {
       selectOblRef.current.clearValue();
       selectRayonRef.current.clearValue();
       selectGorodRef.current.clearValue();
-      setPrevTypeChangeStatement(data.changeType)
+      setPrevTypeChangeStatement(data.changeType);
     }
     async function setOptionsForAdress() {
       await setOptions(data["oblId"], "oblId");
@@ -106,7 +116,7 @@ function InformationAboutEntity({ inputData, updateNewData, saveKey, handleError
   }, [inputData]);
   return (
     <>
-      <h3>Сведения о заинтересованном лице</h3>
+      <h3 className={styles.text_secondary}>Сведения о заинтересованном лице</h3>
       <div className={styles["container-information"]}>
         <div className={styles["infoEntity-information"]}>
           {Object.values(options.infoEntity).map((option) => {

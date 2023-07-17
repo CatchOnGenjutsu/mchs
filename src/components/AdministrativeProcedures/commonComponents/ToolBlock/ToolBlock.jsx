@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-import { MAIN_URL, PORT, API_GET_BOAT_INFO_CARD } from "../../../../constants/constants";
 
 import styles from "./ToolBlock.module.css";
 import edit_icon from "../../../../resourсes/edit-icon.svg";
@@ -37,6 +34,10 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
       switch (true) {
         case window.location.pathname.includes("transportaccidents"):
           return "Редактировать";
+        case window.location.pathname.includes("techexamination/searchboatcard"):
+          return "Выбрать";
+        case window.location.pathname.includes("techexamination"):
+          return "Повторное ТО";
         default:
           return "Взять в работу";
       }
@@ -53,6 +54,8 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         navigate(`/smallboats/boatId/${id}`);
         break;
       }
+      default:
+        break;
     }
   };
 
@@ -108,6 +111,8 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         navigate("searchboatcard");
         break;
       }
+      default:
+        break;
     }
   };
   const handleButtonView = async (event) => {
@@ -150,6 +155,12 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         });
         break;
       }
+      case pathName.includes("techexamination/searchboatcard"): {
+        navigate(`/smallboats/boatId/${id}`);
+        break;
+      }
+      default:
+        break;
     }
   };
 
@@ -195,10 +206,18 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         });
         break;
       }
+      case pathName.includes("techexamination/searchboatcard"): {
+        navigate(`/techexamination/${id}`, {
+          state: { mode: "add" },
+        });
+        break;
+      }
+      default:
+        break;
     }
   };
   useEffect(() => {
-    console.log(id);
+    console.log("tut");
     switch (true) {
       case pathName === "smallboatsreg":
         setOpenBtn(false);
@@ -256,14 +275,14 @@ function ToolBlock({ data, id, tableKey, appStatusId, setShow, addBtnDisIn }) {
         break;
       case pathName === "techexamination/searchboatcard":
         setOpenBtn(false);
-        setAddBtn(true);
+        setAddBtn(false);
         setViewBtn(true);
         setEditBtn(true);
         break;
       default:
         break;
     }
-  }, []);
+  }, [pathName]);
 
   return (
     <>

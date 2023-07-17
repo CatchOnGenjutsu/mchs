@@ -3,6 +3,7 @@ import {
   GET_DATA_BY_SEARCH_PARAMS_TECH_EXAM,
   SET_SEARCH_PARAMS_BOATS_TECH_EXAM,
   GET_TECH_EXAM_CHANGES_BOAT_CARDS,
+  GET_BOAT_CARD_FOR_TECH_EXAM,
 } from "../types";
 
 const initialState = {
@@ -28,10 +29,10 @@ const initialState = {
     engvin: "",
   },
   dataBoatCards: [],
-  // causersList: [],
+  newAppTechExam: {},
   // victimsList: [],
   // newAccidentData: {},
-  // personType: "",
+  personType: "",
   // fileList: [],
 };
 
@@ -56,6 +57,12 @@ export const TechnicalExaminationReducer = (state = initialState, action) => {
       return (() => ({
         ...state,
         dataBoatCards: [...action.data],
+      }))();
+    case GET_BOAT_CARD_FOR_TECH_EXAM:
+      return (() => ({
+        ...state,
+        newAppTechExam: action.data,
+        personType: action.data.personType,
       }))();
     default:
       return state;

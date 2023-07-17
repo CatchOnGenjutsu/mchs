@@ -38,3 +38,9 @@
 .box-operDate {
   grid-area: OD;
 }
+.text_secondary {
+  align-self: flex-start;
+  color: #808080;
+  font-weight: bold;
+  font-size: 19px;
+}

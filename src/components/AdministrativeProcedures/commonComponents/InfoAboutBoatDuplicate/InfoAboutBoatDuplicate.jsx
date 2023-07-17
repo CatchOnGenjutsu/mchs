@@ -10,13 +10,21 @@ export default function InfoAboutBoatDuplicate() {
     const { DuplicateShipsTicketReducer } = state;
     return DuplicateShipsTicketReducer.newAppDupl;
   });
+  const newAppTechExam = useSelector((state) => {
+    const { TechnicalExaminationReducer } = state;
+    return TechnicalExaminationReducer.newAppTechExam;
+  });
+
+  const data = window.location.pathname.includes("techexamination")
+    ? { ...newAppTechExam }
+    : { ...newAppDupl };
 
   return (
     <div>
-      <h3>Сведения о маломерном судне</h3>
+      <h3 className={styles.text_secondary}>Сведения о маломерном судне</h3>
       <div className={styles["container-information"]}>
         <div className={styles["boat-information"]}>
-          {Object.values(newAppDupl).length > 0 &&
+          {Object.values(data).length > 0 &&
             Object.values(fieldBoatOptionsDuplicate).map((item) => {
               return (
                 <Form.Group
@@ -28,9 +36,7 @@ export default function InfoAboutBoatDuplicate() {
                     readOnly={item.readOnly}
                     disabled={item.disabled}
                     value={
-                      item.key === "operDate"
-                        ? newAppDupl[item.key].split("-").reverse().join(".")
-                        : newAppDupl[item.key]
+                      item.key === "operDate" ? data[item.key].split("-").reverse().join(".") : data[item.key]
                     }
                   />
                 </Form.Group>

@@ -1,0 +1,24 @@
+.caption {
+  height: 80px;
+  background-color: #D0E8FF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main_text {
+  margin: 0;
+  font-size: 22px;
+}
+.secondary_text{
+  font-size: 18px;
+  text-align: center;
+  margin: 0;
+}
+.header_container {
+  display: flex;
+}
+.header_content {
+  width: 50%;
+  padding: 12px 12px;
+}

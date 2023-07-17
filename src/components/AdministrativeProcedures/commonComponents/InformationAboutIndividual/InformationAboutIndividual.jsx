@@ -18,7 +18,7 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
   const selectDocTypeRef = useRef();
   const dispatch = useDispatch();
 
-  const [prevTypeChangeStatement,setPrevTypeChangeStatement]= useState(null)
+  const [prevTypeChangeStatement, setPrevTypeChangeStatement] = useState(null);
   const [options, setoptions] = useState({
     passport: fieldPassportOptions,
     address: fieldAddressOptions,
@@ -30,6 +30,10 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
   const newAppDupl = useSelector((state) => {
     const { DuplicateShipsTicketReducer } = state;
     return DuplicateShipsTicketReducer.newAppDupl;
+  });
+  const newAppTechExam = useSelector((state) => {
+    const { TechnicalExaminationReducer } = state;
+    return TechnicalExaminationReducer.newAppTechExam;
   });
 
   // const dataFromRedux = (() => {
@@ -46,6 +50,8 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
     ? { ...inputData }
     : window.location.pathname.includes("dupshipsticket")
     ? { ...newAppDupl }
+    : window.location.pathname.includes("techexamination")
+    ? { ...newAppTechExam }
     : { ...newStatement };
   async function handleChangeSelectSearch(event) {
     if (event) {
@@ -106,26 +112,33 @@ function InformationAboutIndividual({ inputData, updateNewData, saveKey, handleE
 
   useEffect(() => {
     setRerender(!rerender);
-    if(window.location.href.includes("reginformationchanges")&&data.changeType&&prevTypeChangeStatement!=data.changeType){
+    if (
+      window.location.href.includes("reginformationchanges") &&
+      data.changeType &&
+      prevTypeChangeStatement != data.changeType
+    ) {
       selectOblRef.current.clearValue();
       selectRayonRef.current.clearValue();
       selectGorodRef.current.clearValue();
       selectDocTypeRef.current.clearValue();
-      setPrevTypeChangeStatement(data.changeType)
+      setPrevTypeChangeStatement(data.changeType);
     }
     async function setOptionsForAdress() {
       await setOptions(data["oblId"], "oblId");
       await setOptions(data["rayonId"], "rayonId");
       setoptions(getOptions);
     }
-    if (window.location.pathname.includes("reginformationchanges") || window.location.pathname.includes("provisioninformation")) {
+    if (
+      window.location.pathname.includes("reginformationchanges") ||
+      window.location.pathname.includes("provisioninformation")
+    ) {
       setOptionsForAdress();
     }
   }, [inputData]);
 
   return (
     <>
-      <h3>Сведения о заинтересованном лице</h3>
+      <h3 className={styles.text_secondary}>Сведения о заинтересованном лице</h3>
       <div className={styles["container-information"]}>
         <div className={styles["passport-information"]}>
           {Object.values(options.passport).map((option) => {

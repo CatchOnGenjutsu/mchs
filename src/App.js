@@ -41,6 +41,7 @@ import CertificateIssuanceReport from "./containers/StatisticsContainers/Certifi
 import QuarterlyReport from "./containers/StatisticsContainers/QuarterlyReport/QuarterlyReport";
 import GraphsReport from "./containers/StatisticsContainers/GraphsReport/GraphsReport";
 import ShortReport from "./containers/StatisticsContainers/ShortReport/ShortReport";
+import TechnicalExaminationApp from "./components/AdministrativeProcedures/TechnicalExaminationApp/TechnicalExaminationApp";
 
 import {
   getDictionaryGimsSections,
@@ -210,6 +211,10 @@ function App() {
             <Route
               path="/techexamination/searchboatcard"
               element={<FormSearchBoatCard />}
+            />
+            <Route
+              path="/techexamination/:id"
+              element={<TechnicalExaminationApp />}
             />
             <Route
               path="/inspectorworkstat"

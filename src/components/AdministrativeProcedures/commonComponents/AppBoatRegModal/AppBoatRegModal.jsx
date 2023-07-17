@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import Select from "react-select";
+
 import { MAIN_URL, PORT, API_CHECK_ENGINES_MODIF } from "../../../../constants/constants";
 import {
   addNewEngineCheck,
@@ -219,6 +221,48 @@ export default function AppBoatRegModal({
             if (item.neededInModal) {
               switch (item.type) {
                 case "select":
+                  return (
+                    <Form.Group className="mb-3">
+                      <Form.Label>{item.value}</Form.Label>
+                      <Form.Select
+                        data-id={item.key}
+                        type="select"
+                        isInvalid={!!errors[item.key]}
+                        onChange={(e) => {
+                          handleChange(e);
+                        }}>
+                        {item.selectOptions.map((elem) => (
+                          <option
+                            data-id={item.key}
+                            value={elem.value}>
+                            {elem.label}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Form.Group>
+                  );
+                case "customSelect":
+                  return (
+                    <Form.Group className="mb-3">
+                      <Form.Label>{item.value}</Form.Label>
+                      <Select
+                        // className={`${
+                        //   !halfControls.includes(item.key) ? styles.half_controls : styles.wide_controls
+                        // }`}
+                        // ref={setRef(item)}
+                        // ${styles.search_select}
+                        classNamePrefix="select"
+                        placeholder="Выберите..."
+                        data-id={item.key}
+                        // onChange={(e) => handleValue(e)}
+                        // value={item.selectOption.find((item) => item.value === data[item.key])}
+                        isSearchable={true}
+                        name={item.key}
+                        options={item.selectOptions}
+                      />
+                    </Form.Group>
+                  );
+
                   return (
                     <Form.Group className="mb-3">
                       <Form.Label>{item.value}</Form.Label>
