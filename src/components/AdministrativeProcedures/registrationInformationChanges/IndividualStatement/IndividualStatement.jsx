@@ -153,7 +153,7 @@ function IndividualStatement() {
             ticketDate:reduxData.ticketDate,
             boatCardSpecmarksList:reduxData.boatCardSpecmarksList,
             boatCardModifDealsList:reduxData.boatCardModifDealsList,
-            appDate:new Date(),
+            appDate:reduxData.appDate,
             agentDocDate:'',
             agentDocDepartment:'',
             agentDocType:null,
@@ -284,7 +284,7 @@ function IndividualStatement() {
             agentSurname:'',
             agentUlica:'',
             section:1,
-            appDate:new Date(),
+            appDate:reduxData.appDate,
           }
           break
         case '4':
@@ -355,7 +355,7 @@ function IndividualStatement() {
             agentSurname:'',
             agentUlica:'',
             section:1,
-            appDate:new Date(),
+            appDate:reduxData.appDate,
           }
           break
         default:
@@ -392,7 +392,7 @@ function IndividualStatement() {
           nameLe:'',
           egrNum:'',
           section:1,
-          appDate:new Date()
+          appDate:new Date().toLocaleDateString().split(".").reverse().join("-")
         })
       }
 

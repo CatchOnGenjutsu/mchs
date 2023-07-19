@@ -344,7 +344,7 @@ function SearchBlock({
                     }}
                     isSearchable={field.search}
                     isDisabled={field.disabled}
-                    placeholder="Выберите"
+                    placeholder={field.placeholder?field.placeholder:"Выберите"}
                     options={field.options}
                     className={styles.max_width_select}
                     styles={!!errors[field.key] ? customStyles : ""}
