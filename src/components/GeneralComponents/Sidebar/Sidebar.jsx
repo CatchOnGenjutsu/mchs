@@ -66,7 +66,7 @@ export default function Sidebar() {
           position: "fixed",
           top: "10vh",
           height: "90vh",
-          width: "16vw",
+          width: "max-content",
           paddingTop: "1vh",
           color: "white",
           userSelect: "none",
