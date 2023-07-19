@@ -1,3 +1,6 @@
+import {parseDate, sortDates} from "../../../utilities";
+
+
 export const SMALLBOATS_COLUMNS = [
   {
     Header: "Рег. номер",
@@ -41,6 +44,12 @@ export const CERTIFICATES_COLUMNS = [
   {
     Header: "Дата рождения",
     accessor: "birthDate",
+    sortType: (rowA, rowB, columnId) => {
+      const dateA = parseDate(rowA.values[columnId]);
+      const dateB = parseDate(rowB.values[columnId]);
+
+      return sortDates(dateA, dateB);
+    },
   },
   {
     Header: "Идентификационный номер",
@@ -53,10 +62,22 @@ export const CERTIFICATES_COLUMNS = [
   {
     Header: "Дата выдачи",
     accessor: "licenseDate",
+    sortType: (rowA, rowB, columnId) => {
+      const dateA = parseDate(rowA.values[columnId]);
+      const dateB = parseDate(rowB.values[columnId]);
+
+      return sortDates(dateA, dateB);
+    },
   },
   {
     Header: "Действителен до",
     accessor: "licenseDateEnd",
+    sortType: (rowA, rowB, columnId) => {
+      const dateA = parseDate(rowA.values[columnId]);
+      const dateB = parseDate(rowB.values[columnId]);
+
+      return sortDates(dateA, dateB);
+    },
   },
 ];
 export const BUILDING_COLUMNS = [
@@ -84,6 +105,12 @@ export const BUILDING_COLUMNS = [
   {
     Header: "Дата последнего обследования",
     accessor: "checkDate",
+    sortType: (rowA, rowB, columnId) => {
+      const dateA = parseDate(rowA.values[columnId]);
+      const dateB = parseDate(rowB.values[columnId]);
+
+      return sortDates(dateA, dateB);
+    },
   },
   {
     Header: "Результат последнего обследования",
@@ -106,6 +133,12 @@ export const SMALLBOATS_ADMIN_COLUMNS = [
   {
     Header: "Дата регистрации заявления",
     accessor: "operDate",
+    sortType: (rowA, rowB, columnId) => {
+      const dateA = parseDate(rowA.values[columnId]);
+      const dateB = parseDate(rowB.values[columnId]);
+
+      return sortDates(dateA, dateB);
+    },
   },
   {
     Header: "ФИО",
@@ -218,6 +251,12 @@ export const PROVISION_INFORMATION_COLUMNS = [
   {
     Header: "Дата регистрации заявления",
     accessor: "operDate",
+    sortType: (rowA, rowB, columnId) => {
+      const dateA = parseDate(rowA.values[columnId]);
+      const dateB = parseDate(rowB.values[columnId]);
+
+      return sortDates(dateA, dateB);
+    },
   },
   {
     Header: "ФИО",
@@ -249,6 +288,12 @@ export const TRANSPORT_ACCIDENT_COLUMNS = [
   {
     Header: "Дата",
     accessor: "incidentDate",
+    sortType: (rowA, rowB, columnId) => {
+      const dateA = parseDate(rowA.values[columnId]);
+      const dateB = parseDate(rowB.values[columnId]);
+
+      return sortDates(dateA, dateB);
+    },
   },
   {
     Header: "Место транспортного аварийного случая",
@@ -295,6 +340,12 @@ export const TECHNICAL_EXAMINATON_COLUMNS = [
   {
     Header: "Дата регистрации заявления",
     accessor: "appDate",
+    sortType: (rowA, rowB, columnId) => {
+      const dateA = parseDate(rowA.values[columnId]);
+      const dateB = parseDate(rowB.values[columnId]);
+
+      return sortDates(dateA, dateB);
+    },
   },
   {
     Header: "ФИО",
@@ -321,3 +372,4 @@ export const TECHNICAL_EXAMINATON_COLUMNS = [
     accessor: "statusName",
   },
 ];
+

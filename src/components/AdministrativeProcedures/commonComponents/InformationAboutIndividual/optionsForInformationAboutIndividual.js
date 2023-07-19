@@ -1,4 +1,4 @@
-import { getRayon, getGorod } from "../utilities";
+import { getRayon, getGorod } from "../../../../utilities";
 export const fieldPassportOptions = {
   surname: {
     key: "surname",

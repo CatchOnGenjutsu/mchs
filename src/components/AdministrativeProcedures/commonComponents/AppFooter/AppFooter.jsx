@@ -35,6 +35,7 @@ export default function AppFooter({ inputData, mode, updateNewData, handleFile }
     ? { ...newAppDupl }
     : { ...newStatement };
 
+  console.log(data)
   const handleChange = (e) => {
     switch (true) {
       case e.target.id === "file":

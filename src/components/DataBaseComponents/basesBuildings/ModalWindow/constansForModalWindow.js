@@ -1,4 +1,4 @@
-import { getRayon, getSection } from "../../../AdministrativeProcedures/commonComponents/utilities";
+import { getRayon, getSection } from "../../../../utilities";
 
 export const optionsForModalWindow = {
   ownerType: {

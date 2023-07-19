@@ -5,7 +5,7 @@ import {
   API_GET_DICTIONARY_GOROD_FOR_RAYON,
 } from "../../../../constants/constants";
 
-import { getRayon, getGorod } from "../utilities";
+import { getRayon, getGorod } from "../../../../utilities";
 import {
   fieldAddressOptions,
   fieldPassportOptions

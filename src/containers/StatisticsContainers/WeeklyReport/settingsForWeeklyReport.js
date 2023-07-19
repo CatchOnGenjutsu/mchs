@@ -23,6 +23,7 @@ export const fieldsForSearch = {
         required: false,
         hidden:false,
         search:true,
+        placeholder:"Все",
         options:[]
     },
     oblast: {
@@ -33,6 +34,7 @@ export const fieldsForSearch = {
         search:false,
         hidden:false,
         required: false,
+        placeholder:"Все",
         options: [
             {value: 1, label: "Брестская", key: "oblast"},
             {value: 2, label: "Витебская", key: "oblast"},

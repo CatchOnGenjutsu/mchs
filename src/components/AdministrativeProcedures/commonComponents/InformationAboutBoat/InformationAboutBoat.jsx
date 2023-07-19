@@ -11,7 +11,7 @@ import {
   setOptionsBodyBoat,
   setReadOptionForInputs,
   setOptionsSaCategory,
-} from "../utilities";
+} from "../../../../utilities";
 
 import styles from "./informationAboutBoat.module.css";
 import { fieldBoatOptions, setOptionsForBoat } from "./optionsForInformationAboutBoat";

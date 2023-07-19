@@ -24,6 +24,7 @@ export const fieldsForSearchCertificate = {
         search:true,
         options:[],
         hidden:false,
+        placeholder:"Все",
     },
     oblast: {
         key: "oblast",
@@ -32,6 +33,7 @@ export const fieldsForSearchCertificate = {
         disabled: false,
         search:false,
         required: false,
+        placeholder:"Все",
         options: [
             {value: 1, label: "Брестская", key: "oblast"},
             {value: 2, label: "Витебская", key: "oblast"},

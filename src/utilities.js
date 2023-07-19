@@ -1,13 +1,14 @@
 import {
-  MAIN_URL,
-  PORT,
-  API_GET_DICTIONARY_RAYON_FOR_OBL,
-  API_GET_DICTIONARY_GOROD_FOR_RAYON,
+  API_GET_BOAT_BODY,
   API_GET_BOAT_TYPES,
   API_GET_BOAT_VID,
-  API_GET_BOAT_BODY,
-  API_GET_SA_CATEGORY, API_GET_DICTIONARY_SECTION_FOR_RAYON
-} from "../../../constants/constants";
+  API_GET_DICTIONARY_GOROD_FOR_RAYON,
+  API_GET_DICTIONARY_RAYON_FOR_OBL,
+  API_GET_DICTIONARY_SECTION_FOR_RAYON,
+  API_GET_SA_CATEGORY,
+  MAIN_URL,
+  PORT
+} from "./constants/constants";
 
 export async function getRayon(id) {
   if(id){
@@ -77,6 +78,19 @@ export async function setOptionsSaCategory() {
     return { value: item.sacCode, label: item.sacName, key: "saCategory" };
   });
 }
+
+export const parseDate = (dateString) => {
+  if (!dateString) return null;
+
+  const [day, month, year] = dateString.split('.');
+  return new Date(`${year}-${month}-${day}`);
+};
+
+export const sortDates = (dateA, dateB) => {
+  if (!dateA) return -1;
+  if (!dateB) return 1;
+  return dateA.getTime() - dateB.getTime();
+};
 
 // export async function setOptionsBodyBoat(){
 //     const response = await fetch(MAIN_URL + PORT+API_GET_BOAT_BODY)
