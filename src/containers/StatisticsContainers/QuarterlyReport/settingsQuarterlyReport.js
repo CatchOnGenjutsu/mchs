@@ -32,6 +32,7 @@ export const fieldsForSearchQuarterly = {
         required: false,
         hidden:false,
         search:true,
+        placeholder:"Все",
         options:[]
     },
     oblast: {
@@ -42,6 +43,7 @@ export const fieldsForSearchQuarterly = {
         search:false,
         required: false,
         hidden:false,
+        placeholder:"Все",
         options: [
             {value: 1, label: "Брестская", key: "oblast"},
             {value: 2, label: "Витебская", key: "oblast"},

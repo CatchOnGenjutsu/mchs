@@ -20,7 +20,7 @@ import {
 import {
   setOptionsTypesBoat,
   setOptionsVidBoat,
-} from "../../AdministrativeProcedures/commonComponents/utilities";
+} from "../../../utilities";
 
 import {
   addNewAccidentData,
